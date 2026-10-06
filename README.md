@@ -41,7 +41,8 @@ contractions, noise normalization and binning for **shared spectra**.
 It does not establish agreement of native spectra, SSC, cNG or real-space
 covariances. The [earlier functional pilots](results/functional_pilots_20261005.json)
 confirmed that the small native G, G+SSC and G+cNG paths run; their physical
-and numerical comparison remains ahead. No speed ratio is claimed here.
+and numerical comparison remains ahead. The timing comparison below covers
+Gaussian components and band averaging only.
 
 ## Contents
 
@@ -105,51 +106,52 @@ with each code generating its own ingredients will test the full pipeline.
 Diagnostic adaptations will be documented separately from comparisons
 using the released implementations.
 
-### Keeping laptop runs small
+## Gaussian results and execution time <a name="validation"></a>
 
-Each pilot has a wall-time budget and records peak child memory as well
-as elapsed time. The default budget is ten minutes. Full matrices and
-broad parameter sweeps are not the default laptop workload.
+The correlation matrices agree at both multipole ranges. The right panels
+magnify the saved-matrix differences by a million; their small residuals
+come from OneCov's seven-significant-digit text output.
 
-The timing breakdown must separate initialization, shared halo tables and
-projection/assembly. A single small block cannot predict the full cost:
-some work is paid once per cosmology, while other work grows with the
-number of wavenumber pairs, redshift samples or covariance blocks.
+![Gaussian correlations and residuals](results/figures/gaussian_matrices.png)
 
-Small tests must still sample low and high wavenumbers, more than one
-redshift and off-diagonal entries before a broader agreement claim.
-For real-space tests, reduce the number of requested angular bins while
-keeping the multipole range and integration accuracy needed to converge
-those bins. A smaller output matrix is not a reason to lower the physical
-integration cutoff.
+The variance components also agree. Sample variance dominates the low-ell
+galaxy spectra; shape noise dominates the high-ell shear variance for these
+LSST Y1 densities. Lines show Cocoa and open circles show OneCov. Each
+group contains five bands, with multipole increasing from left to right.
 
-Reuse saved input tables for projection diagnostics, recording their
-provenance. Report these timings separately from runs that generate the
-tables themselves.
+![Gaussian variance components](results/figures/gaussian_components.png)
 
-## Accuracy and execution time <a name="validation"></a>
+Vector figures: [matrices](results/figures/gaussian_matrices.pdf),
+[components](results/figures/gaussian_components.pdf).
 
-Each code will first be compared with its own higher-accuracy calculation.
-Neither code is assumed to be the reference truth merely because its
-settings are more expensive.
+### Gaussian timing differences
 
-Diagnostics will include diagonal variance ratios, correlation matrices,
-component differences and positive definiteness of the total covariance
-after identical scale cuts. Generalized eigenvalues will quantify changes
-in variance across all linear combinations of the measurements. Fisher
-comparisons can then assess the impact on constraints for an explicitly
-chosen parameter set.
+**Apple M2 Pro, macOS 13.7.5, eight OpenMP threads.** Both codes receive
+the same spectra already in memory and compute all three Gaussian parts.
+Cocoa uses its production `_interface`; OneCov uses its unmodified
+`covELL_gaussian` method.
 
-The data-vector criterion $`\Delta\chi^2 < 0.2`$ is not automatically a
-covariance acceptance criterion. Numerical convergence and differences
-between physical models will be reported separately.
+| Gaussian case | CoCoA (ms) | OneCov (ms) | OneCov / CoCoA |
+| --- | ---: | ---: | ---: |
+| Shear, 30 ≤ ℓ < 150 | 0.374 ± 0.091 | 0.786 ± 0.021 | 2.1 |
+| 3×2pt, 30 ≤ ℓ < 150 | 0.242 ± 0.014 | 9.647 ± 0.193 | 39.8 |
+| 3×2pt, 1500 ≤ ℓ < 1620 | 0.243 ± 0.003 | 9.894 ± 0.202 | 40.7 |
 
-Timings will use Cocoa's production CLI and OneCovariance's normal runner,
-with one numerical job at a time on a quiet machine. Reports will record
-hardware, thread counts, code revisions and numerical settings. Full
-covariance construction will include first-use tables; initialization,
-file writing and plotting will be identified separately. Repeated runs
-will provide a mean and a measure of timing variation.
+These are repeated-batch means; ± shows the scatter between batches.
+The tiny shear case is more variable: Cocoa's two run means were 0.327 and
+0.422 ms. The [timing record](results/gaussian_timing_20261005.json) retains
+all samples, first-call times, setup times and numerical checks.
+
+The timer includes numerical output allocation, but excludes spectrum
+generation, initialization and file writing. OneCov's final rearrangement
+of its blocks into one matrix is also outside the timer. These are
+**small Gaussian component timings, not full-survey covariance runtimes**.
+The in-memory components of both codes agree with NumPy within 10⁻¹⁵ in
+variance-scaled residuals.
+
+![Gaussian component timings](results/figures/gaussian_timing.png)
+
+[Vector timing figure](results/figures/gaussian_timing.pdf).
 
 ## Installation and compilation <a name="installation"></a>
 
@@ -501,6 +503,42 @@ need not belong to the likelihood's data vector.
 The next comparison is the generation of the angular spectra themselves,
 first using shared CAMB power and then native power. Those calculations
 need their own convergence checks before interpreting relative differences.
+
+### Reproducing Gaussian plots and timings
+
+Use the prepared Cocoa and OneCov terminals from the preceding section.
+The commands below time the low-ell 3×2pt case. To time the other cases,
+replace `3x2_30_150` with `shear_30_150` or `3x2_1500_1620` in both paths.
+
+**Step :one:**: in the **OneCov terminal**, time its Gaussian components.
+
+```bash
+python scripts/time_gaussian.py work/reviewed_gaussian/3x2_30_150 \
+  --backend onecov --output work/gaussian_timing/onecov_3x2_30_150
+```
+
+**Step :two:**: after it finishes, in the **Cocoa terminal**, time Cocoa.
+
+```bash
+python scripts/time_gaussian.py work/reviewed_gaussian/3x2_30_150 \
+  --backend cocoa --output work/gaussian_timing/cocoa_3x2_30_150
+```
+
+Each run saves `timing.json`, including 31 batches and a separately
+measured first call. Cocoa batches contain 100 calls; OneCov batches
+contain 10. Both recompute outputs on every call. Repeats require a new
+output directory, preserving earlier measurements.
+
+**Step :three:**: in either terminal, regenerate the figures from the
+validated matrices and the saved timing record.
+
+```bash
+python scripts/plot_gaussian.py --comparisons work/reviewed_gaussian \
+  --timings results/gaussian_timing_20261005.json --output results/figures
+```
+
+This writes PNG and PDF versions. Omitting `--timings` regenerates only
+the matrix and component figures.
 
 ### Adding SSC and connected non-Gaussian contributions
 

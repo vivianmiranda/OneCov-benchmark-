@@ -65,6 +65,9 @@ or substitute online descriptions for the code actually being tested.
   predicting a full-survey runtime. Preserve failed and timed-out logs.
 - Do not run a full OneCov matrix or a broad scan by default. Refine one
   selected block or ingredient, then decide whether expansion is affordable.
+- Before broader agreement claims, cover low and high wavenumbers, more
+  than one redshift, and off-diagonal entries. Keep this execution guidance
+  here; the README should concentrate on results and their reproduction.
 - Small real-space outputs still need converged multipole integration.
   Keep Cocoa's physical high-ell range when testing its real-space kernels;
   a cutoff suitable for a Fourier pilot does not certify real space.

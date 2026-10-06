@@ -179,6 +179,16 @@ CosmoLike. This source study alone is not a paper-level validation.
    the total matrix has seven. Do not misidentify output rounding as a
    physical discrepancy or confuse this with native spectrum convergence.
    See `results/gaussian_assembly_20261005.json` for the reviewed record.
+   `time_gaussian.py` subsequently checks native in-memory components:
+   both codes agree with the independent reference to roundoff. The timer
+   excludes setup, spectrum generation, writing and OneCov block repacking.
+   Cocoa uses three production calls (total, signal, noise), deriving the
+   mixed component by subtraction. OneCov uses public `covELL_gaussian`
+   with split output; its 18 blocks are reordered only for validation.
+   No numerical source is patched. See the separate timing record for
+   first-call times, raw batch samples and the variable tiny shear case.
+   Never describe the approximately 40x 3x2 assembly ratio as a full-survey
+   or end-to-end CLI speed ratio.
 3. Native and supplied-CAMB-power paths ran successfully. Their relative
    spectra differences and interpolation convergence still need assessment.
 4. Match halo choices and inspect single-redshift response/trispectrum
