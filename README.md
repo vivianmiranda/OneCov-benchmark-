@@ -47,6 +47,18 @@ non-Gaussian contributions with shared inputs. The
 [Gaussian components](#validation), [SSC and cNG projection, and native
 halo moments](#non-gaussian-timings), with their different scopes stated.
 
+**Complete shear comparison:** the four panels below show **CoCoA minus
+OneCovariance** for the same 100 × 100 Fourier covariance of LSST Y1 source
+bin 3. Both codes receive the same CAMB nonlinear power for their Gaussian
+spectra and retain their own halo prescriptions for SSC and cNG. Every
+matrix entry is included. This is a selected source-bin calculation;
+the full LSST Y1 real-space comparison remains to be computed.
+
+![CoCoA minus OneCovariance: Gaussian, SSC, connected non-Gaussian and total shear covariance](results/figures/complete_shear_difference.png)
+
+[Vector figure](results/figures/complete_shear_difference.pdf) ·
+[Settings, results and reproduction](#complete-shear).
+
 ## Contents
 
 1. [Scope](#scope)
@@ -63,6 +75,7 @@ halo moments](#non-gaussian-timings), with their different scopes stated.
 12. [Separated halo trispectra](#trispectrum-comparison)
 13. [Connected non-Gaussian projection](#connected-comparison)
 14. [SSC, halo and cNG timing differences](#non-gaussian-timings)
+15. [Complete shear covariance: CoCoA versus OneCovariance](#complete-shear)
 
 ## Scope <a name="scope"></a>
 
@@ -2045,3 +2058,120 @@ does not refine a supplied C_ell table; regenerate that input separately.
 Generated files live under ignored `work/`. Small reviewed validation
 summaries belong in `results/`; full matrices and disposable runs do not.
 The scripts contain no changes to either code's numerical implementation.
+
+## Complete shear covariance: CoCoA versus OneCovariance <a name="complete-shear"></a>
+
+The [four-panel figure above](results/figures/complete_shear_difference.png)
+compares **Gaussian, SSC, cNG and their total on the same observables**.
+The calculation uses LSST Y1 source bin 3, an area of 12,300 deg², a source
+density of 2 arcmin⁻² and per-component shape dispersion 0.26. Both codes
+use massless neutrinos, Limber spectra and zero intrinsic alignment.
+
+There are 100 multipole samples, $`\ell=30,60,\ldots,3000`$. The observable
+uses the **band-centre approximation with width 30**: Gaussian mode counts
+include that width, while SSC and cNG are evaluated at the centres. It
+does not integrate either covariance across a broad band. This common
+choice avoids comparing OneCov's uniform Gaussian band weights with
+CoCoA's mode-count weights.
+
+For component X, each pixel shows
+
+$$
+100\,\frac{C^{X}_{\mathrm{CoCoA},ij}-C^{X}_{\mathrm{OneCov},ij}}
+{\sqrt{C^{\mathrm{total}}_{\mathrm{OneCov},ii}
+       C^{\mathrm{total}}_{\mathrm{OneCov},jj}}.
+$$
+
+The colour scale is in percent, with its own range in each panel. The
+denominator is always the **OneCov total**, including noise. It is not the
+relative error of a small SSC or cNG entry.
+
+| Component | Largest absolute difference / total rms product | Largest relative difference in its own diagonal |
+| --- | ---: | ---: |
+| Gaussian | 0.689% | 0.708% |
+| SSC | 0.241% | 29.33% |
+| Connected non-Gaussian | 0.226% | 28.91% |
+| Total | 0.328% | 0.328% |
+
+Both totals are **positive definite**, without removing entries or repairing
+eigenvalues. The generalized variance ratios, defined by
+$`C_{\mathrm{CoCoA}}v=\lambda C_{\mathrm{OneCov}}v`$, range from
+**0.954008 to 1.006961**. Thus a correlated combination of the observables
+changes by **4.60%**, despite the smaller individual pixels. This is a
+comparison of covariance modes, not a Fisher-parameter convergence result.
+
+### What is shared, and what differs?
+
+- **Shared:** nominal cosmology, source distribution, survey area, shape
+  noise, multipoles, band-centre convention and CAMB nonlinear power table.
+  Each code performs its own Gaussian line-of-sight projection; angular
+  spectra are not supplied from one code to the other.
+- **CoCoA:** retains its bias-consistent multiplicity amplitude,
+  Bhattacharya concentration, additive I11 completion, 10⁴ lower mass
+  limit, two-halo response slope, nonlinear response transfer and analytic
+  spherical-cap harmonics.
+- **OneCovariance:** retains its finite-range bias normalization, Duffy
+  concentration, native low-mass completion, 10⁶ lower mass limit,
+  one-halo damping, linear-power response slope and pixelized cap.
+
+The shared nonlinear table does not replace each code's internal linear
+power used for halo ingredients. The small amplitude/radiation difference
+identified in the [sigma study](#sigma-comparison) therefore also remains.
+The [halo](#halo-comparison), [SSC](#ssc-comparison) and
+[trispectrum](#trispectrum-comparison) sections explain these choices.
+
+This figure shows their **combined effect at the recorded numerical
+settings**. It does not assign every pixel to a single physical cause or
+establish convergence of native cNG. In particular, OneCov's equal-k
+angular limit and off-diagonal 2h partition remain the open checks
+described in the trispectrum study.
+
+| Numerical control | CoCoA | OneCovariance |
+| --- | --- | --- |
+| Radial integration | 7 panels, 96 GSL nodes per panel | 601 radial nodes |
+| Halo mass integration | 10 panels, 96 GSL nodes per panel | 400 mass nodes |
+| Trispectrum sampling | Project default multipole table | 129 k nodes |
+| Power/response redshift spacing | Project default tables | 0.05 |
+| Trispectrum redshift spacing | Evaluated at radial nodes | 0.125 |
+
+The [complete comparison record](results/complete_shear_20261006.json)
+contains resolved settings, source and input fingerprints, component
+differences and total-mode diagnostics.
+
+### Reproducing the complete shear figure
+
+Use the installed **Cocoa** and **OneCov** environments in separate
+terminals. The commands below run from this benchmark repository, after
+activating each environment with its respective `start_cocoa.sh` or
+`start_onecov.sh` as described in the installation steps. Keep
+`OMP_NUM_THREADS=8` and run the calculations sequentially.
+
+**Step :one:**: in the **Cocoa terminal**, export fresh LSST inputs.
+
+```bash
+python scripts/prepare_lsst_y1.py --cocoa ../cocoa/Cocoa \
+  --output work/lsst_y1_complete
+```
+
+**Step :two:**: in the **OneCov terminal**, compute all four matrices.
+
+```bash
+python scripts/complete_shear.py onecov --inputs work/lsst_y1_complete \
+  --output work/complete_shear_onecov
+```
+
+**Step :three:**: after that run finishes, in the **Cocoa terminal**, compute
+the same observables through the production interface.
+
+```bash
+python scripts/complete_shear.py cocoa --inputs work/lsst_y1_complete \
+  --output work/complete_shear_cocoa
+```
+
+**Step :four:**: compare every entry and produce the four-panel PNG and PDF.
+
+```bash
+python scripts/plot_complete_shear.py work/complete_shear_cocoa \
+  work/complete_shear_onecov --output work/complete_shear_comparison.json \
+  --figure work/complete_shear_difference.png
+```

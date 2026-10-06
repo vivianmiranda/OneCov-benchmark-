@@ -1,5 +1,47 @@
 # Local OneCovariance source study
 
+## Complete shear cross-code figure
+
+`complete_shear.py` computes a coherent 100x100 G/SSC/cNG/total pilot for
+LSST Y1 source bin 3. `plot_complete_shear.py` plots CoCoA minus OneCov;
+all panels use the OneCov total diagonal rms product, with percent units.
+The README embeds results/figures/complete_shear_difference.png near its
+top. This is not the complete 1560-entry real-space survey calculation.
+
+Use ell=30,60,...,3000 and the band-centre approximation with delta_ell=30.
+Removing OneCov's output-band controls makes its public calc_covELL use
+the linear-grid Gaussian mode width of 30. CoCoA's production forecast
+uses single-integer-multipole operators, then G alone is divided by 30.
+SSC/cNG are centre samples and receive no width factor. Neither code's
+numerical source or callable is modified. Do not describe this estimator
+as an integrated broad-band covariance. It avoids the different native
+Gaussian broad-band weights rather than silently comparing them.
+
+Fresh inputs work/lsst_y1_complete_20261006 supply the same CAMB nonlinear
+power for Gaussian projections, with each code retaining its native halo
+and SSC prescriptions, internal linear-power preparation and footprint.
+The known amplitude/radiation, halo and 2h/corner differences below remain.
+CoCoA keeps its adopted 1e4 mass minimum; OneCov keeps 1e6. This comparison
+is not another shared-response or shared-trispectrum assembly test.
+
+Results: work/complete_shear_{onecov_v2,cocoa}_20261006, summarized in
+results/complete_shear_20261006.json. OneCov uses 601 radial samples, 129 k
+samples, 400 mass samples, delta_z=.05 and tri_delta_z=.125. CoCoA uses
+the LSST default AB1/integration0. All entries are retained, totals are
+positive definite. Maximum absolute differences in percent of the total
+rms product: G .688563, SSC .241387, cNG .226250, total .328315. Total
+variance ratios span .9540080430..1.0069607884. Native numerical/Fisher
+convergence is not established by this pilot. Do not conflate these
+cross-code differences with error estimates for either implementation.
+
+Single sequential construction timings: OneCov 70.171 s, CoCoA 20.704 s;
+setup is separate at 11.673 s and 0.419 s, respectively.
+These centre-sample timings cannot predict the full real-space transforms.
+The first attempted export used the older lsst_y1_small power table, which
+stopped at z=3 and correctly failed OneCov's z-support guard. Its output
+folder/log was preserved; fresh prepare_lsst_y1.py output includes the
+bracketing CAMB node beyond the source support and resolves that input error.
+
 ## Low-mass cutoff study: scope
 
 The requested study reduces the finite-range I11 completion by integrating
