@@ -587,16 +587,31 @@ redshifts 0, 0.5 and 1. See the
 [response comparison record](results/ssc_response_20261005.json).
 
 This checks the response formula, not the projected SSC covariance.
-The default prescriptions differ:
+**Both tested implementations use an isotropic halo-model response.**
+They are not distinguished by assigning one of the following papers to
+each code. To state the actual difference, define
+$`P_{2h}=[I_1^1]^2P_L`$ and $`P_{\rm halo}=P_{2h}+I_2^0`$.
 
-- **OneCov:** uses the linear-power slope.
-- **CoCoA:** uses the two-halo slope and transfers the fractional halo
-  response to its nonlinear power.
+- **OneCov:** its sampled matter-response routine returns
+  $`D_{\rm OneCov}=[47/21-(1/3)d\ln P_L/d\ln k]P_{2h}+I_2^1`$.
+  The code writes the equivalent coefficient using 68/21 and the slope
+  of $`k^3P_L`$. It does not differentiate the I11 factor in that slope.
+- **CoCoA:** its halo response uses
+  $`D_{\rm halo}=[47/21-(1/3)d\ln P_{2h}/d\ln k]P_{2h}+I_2^1`$.
+  Thus the slope includes the k dependence of I11. Dividing by
+  $`P_{\rm halo}`$ gives the fractional response in the corrected
+  **Eq. 44 of [Takada & Hu (2013)](https://arxiv.org/html/1302.6994v3)**.
+  CoCoA then multiplies that fractional response by its target nonlinear
+  power: $`D_{\rm CoCoA}=P_{\rm target}D_{\rm halo}/P_{\rm halo}`$.
+  This last transfer is the implementation's halo-response approximation.
 
-The two-halo prescription follows the corrected
-Eq. 44 of [Takada & Hu (2013)](https://arxiv.org/html/1302.6994v3).
-The broader response treatment is described by
-[Barreira, Krause & Schmidt (2018)](https://arxiv.org/abs/1711.07467).
+[Barreira, Krause & Schmidt (2018)](https://arxiv.org/abs/1711.07467)
+is cited for **broader context**: it develops density and tidal SSC using
+nonlinear responses that can be measured in separate-universe simulations.
+Neither of the two isotropic halo-response prescriptions tested here is
+an implementation of that paper's complete density-plus-tidal calculation.
+In particular, CoCoA's multiplication by a nonlinear target spectrum does
+not turn its halo response into a simulation-calibrated nonlinear response.
 
 On shared ingredients, changing only that slope changes the sampled
 responses by at most 0.23%, 0.18% and 0.14%, respectively, over
