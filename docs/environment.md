@@ -1,11 +1,16 @@
 # Environments for the comparison
 
-The input exporter runs in Cocoa's existing environment, with its LSST Y1
-covariance bindings enabled. The OneCovariance runner can use a separate
-environment. Files in `work/` connect the two; neither environment needs
-to upgrade the other.
+The input exporter runs in Cocoa's environment, with its LSST Y1 covariance
+bindings enabled. OneCovariance runs in this repository's `.local`
+environment. Both use the Cocoa Conda base; files in `work/` connect their
+calculations. Open separate Bash terminals for the two runtime environments.
 
-## Dependencies
+For the Cocoa export, use the activation, covariance compilation and
+platform-specific thread settings in [Step 1 of the README](../README.md#reproduction).
+These follow the main Cocoa and LSST Y1 READMEs; no additional Cocoa
+environment variables or dependency installation are required here.
+
+## Installation choices
 
 Use Python 3.11 for the currently tested setup. OneCovariance requires
 NumPy, SciPy, astropy, hmf, CAMB, healpy and matplotlib, plus its **bundled**
@@ -13,25 +18,35 @@ Levin extension. GSL and a working C++/OpenMP toolchain are needed to build
 that extension. An unrelated package with the same `levin` import name
 is not a substitute.
 
-Follow the installation instructions in the local OneCovariance checkout
-to prepare an independent environment. To build only its bundled extension
-once dependencies are present, run from this benchmark root:
+Use the [installation steps](../README.md#installation). Choices belong to
+`set_installation_options.sh`, following Cocoa's setup convention.
 
-```bash
-python -m pip install --no-deps --no-build-isolation ../OneCovariance
-```
+| Choice | Meaning |
+| --- | --- |
+| `COCOA_PATH` | Installed Cocoa runtime directory containing CAMB. |
+| `ONECOV_PATH` | Existing OneCovariance source checkout. |
+| `CAMB_GIT_COMMIT`, `ONECOV_GIT_COMMIT` | Revisions checked before setup. |
+| `HEALPY_VERSION` | Source version downloaded during setup. |
+| `PIPCP` | Pinned Python packages installed only in `.local`. |
 
-This installs the extension; the runner still needs `--onecov` to locate
-the source checkout. Test imports before starting a covariance:
+`setup_onecov.sh` may download packages. It reuses the Conda base through
+Python's `--system-site-packages` option and installs missing or different
+pinned versions inside `.local`. It neither changes the Conda base nor
+uses Cocoa's private `.local` directory.
 
-```bash
-python -c "import camb, healpy, hmf, levin; print(camb.__version__); print(levin.Levin)"
-```
+`compile_onecov.sh` builds the two extensions with `--no-index`,
+`--no-dependencies` and `--no-build-isolation`. It uses the compilers and
+GSL from the activated Conda environment. Successful compilation ends with
+an import check of CAMB, healpy, hmf, Levin and the OneCovariance reader.
 
-OneCovariance imports several estimator modules even for a Gaussian
-Fourier run. A missing healpy dependency can therefore appear at the end
-of a traceback as a misleading missing `cov_theta_space` import. Inspect
-the **first** exception in the traceback.
+The healpy source and build tree remain in `external_modules/code` because
+its macOS extension can depend on libraries in that tree. Keep this
+directory alongside `.local`. Both directories are ignored by Git.
+
+> [!TIP]
+> If an import fails with `cov_theta_space` missing, inspect the first
+> exception: OneCovariance loads several estimator modules even for a
+> Gaussian Fourier case, and a missing healpy library can cause that error.
 
 ## Setup used for the initial tests
 
@@ -49,27 +64,27 @@ installed only in `.venv`. The numerical versions are:
 | CAMB | 1.6.7, from Cocoa's local source checkout |
 | Levin | 0.0.1, built from OneCovariance's bundled source |
 
-The CAMB version is an import from the same source as Cocoa, not a PyPI
-release pin. For an isolated environment that should use an existing CAMB
-checkout, put its parent directory on `PYTHONPATH` before the run, or add
-that directory to a `.pth` file in the isolated environment. Do not copy
-CAMB arrays from a different cosmology to compensate for a version mismatch.
-`run.json` records the actual CAMB version and import path after preflight.
+The setup script registers Cocoa's compiled CAMB source in `.local`, so
+both sides use the same Boltzmann code and its Cocoa installation patches.
+It does not install a different CAMB release from PyPI. `run.json` records
+the actual CAMB version and import path after preflight.
 
-On this macOS installation, the first healpy source wheel referenced
-libraries in a removed temporary build directory. Rebuilding from an
-unmodified source archive in a persistent directory resolved the imports.
-Keep that build directory while the installed extension depends on it.
-This is an environment issue; no OneCovariance numerical source was changed.
+The `.venv` mentioned in the initial result record is retained as pilot
+provenance. The documented setup scripts create `.local` independently;
+they do not rename or overwrite that environment or the saved results.
 
 ## Running sequentially
 
-After activating the chosen environment, set the worker count explicitly:
+After `conda activate cocoa` and `source start_onecov.sh`, set the worker
+count explicitly:
 
 ```bash
 export OMP_NUM_THREADS=8
-export OMP_PROC_BIND=disabled
 ```
+
+Keep the platform-specific OpenMP settings from Step 1 of the README:
+`OMP_PROC_BIND=close` on Linux or `disabled` on macOS (arm), with
+`OMP_PLACES=cores` and `OMP_DYNAMIC=FALSE`.
 
 The runner derives OneCovariance's `num_cores` from `OMP_NUM_THREADS` and
 fixes BLAS to one thread before imports. There is no second thread count

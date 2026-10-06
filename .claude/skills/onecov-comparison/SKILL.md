@@ -44,7 +44,19 @@ or substitute online descriptions for the code actually being tested.
 
 ## Laptop execution and accuracy
 
-- Use Python runners, not new bash orchestration. Run one numerical job
+- Follow the main Cocoa and LSST Y1 READMEs for Cocoa activation,
+  covariance compilation and platform-specific OpenMP/BLAS settings.
+  Source `start_cocoa.sh` from `cocoa/Cocoa` in the Cocoa conda environment
+  before returning to the benchmark directory. Do not replace this setup
+  with a generic list of thread variables or add Apple vecLib settings
+  as a Cocoa requirement.
+- Installation follows Cocoa's schema: pinned choices in
+  `set_installation_options.sh`, sourced setup/compile/start/stop scripts,
+  the Cocoa Conda base and a repository-private `.local` environment.
+  Downloads belong to setup; compilation is offline. Keep the two runtime
+  environments in separate terminals. Do not invent a different setup
+  scheme for each comparison repository.
+- Use Python runners for numerical comparisons. Run one numerical job
   at a time. Take timings on a quiet machine, with BLAS fixed to one and
   at most eight CPU workers here. Derive worker count from
   `OMP_NUM_THREADS`; do not put an independent thread count in survey YAML.

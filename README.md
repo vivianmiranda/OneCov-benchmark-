@@ -31,7 +31,8 @@ estimator normalization, not a measurement of agreement between the codes.
 1. [Scope](#scope)
 2. [Comparison stages](#stages)
 3. [Accuracy and execution time](#validation)
-4. [Reproducing the comparison](#reproduction)
+4. [Installation and compilation](#installation)
+5. [Reproducing the comparison](#reproduction)
 
 ## Scope <a name="scope"></a>
 
@@ -132,6 +133,60 @@ covariance construction will include first-use tables; initialization,
 file writing and plotting will be identified separately. Repeated runs
 will provide a mean and a measure of timing variation.
 
+## Installation and compilation <a name="installation"></a>
+
+We use Cocoa's Python 3.11 Conda base and a private `.local` environment
+inside this repository. Follow the
+[Cocoa Conda installation recipe](https://github.com/CosmoLike/cocoa#required_packages_conda)
+if that base is not installed. Cocoa and OneCovariance are separate sibling
+checkouts; Cocoa must already have CAMB compiled.
+
+Open a fresh Bash terminal in `OneCov-benchmark-/`. Keep the Cocoa export
+session in a separate terminal.
+
+**Step :one:**: activate the Conda base.
+
+```bash
+conda activate cocoa
+```
+
+**Step :two:**: inspect [set_installation_options.sh](set_installation_options.sh).
+It specifies the code paths, studied revisions and Python package versions.
+
+**Step :three:**: prepare the private environment and download dependencies.
+
+```bash
+source setup_onecov.sh
+```
+
+**Step :four:**: compile the native extensions from local sources.
+
+```bash
+source compile_onecov.sh
+```
+
+**Step :five:**: activate the comparison environment.
+
+```bash
+source start_onecov.sh
+```
+
+For later sessions, repeat only steps one and five. To leave the private
+environment, run `source stop_onecov.sh`.
+
+| File | Purpose |
+| --- | --- |
+| [set_installation_options.sh](set_installation_options.sh) | Select code paths and pinned package versions. |
+| [setup_onecov.sh](setup_onecov.sh) | Create `.local`, install Python dependencies and download healpy sources. |
+| [compile_onecov.sh](compile_onecov.sh) | Build healpy and OneCovariance's bundled Levin extension offline; check imports. |
+| [start_onecov.sh](start_onecov.sh) | Activate the private environment. |
+| [stop_onecov.sh](stop_onecov.sh) | Restore the shell's previous Python environment. |
+
+The scripts reuse the existing OneCovariance checkout and Cocoa's CAMB.
+They do not modify either numerical code or install packages into Cocoa.
+The [environment notes](docs/environment.md) describe the shared libraries
+and the initial pilot environment.
+
 ## Reproducing the comparison <a name="reproduction"></a>
 
 ### What the pilot represents
@@ -156,15 +211,50 @@ are the project's forecast choices, not its supplied likelihood covariance.
 
 ### Step 1️⃣: Export the Cocoa inputs
 
-Start Cocoa using its installation instructions, then change to this
-benchmark directory. The LSST covariance interface must be enabled.
-Commands below assume the two code checkouts are sibling directories.
+Follow the [main Cocoa setup](https://github.com/CosmoLike/cocoa#cobaya_base_code_examples)
+and [LSST Y1 covariance instructions](https://github.com/CosmoLike/cocoa_lsst_y1#computing_covariances).
+We assume Cocoa and LSST Y1 are installed, the shell is Bash, and
+`cocoa/`, `OneCovariance/` and `OneCov-benchmark-/` are sibling directories.
+
+In a second, fresh Bash terminal, start from this benchmark directory and
+activate Cocoa and its private environment:
 
 ```bash
-export OMP_NUM_THREADS=8
-export OPENBLAS_NUM_THREADS=1
-export MKL_NUM_THREADS=1
-export VECLIB_MAXIMUM_THREADS=1
+conda activate cocoa
+cd ../cocoa/Cocoa
+source start_cocoa.sh
+```
+
+If the LSST covariance interface is not already enabled, compile it once:
+
+```bash
+unset IGNORE_COSMOLIKE_LSST_Y1_CODE
+unset IGNORE_COSMOLIKE_LSST_Y1_COVARIANCE
+source ./projects/lsst_y1/scripts/compile_lsst_y1.sh
+```
+
+Select eight OpenMP threads using Cocoa's settings for your platform.
+
+- Linux
+
+  ```bash
+  export OMP_NUM_THREADS=8; export OMP_PROC_BIND=close; \
+  export OMP_PLACES=cores; export OMP_DYNAMIC=FALSE; \
+  export OPENBLAS_NUM_THREADS=1; export MKL_NUM_THREADS=1
+  ```
+
+- macOS (arm)
+
+  ```bash
+  export OMP_NUM_THREADS=8; export OMP_PROC_BIND=disabled; \
+  export OMP_PLACES=cores; export OMP_DYNAMIC=FALSE; \
+  export OPENBLAS_NUM_THREADS=1; export MKL_NUM_THREADS=1
+  ```
+
+Return to the benchmark directory and export the inputs:
+
+```bash
+cd ../../OneCov-benchmark-
 python scripts/prepare_lsst_y1.py \
   --cocoa ../cocoa/Cocoa --output work/lsst_y1
 ```
@@ -182,9 +272,16 @@ problem without modifying OneCovariance.
 
 ### Step 2️⃣: Run the small Gaussian case
 
-Use an environment with OneCovariance's dependencies and its bundled
-Levin extension installed. See the [environment notes](docs/environment.md).
-Keep only one numerical job running at a time.
+In the comparison terminal, activate the environment prepared above if it
+is not already active:
+
+```bash
+conda activate cocoa
+source start_onecov.sh
+```
+
+Use the Linux or macOS OpenMP settings from Step 1 and keep only one
+numerical job running at a time.
 
 ```bash
 python scripts/run_onecov.py \

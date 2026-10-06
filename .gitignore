@@ -1,4 +1,7 @@
 .venv/
+.local/
+external_modules/code/
+external_modules/data/
 __pycache__/
 *.pyc
 .pytest_cache/
