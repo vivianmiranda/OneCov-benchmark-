@@ -1,0 +1,695 @@
+{
+  "repeats_per_cutoff": 3,
+  "threads": 8,
+  "first_use_tables_included": true,
+  "initialization_included": false,
+  "saving_included": false,
+  "script_sha256": "8a447f6adc249f0f9bcd2c9ff01d88bf55f8ba7fb06be2478abb787c8a8496de",
+  "cutoffs": {
+    "1000000": {
+      "mass_panels": 8,
+      "repeat_outputs_bitwise_equal": true,
+      "stages": {
+        "all_pairs_gaussian_spectra": {
+          "mean_s": 1.5745403890032321,
+          "sample_stddev_s": 0.04497065124267579,
+          "individual_s": [
+            1.6017548330128193,
+            1.5226331669837236,
+            1.5992331670131534
+          ]
+        },
+        "angular_and_mask_geometry": {
+          "mean_s": 1.3199451253555405,
+          "sample_stddev_s": 0.005233498508211513,
+          "individual_s": [
+            1.318042459024582,
+            1.3159291250049137,
+            1.3258637920371257
+          ]
+        },
+        "gaussian_blocks": {
+          "mean_s": 3.8260462360146144,
+          "sample_stddev_s": 0.18592061702497945,
+          "individual_s": [
+            3.613049166975543,
+            3.9092926250305027,
+            3.955796916037798
+          ]
+        },
+        "observable_signal": {
+          "mean_s": 0.07292988865325849,
+          "sample_stddev_s": 0.004515799118139873,
+          "individual_s": [
+            0.06771991599816829,
+            0.07534891698742285,
+            0.0757208329741843
+          ]
+        },
+        "shared_halo_response_and_trispectrum": {
+          "mean_s": 42.707599500000164,
+          "sample_stddev_s": 1.9415445193518022,
+          "individual_s": [
+            40.48016141698463,
+            43.60112587502226,
+            44.04151120799361
+          ]
+        },
+        "ssc_and_connected_projection": {
+          "mean_s": 0.06597645834942038,
+          "sample_stddev_s": 0.0027572860754943498,
+          "individual_s": [
+            0.06283283303491771,
+            0.06798512500245124,
+            0.06711141701089218
+          ]
+        },
+        "total": {
+          "mean_s": 49.570577597342584,
+          "sample_stddev_s": 2.1182920825789093,
+          "individual_s": [
+            47.14707508304855,
+            50.49573154200334,
+            51.06892616697587
+          ]
+        }
+      },
+      "runs": [
+        {
+          "folder": "work/cutoff_full_wide6",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 1000000.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.6017548330128193,
+            "angular_and_mask_geometry": 1.318042459024582,
+            "gaussian_blocks": 3.613049166975543,
+            "observable_signal": 0.06771991599816829,
+            "shared_halo_response_and_trispectrum": 40.48016141698463,
+            "ssc_and_connected_projection": 0.06283283303491771,
+            "total": 47.14707508304855
+          },
+          "initialization_s": 0.4296467080130242,
+          "threads": 8,
+          "covariance_sha256": "627b906bc9e1f830f655e849a3fc41f91f90a2e1e5d1cee8c6174f559cfaabeb",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        },
+        {
+          "folder": "work/cutoff_full_wide6_repeat2",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 1000000.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.5226331669837236,
+            "angular_and_mask_geometry": 1.3159291250049137,
+            "gaussian_blocks": 3.9092926250305027,
+            "observable_signal": 0.07534891698742285,
+            "shared_halo_response_and_trispectrum": 43.60112587502226,
+            "ssc_and_connected_projection": 0.06798512500245124,
+            "total": 50.49573154200334
+          },
+          "initialization_s": 0.40447737503563985,
+          "threads": 8,
+          "covariance_sha256": "40818ec35324f54f3967b0dda361de08b5183250d14c45aea10cafaa4b169c73",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        },
+        {
+          "folder": "work/cutoff_full_wide6_repeat3",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 1000000.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.5992331670131534,
+            "angular_and_mask_geometry": 1.3258637920371257,
+            "gaussian_blocks": 3.955796916037798,
+            "observable_signal": 0.0757208329741843,
+            "shared_halo_response_and_trispectrum": 44.04151120799361,
+            "ssc_and_connected_projection": 0.06711141701089218,
+            "total": 51.06892616697587
+          },
+          "initialization_s": 0.4043894999776967,
+          "threads": 8,
+          "covariance_sha256": "950e5196ee4424d372341e90dfcf8236fa8f7753ff090d432c4abe8333b308ec",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        }
+      ],
+      "total_time_ratio_to_1e6": 1.0
+    },
+    "10000": {
+      "mass_panels": 10,
+      "repeat_outputs_bitwise_equal": true,
+      "stages": {
+        "all_pairs_gaussian_spectra": {
+          "mean_s": 1.60476948635187,
+          "sample_stddev_s": 0.14568447065577492,
+          "individual_s": [
+            1.4675137500162236,
+            1.589167834026739,
+            1.7576268750126474
+          ]
+        },
+        "angular_and_mask_geometry": {
+          "mean_s": 1.3243432219993945,
+          "sample_stddev_s": 0.009019504201463118,
+          "individual_s": [
+            1.3181822079932317,
+            1.3201516669942066,
+            1.3346957910107449
+          ]
+        },
+        "gaussian_blocks": {
+          "mean_s": 3.799026111005029,
+          "sample_stddev_s": 0.20528333149590305,
+          "individual_s": [
+            3.5633169159991667,
+            3.8951522080460563,
+            3.938609208969865
+          ]
+        },
+        "observable_signal": {
+          "mean_s": 0.0738428613403812,
+          "sample_stddev_s": 0.004363321439010364,
+          "individual_s": [
+            0.06892316701123491,
+            0.07724400004372001,
+            0.0753614169661887
+          ]
+        },
+        "shared_halo_response_and_trispectrum": {
+          "mean_s": 44.006400819654424,
+          "sample_stddev_s": 0.5116373161841395,
+          "individual_s": [
+            43.61533404199872,
+            43.81843345897505,
+            44.58543495798949
+          ]
+        },
+        "ssc_and_connected_projection": {
+          "mean_s": 0.07028174997928242,
+          "sample_stddev_s": 0.0018205477652433624,
+          "individual_s": [
+            0.07169704098487273,
+            0.07092024997109547,
+            0.06822795898187906
+          ]
+        },
+        "total": {
+          "mean_s": 50.88195141666802,
+          "sample_stddev_s": 0.8327296677929386,
+          "individual_s": [
+            50.108046250010375,
+            50.77469574997667,
+            51.763112250017
+          ]
+        }
+      },
+      "runs": [
+        {
+          "folder": "work/cutoff_full_wide4",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 10000.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.4675137500162236,
+            "angular_and_mask_geometry": 1.3181822079932317,
+            "gaussian_blocks": 3.5633169159991667,
+            "observable_signal": 0.06892316701123491,
+            "shared_halo_response_and_trispectrum": 43.61533404199872,
+            "ssc_and_connected_projection": 0.07169704098487273,
+            "total": 50.108046250010375
+          },
+          "initialization_s": 0.3941607080050744,
+          "threads": 8,
+          "covariance_sha256": "07af5ca12e7a14dd7e10374be078c183d01edfc83248a097fd7521f1841ac5aa",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        },
+        {
+          "folder": "work/cutoff_full_wide4_repeat2",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 10000.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.589167834026739,
+            "angular_and_mask_geometry": 1.3201516669942066,
+            "gaussian_blocks": 3.8951522080460563,
+            "observable_signal": 0.07724400004372001,
+            "shared_halo_response_and_trispectrum": 43.81843345897505,
+            "ssc_and_connected_projection": 0.07092024997109547,
+            "total": 50.77469574997667
+          },
+          "initialization_s": 0.39988604199606925,
+          "threads": 8,
+          "covariance_sha256": "9a451de5d5e3a55cbfdab1da35fc1600ff78df1187f61f461a3975e56ef8ec3c",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        },
+        {
+          "folder": "work/cutoff_full_wide4_repeat3",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 10000.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.7576268750126474,
+            "angular_and_mask_geometry": 1.3346957910107449,
+            "gaussian_blocks": 3.938609208969865,
+            "observable_signal": 0.0753614169661887,
+            "shared_halo_response_and_trispectrum": 44.58543495798949,
+            "ssc_and_connected_projection": 0.06822795898187906,
+            "total": 51.763112250017
+          },
+          "initialization_s": 0.41799704200821,
+          "threads": 8,
+          "covariance_sha256": "8fa2a18010023b01035d6b3778ad55a68fb665d17070a55d39c821cc1294c2b9",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        }
+      ],
+      "total_time_ratio_to_1e6": 1.0264546810403865
+    },
+    "100": {
+      "mass_panels": 12,
+      "repeat_outputs_bitwise_equal": true,
+      "stages": {
+        "all_pairs_gaussian_spectra": {
+          "mean_s": 1.6464957496500574,
+          "sample_stddev_s": 0.09065181702561664,
+          "individual_s": [
+            1.5428430829779245,
+            1.7109650829806924,
+            1.6856790829915553
+          ]
+        },
+        "angular_and_mask_geometry": {
+          "mean_s": 1.3743980969884433,
+          "sample_stddev_s": 0.05422294102560589,
+          "individual_s": [
+            1.321608208003454,
+            1.4299486249801703,
+            1.3716374579817057
+          ]
+        },
+        "gaussian_blocks": {
+          "mean_s": 4.092161777662113,
+          "sample_stddev_s": 0.08878110060023629,
+          "individual_s": [
+            4.089725208003074,
+            4.004624042019714,
+            4.182136082963552
+          ]
+        },
+        "observable_signal": {
+          "mean_s": 0.07434312531646962,
+          "sample_stddev_s": 0.002633413399376236,
+          "individual_s": [
+            0.0765205419738777,
+            0.07509262498933822,
+            0.07141620898619294
+          ]
+        },
+        "shared_halo_response_and_trispectrum": {
+          "mean_s": 42.91555912501644,
+          "sample_stddev_s": 1.7958573675042293,
+          "individual_s": [
+            43.9772631250089,
+            43.9273322080262,
+            40.842082042014226
+          ]
+        },
+        "ssc_and_connected_projection": {
+          "mean_s": 0.07435880564541246,
+          "sample_stddev_s": 0.0015577447609405421,
+          "individual_s": [
+            0.07367266697110608,
+            0.07614183297846466,
+            0.07326191698666662
+          ]
+        },
+        "total": {
+          "mean_s": 50.18079641665099,
+          "sample_stddev_s": 1.6915811998712544,
+          "individual_s": [
+            51.08520612498978,
+            51.2279178329627,
+            48.22926529200049
+          ]
+        }
+      },
+      "runs": [
+        {
+          "folder": "work/cutoff_full_wide2",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 100.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.5428430829779245,
+            "angular_and_mask_geometry": 1.321608208003454,
+            "gaussian_blocks": 4.089725208003074,
+            "observable_signal": 0.0765205419738777,
+            "shared_halo_response_and_trispectrum": 43.9772631250089,
+            "ssc_and_connected_projection": 0.07367266697110608,
+            "total": 51.08520612498978
+          },
+          "initialization_s": 0.40263249998679385,
+          "threads": 8,
+          "covariance_sha256": "055403bc112ed5bdc4b90793913994662432f2c84988d8f1ab4b2cf2ba3d86f1",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        },
+        {
+          "folder": "work/cutoff_full_wide2_repeat2",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 100.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.7109650829806924,
+            "angular_and_mask_geometry": 1.4299486249801703,
+            "gaussian_blocks": 4.004624042019714,
+            "observable_signal": 0.07509262498933822,
+            "shared_halo_response_and_trispectrum": 43.9273322080262,
+            "ssc_and_connected_projection": 0.07614183297846466,
+            "total": 51.2279178329627
+          },
+          "initialization_s": 0.4119055830524303,
+          "threads": 8,
+          "covariance_sha256": "05101b50e5ba729204d3bd20df6e25b2c048d50797150d997a8db518820a18e5",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        },
+        {
+          "folder": "work/cutoff_full_wide2_repeat3",
+          "core": {
+            "commit": "927748b6916d069c01b3d8d762015defc502617d",
+            "status": ""
+          },
+          "project": {
+            "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+            "status": ""
+          },
+          "yaml_sha256": "1782f410666df6be14c6e8a595eadde6554085261363e3e007b8e40efa67c662",
+          "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+          "diagnostic_build": {
+            "core": {
+              "commit": "927748b6916d069c01b3d8d762015defc502617d",
+              "status": ""
+            },
+            "project": {
+              "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+              "status": ""
+            },
+            "table_mass_min": 100.0,
+            "table_mass_max": 1e+17,
+            "production_structs_sha256": "bcaa6a32b885c1a3cdb6611ba3858b8331ab298f5a0932611de58a45e95cf39e",
+            "diagnostic_structs_sha256": "75bb095600ba7e2b3d1f146b352ffc0d510d4a8477f9e258f2342de2731ff5c8",
+            "replacement": {
+              "before": ".halo_m = {1.0e+6, 1.0e+17}",
+              "after": ".halo_m = {1.0e+2, 1.0e+17}"
+            },
+            "interface_sha256": "a742030c8417d2ac7b475990fc6f133ed9dff7e4b700189b1f66731c8ad02fdd",
+            "production_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+          },
+          "mass_min": 100.0,
+          "shape": [
+            1560,
+            1560
+          ],
+          "stages_s": {
+            "all_pairs_gaussian_spectra": 1.6856790829915553,
+            "angular_and_mask_geometry": 1.3716374579817057,
+            "gaussian_blocks": 4.182136082963552,
+            "observable_signal": 0.07141620898619294,
+            "shared_halo_response_and_trispectrum": 40.842082042014226,
+            "ssc_and_connected_projection": 0.07326191698666662,
+            "total": 48.22926529200049
+          },
+          "initialization_s": 0.413899292005226,
+          "threads": 8,
+          "covariance_sha256": "76097751e91c96c6e0d73128a793a8930bb5bf908bf216e13e8b02c6511e9cc2",
+          "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+          "script_sha256": "9c4a4ae813a843128bd2c6b91724b0b54eb9bfb9c8319efc71af5aa06130834c"
+        }
+      ],
+      "total_time_ratio_to_1e6": 1.0123101010495612
+    }
+  },
+  "common_power_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70"
+}

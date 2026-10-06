@@ -38,6 +38,12 @@ or substitute online descriptions for the code actually being tested.
   differences enter there. Preserve both labels in results.
 - Keep G, SSC and cNG separate. Set `split_gauss = True`; otherwise OneCov
   can fold SSC into cNG. Do not infer component agreement from the total.
+- Ingredient comparisons are preliminary. Follow changes through the
+  complete covariance, retaining every matrix entry and reporting G, SSC,
+  cNG and total differences separately. Include full difference plots,
+  total positivity and generalized variance-mode checks; do not substitute
+  a few diagonals or test vectors. If only an ingredient or a small block
+  has been tested, keep the full-matrix validation explicitly pending.
 - Match halo mass definitions, mass functions, profiles, concentration,
   damping and mass cutoffs before interpreting cNG differences as errors.
   The separate 2h/3h/4h export is not yet a public OneCov API.

@@ -1167,8 +1167,20 @@ $$
 
 At zero wavenumber every normalized profile equals one, so this restores
 the unit matter response. At finite wavenumber, the omitted population is
-represented by the profile at the minimum mass. This is the additive
-prescription in [Mead et al. (2020), Appendix A](https://arxiv.org/html/2005.00009v2#A1).
+represented by the profile at the minimum mass. **CoCoA implements the
+second additive prescription in [Mead et al. (2020), Appendix A,
+Eq. (52)](https://arxiv.org/html/2005.00009v2#A1), specialized to matter.**
+The distinction between the two prescriptions is:
+
+- **Eq. (50):** add a constant missing response, treating the omitted
+  halos as pointlike on every scale.
+- **Eq. (52), used by CoCoA:** multiply the missing response by the
+  minimum-mass halo profile, retaining its scale dependence.
+
+In CoCoA's covariance calculation this completion applies to **I11 only**.
+I12 and I13 do not receive an analogous additive term. The completion is
+also separate from CoCoA's multiplicity normalization.
+
 The approximation is effective when those halos are too small for their
 internal structure to matter on the scales being evaluated.
 
@@ -1272,9 +1284,95 @@ accuracy or calibrate the halo fits at such low masses.
 response is integrated explicitly and less is assigned to the correction.
 The corrected ingredients also stabilize strongly across the tested
 cutoffs. This supports the existing completion on the tested moderate-k
-scales; it does not establish an exact infinite-range answer, a physically
-better small-halo model, or convergence of a projected survey covariance.
-The production mass limits and halo-model conventions remain unchanged.
+scales. The full covariance test below follows these changes through
+survey projection; neither test establishes an exact infinite-range
+answer or calibrates the extrapolated small-halo model.
+
+### What changes in the complete LSST Y1 covariance?
+
+We also generate the **complete 1560 × 1560 real-space matrices**, with
+Gaussian, SSC and connected non-Gaussian components saved separately.
+Every matrix entry is compared, including cross-probe blocks; no
+likelihood mask or eigenvalue repair is applied.
+
+These runs use the LSST Y1 example's production interface and default
+accuracy settings, including its Gaussian non-Limber spectra. The
+integration level is zero (96-point GSL rules), and the internal table
+boost is one. Only the halo mass panels change. All three cutoffs share
+the same expanded sigma table, cosmology and byte-identical CAMB inputs.
+The high-accuracy ingredient checks above are a separate calculation.
+
+To avoid dividing by nearly zero cross-covariance entries, define the
+entry difference relative to the reference **total** variances:
+
+$$
+E^X_{ij}=\frac{C^X_{ij}(M_{\min})-C^X_{ij}(10^2)}
+{\sqrt{C^{\rm total}_{ii}(10^2)C^{\rm total}_{jj}(10^2)}}.
+$$
+
+Here X selects G, SSC, cNG or their total. The reference cutoff is a
+comparison point, not an exact solution. The table reports the largest
+absolute entry difference across each complete matrix, in percent.
+
+| Component | 10⁶ versus 10² | 10⁴ versus 10² |
+| --- | ---: | ---: |
+| Gaussian | Exactly equal | Exactly equal |
+| SSC | 5.92 × 10⁻⁷% | 2.12 × 10⁻⁸% |
+| Connected non-Gaussian | 2.06 × 10⁻⁶% | 7.88 × 10⁻⁸% |
+| Total | 2.07 × 10⁻⁶% | 7.92 × 10⁻⁸% |
+
+![Full covariance changes from a 10⁶ to a 10² lower mass cutoff](results/figures/cutoff_full_6_vs_2.png)
+
+![Full covariance changes from a 10⁴ to a 10² lower mass cutoff](results/figures/cutoff_full_4_vs_2.png)
+
+Each panel has its own color scale so the small residual structure is
+visible. The Gaussian covariance is bitwise unchanged: this cutoff enters
+the halo quantities used by SSC and cNG, while their Gaussian spectra
+and noise are held fixed.
+
+We also test **every variance mode**, solving the generalized eigenvalue
+problem for the total matrices. Its extreme eigenvalues bound the variance
+ratio for any linear combination of the 1560 observables. The maximum
+fractional change is **4.56 × 10⁻⁸** for 10⁶ versus 10², and
+**1.80 × 10⁻⁹** for 10⁴ versus 10². All totals are positive definite.
+
+Separately, the largest generalized SSC change relative to the reference
+total is 2.54 × 10⁻⁸; the cNG value is 4.37 × 10⁻⁸ for 10⁶ versus 10².
+The small total difference therefore does not hide large, cancelling
+component differences. The larger ingredient percentages at high k do
+not translate directly into survey errors: projection weights and the
+relative sizes of the halo terms determine their contribution.
+
+There is a distinct **sigma-table regridding effect**. At the unchanged
+10⁶ integration cutoff, switching from the original table domain to the
+expanded one changes total variance modes by at most **0.000596%**.
+Changing both the domain and integration cutoff from the installed
+configuration to the 10² case gives **0.000596%** as well. This larger,
+still small effect must not be attributed to the lower integration limit.
+The [domain comparison plot](results/figures/cutoff_full_domain.png) shows
+its separate G, SSC, cNG and total matrices.
+
+The full [10⁶-versus-10² record](results/cutoff_full_6_vs_2_20261006.json),
+[10⁴-versus-10² record](results/cutoff_full_4_vs_2_20261006.json),
+[first-step record](results/cutoff_full_6_vs_4_20261006.json),
+[domain control](results/cutoff_full_domain_20261006.json) and
+[combined-change record](results/cutoff_full_native_vs_2_20261006.json)
+retain component norms, diagonal changes, generalized modes, settings
+and input fingerprints.
+
+**Is 10⁴ a useful compromise?** Yes, as a way to reduce reliance on the
+completion at modest cost for this configuration. At z = 1 it reduces
+the missing response from 31.97% to 28.38%; extending to 10² changes the
+complete covariance very little further. However, the test also shows
+that the existing 10⁶ cutoff already has negligible covariance sensitivity
+to this extension. A smaller correction is not proof of a more accurate
+physical covariance.
+
+This comparison isolates the cutoff at one cosmology and fixed numerical
+settings. It does not establish convergence of other accuracy controls,
+Fisher forecasts, or other surveys. The common sigma-table domain reaches
+10² in all three diagnostic runs; adopting a different table domain needs
+its own check. The study leaves the production installation unchanged.
 
 ### Cost and reproduction
 
@@ -1295,6 +1393,28 @@ The measured halo-moment stage is therefore **28% slower** at 10⁴ and
 **64% slower** at 10². The extra panels calculate the newly included
 mass intervals. These percentages must not be applied directly to a
 full covariance runtime, which includes other stages.
+
+For the **complete LSST Y1 covariance**, three fresh processes per cutoff
+give the following means and sample standard deviations. These timings
+include first-use tables, spectra, halo calculations and matrix assembly.
+CAMB initialization and file writing are outside this interval. Runs use
+the production interface, eight OpenMP threads and the same expanded
+sigma-table domain, at the default accuracy described above.
+
+| Minimum mass [solar masses/h] | Full covariance time [s] | Mean relative to 10⁶ |
+| ---: | ---: | ---: |
+| 10⁶ | 49.57 ± 2.12 | 1.000 |
+| 10⁴ | 50.88 ± 0.83 | 1.026 |
+| 10² | 50.18 ± 1.69 | 1.012 |
+
+The full-runtime cost is modest in these measurements. Its precise size
+is not resolved by three runs: differences are comparable to the observed
+scatter, and the 10² mean happens to fall below the 10⁴ mean. This does
+not show that integrating more mass panels is faster. In particular,
+the **64% ingredient slowdown is not a 64% full-covariance slowdown**.
+All physical outputs repeat bitwise within each configuration. The
+[timing record](results/cutoff_full_timing_20261006.json) preserves every
+stage, individual run and input hash.
 
 Reproduction uses an isolated diagnostic build with only the supported
 halo-table lower boundary extended. The installed CoCoA interface and
@@ -1342,6 +1462,50 @@ python scripts/report_mass_cutoff.py --fine work/mass_cutoff_boost8 \
   --coarse work/mass_cutoff_boost4 --native work/mass_cutoff_native8 \
   --power-check work/mass_cutoff_power.json \
   --output work/mass_cutoff_summary.json
+```
+
+To reproduce the complete matrices, continue in the **Cocoa terminal**.
+These commands use the wider-domain build prepared in Step 1 above.
+
+**Step :one:**: generate the 10⁶ integration-cutoff control.
+
+```bash
+python scripts/run_cutoff_covariance.py --interface work/mass_cutoff_build \
+  --log10-min 6 --output work/cutoff_full_wide6
+```
+
+**Step :two:**: generate the 10⁴ matrix.
+
+```bash
+python scripts/run_cutoff_covariance.py --interface work/mass_cutoff_build \
+  --log10-min 4 --output work/cutoff_full_wide4
+```
+
+**Step :three:**: generate the 10² comparison matrix.
+
+```bash
+python scripts/run_cutoff_covariance.py --interface work/mass_cutoff_build \
+  --log10-min 2 --output work/cutoff_full_wide2
+```
+
+**Step :four:**: compare every entry and variance mode and draw the
+four component-difference panels. Repeat with the 10⁶ folder to test the
+full extension.
+
+```bash
+python scripts/compare_full_covariance.py work/cutoff_full_wide4 \
+  work/cutoff_full_wide2 --output work/full_cutoff_comparison.json \
+  --figure work/full_cutoff_comparison.png
+```
+
+**Step :five:**: for repeated timings, rerun Steps 1–3 sequentially in
+fresh processes, using output suffixes `_repeat2` and `_repeat3`.
+Summarize those nine runs and check that their physical outputs are
+bitwise equal within each cutoff:
+
+```bash
+python scripts/report_cutoff_covariance.py \
+  --output work/full_cutoff_timing.json
 ```
 
 ## Separated halo trispectra <a name="trispectrum-comparison"></a>

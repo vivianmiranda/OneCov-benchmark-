@@ -55,6 +55,43 @@ Halo moments only, 3 redshifts x 41 k x 861 unordered pairs, GL512:
 power/tree/response generation and survey projection. No production C/C++
 source, installed interface or OneCov numerical code was changed.
 
+Full-matrix follow-up: `run_cutoff_covariance.py` reuses the official LSST
+YAML and production backend, including Gaussian non-Limber. Keep AB1,
+core boost1 and integration0 (96 nodes), unlike the refined ingredient
+test. Complete 1560x1560 G/SSC/cNG/total archives are under
+work/cutoff_full_{native6,wide6,wide4,wide2}. The three wide runs share
+the sigma domain down to1e2 and identical CAMB inputs. No likelihood mask
+is applied. All totals pass Cholesky; minimum normalized eigenvalue is
+about2.27e-4. Gaussian components are bitwise equal.
+
+For wide6 versus wide2, largest total variance-mode change is4.5581e-8
+fractionally; wide4 versus wide2 gives1.7958e-9. Component differences
+against the reference total are also small: SSC2.5426e-8 and cNG4.3651e-8
+for6vs2. Changing only the sigma-table domain at Mmin1e6 instead produces
+5.9639e-6 in total modes; native6 versus wide2 gives5.9578e-6. Keep that
+regridding effect separate from integration-cutoff dependence.
+`compare_full_covariance.py` checks matched settings, every matrix entry,
+component sums, positivity and generalized modes and draws all four full
+difference matrices. Results: results/cutoff_full_*_20261006.json.
+
+Three sequential fresh processes at each cutoff: mean/std total construction
+49.57+/-2.12 s,50.88+/-0.83 s,50.18+/-1.69 s for Mmin1e6/1e4/1e2.
+Includes first-use tables; excludes CAMB setup and file writing. The
+scatter prevents a precise overall slowdown claim; the64% number remains
+an ingredient-only result. `report_cutoff_covariance.py` verifies bitwise
+repeatability of all physical outputs and inputs, and saves per-stage
+and per-run timings. No simultaneous numerical jobs were used.
+
+The1e4 cutoff is a reasonable compromise for reducing completion weight,
+not proof of a physically more accurate covariance. The1e6 cutoff already
+has negligible measured covariance sensitivity. After reviewing these
+results the maintainer authorized adopting1e4 in production and running
+all project suites. That separate change must validate its actual sigma
+table domain, preserve the original mass-panel nodes, and retain the
+additive I11 prescription and multiplicity/bias conventions. The cited
+Mead Appendix A prescription is Eq52 specialized to matter, not the
+constant additive Eq50; no analogous I12/I13 completion is implemented.
+
 Studied 2026-10-05 at OneCovariance commit `311c2cf`. Paths below are
 relative to that checkout. These are implementation findings, not measured
 agreement with CoCoA. Recheck contracts if the checkout changes.
