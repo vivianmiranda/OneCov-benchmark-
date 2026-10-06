@@ -135,6 +135,53 @@ interprets the existing completion weight 1-B; it is not an implemented
 new population with all higher moments or a validated low-mass model.
 Do not promote a global bias rescaling solely because both integrals close.
 
+## Sub-solar cutoff diagnostic, 2026-10-06
+
+Production remains at Mmin1e4. The isolated builder can extend the table
+domain to1e-3 and sigma kmax to1e7/1e9, retaining the existing log-log power
+continuation. No installed source or library changes. The lower negative
+mass edge must use math.log(10**exponent), matching the scalar C guard;
+exponent*log(10) can round below its strict domain by one ulp.
+
+Study work folders: microhalo_k5_boost4_v2, microhalo_k7_boost4,
+microhalo_k9_boost4 and microhalo_k9_boost8. Failed first k5 folder is
+preserved. Four cutoffs1e4/1e2/1/1e-3, z=.1/.5/1,41k=.001..100,861pairs.
+Mass quadratures96/128/256/512 were all tested; do not skip128 in future
+scans. Accuracy refinements are validation, not automatic demands for
+production precision. Native96 differs from512 by<=3.83e-5 fractionally
+over the tested moments/terms/response.128 gives5.40e-6;256 gives2.70e-7.
+Fine table boost4->8 changes ingredients<=9.46e-6, but the cutoff contrast
+changes<=9.33e-11. This does not certify full Fisher/physical accuracy.
+
+At z1, missing bias response1e4->1e-3 drops .28384818->.20007407;
+ordinary resolved mass .60534547->.74645495. The full-fit mass integral
+S=1.04832 is unchanged:1-F is a deficit relative to unit matter density,
+not the literal integral of the fitted unresolved population S-F.
+
+Sigma kmax1e5 underestimates the smallest mass sigma by~5.3% relative to
+extended FFTLog;1e7->1e9 changes it<1.91e-9. OneCov's unchanged hmf TopHat
+on the same continued P agrees with fine sigma at the four masses within
+1.92e-6. About90.14% of sigma^2 at1e-3 comes from P above suppliedkmax143.
+Numerically extending the reader is possible; a calibrated microhalo/DM
+free-streaming model is a distinct physical question.
+
+Full1560 matrices: work/microhalo_full_native4, microhalo_full_wide4,
+microhalo_full_deep. Common-wide4->deep changes total modes1.869e-9,
+G bitwise unchanged, both totals positive. Sigma-domain/kmax expansion
+alone atMmin1e4 changes modes1.76824e-5. All four complete component
+plots and diagnostics are saved as results/microhalo*. Construction
+times52.126,51.912,52.362s: single sequential8-thread measurements with
+background application activity, not a precise slowdown estimate.
+
+Next authorized diagnostics: retain96 nodes/panel above1e4, integrate
+1e-20..1e4 with32 nodes total, compare a finer tail and complete G/SSC/cNG
+matrices.32 is explicitly authorized for this diagnostic only; do not
+remove the production minimum64. Then use32 per successive low-mass
+interval and test convergence acceleration of the partial sums (Aitken,
+Shanks/Wynn). Validate predictions against withheld later sums and the
+actual finite-k moments, not only the already-imposed I11(0)=1 limit.
+No production adoption is authorized by these studies.
+
 ## Low-mass cutoff study: scope
 
 The requested study reduces the finite-range I11 completion by integrating

@@ -20,6 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--log10-masses", type=int, nargs="+", default=[2, 4, 6])
     args = parser.parse_args()
     if args.output.exists():
         parser.error("choose a new output file")
@@ -27,19 +28,22 @@ def main():
     if sha256(args.input/"ingredients.npz") != report["ingredients_sha256"]:
         raise ValueError("input ingredients changed after export")
     data = np.load(args.input/"ingredients.npz")
-    mass = np.array([1e2, 1e4, 1e6])
+    mass = 10.0**np.asarray(args.log10_masses)
     radius = (3*mass/(4*np.pi*data["rho"]))**(1/3)
     wave = data["tail_k"]
     rows = []
     for row, z in enumerate(data["redshift"]):
         power = data["tail_power"][row]
         values = {}
-        for limit in (report["supplied_k_hmpc"][1], 1e5, 1e6, 1e7):
+        limits = [report["supplied_k_hmpc"][1], 1e5, 1e6, 1e7]
+        if wave[-1] > 1e7:
+            limits.extend([1e8, float(wave[-1])])
+        for limit in limits:
             selected = wave <= limit*(1+1e-14)
             values[str(limit)] = TopHat(wave[selected], power[selected]).sigma(
                 radius).tolist()
         coarse = TopHat(wave[::2], power[::2]).sigma(radius)
-        fine = np.asarray(values[str(1e7)])
+        fine = np.asarray(values[str(float(wave[-1]))])
         installed = []
         for m in mass:
             index = np.argmin(np.abs(np.log(data["mass"]/m)))
