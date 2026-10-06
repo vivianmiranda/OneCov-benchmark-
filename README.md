@@ -683,9 +683,10 @@ $`\int b(\nu)f(\nu)\,d\nu=1`$.
 [Tinker et al. (2010), Eq. 7](https://arxiv.org/html/1001.3162)
 
 Evaluating the two codes' fitted functions over an extended peak-height
-range gives:
+range gives the bias integral $`\int b(\nu)f(\nu)\,d\nu`$ below.
+The finite-range divisor is denoted by N; its inverse multiplies the bias.
 
-| Redshift | OneCov raw $`\int bf\,d\nu`$, extended range | OneCov finite-range divisor | Bias multiplier $`1/N`$ | CoCoA $`\int bf\,d\nu`$ |
+| Redshift | OneCov bias integral | OneCov divisor N | Bias multiplier 1/N | CoCoA bias integral |
 | ---: | ---: | ---: | ---: | ---: |
 | 0.1 | 0.993555 | 0.772506 | 1.29449 | 1.000000 |
 | 0.5 | 0.974448 | 0.711928 | 1.40464 | 1.000000 |
@@ -825,7 +826,7 @@ Their correlation matrices have minimum eigenvalues above 0.957.
 | Trispectrum redshift step: 0.5 → 0.25 | 7.08% | 0.645% |
 | Trispectrum redshift step: 0.25 → 0.125 | 3.15% | 0.311% |
 | Mass nodes: 400 → 800 | 0.00130% | 0.000128% |
-| Corner controls: $`10^{-3}`$ → $`10^{-5}`$ | 2.95% | 0.0884% |
+| Corner controls: 10⁻³ → 10⁻⁵ | 2.95% | 0.0884% |
 
 The cNG column divides each entry change by the finer cNG diagonal rms
 product. The total column tests every linear combination of the five
