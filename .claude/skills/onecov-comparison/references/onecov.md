@@ -233,3 +233,31 @@ Next: match the survey-window convention and projected shear response,
 then assess response/mass-grid and radial convergence separately. Native
 matter integrals temporarily extend the lower halo mass to 10^2 Msun/h;
 their true integration range cannot be inferred from the INI's M_min alone.
+
+## Shared SSC projection, 2026-10-05
+
+`compare_ssc.py` runs the unchanged OneCov `covELL_ssc`, then feeds its
+actual shell response, linear long-mode power, lensing window and Simpson
+radial rule to Cocoa's production kernels. `capture_native.py` passively
+reads named locals at function return using Python's profiler. It does
+not replace methods or alter arithmetic. Its instrumented elapsed times
+are diagnostic costs, never an uninstrumented performance comparison.
+
+Six 100x100 shear matrices at ell=30..3000 agree within 6.47e-15 in
+|delta C_ij|/sqrt(C_ii C_jj). All are symmetric and positive definite.
+Radial grids 300,601,1201 were checked; at delta_z=0.05 the 1201->2401
+change is 4.01e-5. At 2401 nodes delta_z=0.05->0.025 changes the matrix
+by 4.27e-4. This does not establish halo/power-grid or Fisher convergence.
+The native input reader can enlarge an underspecified ell grid; always
+archive actual model.ellrange, not merely the requested ell_bins.
+
+OneCov's pixelized cap has monopole area 0.048998% below the nominal
+12300 deg^2 area. The comparison supplies that monopole area to Cocoa's
+raw-mask guard, then explicitly restores OneCov's nominal area squared
+normalization. This adapter is only unit/normalization matching. Replacing
+the mask with Cocoa's analytic cap at the same nominal area and L_max=3070
+changes the shared SSC by at most 0.0395%. No numerical source is edited.
+
+Results: `results/ssc_projection_20261005.json`; plot and reproduction in
+README. The source inputs/results are preserved under work/ssc_projection_*
+and work/ssc_comparison_*. Earlier smoke/failure folders remain preserved.
