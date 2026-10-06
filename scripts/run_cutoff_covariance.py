@@ -27,14 +27,14 @@ from diagnose_mass_cutoff import mass_edges
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--interface", type=Path)
-    parser.add_argument("--log10-min", type=int, choices=(2, 4, 6), default=6)
+    parser.add_argument("--log10-min", type=int, choices=(-3, 2, 4, 6), default=6)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     output = args.output.resolve()
     if output.exists():
         parser.error("choose a new output directory")
-    if args.interface is None and args.log10_min == 2:
-        parser.error("the 1e2 cutoff requires the isolated wider-domain build")
+    if args.interface is None and args.log10_min < 4:
+        parser.error("cutoffs below 1e4 require an isolated wider-domain build")
     selected = None if args.interface is None else args.interface.resolve()
     signal.alarm(900)
 

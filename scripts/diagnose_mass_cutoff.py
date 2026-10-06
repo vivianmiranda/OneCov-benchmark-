@@ -9,6 +9,7 @@ are ingredients at three redshifts, not a full survey covariance.
 import argparse
 import contextlib
 import json
+import math
 import os
 from pathlib import Path
 import signal
@@ -24,6 +25,10 @@ def mass_edges(exponent):
     """Append low-mass panels without moving the original eight panels."""
     original = np.linspace(np.log(1e6), np.log(1e17), 9)
     lower = np.log(10.0)*np.arange(exponent, 6)
+    if len(lower):
+        # Match the scalar C log used by the exact mass-domain guard.
+        # Multiplying a negative exponent by log(10) can round below it.
+        lower[0] = math.log(10.0**exponent)
     return np.concatenate((lower, original))
 
 
@@ -45,21 +50,26 @@ def completion(ci, scale, wave, edges, nquad):
     masses = np.asarray(masses)
     measures = np.asarray(measures)
     missing = []
+    resolved_mass = []
     profiles = []
     minimum = float(np.exp(edges[0]))
     for a in scale:
         contributions = []
+        mass_contributions = []
         for mass, measure in zip(masses, measures):
             peak = 1.686/np.sqrt(ci.sigma2(float(mass), float(a), 1))
             slope = ci.dlognudlogm(float(mass), float(a))
             multiplicity = ci.fnu(float(peak), float(a))
             bias = ci.hb1nu(float(peak), float(a))
             contributions.append(measure*multiplicity*peak*slope*bias)
+            mass_contributions.append(measure*multiplicity*peak*slope)
         missing.append(1.0-sum(contributions))
+        resolved_mass.append(sum(mass_contributions))
         concentration = ci.conc(minimum, float(a))
         profiles.append([ci.u_nfw_c(concentration, float(k), minimum,
                                     float(a)) for k in wave])
-    return np.asarray(missing), np.asarray(profiles)
+    return (np.asarray(missing), np.asarray(profiles),
+            np.asarray(resolved_mass))
 
 
 def run(args):
@@ -84,6 +94,13 @@ def run(args):
         for exponent in (4, 2):
             if 10.0**exponent >= build_record["table_mass_min"]:
                 exponents.append(exponent)
+    if args.exponents is not None:
+        exponents = args.exponents
+        supported_min = 1e4
+        if build_record is not None:
+            supported_min = build_record["table_mass_min"]
+        if 10.0**min(exponents) < supported_min:
+            raise ValueError("mass cutoff is below the selected table domain")
     settings = configuration(gaussian={"nonlimber": False, "ia": "none"},
                              integration_accuracy=2)
     tables = initialize(ci, settings)
@@ -138,7 +155,8 @@ def run(args):
                 if not np.array_equal(moments, repeated[1]):
                     raise ValueError("pair moments are not repeatable")
 
-            missing, profiles = completion(ci, scale, wave, edges, nquad)
+            missing, profiles, resolved_mass = completion(
+                ci, scale, wave, edges, nquad)
             zero, _ = ci.covariance.covariance_halo_moments(
                 a=scale, k=np.zeros((len(scale), 1)), lnm_edges=edges,
                 nquad=nquad, pair_moments=False)
@@ -153,7 +171,7 @@ def run(args):
 
             # The native response helper chooses the same GSL size via
             # integration_accuracy; its derivative step is held fixed.
-            level = {96: 0, 256: 2, 512: 3}[nquad]
+            level = {96: 0, 128: 1, 256: 2, 512: 3}[nquad]
             response = halo_power_response(
                 interface=ci.covariance, a=scale, k=grids, lnm_edges=edges,
                 accuracy_boost=1, mnu=0, integration_accuracy=level)
@@ -166,6 +184,7 @@ def run(args):
             records.append(dict(
                 key=key, mass_min=10.0**exponent, mass_panels=len(edges)-1,
                 nquad=nquad, missing_weight=missing.tolist(),
+                resolved_mass=resolved_mass.tolist(),
                 zero_mode_error=float(np.max(np.abs(zero-1))),
                 first_call_seconds=first_seconds, seconds=timings,
             ))
@@ -173,6 +192,7 @@ def run(args):
                   flush=True)
 
     mass = np.geomspace(10.0**min(exponents), 1e17, 301)
+    mass = np.unique(np.concatenate((mass, 10.0**np.asarray(exponents))))
     saved["mass"] = mass
     saved["sigma"] = np.array([
         [np.sqrt(ci.sigma2(float(m), float(a), 1)) for m in mass]
@@ -180,7 +200,9 @@ def run(args):
     # Archive the same edge continuation for a separate native OneCov
     # filter check of the FFTLog integration boundary. The power model is
     # unchanged; extending an extrapolation does not calibrate that model.
-    tail_wave = np.geomspace(1e-7, 1e7, 14*4096+1)
+    tail_decades = args.tail_log10_max+7
+    tail_wave = np.geomspace(1e-7, 10.0**args.tail_log10_max,
+                            tail_decades*4096+1)
     saved["tail_k"] = tail_wave
     saved["tail_power"] = np.array([
         ci.covariance.covariance_power(
@@ -207,12 +229,15 @@ def main():
     parser.add_argument("--interface", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--boost", type=float, default=4)
-    parser.add_argument("--nodes", type=int, nargs="+", default=[96, 256])
+    parser.add_argument("--nodes", type=int, nargs="+", default=[96, 128, 256])
     parser.add_argument("--repeats", type=int, default=11)
+    parser.add_argument("--exponents", type=int, nargs="+",
+                        choices=(-3, 0, 2, 4, 6))
+    parser.add_argument("--tail-log10-max", type=int, choices=(7, 9), default=7)
     args = parser.parse_args()
     if args.output.exists() or args.boost not in (1, 2, 4, 8):
         parser.error("use a new output directory and boost 1,2,4 or 8")
-    if not set(args.nodes) <= {96, 256, 512} or args.repeats < 2:
+    if not set(args.nodes) <= {96, 128, 256, 512} or args.repeats < 2:
         parser.error("use supported quadratures and at least two repeats")
     signal.alarm(600)
     args.output.mkdir(parents=True)

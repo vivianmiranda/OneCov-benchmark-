@@ -1637,7 +1637,152 @@ Separate full difference plots show the
 [same-cutoff table comparison](results/figures/cutoff_production4_vs_wide4.png)
 and the [10² comparison](results/figures/cutoff_production4_vs_wide2.png).
 
-### Cost and reproduction
+### Extending the diagnostic to 10⁻³ solar masses/h
+
+**The code can integrate this lower range.** With the existing log-log
+power extrapolation, lowering the minimum mass from 10⁴ to 10⁻³ reduces
+the completion weight further. It makes a negligible difference to the
+complete LSST Y1 covariance in this test. Production remains at 10⁴.
+
+The comparison keeps the fitted multiplicity, halo bias, concentration
+and additive I11 prescription unchanged. Seven new one-decade panels
+extend the mass integral downward; all ten retained panels keep their
+original nodes. Both cutoffs use the same expanded sigma table.
+
+| Minimum mass [solar masses/h] | Missing response at z = 0.1 | At z = 0.5 | At z = 1 |
+| ---: | ---: | ---: | ---: |
+| 10⁴ | 18.8546% | 23.1060% | 28.3848% |
+| 10² | 16.6180% | 20.5728% | 25.5131% |
+| 1 | 14.7412% | 18.4360% | 23.0866% |
+| 10⁻³ | 12.3943% | 15.7404% | 20.0074% |
+
+At z = 1, seven additional mass decades reduce the missing response by
+8.38 percentage points, about 29.5% of its previous value. The response
+still converges slowly: the minimum peak height falls from 0.256 to
+0.104, leaving a substantial part of the fitted low-peak-height population
+outside the integral. This behavior is consistent with the slow
+convergence discussed in [Mead et al., Appendix A](https://arxiv.org/html/2005.00009v2#A1).
+
+The ordinary resolved mass fraction at this redshift rises from 60.53%
+to 74.65%. That is a different quantity from the bias-weighted response.
+In the figure, **1 − F** is the deficit relative to unit total mass;
+it is not the integral of the fitted mass function below the cutoff.
+The full extrapolated fit still has mass integral 1.04832 at z = 1.
+Lowering the cutoff does not change that separate normalization choice.
+
+![Completion weights and power extrapolation at sub-solar halo masses](results/figures/microhalo.png)
+
+#### Why the power-integration endpoint must also change
+
+CoCoA already extrapolates linearly in log P versus log k, equivalent to
+continuing the last measured power-law slope. Requesting a smaller halo
+therefore does not require a new power reader. It does require the
+variance integral to cover the smaller halo's characteristic length.
+
+For a mass of 10⁻³ solar masses/h, the smoothing radius is
+1.42 × 10⁻⁵ Mpc/h, so its inverse is about 70,400 h/Mpc. The usual
+10⁵ h/Mpc integration endpoint is too close to that scale. In the
+isolated FFTLog calculation it underestimates sigma by about **5.3%**
+relative to the extended calculation. Raising the endpoint from 10⁷ to
+10⁹ h/Mpc changes sigma by less than **1.91 × 10⁻⁹ fractionally** over
+the sampled mass grid. Both runs use exactly the same continued power.
+
+OneCov's native hmf top-hat filter, supplied with this same continued
+spectrum, agrees with the refined CoCoA sigma values at the four cutoff
+masses within **0.000192%**. This checks two existing integration engines;
+it does not establish the physical accuracy of the extrapolation.
+
+| Halo mass [solar masses/h] | Variance from power above the supplied 143 h/Mpc endpoint |
+| ---: | ---: |
+| 10⁴ | 40.52% |
+| 10² | 65.07% |
+| 1 | 79.13% |
+| 10⁻³ | 90.14% |
+
+Thus there is no computational prohibition on using 10⁻³, but most of
+its variance comes from extrapolated input. The halo fits are also being
+extended far below their calibration range. A physical microhalo model
+would need a specified small-scale dark-matter spectrum, including any
+free-streaming cutoff; see [Schneider, Smith & Reed (2013)](https://arxiv.org/abs/1303.0839).
+
+#### Does the wider mass range require excessive quadrature?
+
+No such requirement appears in this test. The scan includes **96, 128,
+256 and 512 nodes per panel**, corresponding to integration levels 0–3.
+The table shows the largest change across I11, the five halo moments,
+the separate trispectrum terms and the SSC response, relative to 512
+nodes. It covers all four cutoffs, three redshifts and all pairs from
+the 41-point grid between 0.001 and 100 h/Mpc.
+
+| Nodes per panel | Largest ingredient change versus 512 nodes |
+| ---: | ---: |
+| 96 | 0.00383% |
+| 128 | 0.000540% |
+| 256 | 0.0000270% |
+| 512 | Reference |
+
+**The finer settings are checks, not proposed production requirements.**
+The 96-node discrepancy is already small. Raising the separate internal
+table boost from 4 to 8 changes the tested ingredients by at most
+0.000946%. The measured 10⁴-versus-10⁻³ cutoff contrast itself is stable
+within 9.33 × 10⁻¹¹ fractionally under that table refinement.
+
+#### Complete covariance and runtime
+
+The full 1,560 × 1,560 LSST Y1 matrices retain every entry. Their
+Gaussian spectra include the example's non-Limber treatment; SSC and
+cNG retain their existing prescriptions. These runs use the production
+accuracy settings, including **96 mass nodes per panel**.
+
+As in the earlier figures, each difference is divided by the reference
+total covariance's diagonal rms product. Here the reference is the
+10⁴ cutoff on the same expanded tables.
+
+| Component | Largest normalized entry change [%] | Largest change in a total-variance mode [%] |
+| --- | ---: | ---: |
+| Gaussian | Exactly zero | Exactly zero |
+| SSC | 2.21 × 10⁻⁸ | 1.21 × 10⁻⁷ |
+| cNG | 8.21 × 10⁻⁸ | 1.72 × 10⁻⁷ |
+| Total | 8.25 × 10⁻⁸ | 1.87 × 10⁻⁷ |
+
+![Full LSST Y1 covariance: 10⁻³ minus 10⁴ on common expanded tables](results/figures/microhalo_full_cutoff.png)
+
+Both total matrices are positive definite. Their generalized variance
+ratios range from 0.999999998507 to 1.000000001869. The much smaller
+halos mostly replace a completion profile that was already nearly unity
+on the relevant scales. A large decrease in correction weight therefore
+need not produce a large change in the covariance.
+
+A separate control keeps the integration cutoff at 10⁴ while expanding
+the sigma-table mass and wavenumber ranges. Its maximum total-mode change
+is **0.00177%**. That larger, but still small, table effect must not be
+attributed to the newly integrated halos.
+
+![Full LSST Y1 covariance: expanded sigma tables at fixed 10⁴ mass cutoff](results/figures/microhalo_full_domain.png)
+
+| Configuration | Mass nodes | Complete covariance construction [s] |
+| --- | ---: | ---: |
+| Production tables, minimum mass 10⁴ | 960 | 52.13 |
+| Expanded tables, minimum mass 10⁴ | 960 | 51.91 |
+| Same expanded tables, minimum mass 10⁻³ | 1,632 | 52.36 |
+
+These are single sequential runs with eight OpenMP threads on the M2 Pro,
+including first-use tables and all covariance components. CAMB setup and
+file writing are excluded. Background application activity prevents a
+precise slowdown claim from these measurements.
+
+The [ingredient record](results/microhalo_20261006.json),
+[shared-power filter check](results/microhalo_power_20261006.json),
+[full cutoff comparison](results/microhalo_full_cutoff_20261006.json) and
+[fixed-cutoff table control](results/microhalo_full_domain_20261006.json)
+retain the settings, hashes and separate component diagnostics.
+
+**Conclusion:** extending the integral reduces the completion weight,
+but this test supplies no practical covariance-accuracy reason to replace
+the production 10⁴ cutoff with 10⁻³. The numerical tail can be integrated
+accurately; the small-halo modeling assumptions remain a separate issue.
+
+### Cost and reproduction of the 10⁶-to-10² scan
 
 On the Apple M2 Pro with eight OpenMP threads, the following times cover
 one call producing I11 and all five pair moments at all three redshifts.
