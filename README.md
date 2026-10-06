@@ -741,11 +741,15 @@ finds:
 
 | Contribution | Largest fractional discrepancy |
 | --- | ---: |
-| 1h | Exactly equal; the same supplied one-halo term is copied |
-| 2h, diagonal pairs | $`2.3\times10^{-16}`$ |
-| 2h, all pairs | **13.64%** |
-| 3h | $`2.3\times10^{-16}`$ |
-| 4h | $`2.3\times10^{-16}`$ |
+| 1h | 0 |
+| 2h, diagonal pairs | 2.3 × 10⁻¹⁶ |
+| 2h, all pairs | **0.1364** |
+| 3h | 2.3 × 10⁻¹⁶ |
+| 4h | 2.3 × 10⁻¹⁶ |
+
+All entries are fractions; 0.1364 corresponds to **13.64%**. The 1h row
+checks that the same supplied one-halo term is copied, not agreement
+between independently computed halo integrals.
 
 The off-diagonal 2h discrepancy is localized to the 1+3 halo partitions.
 For a covariance configuration $`(K,-K,Q,-Q)`$, their sum is
