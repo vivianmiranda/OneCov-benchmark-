@@ -83,6 +83,58 @@ longer is a planning estimate, not a validated bound from matrix size.
 Native cNG convergence and attribution of the 2% Gaussian difference are
 pending; no Fisher-convergence claim. Do not retune OneCov defaults silently.
 
+## Simultaneous halo mass and bias normalization, 2026-10-06
+
+The later request authorizes sensitivity tests, not adoption of a new
+production normalization. `halo_normalization.py` supplies an explicit
+backend adapter; it does not replace installed functions or change either
+code checkout. `run_normalization_covariance.py` uses the native LSST YAML
+and production backend. Choices: native, mass_only (f/S, b), mass_and_bias
+(f/S, S*b), and ingredients. S is the analytic integral of the actual
+CoCoA Tinker shape and interpolated amplitude over all peak heights.
+
+The two Gamma-function shape integrals agree with numerical integrals of
+the installed fnu to better than 1e-10 over z=.01,.1,.5,1,2,3. Public fnu
+requires a<1; do not test it at a=1. The scalar NFW formula is singular at
+k=0; use the analytic unit limit, as the production covariance does.
+Direct mass-quadrature checks at z=.1,.5,1 and k=0,.01,1,100 h/Mpc verify
+I11 and all five pair roles, including off-diagonals, within 2e-10 relative.
+Mass-only I11 must be u_min+(I11-u_min)/S, not I11/S: recompute completion.
+For paired normalization only I02/I04 change; n*b stays unchanged.
+
+Full 1560x1560 archives, all entries/no cuts:
+work/normalization_native_v2_20261006,
+work/normalization_mass_only_20261006,
+work/normalization_mass_and_bias_20261006.
+Identical power hashes, installed interface, survey grids and settings.
+Comparisons and four-component PNG/PDF panels are in results/normalization*.
+Max entry differences / native total rms, percent (G, SSC, cNG, total):
+mass-only (0,.0361054,.8581820,.8677758);
+paired (0,1.1669957,.5519169,.6245842).
+Generalized total ratios: .97713295394..1.00007166622 and
+.98373668873..1.01607758359, respectively. All totals positive definite;
+Gaussian is bitwise unchanged. Runs took 51.07,50.90,51.04 seconds, each
+sequential with eight OpenMP threads/one BLAS; timings include adapter
+overhead and are not a production speed comparison. No Fisher or improved
+physical accuracy claim follows from these sensitivity tests.
+
+The first native archive and the v2 post-construction check failures were
+preserved. They concern diagnostic endpoint handling, not matrix generation.
+V2 saved the complete matrix and report before the failed zero-profile
+check. The corrected ingredient-only run passed separately, without
+rerunning or replacing that matrix. Both trial logs remain in /tmp.
+
+Physics anchors: Tinker 2010 Eq.7 and text after Eqs.9--12 explicitly
+sets alpha by the biased integral; no missed numerical division is implied.
+HMcode-2020 (2009.01858), Sections3.1/3.2/4.4, adopts mass-normalized ST
+and replaces the standard two-halo profile integral by its unit limit in
+the production matter power. It is not a covariance calibration.
+An unresolved component with mass 1-F and bias (1-B)/(1-F) can satisfy
+both finite-population constraints while preserving resolved fits. This
+interprets the existing completion weight 1-B; it is not an implemented
+new population with all higher moments or a validated low-mass model.
+Do not promote a global bias rescaling solely because both integrals close.
+
 ## Low-mass cutoff study: scope
 
 The requested study reduces the finite-range I11 completion by integrating
