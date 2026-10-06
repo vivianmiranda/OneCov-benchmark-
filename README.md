@@ -1144,8 +1144,10 @@ python scripts/diagnose_bias.py cocoa --nodes 8193 \
 changing the corrected predictions much less.** This study keeps CoCoA's
 multiplicity normalization, fitted bias, concentration and correction
 prescription unchanged. It tests whether more of the halo response can
-be calculated explicitly by lowering the minimum mass. OneCov's native
-predictions and both installed codes are unchanged.
+be calculated explicitly by lowering the minimum mass. The diagnostic
+runs below used an isolated CoCoA build; OneCov's native predictions were
+unchanged. CoCoA now adopts **10⁴ solar masses/h** as its lower limit,
+while retaining the same halo prescriptions.
 
 ### What is being reduced?
 
@@ -1371,8 +1373,59 @@ physical covariance.
 This comparison isolates the cutoff at one cosmology and fixed numerical
 settings. It does not establish convergence of other accuracy controls,
 Fisher forecasts, or other surveys. The common sigma-table domain reaches
-10² in all three diagnostic runs; adopting a different table domain needs
-its own check. The study leaves the production installation unchanged.
+10² in all three diagnostic runs; the production change to a 10⁴ table
+domain is checked separately below.
+
+### Adopting the 10⁴ lower limit
+
+The earlier halo comparison tables retain their original 10⁶ CoCoA
+mass range. The new-default results are recorded separately here.
+
+CoCoA's shared halo mass range now starts at **10⁴ solar masses/h**.
+All seven project covariance examples use this limit. Two new one-decade
+integration panels are added below 10⁶; the original eight panels above
+10⁶ retain their boundaries and quadrature nodes.
+
+- **Changed:** more low-mass halos contribute explicitly, reducing the
+  response assigned to the unresolved population.
+- **Retained:** the fitted halo bias, multiplicity normalization,
+  concentration relation and minimum-mass-profile completion of I11.
+- **OneCov:** its implementation and native model choices are unchanged.
+
+The production sigma table now begins at 10⁴ too, whereas the controlled
+cutoff scan used a common table beginning at 10². Comparing the resulting
+full matrices separately distinguishes this table change from the mass
+integration effect above.
+
+The actual new production run gives the following maximum absolute entry
+changes, normalized by each reference's total-variance product as above.
+Both comparisons retain all **1560 × 1560** entries.
+
+| Component | Versus original production (10⁶) | Versus wide-table control (10⁴) |
+| --- | ---: | ---: |
+| Gaussian | Exactly equal | Exactly equal |
+| SSC | 1.89 × 10⁻⁵% | 8.65 × 10⁻⁶% |
+| Connected non-Gaussian | 1.61 × 10⁻⁴% | 1.79 × 10⁻⁴% |
+| Total | 1.59 × 10⁻⁴% | 1.80 × 10⁻⁴% |
+
+The new total is **positive definite**. Its largest variance-mode change
+is **0.000313%** relative to the original production matrix, and
+**0.000309%** relative to the wide-table control at the same 10⁴ cutoff.
+Comparison with the wide-table 10² result also gives **0.000309%**.
+The remaining difference is dominated by sigma-table regridding, rather
+than the extra low-mass integral.
+
+![New 10⁴ production covariance minus the original 10⁶ production covariance](results/figures/cutoff_production4_vs_native6.png)
+
+The [original-production comparison](results/cutoff_production4_vs_native6_20261006.json),
+[same-cutoff table comparison](results/cutoff_production4_vs_wide4_20261006.json)
+and [10² comparison](results/cutoff_production4_vs_wide2_20261006.json)
+record the separate component and total diagnostics, resolved settings and
+source fingerprints. These checks support adopting the range extension;
+they do not change the physical-calibration limits discussed above.
+Separate full difference plots show the
+[same-cutoff table comparison](results/figures/cutoff_production4_vs_wide4.png)
+and the [10² comparison](results/figures/cutoff_production4_vs_wide2.png).
 
 ### Cost and reproduction
 
@@ -1416,6 +1469,11 @@ All physical outputs repeat bitwise within each configuration. The
 [timing record](results/cutoff_full_timing_20261006.json) preserves every
 stage, individual run and input hash.
 
+With its actual 10⁴ sigma-table domain, the new production run took
+**50.63 seconds** for the same full covariance. This is one run, with the
+same timing boundaries; the repeated timings above isolate the integration
+cutoff while holding the wider table domain fixed.
+
 Reproduction uses an isolated diagnostic build with only the supported
 halo-table lower boundary extended. The installed CoCoA interface and
 its numerical source files are not edited. Activate the two environments
@@ -1441,21 +1499,30 @@ python scripts/diagnose_mass_cutoff.py --interface work/mass_cutoff_build \
   --output work/mass_cutoff_boost8 --boost 8 --nodes 256 512
 ```
 
-**Step :four:**: evaluate the original domain with the installed interface.
+**Step :four:**: prepare the original 10⁶ table domain in a second isolated
+build. This preserves the original control after CoCoA adopts 10⁴.
 
 ```bash
-python scripts/diagnose_mass_cutoff.py --output work/mass_cutoff_native8 \
+python scripts/build_mass_cutoff.py --output work/mass_cutoff_original \
+  --log10-min 6
+```
+
+**Step :five:**: evaluate that original domain.
+
+```bash
+python scripts/diagnose_mass_cutoff.py --interface work/mass_cutoff_original \
+  --output work/mass_cutoff_native8 \
   --boost 8 --nodes 256
 ```
 
-**Step :five:**: in the **OneCov terminal**, check the shared-power tail.
+**Step :six:**: in the **OneCov terminal**, check the shared-power tail.
 
 ```bash
 python scripts/check_cutoff_power.py work/mass_cutoff_boost8 \
   --output work/mass_cutoff_power.json
 ```
 
-**Step :six:**: create a new summary and the scientific figure.
+**Step :seven:**: create a new summary and the scientific figure.
 
 ```bash
 python scripts/report_mass_cutoff.py --fine work/mass_cutoff_boost8 \
@@ -1506,6 +1573,22 @@ bitwise equal within each cutoff:
 ```bash
 python scripts/report_cutoff_covariance.py \
   --output work/full_cutoff_timing.json
+```
+
+**Step :six:**: evaluate the adopted production setting, using the installed
+CoCoA build with its 10⁴ table boundary.
+
+```bash
+python scripts/run_cutoff_covariance.py --log10-min 4 \
+  --output work/cutoff_full_production4
+```
+
+**Step :seven:**: compare it with the wider-table control at the same cutoff.
+
+```bash
+python scripts/compare_full_covariance.py work/cutoff_full_production4 \
+  work/cutoff_full_wide4 --output work/production4_vs_wide4.json \
+  --figure work/production4_vs_wide4.png
 ```
 
 ## Separated halo trispectra <a name="trispectrum-comparison"></a>
