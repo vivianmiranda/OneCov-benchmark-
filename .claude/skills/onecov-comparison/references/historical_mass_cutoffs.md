@@ -1,7 +1,93 @@
+# Historical low-mass cutoff studies
+
+These records describe earlier numerical configurations. Keep them out
+of the comparison README, which reports the current native implementations.
+
+## Reducing CoCoA's low-mass correction <a name="mass-cutoff"></a>
+
+**The experimental 10⁻⁴⁰ + Wynn method recovers the low-mass response
+much more accurately than stopping the raw integral at 10⁶.** The table
+compares the original CoCoA cutoff with the new diagnostic. Production
+currently uses 10⁴; Wynn has not yet replaced its additive completion.
+
+| Quantity | Original 10⁶ cutoff | Experimental 10⁻⁴⁰ + Wynn |
+| --- | ---: | ---: |
+| Directly integrated bias-weighted response, z = 1 | 0.680272 | 0.963215 |
+| Bias-weighted response after completion or acceleration | 1, imposed by completion | 0.999970, estimated by Wynn |
+| Response supplied by the old completion / still missing after Wynn | 31.97% | 0.00301% |
+| Largest finite-k I11 discrepancy from the deep, completed reference | 0.180% | 0.00668% |
+| Full fitted ordinary mass integral, z = 1 | 1.04832 | 1.04832 |
+
+The I11 comparison covers three redshifts, 41 wavenumbers from 0.001 to
+100 h/Mpc, and the same supplied power. The original result includes its
+usual completion. The new result removes that completion before applying
+Wynn to successive partial integrals. The reference is native, completed
+I11 with a much deeper cutoff and finer tables—not an exact independent
+solution. This compares two numerical configurations, including their
+sigma-table domains and weighting; it does not isolate Wynn alone.
+
+### What the new calculation does
+
+- **Above 10⁴ solar masses/h:** retain the normal mass integral.
+- **Below 10⁴:** add four-decade intervals with 32 nodes each, preserving
+  all earlier samples. These 32-node rules are a diagnostic exception;
+  the production quadrature contract is unchanged.
+- **At 10⁻⁴⁰:** apply Wynn's epsilon algorithm to the partial sums to
+  estimate the remaining tail. No multiplicity or physical halo-bias
+  parameters are refitted.
+
+The largest finite-k discrepancy changes from **0.00668% to 0.00665%**
+when refining the lower intervals from 32 to 128 nodes and doubling the
+internal table boost. Thus 10⁻⁴⁰ is the shallowest tested cutoff passing
+an illustrative **0.01% ingredient target** with this extrapolation order.
+This is not yet a full-covariance accuracy certification. Lower-order
+Wynn estimates can become unstable, so refinement matters.
+
+### Why the ordinary mass integral still exceeds one
+
+**The 4.83% excess is a full-fit normalization choice, not missing
+low-mass halos.** At z = 1, let f₀ denote the fitted shape normalized
+so its ordinary mass integral is one. Its full bias integral is 0.953907.
+CoCoA rescales f₀ to enforce the unit bias response:
+
+$$
+f=\frac{f_0}{0.953907},\qquad
+\int bf\,d\nu=1,\qquad
+\int f\,d\nu=1.04832.
+$$
+
+This happens **before** choosing the covariance's mass cutoff. Integrating
+or extrapolating the missing tail therefore approaches one for the
+bias-weighted response and 1.04832 for ordinary mass. Wynn recovers both
+limits; it does not make the two normalization conditions identical.
+
+### FFTLog weighting and cost
+
+The private calculation changes FFTLog's numerical exponent from 1.5 to
+0.5. It divides the variance-per-logarithmic-k input by kᵇ before the FFT
+and restores that power in the analytic integration kernel. This improves
+its finite-grid behavior at tiny radii without changing the physical
+integral. A controlled same-domain test reduces the sigma discrepancy
+from OneCov's same-power filter from **0.116% to 0.000173%** at 10⁻²⁰.
+The wider experiment retains the existing log-log power extrapolation.
+
+The entire batch of accelerator tests takes about **0.44 seconds**,
+excluding input generation. **An end-to-end covariance timing for
+10⁻⁴⁰ + Wynn is still pending**, because the accelerator is currently an
+ingredient diagnostic. Full matrices with the existing completion have
+been checked separately; their timings must not be called Wynn timings.
+
+The [detailed study](#detailed-low-mass-integration-study) retains the intermediate
+cutoff scans, full G/SSC/cNG/total difference plots and reproduction steps.
+The [direct comparison record](../../../../results/deep_series_20261006.json) and
+[controlled FFTLog test](../../../../results/fftlog_bias_20261006.json) contain the
+measured values, refinement checks and provenance.
+
+
 # Detailed low-mass integration study
 
-The concise old-cutoff versus Wynn comparison is in the
-[main README](../README.md#mass-cutoff). Commands run from the repository root.
+The former public summary is preserved above. Commands run from the
+repository root; all numbers below belong to their recorded configurations.
 
 **Extending the mass integral reduces the required correction, while
 changing the corrected predictions much less.** This study keeps CoCoA's
@@ -77,7 +163,7 @@ integral is also discussed in the appendix cited above.
 These percentages are **bias-weighted response deficits**, not ordinary
 mass fractions and not covariance errors.
 
-![Missing halo response and corrected I11 cutoff dependence](../results/figures/mass_cutoff.png)
+![Missing halo response and corrected I11 cutoff dependence](../../../../results/figures/mass_cutoff.png)
 
 ### Do the corrected predictions become more stable?
 
@@ -100,7 +186,7 @@ about 25 times less than the first extension, from 10⁶ to 10⁴. The
 one-halo trispectrum is unchanged to roundoff in this test. Its higher
 powers of halo mass strongly suppress the contribution of tiny halos.
 All five separate trispectrum contributions and halo moments are retained
-in the [result record](../results/mass_cutoff_20261006.json).
+in the [result record](../../../../results/mass_cutoff_20261006.json).
 
 The corrected zero-wavenumber moment equals one to floating-point
 precision at **every** cutoff. Extending the mass range therefore does
@@ -186,9 +272,9 @@ absolute entry difference across each complete matrix, in percent.
 | Connected non-Gaussian | 2.06 × 10⁻⁶% | 7.88 × 10⁻⁸% |
 | Total | 2.07 × 10⁻⁶% | 7.92 × 10⁻⁸% |
 
-![Full covariance changes from a 10⁶ to a 10² lower mass cutoff](../results/figures/cutoff_full_6_vs_2.png)
+![Full covariance changes from a 10⁶ to a 10² lower mass cutoff](../../../../results/figures/cutoff_full_6_vs_2.png)
 
-![Full covariance changes from a 10⁴ to a 10² lower mass cutoff](../results/figures/cutoff_full_4_vs_2.png)
+![Full covariance changes from a 10⁴ to a 10² lower mass cutoff](../../../../results/figures/cutoff_full_4_vs_2.png)
 
 Each panel has its own color scale so the small residual structure is
 visible. The Gaussian covariance is bitwise unchanged: this cutoff enters
@@ -214,14 +300,14 @@ expanded one changes total variance modes by at most **0.000596%**.
 Changing both the domain and integration cutoff from the installed
 configuration to the 10² case gives **0.000596%** as well. This larger,
 still small effect must not be attributed to the lower integration limit.
-The [domain comparison plot](../results/figures/cutoff_full_domain.png) shows
+The [domain comparison plot](../../../../results/figures/cutoff_full_domain.png) shows
 its separate G, SSC, cNG and total matrices.
 
-The full [10⁶-versus-10² record](../results/cutoff_full_6_vs_2_20261006.json),
-[10⁴-versus-10² record](../results/cutoff_full_4_vs_2_20261006.json),
-[first-step record](../results/cutoff_full_6_vs_4_20261006.json),
-[domain control](../results/cutoff_full_domain_20261006.json) and
-[combined-change record](../results/cutoff_full_native_vs_2_20261006.json)
+The full [10⁶-versus-10² record](../../../../results/cutoff_full_6_vs_2_20261006.json),
+[10⁴-versus-10² record](../../../../results/cutoff_full_4_vs_2_20261006.json),
+[first-step record](../../../../results/cutoff_full_6_vs_4_20261006.json),
+[domain control](../../../../results/cutoff_full_domain_20261006.json) and
+[combined-change record](../../../../results/cutoff_full_native_vs_2_20261006.json)
 retain component norms, diagonal changes, generalized modes, settings
 and input fingerprints.
 
@@ -278,17 +364,17 @@ Comparison with the wide-table 10² result also gives **0.000309%**.
 The remaining difference is dominated by sigma-table regridding, rather
 than the extra low-mass integral.
 
-![New 10⁴ production covariance minus the original 10⁶ production covariance](../results/figures/cutoff_production4_vs_native6.png)
+![New 10⁴ production covariance minus the original 10⁶ production covariance](../../../../results/figures/cutoff_production4_vs_native6.png)
 
-The [original-production comparison](../results/cutoff_production4_vs_native6_20261006.json),
-[same-cutoff table comparison](../results/cutoff_production4_vs_wide4_20261006.json)
-and [10² comparison](../results/cutoff_production4_vs_wide2_20261006.json)
+The [original-production comparison](../../../../results/cutoff_production4_vs_native6_20261006.json),
+[same-cutoff table comparison](../../../../results/cutoff_production4_vs_wide4_20261006.json)
+and [10² comparison](../../../../results/cutoff_production4_vs_wide2_20261006.json)
 record the separate component and total diagnostics, resolved settings and
 source fingerprints. These checks support adopting the range extension;
 they do not change the physical-calibration limits discussed above.
 Separate full difference plots show the
-[same-cutoff table comparison](../results/figures/cutoff_production4_vs_wide4.png)
-and the [10² comparison](../results/figures/cutoff_production4_vs_wide2.png).
+[same-cutoff table comparison](../../../../results/figures/cutoff_production4_vs_wide4.png)
+and the [10² comparison](../../../../results/figures/cutoff_production4_vs_wide2.png).
 
 ### Extending the diagnostic to 10⁻³ solar masses/h
 
@@ -323,7 +409,7 @@ it is not the integral of the fitted mass function below the cutoff.
 The full extrapolated fit still has mass integral 1.04832 at z = 1.
 Lowering the cutoff does not change that separate normalization choice.
 
-![Completion weights and power extrapolation at sub-solar halo masses](../results/figures/microhalo.png)
+![Completion weights and power extrapolation at sub-solar halo masses](../../../../results/figures/microhalo.png)
 
 #### Why the power-integration endpoint must also change
 
@@ -398,7 +484,7 @@ total covariance's diagonal rms product. Here the reference is the
 | cNG | 8.21 × 10⁻⁸ | 1.72 × 10⁻⁷ |
 | Total | 8.25 × 10⁻⁸ | 1.87 × 10⁻⁷ |
 
-![Full LSST Y1 covariance: 10⁻³ minus 10⁴ on common expanded tables](../results/figures/microhalo_full_cutoff.png)
+![Full LSST Y1 covariance: 10⁻³ minus 10⁴ on common expanded tables](../../../../results/figures/microhalo_full_cutoff.png)
 
 Both total matrices are positive definite. Their generalized variance
 ratios range from 0.999999998507 to 1.000000001869. The much smaller
@@ -411,7 +497,7 @@ the sigma-table mass and wavenumber ranges. Its maximum total-mode change
 is **0.00177%**. That larger, but still small, table effect must not be
 attributed to the newly integrated halos.
 
-![Full LSST Y1 covariance: expanded sigma tables at fixed 10⁴ mass cutoff](../results/figures/microhalo_full_domain.png)
+![Full LSST Y1 covariance: expanded sigma tables at fixed 10⁴ mass cutoff](../../../../results/figures/microhalo_full_domain.png)
 
 | Configuration | Mass nodes | Complete covariance construction [s] |
 | --- | ---: | ---: |
@@ -424,10 +510,10 @@ including first-use tables and all covariance components. CAMB setup and
 file writing are excluded. Background application activity prevents a
 precise slowdown claim from these measurements.
 
-The [ingredient record](../results/microhalo_20261006.json),
-[shared-power filter check](../results/microhalo_power_20261006.json),
-[full cutoff comparison](../results/microhalo_full_cutoff_20261006.json) and
-[fixed-cutoff table control](../results/microhalo_full_domain_20261006.json)
+The [ingredient record](../../../../results/microhalo_20261006.json),
+[shared-power filter check](../../../../results/microhalo_power_20261006.json),
+[full cutoff comparison](../../../../results/microhalo_full_cutoff_20261006.json) and
+[fixed-cutoff table control](../../../../results/microhalo_full_domain_20261006.json)
 retain the settings, hashes and separate component diagnostics.
 
 **Conclusion:** extending the integral reduces the completion weight,
@@ -495,14 +581,14 @@ below **4 × 10⁻¹³ of the reference total rms product**. Generalized
 total-mode differences are below 7 × 10⁻¹², at the numerical precision
 of this matrix comparison. Both totals are positive definite.
 
-![Full covariance: single 32-node tail minus the subdivided finer tail](../results/figures/split_full_rule.png)
+![Full covariance: single 32-node tail minus the subdivided finer tail](../../../../results/figures/split_full_rule.png)
 
 Extending the cutoff from 10⁴ to 10⁻²⁰ on common tables changes the
 largest total variance mode by only **1.87 × 10⁻⁷%**, essentially the
 same sensitivity already seen when extending to 10⁻³. Further reducing
 the correction weight does not materially change this forecast.
 
-![Full covariance: 10⁻²⁰ cutoff minus 10⁴ on the same tables](../results/figures/split_full_extension.png)
+![Full covariance: 10⁻²⁰ cutoff minus 10⁴ on the same tables](../../../../results/figures/split_full_extension.png)
 
 | Configuration on common extended tables | Total mass nodes | Complete construction [s] |
 | --- | ---: | ---: |
@@ -517,7 +603,7 @@ a speed advantage for one low-mass rule.
 
 The expanded table domain itself changes total modes by **0.00831%** at
 a fixed 10⁴ integration cutoff. The separate
-[full domain-control figure](../results/figures/split_full_domain.png)
+[full domain-control figure](../../../../results/figures/split_full_domain.png)
 keeps that numerical table effect distinct from the added halo integral.
 
 At 10⁻²⁰, **99.84% of sigma squared comes from extrapolated power**.
@@ -560,7 +646,7 @@ sums through 10⁻¹² predicts the held-out 10⁻¹⁶ and 10⁻²⁰ integrals
 with finer low-mass quadrature and denser internal tables retains the
 same broad behavior.
 
-![Low-mass partial sums and Aitken extrapolation](../results/figures/split_tail.png)
+![Low-mass partial sums and Aitken extrapolation](../../../../results/figures/split_tail.png)
 
 The finite-wavenumber test is more relevant to covariance. We remove the
 native completion from the saved I11 moments, extrapolate these resolved
@@ -579,11 +665,11 @@ more partial sums produce a useful stopping point. The full-matrix
 figures above validate the cheap split quadrature, not an extrapolated
 covariance model.
 
-The [split-tail and series record](../results/split_tail_20261006.json),
-[shared-power check](../results/split_tail_power_20261006.json),
-[full quadrature comparison](../results/split_full_rule_20261006.json),
-[full cutoff comparison](../results/split_full_extension_20261006.json) and
-[table-domain control](../results/split_full_domain_20261006.json)
+The [split-tail and series record](../../../../results/split_tail_20261006.json),
+[shared-power check](../../../../results/split_tail_power_20261006.json),
+[full quadrature comparison](../../../../results/split_full_rule_20261006.json),
+[full cutoff comparison](../../../../results/split_full_extension_20261006.json) and
+[table-domain control](../../../../results/split_full_domain_20261006.json)
 preserve the settings and separate component diagnostics.
 
 ### Finding a reliable cutoff for the accelerated sum
@@ -695,7 +781,7 @@ across the three redshifts. All the bias, mass and finite-k extrapolation
 calculations in this report take about **0.44 seconds**; this excludes
 generating their input integrals.
 
-![Accuracy of the deeper partial sums and accelerated limits](../results/figures/deep_series.png)
+![Accuracy of the deeper partial sums and accelerated limits](../../../../results/figures/deep_series.png)
 
 #### Does this repair the ordinary mass normalization?
 
@@ -735,7 +821,7 @@ differ from one by at most 2.61 × 10⁻¹², near the precision of this
 comparison. This confirms the cutoff's negligible effect on the already
 completed forecast; it does not validate an accelerated replacement.
 
-![Complete covariance: deeper cutoff on common tables, with native completion](../results/figures/deep_full_extension.png)
+![Complete covariance: deeper cutoff on common tables, with native completion](../../../../results/figures/deep_full_extension.png)
 
 | Minimum mass [solar masses/h] | Complete covariance construction [s] |
 | ---: | ---: |
@@ -747,10 +833,10 @@ The scope includes first-use tables and G, SSC and cNG assembly, excluding
 CAMB setup and file writing. The observed extra second is about 2%; these
 single runs do not establish a precise performance ratio.
 
-The [series and mass-integral record](../results/deep_series_20261006.json),
-[controlled FFTLog comparison](../results/fftlog_bias_20261006.json),
-[deep shared-power check](../results/deep_series_power_20261006.json) and
-[full component comparison](../results/deep_full_extension_20261006.json)
+The [series and mass-integral record](../../../../results/deep_series_20261006.json),
+[controlled FFTLog comparison](../../../../results/fftlog_bias_20261006.json),
+[deep shared-power check](../../../../results/deep_series_power_20261006.json) and
+[full component comparison](../../../../results/deep_full_extension_20261006.json)
 contain the measured values and input provenance. No production code,
 normalization prescription or covariance completion has been changed.
 
@@ -882,7 +968,7 @@ scatter, and the 10² mean happens to fall below the 10⁴ mean. This does
 not show that integrating more mass panels is faster. In particular,
 the **64% ingredient slowdown is not a 64% full-covariance slowdown**.
 All physical outputs repeat bitwise within each configuration. The
-[timing record](../results/cutoff_full_timing_20261006.json) preserves every
+[timing record](../../../../results/cutoff_full_timing_20261006.json) preserves every
 stage, individual run and input hash.
 
 With its actual 10⁴ sigma-table domain, the new production run took
