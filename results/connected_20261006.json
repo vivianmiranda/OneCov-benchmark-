@@ -1,0 +1,591 @@
+{
+  "scope": "shared-input 8x8 shear cNG; native OneCov 5-band refinements",
+  "comparisons": {
+    "k9": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "ec685a00908f5f3b2bf89d2211be4293135337595ccbd878f31079287b65e1a0",
+        "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+        "config_sha256": "fff87e498719aa375cda1aaf1ae271d4acfa27ea459137928c61c06a828f787d",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 9,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9670111778460289,
+          0.9801208470937098,
+          0.9879663040268718,
+          0.9971538928151603,
+          1.0677477782182292
+        ],
+        "instrumented_seconds": 19.083811415999662,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.2273650631717805e-15,
+      "max_fractional_residual": 1.5543122344752192e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231"
+    },
+    "k17": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "211ef36119f01fa44de3e3c79637bb9b58002bc4c05a684de5d14fc483047489",
+        "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+        "config_sha256": "810eb3112cfff888b8a9303d217a3a6fb7969aaf7b1f30f647c8d0ba91f70a35",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 17,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9620628629097616,
+          0.9755623362079141,
+          0.98533323020411,
+          0.9968323919197728,
+          1.0802091787584398
+        ],
+        "instrumented_seconds": 20.265329083020333,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.0818230704933283e-15,
+      "max_fractional_residual": 1.1102230246251565e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231"
+    },
+    "k33": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "88782158203eeccc5b24b683dcb25da940288cadbea0b1182b7d42dc39512d96",
+        "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+        "config_sha256": "8c427d5a465bba74268827cf522e11d977fa04cc3d837b8e7f4bf7fcbd37dddc",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 33,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9611499571341943,
+          0.9744282981250703,
+          0.984224953242111,
+          0.9966817407726384,
+          1.0835150507259852
+        ],
+        "instrumented_seconds": 25.32981575001031,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.295335008795991e-15,
+      "max_fractional_residual": 1.7763568394002505e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231"
+    },
+    "k65": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "ddaefa5070b8034de33ed954f0a5670223164d5bafffda95fc4e97d6bc7e4d46",
+        "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+        "config_sha256": "a01aea97e60f07e01a7c8e27b544c0b99ff0b8c675521f94304ccaaa38b76b96",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.960712763365179,
+          0.9739586001058439,
+          0.9838308383714895,
+          0.9966126330445917,
+          1.0848851651128963
+        ],
+        "instrumented_seconds": 37.62104120798176,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.2694597021773645e-15,
+      "max_fractional_residual": 1.3322676295501878e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231"
+    },
+    "k129": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "fd3875f8ab26ce33dcdf4d1876e750216cbeb206bbb908fe877b967e645b7669",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "37f2df7cc4b390b9308a41720a3cc0edfd302c4f95983db91accc82656b7bdea",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 129,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9606476259816668,
+          0.9738975665790507,
+          0.9838443271658195,
+          0.9966073076855038,
+          1.0850031725879585
+        ],
+        "instrumented_seconds": 80.21863687498262,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 2.2037782188603776e-15,
+      "max_fractional_residual": 2.220446049250313e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "radial": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "b0cd3775ed041a19b31c8709ca106ac7bb824edcd9307a8948e9bdf8cdde7d14",
+        "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+        "config_sha256": "fda74633b1fe14b5f72b167340d2f9d50e97321ec04cc48c33aab21c54b56d37",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9607211788334689,
+          0.9739634083827885,
+          0.9838336459405638,
+          0.9966136465162508,
+          1.0848681203269277
+        ],
+        "instrumented_seconds": 40.115405832999386,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 2.295895338845228e-15,
+      "max_fractional_residual": 2.220446049250313e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231"
+    },
+    "redshift": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "74e230db25ab4245c51d1ed1139a306c20cb1d2a4041d3aa6b2a67a008f5a2ba",
+        "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+        "config_sha256": "6b299403b1e124cd7adf1381b10e65a764463b1a6b18235624a66f03f40f2022",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.25,
+        "redshifts": [
+          0.017500995,
+          0.267500995,
+          0.517500995,
+          0.767500995,
+          1.017500995,
+          1.267500995,
+          1.517500995,
+          1.767500995,
+          2.017500995,
+          2.267500995,
+          2.517500995,
+          2.767500995,
+          3.017500995,
+          3.267500995,
+          3.4941666683333334,
+          3.7441666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9584944851389169,
+          0.9725774204263884,
+          0.9830652034477891,
+          0.9964262214717443,
+          1.0894366695151632
+        ],
+        "instrumented_seconds": 43.51344833400799,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.9636744500274202e-15,
+      "max_fractional_residual": 1.7763568394002505e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231"
+    },
+    "redshift_fine": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "391022a2d73b67dff0bf2b2d11b0789b90d11f9f6b0d70b089a7a5e9ccf7da67",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "a153f90be96629c817675cd0dc3c3d7b86cb964d58c6bf357b5f4ed45a6c6b19",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.125,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.142500995,
+          0.267500995,
+          0.392500995,
+          0.517500995,
+          0.642500995,
+          0.767500995,
+          0.892500995,
+          1.017500995,
+          1.142500995,
+          1.267500995,
+          1.392500995,
+          1.517500995,
+          1.642500995,
+          1.767500995,
+          1.892500995,
+          2.017500995,
+          2.142500995,
+          2.267500995,
+          2.392500995,
+          2.517500995,
+          2.642500995,
+          2.767500995,
+          2.892500995,
+          3.017500995,
+          3.142500995,
+          3.267500995,
+          3.392500995,
+          3.4941666683333334,
+          3.6191666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9573387147532134,
+          0.971973221049089,
+          0.9827362395395622,
+          0.996366829213342,
+          1.0915849954447943
+        ],
+        "instrumented_seconds": 49.907917083008215,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.2334989232881e-15,
+      "max_fractional_residual": 1.3322676295501878e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "mass": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "3cb23e4d4be4c5506ff91181093b172c4faadc374ad5158833e5f840725914c7",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "01632941f9d41cf6e1970ec3d2a4828155c1b0c276879300091816cf403906d9",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 800,
+        "delta_z": 0.25,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.267500995,
+          0.517500995,
+          0.767500995,
+          1.017500995,
+          1.267500995,
+          1.517500995,
+          1.767500995,
+          2.017500995,
+          2.267500995,
+          2.517500995,
+          2.767500995,
+          3.017500995,
+          3.267500995,
+          3.4941666683333334,
+          3.7441666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9584940343841205,
+          0.9725771627443158,
+          0.9830650610626817,
+          0.9964261728993052,
+          1.0894375689095785
+        ],
+        "instrumented_seconds": 49.704177875013556,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.4156258785647015e-15,
+      "max_fractional_residual": 1.9984014443252818e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "corner": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "c29cffd1a5c5cd2fbf0660debcff6c61e3abba1e447da7590bff310915461414",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "6b0b67c8e6bc7a8a4e792de695bd250dbfad10308400229810d4d09f90b9fecf",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.25,
+        "corner_guard": 1e-05,
+        "redshifts": [
+          0.017500995,
+          0.267500995,
+          0.517500995,
+          0.767500995,
+          1.017500995,
+          1.267500995,
+          1.517500995,
+          1.767500995,
+          2.017500995,
+          2.267500995,
+          2.517500995,
+          2.767500995,
+          3.017500995,
+          3.267500995,
+          3.4941666683333334,
+          3.7441666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9584685342183233,
+          0.9725804322889262,
+          0.9830731434393754,
+          0.9964318996125474,
+          1.0894459904408282
+        ],
+        "instrumented_seconds": 41.7667623750167,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.9418120253747645e-15,
+      "max_fractional_residual": 1.7763568394002505e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    }
+  },
+  "refinements": [
+    {
+      "coarse": "k9",
+      "fine": "k17",
+      "max_cng_variance_scaled_change": 0.38291430975328544,
+      "total_variance_ratios": [
+        0.9799219764666022,
+        0.9972657923638548,
+        0.9986844242175453,
+        0.9998555317536572,
+        1.0018540325756147
+      ],
+      "max_total_variance_mode_change": 0.020078023533397826
+    },
+    {
+      "coarse": "k17",
+      "fine": "k33",
+      "max_cng_variance_scaled_change": 0.13114106149492152,
+      "total_variance_ratios": [
+        0.9949363168880242,
+        0.9982667182038804,
+        0.998999688610707,
+        0.9998333615189229,
+        1.0002215940458918
+      ],
+      "max_total_variance_mode_change": 0.005063683111975803
+    },
+    {
+      "coarse": "k33",
+      "fine": "k65",
+      "max_cng_variance_scaled_change": 0.09588968164484567,
+      "total_variance_ratios": [
+        0.9972404633634308,
+        0.9989026710073641,
+        0.9991621479331846,
+        0.9996123238390175,
+        0.9999691993727688
+      ],
+      "max_total_variance_mode_change": 0.0027595366365692486
+    },
+    {
+      "coarse": "k65",
+      "fine": "k129",
+      "max_cng_variance_scaled_change": 0.02968444687809944,
+      "total_variance_ratios": [
+        0.9990966818994812,
+        0.9992147923382625,
+        0.9995725930797394,
+        0.9997386320742894,
+        0.9999725092206492
+      ],
+      "max_total_variance_mode_change": 0.0009033181005188018
+    },
+    {
+      "coarse": "k65",
+      "fine": "radial",
+      "max_cng_variance_scaled_change": 0.00037486761942088684,
+      "total_variance_ratios": [
+        1.0000152315225395,
+        1.0000491996955727,
+        1.0001137648803555,
+        1.0002116849231744,
+        1.000286165029819
+      ],
+      "max_total_variance_mode_change": 0.00028616502981893
+    },
+    {
+      "coarse": "radial",
+      "fine": "redshift",
+      "max_cng_variance_scaled_change": 0.0708125524844281,
+      "total_variance_ratios": [
+        0.9935541024784365,
+        0.9994670184468426,
+        0.9997189447448382,
+        0.999966460781209,
+        1.0000373567732317
+      ],
+      "max_total_variance_mode_change": 0.006445897521563548
+    },
+    {
+      "coarse": "redshift",
+      "fine": "redshift_fine",
+      "max_cng_variance_scaled_change": 0.03153537989975489,
+      "total_variance_ratios": [
+        0.996892911136262,
+        0.9997636469846956,
+        0.9998825112466392,
+        0.9999818618908815,
+        0.9999912339444134
+      ],
+      "max_total_variance_mode_change": 0.0031070888637380056
+    },
+    {
+      "coarse": "redshift",
+      "fine": "mass",
+      "max_cng_variance_scaled_change": 1.3042991921799923e-05,
+      "total_variance_ratios": [
+        0.9999987172573789,
+        0.9999999066915813,
+        0.9999999486041196,
+        0.999999987260516,
+        0.999999992085344
+      ],
+      "max_total_variance_mode_change": 1.2827426211226012e-06
+    },
+    {
+      "coarse": "redshift",
+      "fine": "corner",
+      "max_cng_variance_scaled_change": 0.02948498449531909,
+      "total_variance_ratios": [
+        0.9991156428772682,
+        0.9992717071126797,
+        0.9996654081256373,
+        0.999814726469035,
+        0.99994330106726
+      ],
+      "max_total_variance_mode_change": 0.000884357122731827
+    }
+  ],
+  "collector_sha256": "6aef60193d9dd2209caa16474e385d193a104d31bc8594246707d1bbac1f7fb3"
+}
