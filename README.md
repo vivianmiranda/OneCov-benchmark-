@@ -146,10 +146,6 @@ generation, initialization and file writing. OneCov's final rearrangement
 of its blocks into one matrix is also outside the timer. These are
 **small Gaussian component timings, not full-survey covariance runtimes**.
 
-![Gaussian component timings](results/figures/gaussian_timing.png)
-
-[Vector timing figure](results/figures/gaussian_timing.pdf).
-
 ## Installation and compilation <a name="installation"></a>
 
 We use Cocoa's Python 3.11 Conda base and a private `.local` environment
@@ -525,15 +521,15 @@ contain 10. Both recompute outputs on every call. Repeats require a new
 output directory, preserving earlier measurements.
 
 **Step :three:**: in either terminal, regenerate the figures from the
-validated matrices and the saved timing record.
+validated matrices.
 
 ```bash
 python scripts/plot_gaussian.py --comparisons work/reviewed_gaussian \
-  --timings results/gaussian_timing_20261005.json --output results/figures
+  --output results/figures
 ```
 
-This writes PNG and PDF versions. Omitting `--timings` regenerates only
-the matrix and component figures.
+This writes PNG and PDF versions of the matrix and component figures.
+Execution times are reported in the table above.
 
 ### Adding SSC and connected non-Gaussian contributions
 
