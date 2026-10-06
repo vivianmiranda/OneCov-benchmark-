@@ -282,7 +282,7 @@ def cocoa(args, manifest):
         "construction_seconds": result["stages_s"]["total"],
         "stages_seconds": result["stages_s"],
         "settings": json.loads(json.dumps(settings, default=_json_array)),
-        "mass_min": 1.e4,
+        "mass_min": float(np.exp(settings["lnm_edges"][0])),
     }
     return matrices, record
 
@@ -306,6 +306,8 @@ def main():
     parser.add_argument("--accuracy-boost", type=int, default=1)
     parser.add_argument("--integration-accuracy", type=int, default=0)
     parser.add_argument("--timeout", type=int, default=900)
+    parser.add_argument("--accuracy-only", action="store_true",
+                        help="omit timings when other numerical jobs are running")
     args = parser.parse_args()
     if args.space == "fourier":
         defaults = dict(k_nodes=129, mass_nodes=400, radial_nodes=601,
@@ -330,6 +332,14 @@ def main():
         matrices, record = onecov(args=args, manifest=manifest)
     else:
         matrices, record = cocoa(args=args, manifest=manifest)
+
+    # Concurrent jobs are suitable for numerical comparisons, but their
+    # elapsed times cannot establish either code's performance. Keep those
+    # times out of the result consumed by the cross-code report and plots.
+    if args.accuracy_only:
+        for key in ("setup_seconds", "construction_seconds", "stages_seconds"):
+            record.pop(key, None)
+        record["timing_note"] = "Accuracy-only run; concurrent validation job."
 
     matrices["total"] = matrices["gaussian"]+matrices["ssc"]+matrices["cng"]
     # Preserve the native output even if a subsequent diagnostic fails.

@@ -75,7 +75,11 @@ or substitute online descriptions for the code actually being tested.
   environments in separate terminals. Do not invent a different setup
   scheme for each comparison repository.
 - Use Python runners for numerical comparisons. Run one numerical job
-  at a time. Take timings on a quiet machine, with BLAS fixed to one and
+  at a time unless concurrent correctness checks are explicitly requested.
+  The authorized Wynn refresh may use two OpenMP threads alongside the
+  project regression runner. Mark these results provisional until that
+  validation passes; exclude their elapsed times from performance reports.
+  Take timings on a quiet machine, with BLAS fixed to one and
   at most eight CPU workers here. Derive worker count from
   `OMP_NUM_THREADS`; do not put an independent thread count in survey YAML.
 - Start with a wall-time limit. A small output matrix may still initialize
@@ -118,3 +122,7 @@ lines; do not combine independent commands or semicolon chains in a box.
 Commit coherent progress locally. Never push.
 Installing missing packages requires explicit authorization; use an
 isolated environment and do not upgrade the Cocoa environment.
+
+The current guarded-Wynn comparison refresh and its evidence are recorded
+in [the refresh checkpoint](references/wynn_refresh.md). Its concurrent
+correctness runs must not be used as updated performance measurements.

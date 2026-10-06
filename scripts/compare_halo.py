@@ -161,7 +161,9 @@ def compare(args):
                   script_sha256=sha256(__file__),
                   statistic_mass_range=[1.e10, 1.e15], statistic_k_range=[0.001, 10],
                   cocoa_density=rho, onecov_density=data["rho"].tolist(),
-                  native_choices="Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m, matter moment lower mass 1e6; fractional response transferred to nonlinear P")
+                  mass_min=float(np.exp(settings["lnm_edges"][0])),
+                  mass_max=float(np.exp(settings["lnm_edges"][-1])),
+                  native_choices="Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m; production mass panels and I11 completion; fractional response transferred to nonlinear P")
     (args.output/"comparison.json").write_text(json.dumps(record, indent=2)+"\n")
     print(json.dumps(rows, indent=2))
 
