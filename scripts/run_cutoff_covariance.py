@@ -33,10 +33,9 @@ def main():
     output = args.output.resolve()
     if output.exists():
         parser.error("choose a new output directory")
-    if args.interface is None and args.log10_min != 6:
-        parser.error("lower cutoffs require the isolated wider-domain build")
+    if args.interface is None and args.log10_min == 2:
+        parser.error("the 1e2 cutoff requires the isolated wider-domain build")
     selected = None if args.interface is None else args.interface.resolve()
-    output.mkdir(parents=True)
     signal.alarm(900)
 
     root = Path(os.environ["ROOTDIR"])
@@ -56,6 +55,9 @@ def main():
         build = json.loads((selected/"build.json").read_text())
         if sha256(ci.__file__) != build["interface_sha256"]:
             raise ValueError("imported interface differs from diagnostic build")
+        if 10.0**args.log10_min < build["table_mass_min"]:
+            raise ValueError("mass cutoff is below the isolated table domain")
+    output.mkdir(parents=True)
 
     # The example's relative theory paths follow the ordinary CLI contract.
     # Preserve its Gaussian non-Limber choice and every accuracy setting.
@@ -66,7 +68,8 @@ def main():
     settings["execution"] = dict(
         backend="production", threads=run["threads"],
         diagnostic="mass cutoff with unchanged halo prescriptions",
-        table_domain="native" if build is None else "extended to 1e2",
+        table_domain=("native" if build is None else
+                      f"isolated, minimum {build['table_mass_min']:g} Msun/h"),
     )
     if run["camb_path"] is not None:
         sys.path.insert(0, str(Path(run["camb_path"]).resolve()))
@@ -93,6 +96,13 @@ def main():
         covariance_sha256=sha256(output/"covariance.npz"),
         power_table_sha256=sha256(output/"power_tables.npz"),
         script_sha256=sha256(__file__),
+        source_sha256={
+            "structs.c": sha256(core/"cosmolike/structs.c"),
+            "covariance/halo.py": sha256(
+                core/"cosmolike_notebook_utils/covariance/halo.py"),
+            "project_adapter": sha256(
+                project/"covariance/lsst_y1_covariance.py"),
+        },
     )
     (output/"report.json").write_text(json.dumps(record, indent=2)+"\n")
     print(f"Saved complete covariance: {output}", flush=True)

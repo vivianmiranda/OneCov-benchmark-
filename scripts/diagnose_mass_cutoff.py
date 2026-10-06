@@ -77,7 +77,13 @@ def run(args):
 
     if args.interface and sha256(ci.__file__) != build_record["interface_sha256"]:
         raise ValueError("imported interface differs from the selected build")
-    exponents = [6] if args.interface is None else [6, 4, 2]
+    # A private build can reproduce the old 1e6 table or extend it.
+    # Do not request a mass integral below that build's supported domain.
+    exponents = [6]
+    if build_record is not None:
+        for exponent in (4, 2):
+            if 10.0**exponent >= build_record["table_mass_min"]:
+                exponents.append(exponent)
     settings = configuration(gaussian={"nonlimber": False, "ia": "none"},
                              integration_accuracy=2)
     tables = initialize(ci, settings)

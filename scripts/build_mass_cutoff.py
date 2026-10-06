@@ -1,4 +1,4 @@
-"""Build an isolated LSST interface with a wider halo-table mass domain.
+"""Build an isolated LSST interface with a selected halo-table mass domain.
 
 Only the lower limit in a private copy of structs.c changes. The production
 sources, installed interface, fitted functions and correction stay untouched.
@@ -31,7 +31,7 @@ def main():
     # Retain every production algorithm. This initializer controls the
     # supported sigma-table domain, not the chosen mass-integration edges.
     source = core/"cosmolike/structs.c"
-    before = ".halo_m = {1.0e+6, 1.0e+17}"
+    before = ".halo_m = {1.0e+4, 1.0e+17}"
     after = f".halo_m = {{1.0e+{args.log10_min}, 1.0e+17}}"
     content = source.read_text()
     if content.count(before) != 1:

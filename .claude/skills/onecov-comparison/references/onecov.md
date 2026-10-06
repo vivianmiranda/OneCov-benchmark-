@@ -8,9 +8,9 @@ fitted bias, concentration and additive minimum-mass-profile prescription
 unchanged. This is not a request to reconcile the two codes by changing
 either halo model or to adopt a different normalization convention.
 
-Use an isolated LSST build with only its halo-table lower mass boundary
-extended from 1e6 to 1e2 Msun/h. Keep the installed interface and repository
-C/C++ sources unchanged. Compare integration cutoffs 1e6, 1e4 and 1e2
+The initial study used an isolated LSST build with only its halo-table
+lower mass boundary extended from 1e6 to 1e2 Msun/h, leaving the installed
+interface and repository C/C++ sources unchanged. Compare 1e6, 1e4 and 1e2
 using the same wide sigma table, preserving every original mass panel.
 Refine GSL mass quadrature and internal tables separately. Record missing
 bias-weighted response, corrected moments, SSC response, separate 1h--4h
@@ -47,7 +47,8 @@ the same continued power confirms the 1e5->1e7 integration-tail change
 in sigma is <=3.48e-8 fractionally; it agrees with core sigma within
 1.93e-6. This validates numerical coverage of the chosen continuation,
 not its physical accuracy. Do not describe the lower-cutoff run as a
-calibrated improvement to small-halo physics or as a new production default.
+calibrated improvement to small-halo physics. The subsequent production
+adoption is a separate validation, described below.
 
 Halo moments only, 3 redshifts x 41 k x 861 unordered pairs, GL512:
 11-repeat mean/stddev at 8 threads are 5.58+/-0.55,7.14+/-0.82,
@@ -91,6 +92,31 @@ table domain, preserve the original mass-panel nodes, and retain the
 additive I11 prescription and multiplicity/bias conventions. The cited
 Mead Appendix A prescription is Eq52 specialized to matter, not the
 constant additive Eq50; no analogous I12/I13 completion is implemented.
+
+Production adoption check: work/cutoff_full_production4 uses the actual
+1e4 table domain and all seven projects' new common mass-panel helper.
+The full LSST covariance takes 50.628 s in this single eight-thread run.
+It is positive definite, with G bitwise equal to all archived controls.
+Maximum total variance-mode changes are 3.13474e-6 against native6,
+3.08926e-6 against wide4 and 3.08907e-6 against wide2, fractionally.
+All component matrices were compared separately, with no cuts or repairs.
+Results and complete difference plots: cutoff_production4_vs_*_20261006.json
+and figures/cutoff_production4_vs_*.png. Their source hashes pin the
+uncommitted production state as well as the compiled-interface fingerprint.
+Repository regression validation is recorded in the core skill's
+covariance_mass_cutoff.md. The three-repeat wide-table timing remains the
+controlled cutoff-cost comparison; do not turn the single adoption run
+into a repeated timing claim.
+
+The diagnostic builder now expects the production 1e4 initializer.
+Use --log10-min 6 for an isolated original-domain control. The ingredient
+runner restricts its requested mass cutoffs to that build's supported
+range, so reproducing the old control no longer relies on an old installed
+production library. OneCov itself remains unchanged.
+The rebuilt 1e6 control was checked after adoption: its ingredient run
+completes, and all four full covariance components reproduce the original
+archive bitwise. Local outputs are mass_cutoff_original_reproduced_check
+and cutoff_full_native6_reproduced under work/.
 
 Studied 2026-10-05 at OneCovariance commit `311c2cf`. Paths below are
 relative to that checkout. These are implementation findings, not measured
