@@ -38,6 +38,7 @@ def main():
     parser.add_argument("reference", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--figure", type=Path, required=True)
+    parser.add_argument("--label", help="describe a recorded model diagnostic")
     args = parser.parse_args()
     if args.output.exists() or args.figure.exists():
         parser.error("choose new output and figure paths")
@@ -50,7 +51,7 @@ def main():
         np.testing.assert_array_equal(candidate[name], reference[name])
     first_settings = json.loads(str(candidate["settings_json"]))
     second_settings = json.loads(str(reference["settings_json"]))
-    # Only the mass panels and the recorded table-domain description may
+    # Only the mass panels and the recorded execution diagnostic may
     # change. In particular, angular/radial sampling and cosmology must not.
     controls = []
     for settings in (first_settings, second_settings):
@@ -154,6 +155,8 @@ def main():
             comparison = "Original versus expanded sigma-table domain"
         cutoffs = (f"{minimum:g} minus {reference_minimum:g} solar masses/h "
                    "integration cutoff")
+    if args.label is not None:
+        comparison = args.label
     figure.suptitle(
         f"Complete LSST Y1 covariance · {comparison}\n{cutoffs}\n"
         "Every matrix entry retained; each panel has its own color scale",

@@ -1,5 +1,140 @@
 # Local OneCovariance source study
 
+## Complete shear cross-code figure
+
+`complete_shear.py` computes a coherent 100x100 G/SSC/cNG/total pilot for
+LSST Y1 source bin 3. `plot_complete_shear.py` plots CoCoA minus OneCov;
+all panels use the OneCov total diagonal rms product, with percent units.
+The README embeds results/figures/complete_shear_difference.png near its
+top. This is not the complete 1560-entry real-space survey calculation.
+
+Use ell=30,60,...,3000 and the band-centre approximation with delta_ell=30.
+Removing OneCov's output-band controls makes its public calc_covELL use
+the linear-grid Gaussian mode width of 30. CoCoA's production forecast
+uses single-integer-multipole operators, then G alone is divided by 30.
+SSC/cNG are centre samples and receive no width factor. Neither code's
+numerical source or callable is modified. Do not describe this estimator
+as an integrated broad-band covariance. It avoids the different native
+Gaussian broad-band weights rather than silently comparing them.
+
+Fresh inputs work/lsst_y1_complete_20261006 supply the same CAMB nonlinear
+power for Gaussian projections, with each code retaining its native halo
+and SSC prescriptions, internal linear-power preparation and footprint.
+The known amplitude/radiation, halo and 2h/corner differences below remain.
+CoCoA keeps its adopted 1e4 mass minimum; OneCov keeps 1e6. This comparison
+is not another shared-response or shared-trispectrum assembly test.
+
+Results: work/complete_shear_{onecov_v2,cocoa}_20261006, summarized in
+results/complete_shear_20261006.json. OneCov uses 601 radial samples, 129 k
+samples, 400 mass samples, delta_z=.05 and tri_delta_z=.125. CoCoA uses
+the LSST default AB1/integration0. All entries are retained, totals are
+positive definite. Maximum absolute differences in percent of the total
+rms product: G .688563, SSC .241387, cNG .226250, total .328315. Total
+variance ratios span .9540080430..1.0069607884. Native numerical/Fisher
+convergence is not established by this pilot. Do not conflate these
+cross-code differences with error estimates for either implementation.
+
+Single sequential construction timings: OneCov 70.171 s, CoCoA 20.704 s;
+setup is separate at 11.673 s and 0.419 s, respectively.
+These centre-sample timings cannot predict the full real-space transforms.
+The first attempted export used the older lsst_y1_small power table, which
+stopped at z=3 and correctly failed OneCov's z-support guard. Its output
+folder/log was preserved; fresh prepare_lsst_y1.py output includes the
+bracketing CAMB node beyond the source support and resolves that input error.
+
+## Real-space cross-code figure, 2026-10-06
+
+User explicitly requires OneCov's own real-space numerical settings, not
+controls chosen to mimic CoCoA's full-sky cutoff. Use the shipped
+config_files/config_3x2pt_rcf.ini with only physical survey/IA/calibration,
+selected observables, requested components and output locations adapted.
+The saved INI and template fingerprint record exactly what was used.
+Its native ell=2..1e5 (500 log samples), 500 radial nodes, 900 mass nodes,
+100 trispectrum k samples, dz=.08, tri_dz=.5, theta_accuracy=.01 and
+integration_intervals=400 were unchanged. The Bessel weight support is
+hardcoded 1..1e5 in this revision; distinguish that from spectrum samples.
+CCL-benchmark's original 0044cc6 LSST FFTLog script supplied ell<=30000;
+never transfer a full-sky cutoff requirement to a different transform.
+
+`complete_shear.py --space real` computes source bin 3 at eight common
+logarithmic annuli 2.5..250 arcmin, ordered xi+ then xi-, 16x16. It calls
+native CovTHETASpace.calc_covTHETA and the CoCoA production interface.
+OneCov split-G groups 7,8,9 (three entries each) and NG groups 7,8,9 are
+++, +-, --. Reverse ordering is the transpose of +-. Native auto-block
+asymmetries remain untouched. No code in either numerical library changed.
+
+Archives: work/real_shear_onecov_native_20261006 and
+work/real_shear_cocoa_20261006. Report results/real_shear_20261006.json;
+PNG/PDF results/figures/real_shear_difference. Every entry is included.
+Max percent difference / OneCov total rms product: G2.018179,
+SSC0.662422, cNG0.267596, total2.124543. Generalized total mode ratios
+.9847814351..1.0234774897. Symmetric-part correlation minimum eigenvalues
+are .16254508 (CoCoA), .16124295 (OneCov). Native OneCov maximum asymmetry
+is 1.13565e-5 of total rms (G); CoCoA is exactly symmetric. Eigenvalues
+use explicit symmetric parts only; plots and NPZ preserve raw matrices.
+Do not call these repaired or claim exact symmetry for OneCov.
+
+Sequential single runs at8 threads: CoCoA setup .419010s + construction
+45.443902s; OneCov setup19.910623s + construction513.642171s. These are
+native-setting construction measurements, not equal-accuracy timings.
+No additional numerical job ran simultaneously. Documentation and Git
+checks ran while waiting. Full LSST OneCov has not been timed. Hours or
+longer is a planning estimate, not a validated bound from matrix size.
+Native cNG convergence and attribution of the 2% Gaussian difference are
+pending; no Fisher-convergence claim. Do not retune OneCov defaults silently.
+
+## Simultaneous halo mass and bias normalization, 2026-10-06
+
+The later request authorizes sensitivity tests, not adoption of a new
+production normalization. `halo_normalization.py` supplies an explicit
+backend adapter; it does not replace installed functions or change either
+code checkout. `run_normalization_covariance.py` uses the native LSST YAML
+and production backend. Choices: native, mass_only (f/S, b), mass_and_bias
+(f/S, S*b), and ingredients. S is the analytic integral of the actual
+CoCoA Tinker shape and interpolated amplitude over all peak heights.
+
+The two Gamma-function shape integrals agree with numerical integrals of
+the installed fnu to better than 1e-10 over z=.01,.1,.5,1,2,3. Public fnu
+requires a<1; do not test it at a=1. The scalar NFW formula is singular at
+k=0; use the analytic unit limit, as the production covariance does.
+Direct mass-quadrature checks at z=.1,.5,1 and k=0,.01,1,100 h/Mpc verify
+I11 and all five pair roles, including off-diagonals, within 2e-10 relative.
+Mass-only I11 must be u_min+(I11-u_min)/S, not I11/S: recompute completion.
+For paired normalization only I02/I04 change; n*b stays unchanged.
+
+Full 1560x1560 archives, all entries/no cuts:
+work/normalization_native_v2_20261006,
+work/normalization_mass_only_20261006,
+work/normalization_mass_and_bias_20261006.
+Identical power hashes, installed interface, survey grids and settings.
+Comparisons and four-component PNG/PDF panels are in results/normalization*.
+Max entry differences / native total rms, percent (G, SSC, cNG, total):
+mass-only (0,.0361054,.8581820,.8677758);
+paired (0,1.1669957,.5519169,.6245842).
+Generalized total ratios: .97713295394..1.00007166622 and
+.98373668873..1.01607758359, respectively. All totals positive definite;
+Gaussian is bitwise unchanged. Runs took 51.07,50.90,51.04 seconds, each
+sequential with eight OpenMP threads/one BLAS; timings include adapter
+overhead and are not a production speed comparison. No Fisher or improved
+physical accuracy claim follows from these sensitivity tests.
+
+The first native archive and the v2 post-construction check failures were
+preserved. They concern diagnostic endpoint handling, not matrix generation.
+V2 saved the complete matrix and report before the failed zero-profile
+check. The corrected ingredient-only run passed separately, without
+rerunning or replacing that matrix. Both trial logs remain in /tmp.
+
+Physics anchors: Tinker 2010 Eq.7 and text after Eqs.9--12 explicitly
+sets alpha by the biased integral; no missed numerical division is implied.
+HMcode-2020 (2009.01858), Sections3.1/3.2/4.4, adopts mass-normalized ST
+and replaces the standard two-halo profile integral by its unit limit in
+the production matter power. It is not a covariance calibration.
+An unresolved component with mass 1-F and bias (1-B)/(1-F) can satisfy
+both finite-population constraints while preserving resolved fits. This
+interprets the existing completion weight 1-B; it is not an implemented
+new population with all higher moments or a validated low-mass model.
+Do not promote a global bias rescaling solely because both integrals close.
+
 ## Low-mass cutoff study: scope
 
 The requested study reduces the finite-range I11 completion by integrating

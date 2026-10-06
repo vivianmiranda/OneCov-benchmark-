@@ -1,0 +1,97 @@
+{
+  "full_fit": [
+    {
+      "redshift": 0.01,
+      "native_mass": 1.0017314473515717,
+      "native_biased_mass": 0.9999999998192851,
+      "mass_only_biased_mass": 0.9982715451962058,
+      "both_mass": 0.9999999999999996,
+      "both_biased_mass": 0.9999999998192851,
+      "abundance_multiplier": 0.9982715453766082,
+      "paired_bias_multiplier": 1.0017314473515717
+    },
+    {
+      "redshift": 0.1,
+      "native_mass": 1.0064864894125756,
+      "native_biased_mass": 0.9999999989444708,
+      "mass_only_biased_mass": 0.9935553129263657,
+      "both_mass": 0.9999999999999998,
+      "both_biased_mass": 0.9999999989444708,
+      "abundance_multiplier": 0.9935553139750923,
+      "paired_bias_multiplier": 1.0064864894125756
+    },
+    {
+      "redshift": 0.5,
+      "native_mass": 1.0262221625478678,
+      "native_biased_mass": 1.0000000000384288,
+      "mass_only_biased_mass": 0.9744478696071662,
+      "both_mass": 0.9999999999999998,
+      "both_biased_mass": 1.0000000000384288,
+      "abundance_multiplier": 0.9744478695697193,
+      "paired_bias_multiplier": 1.0262221625478678
+    },
+    {
+      "redshift": 1.0,
+      "native_mass": 1.048320341710959,
+      "native_biased_mass": 1.0000000001302438,
+      "mass_only_biased_mass": 0.9539068930954332,
+      "both_mass": 1.0000000000000002,
+      "both_biased_mass": 1.0000000001302438,
+      "abundance_multiplier": 0.9539068929711928,
+      "paired_bias_multiplier": 1.048320341710959
+    },
+    {
+      "redshift": 2.0,
+      "native_mass": 1.0863594989330552,
+      "native_biased_mass": 1.0000000001966347,
+      "mass_only_biased_mass": 0.9205055979892138,
+      "both_mass": 0.9999999999999784,
+      "both_biased_mass": 1.0000000001966347,
+      "abundance_multiplier": 0.9205055978082105,
+      "paired_bias_multiplier": 1.0863594989330552
+    },
+    {
+      "redshift": 3.0,
+      "native_mass": 1.1182200901640422,
+      "native_biased_mass": 1.0000000000000004,
+      "mass_only_biased_mass": 0.8942783346463584,
+      "both_mass": 0.9999999999973781,
+      "both_biased_mass": 1.0000000000000004,
+      "abundance_multiplier": 0.894278334646358,
+      "paired_bias_multiplier": 1.1182200901640422
+    }
+  ],
+  "finite_mass": [
+    {
+      "redshift": 0.1,
+      "resolved_mass": 0.7119034950532357,
+      "resolved_biased_mass": 0.8114544778161464,
+      "missing_mass": 0.2880965049467643,
+      "missing_response": 0.18854552218385356,
+      "effective_unresolved_bias": 0.654452653699127
+    },
+    {
+      "redshift": 0.5,
+      "resolved_mass": 0.665205102925926,
+      "resolved_biased_mass": 0.7689402775790295,
+      "missing_mass": 0.33479489707407395,
+      "missing_response": 0.2310597224209705,
+      "effective_unresolved_bias": 0.6901530592022379
+    },
+    {
+      "redshift": 1.0,
+      "resolved_mass": 0.6053466921952395,
+      "resolved_biased_mass": 0.716152535982382,
+      "missing_mass": 0.3946533078047605,
+      "missing_response": 0.28384746401761796,
+      "effective_unresolved_bias": 0.719232446312196
+    }
+  ],
+  "adapter_direct_quadrature_checks": "passed",
+  "core": {
+    "commit": "8125fa358e3c93cef3be83b6ba38ad24e84255d6",
+    "status": ""
+  },
+  "interface_sha256": "a823854f914b7feac365272ccf4dfeba251ea0f54ab54471f28e4cbd32ec64d6",
+  "adapter_sha256": "8dcc7135902d3748257412f15e13cbab3bf0990a1096163fa22e5aed3c540f01"
+}

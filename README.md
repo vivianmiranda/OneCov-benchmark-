@@ -47,6 +47,28 @@ non-Gaussian contributions with shared inputs. The
 [Gaussian components](#validation), [SSC and cNG projection, and native
 halo moments](#non-gaussian-timings), with their different scopes stated.
 
+**Complete shear comparison:** the four panels below show **CoCoA minus
+OneCovariance** for the same 100 × 100 Fourier covariance of LSST Y1 source
+bin 3. Both codes receive the same CAMB nonlinear power for their Gaussian
+spectra and retain their own halo prescriptions for SSC and cNG. Every
+matrix entry is included. This is a selected source-bin calculation;
+the full LSST Y1 real-space comparison remains to be computed.
+
+![CoCoA minus OneCovariance: Gaussian, SSC, connected non-Gaussian and total shear covariance](results/figures/complete_shear_difference.png)
+
+[Vector figure](results/figures/complete_shear_difference.pdf) ·
+[Settings, results and reproduction](#complete-shear).
+
+**Real-space comparison:** the corresponding 16 × 16 matrix contains
+xi+ and xi− for the same source bin, including their cross-covariance.
+Each code uses its own real-space numerical settings: CoCoA's LSST defaults
+and OneCovariance's shipped real-space example.
+
+![Real-space CoCoA minus OneCovariance: Gaussian, SSC, connected non-Gaussian and total](results/figures/real_shear_difference.png)
+
+[Vector figure](results/figures/real_shear_difference.pdf) ·
+[Real-space results, timings and reproduction](#real-shear).
+
 ## Contents
 
 1. [Scope](#scope)
@@ -63,6 +85,8 @@ halo moments](#non-gaussian-timings), with their different scopes stated.
 12. [Separated halo trispectra](#trispectrum-comparison)
 13. [Connected non-Gaussian projection](#connected-comparison)
 14. [SSC, halo and cNG timing differences](#non-gaussian-timings)
+15. [Complete Fourier shear covariance](#complete-shear)
+16. [Real-space shear covariance](#real-shear)
 
 ## Scope <a name="scope"></a>
 
@@ -1121,6 +1145,192 @@ must be treated explicitly. CoCoA's unit result confirms its chosen
 normalization in this test; it does not by itself establish better
 quadrature, more accurate halo abundances, or a more accurate covariance.
 
+#### Should the mass integral also equal one? What does HMcode do?
+
+**Yes, if all matter belongs to the modeled halo population.** The two
+conditions describe different physical requirements:
+
+- **Mass accounting:** $`\int f(\nu)\,d\nu=1`$ assigns exactly the mean
+  matter density to halos.
+- **Response accounting:** $`\int b(\nu)f(\nu)\,d\nu=1`$ makes that
+  population respond to a long-wavelength matter perturbation with unit bias.
+
+Neither condition implies the other. CoCoA's choice follows
+[Tinker et al. (2010), Eq. 7 and the text after Eqs. 9–12](https://arxiv.org/pdf/1001.3162):
+the evolving multiplicity amplitude is obtained from the bias-weighted
+integral. Its departure from exact mass normalization is a limitation of
+that adopted fit, not an error that finer quadrature or a lower mass cutoff
+can remove.
+
+**HMcode-2020 uses a mass-normalized Sheth–Tormen function.** Its amplitude
+is fixed by the mass integral. However, its production two-halo power uses
+damped, de-wiggled linear power, replacing the usual profile-and-bias
+integral by its unit large-scale limit. HMcode therefore does not demonstrate
+that rescaling the Tinker functions would improve a covariance. These choices
+are described in [Mead et al. (2021), Sections 3.1, 3.2 and 4.4](https://arxiv.org/html/2009.01858v2).
+Satisfying the two mean-density constraints also does not, by itself,
+guarantee the correct large-scale behavior of every halo-model term.
+
+#### Testing simultaneous mass and bias normalization
+
+Define $`S(z)=\int f_{\rm CoCoA}(\nu,z)\,d\nu`$. Two explicit
+diagnostic prescriptions keep the profiles, power spectra, halo mass
+definition and integration limits fixed:
+
+- **Mass normalization only:** use $`f'=f/S`$ and retain the fitted bias.
+  The mass integral becomes one, but the full-fit bias integral becomes
+  $`1/S`$. The existing additive I11 completion is recomputed. It now also
+  compensates a mismatch in the full fit; it is no longer solely a
+  correction for a finite mass range.
+- **Mass normalization with a paired bias adjustment:** use
+  $`f'=f/S`$ and $`b'=S\,b`$. Both full-fit integrals become one, to
+  the numerical accuracy of CoCoA's original bias normalization. The
+  product $`f'b'=fb`$ is unchanged at every peak height.
+
+At redshift one, the first change lowers all abundances by **4.609%**.
+The paired prescription additionally raises every halo bias by **4.832%**.
+In that prescription, I11, I12 and I13 stay unchanged, including the I11
+completion. The unbiased I02 and I04 decrease by the abundance factor.
+Thus the one-halo trispectrum changes even though the higher-halo terms
+do not. SSC can also change: CoCoA transfers a fractional halo response
+to the supplied nonlinear power, and the denominator contains I02.
+
+These transformations are tested through an explicit supplied-moment
+adapter. **They are not installed in CoCoA or OneCovariance.** This is a
+CoCoA modeling-sensitivity test, separate from the native cross-code results.
+
+The complete LSST Y1 real-space calculation retains **all 1,560 entries**
+of the data-vector ordering and every covariance element. The supplied CAMB
+tables, Gaussian non-Limber setting, survey inputs and numerical settings
+are identical in the three runs. No scale cuts are applied to this comparison.
+The lower halo mass is 10,000 solar masses/h.
+
+The table reports the largest absolute component change divided by the
+native **total** rms product, $`\sqrt{C_{ii}^{\rm total}C_{jj}^{\rm total}}`$.
+The common denominator allows the G, SSC and cNG columns to be compared.
+The final column instead examines every generalized variance mode of the
+total matrix, including combinations that an entry-by-entry plot can miss.
+
+| Diagnostic change | G | SSC | cNG | Total | Largest total variance-mode change |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Mass normalization only | Exactly zero | 0.0361% | 0.8582% | 0.8678% | 2.2867% |
+| Mass normalization and paired bias | Exactly zero | 1.1670% | 0.5519% | 0.6246% | 1.6263% |
+
+**All three total matrices are positive definite.** The generalized
+variance ratios span 0.97713–1.00007 for mass normalization alone and
+0.98374–1.01608 for the paired prescription. Gaussian matrices are
+bitwise identical. Relative to each component's own diagonal, the largest
+changes are 1.67% in SSC and 4.74% in cNG for mass normalization alone;
+for the paired prescription they are 12.60% and 3.40%, respectively.
+The latter SSC change is smaller when measured against the total covariance,
+as the table shows.
+
+![Full LSST Y1 covariance difference from mass normalization alone](results/figures/normalization_mass_only.png)
+
+![Full LSST Y1 covariance difference from paired mass and bias normalization](results/figures/normalization_mass_and_bias.png)
+
+The [mass-only comparison](results/normalization_mass_only_20261006.json),
+[paired comparison](results/normalization_mass_and_bias_20261006.json) and
+[halo normalization measurements](results/normalization_ingredients_20261006.json)
+record the inputs and diagnostics. Each full construction took about
+51 seconds on the M2 Pro with eight threads:
+
+| Prescription | Complete construction (s) |
+| --- | ---: |
+| Native CoCoA | 51.07 |
+| Mass normalization only | 50.90 |
+| Mass normalization and paired bias | 51.04 |
+
+The alternative timings include the diagnostic adapter. These single runs
+measure sensitivity at one cosmology and the
+project's default numerical settings; they do not establish Fisher
+convergence or which halo prescription better describes simulations.
+
+To reproduce after activating the **Cocoa terminal** environment described
+above, run from this repository. Every command uses a new output folder.
+
+**Step :one:**: check the full-fit and finite-mass normalization integrals.
+
+```bash
+python scripts/run_normalization_covariance.py ingredients \
+  --output work/normalization_ingredients
+```
+
+**Step :two:**: compute the unchanged covariance.
+
+```bash
+python scripts/run_normalization_covariance.py native \
+  --output work/normalization_native
+```
+
+**Step :three:**: compute the mass-normalized alternative.
+
+```bash
+python scripts/run_normalization_covariance.py mass_only \
+  --output work/normalization_mass_only
+```
+
+**Step :four:**: compute the alternative enforcing both constraints.
+
+```bash
+python scripts/run_normalization_covariance.py mass_and_bias \
+  --output work/normalization_mass_and_bias
+```
+
+**Step :five:**: compare every component and draw the mass-only differences.
+
+```bash
+python scripts/compare_full_covariance.py \
+  work/normalization_mass_only work/normalization_native \
+  --output work/normalization_mass_only_comparison.json \
+  --figure work/normalization_mass_only_difference.png \
+  --label 'Mass normalization only minus native CoCoA'
+```
+
+**Step :six:**: compare and draw the paired-prescription differences.
+
+```bash
+python scripts/compare_full_covariance.py \
+  work/normalization_mass_and_bias work/normalization_native \
+  --output work/normalization_mass_and_bias_comparison.json \
+  --figure work/normalization_mass_and_bias_difference.png \
+  --label 'Paired mass and bias normalization minus native CoCoA'
+```
+
+#### An alternative that preserves the resolved halo fits
+
+For a finite mass interval, denote its mass fraction by F and its
+bias-weighted fraction by B. An unresolved component can supply mass
+$`1-F`$ and have effective bias
+
+$$
+b_{\rm unresolved}=\frac{1-B}{1-F}.
+$$
+
+Then $`F+(1-F)=1`$ and $`B+(1-F)b_{\rm unresolved}=1`$.
+At the current lower cutoff of 10,000 solar masses/h, the measurements are:
+
+| Redshift | Resolved mass F | Resolved response B | Required unresolved bias |
+| ---: | ---: | ---: | ---: |
+| 0.1 | 0.71190 | 0.81145 | 0.65445 |
+| 0.5 | 0.66521 | 0.76894 | 0.69015 |
+| 1.0 | 0.60535 | 0.71615 | 0.71923 |
+
+This accounts for both missing quantities without rescaling the retained
+halos. Its response weight is exactly the existing I11 completion, 1−B.
+It is an interpretation at the level of the two integral constraints:
+CoCoA does not yet represent this as a separately calibrated population
+with its own complete set of halo moments. It also replaces the unobserved
+low-mass extrapolation rather than making the original analytic f integrate
+to one over all peak heights.
+
+**Which approach is preferable?** A joint, simulation-calibrated choice of
+mass function and bias is the strongest basis for a strict halo model.
+For retaining CoCoA's calibrated resolved-halo choices, explicitly modeling
+the unresolved mass and response is a more conservative direction than
+rescaling every halo. The paired rescaling above is a useful controlled
+sensitivity test, not evidence that the altered bias fit is more accurate.
+
 The [normalization record](results/bias_normalization_20261006.json)
 includes the doubled-grid check. To reproduce it:
 
@@ -2045,3 +2255,250 @@ does not refine a supplied C_ell table; regenerate that input separately.
 Generated files live under ignored `work/`. Small reviewed validation
 summaries belong in `results/`; full matrices and disposable runs do not.
 The scripts contain no changes to either code's numerical implementation.
+
+## Complete shear covariance: CoCoA versus OneCovariance <a name="complete-shear"></a>
+
+The [four-panel figure above](results/figures/complete_shear_difference.png)
+compares **Gaussian, SSC, cNG and their total on the same observables**.
+The calculation uses LSST Y1 source bin 3, an area of 12,300 deg², a source
+density of 2 arcmin⁻² and per-component shape dispersion 0.26. Both codes
+use massless neutrinos, Limber spectra and zero intrinsic alignment.
+
+There are 100 multipole samples, $`\ell=30,60,\ldots,3000`$. The observable
+uses the **band-centre approximation with width 30**: Gaussian mode counts
+include that width, while SSC and cNG are evaluated at the centres. It
+does not integrate either covariance across a broad band. This common
+choice avoids comparing OneCov's uniform Gaussian band weights with
+CoCoA's mode-count weights.
+
+For component X, each pixel shows
+
+$$
+100\,\frac{C^{X}_{\mathrm{CoCoA},ij}-C^{X}_{\mathrm{OneCov},ij}}
+{\sqrt{C^{\mathrm{total}}_{\mathrm{OneCov},ii}
+       C^{\mathrm{total}}_{\mathrm{OneCov},jj}}.
+$$
+
+The colour scale is in percent, with its own range in each panel. The
+denominator is always the **OneCov total**, including noise. It is not the
+relative error of a small SSC or cNG entry.
+
+| Component | Largest absolute difference / total rms product | Largest relative difference in its own diagonal |
+| --- | ---: | ---: |
+| Gaussian | 0.689% | 0.708% |
+| SSC | 0.241% | 29.33% |
+| Connected non-Gaussian | 0.226% | 28.91% |
+| Total | 0.328% | 0.328% |
+
+Both totals are **positive definite**, without removing entries or repairing
+eigenvalues. The generalized variance ratios, defined by
+$`C_{\mathrm{CoCoA}}v=\lambda C_{\mathrm{OneCov}}v`$, range from
+**0.954008 to 1.006961**. Thus a correlated combination of the observables
+changes by **4.60%**, despite the smaller individual pixels. This is a
+comparison of covariance modes, not a Fisher-parameter convergence result.
+
+### What is shared, and what differs?
+
+- **Shared:** nominal cosmology, source distribution, survey area, shape
+  noise, multipoles, band-centre convention and CAMB nonlinear power table.
+  Each code performs its own Gaussian line-of-sight projection; angular
+  spectra are not supplied from one code to the other.
+- **CoCoA:** retains its bias-consistent multiplicity amplitude,
+  Bhattacharya concentration, additive I11 completion, 10⁴ lower mass
+  limit, two-halo response slope, nonlinear response transfer and analytic
+  spherical-cap harmonics.
+- **OneCovariance:** retains its finite-range bias normalization, Duffy
+  concentration, native low-mass completion, 10⁶ lower mass limit,
+  one-halo damping, linear-power response slope and pixelized cap.
+
+The shared nonlinear table does not replace each code's internal linear
+power used for halo ingredients. The small amplitude/radiation difference
+identified in the [sigma study](#sigma-comparison) therefore also remains.
+The [halo](#halo-comparison), [SSC](#ssc-comparison) and
+[trispectrum](#trispectrum-comparison) sections explain these choices.
+
+This figure shows their **combined effect at the recorded numerical
+settings**. It does not assign every pixel to a single physical cause or
+establish convergence of native cNG. In particular, OneCov's equal-k
+angular limit and off-diagonal 2h partition remain the open checks
+described in the trispectrum study.
+
+| Numerical control | CoCoA | OneCovariance |
+| --- | --- | --- |
+| Radial integration | 7 panels, 96 GSL nodes per panel | 601 radial nodes |
+| Halo mass integration | 10 panels, 96 GSL nodes per panel | 400 mass nodes |
+| Trispectrum sampling | Project default multipole table | 129 k nodes |
+| Power/response redshift spacing | Project default tables | 0.05 |
+| Trispectrum redshift spacing | Evaluated at radial nodes | 0.125 |
+
+The [complete comparison record](results/complete_shear_20261006.json)
+contains resolved settings, source and input fingerprints, component
+differences and total-mode diagnostics.
+
+### Reproducing the complete shear figure
+
+Use the installed **Cocoa** and **OneCov** environments in separate
+terminals. The commands below run from this benchmark repository, after
+activating each environment with its respective `start_cocoa.sh` or
+`start_onecov.sh` as described in the installation steps. Keep
+`OMP_NUM_THREADS=8` and run the calculations sequentially.
+
+**Step :one:**: in the **Cocoa terminal**, export fresh LSST inputs.
+
+```bash
+python scripts/prepare_lsst_y1.py --cocoa ../cocoa/Cocoa \
+  --output work/lsst_y1_complete
+```
+
+**Step :two:**: in the **OneCov terminal**, compute all four matrices.
+
+```bash
+python scripts/complete_shear.py onecov --inputs work/lsst_y1_complete \
+  --output work/complete_shear_onecov
+```
+
+**Step :three:**: after that run finishes, in the **Cocoa terminal**, compute
+the same observables through the production interface.
+
+```bash
+python scripts/complete_shear.py cocoa --inputs work/lsst_y1_complete \
+  --output work/complete_shear_cocoa
+```
+
+**Step :four:**: compare every entry and produce the four-panel PNG and PDF.
+
+```bash
+python scripts/plot_complete_shear.py work/complete_shear_cocoa \
+  work/complete_shear_onecov --output work/complete_shear_comparison.json \
+  --figure work/complete_shear_difference.png
+```
+
+
+## Real-space shear covariance <a name="real-shear"></a>
+
+This comparison measures **xi+ and xi− for LSST Y1 source bin 3** in
+**eight logarithmic angular bins from 2.5 to 250 arcminutes**. Both codes
+compute all 16 × 16 entries, including the covariance between xi+ and xi−.
+Gaussian, SSC and connected non-Gaussian contributions remain separate.
+The survey, cosmology, source distribution, shape noise and supplied CAMB
+nonlinear power are the same as in the [Fourier pilot](#complete-shear).
+
+**The numerical settings follow each code's own real-space example.**
+OneCovariance uses its shipped `config_files/config_3x2pt_rcf.ini`, with
+survey inputs and requested components changed for this comparison.
+Its numerical controls are not adjusted to imitate CoCoA's settings.
+
+- **CoCoA:** full-sky spin kernels, averaged over spherical annuli with
+  the area measure sin(theta) dtheta; LSST covariance defaults.
+- **OneCovariance:** flat-sky J0/J4 Bessel kernels, averaged with the
+  planar annular measure theta dtheta; the shipped real-space settings.
+
+The same bin boundaries therefore define slightly different angular
+averages. Footprint treatment and native halo prescriptions also differ,
+as described above. The figure measures their combined effect; it does
+not isolate the full-sky correction or certify either model as exact.
+
+| Numerical control | CoCoA | OneCovariance real-space example |
+| --- | --- | --- |
+| Multipoles for spectra | Through 100,000 | 500 logarithmic samples, 2–100,000 |
+| Angular transform | Discrete full-sky sum | Native Bessel integration |
+| Radial integration | 7 panels × 96 GSL nodes | 500 radial samples |
+| Halo mass integration | 10 panels × 96 GSL nodes | 900 mass samples |
+| Trispectrum k sampling | Project interpolation tables | 100 samples |
+| Power/response redshift spacing | Project interpolation tables | 0.08 |
+| Trispectrum redshift spacing | At radial integration nodes | 0.5 |
+| Angular integration tolerance | 96-point GSL rule per angular panel | 0.01 |
+
+OneCov's Bessel-weight table extends from multipole 1 to 100,000 in this
+revision. This is distinct from its 500-point spectrum table, which starts
+at 2. These values come from OneCov's example and implementation; they
+were not imposed to match the full-sky sum. The earlier CCL FFTLog benchmark
+supplied spectra only to 30,000, illustrating why controls must be read
+for each transform rather than transferred between methods.
+
+### Differences across the complete selected matrix
+
+Every pixel uses the same normalization as the Fourier figure: the
+component difference divided by the **OneCov total diagonal rms product**,
+in percent. Within each xi block, angular separation increases from left
+to right and from top to bottom. No matrix entries or angular bins are
+removed.
+
+| Component | Largest absolute difference / total rms product | Largest relative difference in its own diagonal |
+| --- | ---: | ---: |
+| Gaussian | 2.018% | 2.152% |
+| SSC | 0.662% | 20.945% |
+| Connected non-Gaussian | 0.268% | 28.692% |
+| Total | 2.125% | 2.125% |
+
+The totals' **symmetric parts are positive definite**. Their generalized
+variance ratios span **0.984781–1.023477**, a maximum change of **2.35%**.
+This comparison includes all correlated combinations of the 16 observables;
+it is not a Fisher-parameter convergence test.
+
+CoCoA's saved matrices are exactly symmetric. OneCov's largest
+antisymmetric residual is **0.00114% of the total rms product**, in the
+Gaussian component. The figure and archives retain the original entries.
+Only the eigenvalue diagnostic uses `(C + C.T)/2`; no eigenvalues are clipped
+or repaired. The residual is much smaller than the cross-code differences.
+
+These are **native-setting results**, not a claim of matched physical models
+or established numerical convergence. In particular, the native halo bias,
+concentration, response, angular-corner and two-halo partition differences
+identified earlier remain. The larger Gaussian difference also includes
+angular spectra, geometry and numerical integration; it cannot all be
+attributed to the full-sky versus flat-sky transform without a separate test.
+
+### Measured execution time
+
+Apple M2 Pro, eight OpenMP threads; single sequential runs. Numerical setup
+and covariance construction are timed separately; plotting and file writing
+are excluded. The two codes calculate the same observables with their own
+settings and halo prescriptions.
+
+| Code | Numerical setup | Covariance construction | Combined |
+| --- | ---: | ---: | ---: |
+| CoCoA production interface | 0.42 s | 45.44 s | **45.86 s** |
+| OneCovariance real-space example | 19.91 s | 513.64 s | **533.55 s (8.89 min)** |
+
+For **full LSST Y1**, the 1560 × 1560 OneCovariance runtime remains unmeasured.
+A planning allowance is **several hours, potentially longer**, rather than
+minutes; this is an estimate, not a measured timing or an upper bound.
+The one-source pilot already takes about nine minutes. Expanding it adds
+both angular bins and tomographic combinations, while some initialization
+is shared. Multiplying by the ratio of matrix dimensions would therefore
+not give a defensible runtime prediction.
+
+The [real-space comparison record](results/real_shear_20261006.json) contains
+input and source fingerprints, numerical settings, component diagnostics,
+asymmetries, eigenvalue conventions and measured times.
+
+### Reproducing the real-space comparison
+
+Use the shared input export from [Step 1 of the Fourier pilot](#complete-shear)
+and the separate installed OneCov and Cocoa environments. Run sequentially
+with eight OpenMP threads.
+
+**Step :one:**: in the **OneCov terminal**, run the native real-space example
+with the LSST source and the eight common angular bins.
+
+```bash
+python scripts/complete_shear.py onecov --space real \
+  --inputs work/lsst_y1_complete --output work/real_shear_onecov
+```
+
+**Step :two:**: after it finishes, in the **Cocoa terminal**, compute the
+same observables through the production interface.
+
+```bash
+python scripts/complete_shear.py cocoa --space real \
+  --inputs work/lsst_y1_complete --output work/real_shear_cocoa
+```
+
+**Step :three:**: compare every entry and save the four-panel figure.
+
+```bash
+python scripts/plot_complete_shear.py work/real_shear_cocoa \
+  work/real_shear_onecov --output work/real_shear_comparison.json \
+  --figure work/real_shear_difference.png
+```
