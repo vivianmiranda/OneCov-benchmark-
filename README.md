@@ -171,9 +171,6 @@ source compile_onecov.sh
 source start_onecov.sh
 ```
 
-For later sessions, repeat only steps one and five. To leave the private
-environment, run `source stop_onecov.sh`.
-
 | File | Purpose |
 | --- | --- |
 | [set_installation_options.sh](set_installation_options.sh) | Select code paths and pinned package versions. |
@@ -186,6 +183,29 @@ The scripts reuse the existing OneCovariance checkout and Cocoa's CAMB.
 They do not modify either numerical code or install packages into Cocoa.
 The [environment notes](docs/environment.md) describe the shared libraries
 and the initial pilot environment.
+
+### Starting and stopping later sessions
+
+After installation, open a fresh Bash terminal in `OneCov-benchmark-/`.
+Setup and compilation do not need to be repeated for each calculation.
+
+**Step :one:**: activate the Conda base.
+
+```bash
+conda activate cocoa
+```
+
+**Step :two:**: activate the comparison's private `.local` environment.
+
+```bash
+source start_onecov.sh
+```
+
+**Step :three:**: after the calculation, leave the private environment.
+
+```bash
+source stop_onecov.sh
+```
 
 ## Reproducing the comparison <a name="reproduction"></a>
 
