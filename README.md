@@ -57,9 +57,11 @@ halo moments](#non-gaussian-timings), with their different scopes stated.
 6. [Matched Gaussian assembly](#matched-gaussian)
 7. [SSC comparison](#ssc-comparison)
 8. [Halo-model ingredients](#halo-comparison)
-9. [Separated halo trispectra](#trispectrum-comparison)
-10. [Connected non-Gaussian projection](#connected-comparison)
-11. [SSC, halo and cNG timing differences](#non-gaussian-timings)
+9. [Mass rms fluctuation sigma(M)](#sigma-comparison)
+10. [Halo-abundance differences](#abundance-comparison)
+11. [Separated halo trispectra](#trispectrum-comparison)
+12. [Connected non-Gaussian projection](#connected-comparison)
+13. [SSC, halo and cNG timing differences](#non-gaussian-timings)
 
 ## Scope <a name="scope"></a>
 
@@ -643,8 +645,8 @@ absolute differences in CoCoA/OneCov minus one over those sampled ranges:
 
 | Quantity | z = 0.1 | z = 0.5 | z = 1 |
 | --- | ---: | ---: | ---: |
-| Mass rms fluctuation, sigma(M) | 0.033% | 0.031% | 0.030% |
-| Halo abundance, dn/dlnM | 0.8% | 2.8% | 5.0% |
+| Mass rms fluctuation, sigma(M) | 0.0324% | 0.0304% | 0.0296% |
+| Halo abundance, dn/dlnM | 0.774% | 2.739% | 4.936% |
 | Native halo bias | 22.8% | 28.9% | 35.9% |
 | Native matter-power response | 14.9% | 21.2% | 25.9% |
 
@@ -700,6 +702,203 @@ python scripts/compare_halo.py compare work/halo_onecov_800 \
 ```bash
 python scripts/plot_halo.py work/halo_onecov_800 work/halo_cocoa_matched_800 \
   --output results/figures
+```
+
+### Mass rms fluctuation sigma(M) <a name="sigma-comparison"></a>
+
+**The approximately 0.03% native difference is not a measurement of
+FFTLog error.** It combines different power-spectrum inputs, normalization
+paths, integration grids, density constants and interpolation. The tests
+below hold these ingredients fixed in turn.
+
+The variance is the linear matter power smoothed with a spherical top-hat:
+
+$$
+\sigma^2(M,z)=\frac{1}{2\pi^2}\int_0^\infty
+k^3P_L(k,z)W^2(kR)\,d\ln k,
+\qquad W(x)=\frac{3(\sin x-x\cos x)}{x^3}.
+$$
+
+The radius follows $`M=(4\pi/3)\bar\rho_m R^3`$. It is the radius that
+contains mass M at the **mean density**, not the smaller radius of the
+collapsed halo. Sigma is the square root of this integral. Halo bias,
+the multiplicity normalization and the concentration relation do not
+enter it; those choices enter later halo calculations.
+
+#### How the two codes calculate it
+
+- **CoCoA:** reads the supplied CAMB linear-power tables, normalized by
+  the primordial amplitude A_s. FFTLog evaluates the top-hat integral
+  and its mass derivative. The spectrum is continued with its edge power
+  laws over approximately 10⁻⁷–10⁵ h/Mpc. Cubic interpolation fills dense
+  mass tables, followed by linear lookups in mass and scale factor.
+- **OneCov:** its `hmf` dependency obtains a CAMB transfer function and
+  normalizes the power to an input sigma8. It evolves that spectrum with
+  `CambGrowth`. Its native top-hat filter uses Simpson integration on the
+  power grid, with **200 logarithmic k samples** from 10⁻⁵ to about
+  92.3 h/Mpc in this pilot. Increasing the halo *mass* grid alone does
+  not refine this power integral.
+
+This is a massless-neutrino comparison, so cold matter plus baryons and
+total matter describe the same halo-forming matter field. The density
+constants differ slightly: 8.3256005×10¹⁰ for CoCoA and 8.3260988×10¹⁰
+for OneCov, in solar masses/h per (Mpc/h)³. We test the resulting small
+change in the mass-to-radius conversion explicitly.
+
+#### Holding the inputs fixed
+
+We first reproduce OneCov's saved sigma with its own unchanged `hmf`
+filter. Then we supply that same filter with CoCoA's actual power-reader
+output. This compares the two codes directly; no third variance
+implementation is used.
+
+Starting from the native OneCov result, the following replacements form
+a sequence. Each entry is the largest change from the preceding step
+over the sampled masses between 10¹⁰ and 10¹⁵ solar masses/h.
+
+| Replacement | z = 0.1 | z = 0.5 | z = 1 |
+| --- | ---: | ---: | ---: |
+| Use CoCoA power at the same 200 k nodes and same radii | 0.01608% | 0.01407% | 0.01412% |
+| Integrate that power on 12,737 nodes over the same range | 0.01594% | 0.01594% | 0.01594% |
+| Extend to CoCoA's integration range, with a dense grid | 0.000158% | 0.000158% | 0.000158% |
+| Use CoCoA's density in the mass-to-radius relation | 0.001607% | 0.001607% | 0.001607% |
+| Replace the shared-input filter result by CoCoA's default FFTLog/table result | 0.000334% | 0.000266% | 0.001175% |
+
+The first two effects are the largest. **The maxima occur at different
+masses, so the columns must not be added.** The final row includes
+CoCoA's mass/time table interpolation as well as its FFTLog calculation;
+it is not an isolated error of the transform itself.
+
+Doubling the wide shared-input integration from 32,769 to 65,537 samples
+changes sigma by less than 0.000000062%. Raising CoCoA's internal table
+boost from one to four, while keeping the supplied power fixed, leaves
+at most 0.000611% disagreement with that shared-input filter calculation.
+
+![Sigma and halo-abundance diagnostics](results/figures/sigma_abundance.png)
+
+The top-left panel shows the native sigma differences. The top-right
+panel repeats the comparison with the **same power and smoothing radii**;
+its much smaller vertical scale shows why the native offset cannot be
+assigned to FFTLog. The bottom panels separate the abundance normalization,
+as discussed in the next section.
+
+#### Power-grid convergence and amplitude normalization
+
+OneCov's native k grid controls both its sigma integral and its numerical
+normalization to sigma8. Refining that grid gives:
+
+| Power-grid refinement | Largest change in native sigma |
+| --- | ---: |
+| 200 → 400 | 0.01327% |
+| 400 → 800 | 0.00700% |
+| 800 → 1600 | 0.00322% |
+| 1600 → 3200 | 0.000452% |
+| 3200 → 6400 | 0.000205% |
+| 6400 → 12800 | 0.0000140% |
+
+The changes are not monotonic at every mass. Refining an oscillatory
+top-hat integral and renormalizing the power simultaneously can move
+results in either direction. These are convergence diagnostics, not
+recommendations to change OneCov's production settings.
+
+The original benchmark also used **different amplitude paths**:
+
+- **OneCov input:** sigma8 = 0.826717834, obtained by the benchmark's
+  separate CAMB conversion from A_s. That conversion used CAMB defaults
+  for settings it did not explicitly copy from the forecast.
+- **CoCoA forecast:** the actual CAMB call reports sigma8 = 0.826704159.
+  Integrating that call's interpolated linear power with OneCov's dense
+  filter gives 0.826616612; integrating the installed CoCoA power reader
+  gives 0.826613956. CoCoA's FFTLog value at R=8 Mpc/h is 0.826615311
+  with the refined internal tables.
+
+Thus, CAMB's reported sigma8, the integral of its interpolated spectrum,
+and the separately supplied normalization are not numerically identical
+at this precision. The forecast also sets N_eff=3.046, whereas the
+original conversion and OneCov pilot use 3.044. The saved results retain
+those original choices; they are not silently relabeled as exactly
+matched linear inputs.
+
+As an additional diagnostic, normalizing the dense spectra to the same
+R=8 amplitude at each redshift leaves at most **0.0081%** sigma difference
+at the same radii. A remaining shape difference is therefore present;
+amplitude matching alone does not make the native spectra identical.
+The record does not attribute that remainder to one CAMB setting without
+an additional controlled test.
+
+The [sigma and abundance record](results/sigma_abundance_20261006.json)
+preserves the individual steps and refinements. A native comparison should
+match the actual power tables and their normalization before using a
+residual of this size to judge either integration method.
+
+### Why the halo-abundance difference grows with redshift <a name="abundance-comparison"></a>
+
+The number of halos per logarithmic mass interval depends on more than
+sigma alone:
+
+$$
+\frac{dn}{d\ln M}=\frac{\bar\rho_m}{M}\,\nu f(\nu)\,s(M),
+\qquad \nu=\frac{\delta_c}{\sigma(M)},\qquad
+s(M)=-\frac{d\ln\sigma}{d\ln M}.
+$$
+
+Here f is the multiplicity function: it assigns mass weight to each
+peak-height interval. Its definition and normalization are explained
+in the next section. We factor the measured abundance ratio into the
+density ratio, the multiplicity ratio at fixed peak height, the change
+in peak height, and the mass-derivative ratio. Their product reproduces
+the original abundance comparison to floating-point precision.
+
+**The dominant redshift-dependent difference is the multiplicity
+amplitude.** At fixed peak height, the two fitted shapes agree: their
+ratio is constant across the sampled masses at each redshift. The
+normalization choices are:
+
+- **OneCov:** the native `hmf` Tinker multiplicity is mass normalized.
+- **CoCoA:** the multiplicity amplitude is chosen to make the
+  bias-weighted integral equal one, leaving a slightly different
+  mass-only normalization.
+
+The fitted shape evolves with redshift. Its mass-normalization and
+bias-normalization amplitudes consequently separate further toward z=1:
+
+| Redshift | Multiplicity amplitude change, CoCoA / OneCov − 1 | Full abundance difference across masses | Residual after dividing out that amplitude |
+| ---: | ---: | ---: | ---: |
+| 0.1 | +0.6486% | +0.4566% to +0.7740% | −0.1908% to +0.1246% |
+| 0.5 | +2.6222% | +2.4003% to +2.7385% | −0.2163% to +0.1133% |
+| 1.0 | +4.8320% | +4.5475% to +4.9362% | −0.2714% to +0.0994% |
+
+At z=1, the approximately 5% abundance offset is therefore mostly the
+**4.832% normalization change**, not an amplification of a 0.03% sigma
+error into 5%. The smaller mass-dependent remainder contains the sigma
+and mass-slope differences. The slope ratio alone ranges from about
+−0.132% to +0.180%; the density prefactor changes abundance by −0.005985%.
+
+Small sigma changes can still affect rare halos more strongly because
+their abundance falls rapidly with peak height. That effect is included
+in the measured remainder; it does not explain the dominant, nearly
+mass-independent shift here.
+
+**Step :one:**: in the **Cocoa terminal**, export the variance, mass
+derivative and actual power tables used by the forecast.
+
+```bash
+python scripts/diagnose_sigma.py cocoa --output work/sigma_cocoa
+```
+
+**Step :two:**: in the **OneCov terminal**, perform the shared-input
+filter comparison and native power-grid refinements.
+
+```bash
+python scripts/diagnose_sigma.py onecov --cocoa work/sigma_cocoa \
+  --output work/sigma_onecov
+```
+
+**Step :three:**: in the **OneCov terminal**, save the report and figure.
+
+```bash
+python scripts/report_sigma.py work/sigma_onecov work/sigma_cocoa \
+  --output results/sigma_abundance.json
 ```
 
 ### What the bias normalization changes
