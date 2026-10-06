@@ -1,0 +1,2165 @@
+{
+  "scopes": {
+    "ssc": "shared-response radial projection, 100x100 shear",
+    "cng": "shared-trispectrum radial projection, 8x8 shear",
+    "halo": "native moments at three redshifts, 200 k nodes; different fits"
+  },
+  "cases": {
+    "ssc300": {
+      "cocoa": {
+        "mean_seconds": 0.00023605020345008422,
+        "std_seconds": 1.4851555389384614e-05,
+        "run_means_seconds": [
+          0.0002344727258934009,
+          0.00023762768100676755
+        ],
+        "runs": [
+          {
+            "stage": "ssc",
+            "backend": "cocoa",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 0.0002344727258934009,
+            "std_seconds": 1.6767541471288448e-05,
+            "median_seconds": 0.00023194589884951712,
+            "samples_seconds": [
+              0.00023194589884951712,
+              0.00023945409920997918,
+              0.0002167041995562613,
+              0.00025082920328713956,
+              0.000227162498049438,
+              0.00022128749988041817,
+              0.00024421249981969594,
+              0.0002206207951530814,
+              0.0002448417013511062,
+              0.0002186290977988392,
+              0.00023773340508341788,
+              0.0002187333011534065,
+              0.00023387079709209503,
+              0.00022275839583016933,
+              0.00022306250175461174,
+              0.0002212250023148954,
+              0.00022407500073313714,
+              0.00023097500088624655,
+              0.00021352919866330923,
+              0.0002515957981813699,
+              0.0002455542038660496,
+              0.0002850458957254887,
+              0.00022680419497191905,
+              0.00021018339903093873,
+              0.0002767583006061614,
+              0.00023862919770181179,
+              0.00024754160549491646,
+              0.00024192090495489538,
+              0.0002296874998137355,
+              0.00023612920194864272,
+              0.00023715420393273235
+            ],
+            "first_call_seconds": 0.0006034999969415367,
+            "setup_seconds": 0.009446916985325515,
+            "batch_size": 10,
+            "checks": {
+              "max_variance_scaled_residual": 2.0978404969415493e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "4a15024d30a7779aa3e7f974f1d73227343cd1954b206d3f457592401d2938b5",
+              "inputs_sha256": "16fcf6a793c1ef7c1114daf78ee05a258540e390d565dce6a887f22502f990ec",
+              "radial_nodes": 300,
+              "response_redshifts": 34,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 11.482498541008681,
+              "instrumented_ssc_seconds": 7.641242916986812,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "e25dddaac74cd5dc105a887e33d8c27646075805ed244e778d7042638ef5031c",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "ssc",
+            "backend": "cocoa",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 0.00023762768100676755,
+            "std_seconds": 1.2735637844759494e-05,
+            "median_seconds": 0.00023765420191921294,
+            "samples_seconds": [
+              0.00024747499846853314,
+              0.00023045000270940363,
+              0.0002442000026348978,
+              0.0002504792006220669,
+              0.0002254291030112654,
+              0.00021161670447327196,
+              0.00024535839911550285,
+              0.00023857499472796918,
+              0.00024349999730475247,
+              0.00024394170031882823,
+              0.00024420409463346007,
+              0.00026168330223299565,
+              0.0002469166996888816,
+              0.00023263749899342655,
+              0.00022695829975418746,
+              0.00022684580180794002,
+              0.00023171670036390424,
+              0.0002505082986317575,
+              0.00023765420191921294,
+              0.00021855000522919,
+              0.00023708329536020756,
+              0.00023104160209186375,
+              0.00022749159834347665,
+              0.00023200829746201635,
+              0.00024664170341566206,
+              0.00022020420292392373,
+              0.00022079999907873571,
+              0.00022545410320162773,
+              0.00025574580067768695,
+              0.0002605958026833832,
+              0.00025069169932976363
+            ],
+            "first_call_seconds": 0.0004897500039078295,
+            "setup_seconds": 0.0089915840071626,
+            "batch_size": 10,
+            "checks": {
+              "max_variance_scaled_residual": 2.0978404969415493e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "4a15024d30a7779aa3e7f974f1d73227343cd1954b206d3f457592401d2938b5",
+              "inputs_sha256": "16fcf6a793c1ef7c1114daf78ee05a258540e390d565dce6a887f22502f990ec",
+              "radial_nodes": 300,
+              "response_redshifts": 34,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 11.482498541008681,
+              "instrumented_ssc_seconds": 7.641242916986812,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "e25dddaac74cd5dc105a887e33d8c27646075805ed244e778d7042638ef5031c",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 0.009896050001712396,
+        "std_seconds": 0.0008693775948465916,
+        "run_means_seconds": [
+          0.009232634280793248,
+          0.010559465722631542
+        ],
+        "runs": [
+          {
+            "stage": "ssc",
+            "backend": "onecov",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 0.009232634280793248,
+            "std_seconds": 0.0005747869194689068,
+            "median_seconds": 0.008981995802605525,
+            "samples_seconds": [
+              0.010266391601180657,
+              0.011147658398840576,
+              0.010352479096036404,
+              0.009965970902703703,
+              0.010392554203281178,
+              0.009170791698852553,
+              0.008865441603120416,
+              0.00932782089803368,
+              0.009166249999543652,
+              0.008937112503917887,
+              0.008894924999913201,
+              0.00910053339903243,
+              0.008844620804302395,
+              0.00898487499798648,
+              0.008856762497453019,
+              0.008836695802165196,
+              0.008981995802605525,
+              0.008806329197250306,
+              0.009350391704356299,
+              0.008930704102385788,
+              0.008886758401058615,
+              0.00925882500014268,
+              0.008848475001286715,
+              0.009062920795986428,
+              0.009217195800738409,
+              0.008932991698384286,
+              0.00891989580122754,
+              0.008965233399067074,
+              0.009178691694978624,
+              0.008891920896712691,
+              0.008868450002046302
+            ],
+            "first_call_seconds": 0.011506666021887213,
+            "setup_seconds": 0.059076958044897765,
+            "batch_size": 10,
+            "checks": {
+              "max_variance_scaled_residual": 4.872682714658212e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "integrand = Pmm_response[:, :, None] * Pmm_response[:, None, :] * survey_variance_mmmm[0, 0, :, None, None]\nreturn simpson(integrand * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "0df0edce04150f9d4b9449c405565274c305fdbacf6b01222150f2db884b492f",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "4a15024d30a7779aa3e7f974f1d73227343cd1954b206d3f457592401d2938b5",
+              "inputs_sha256": "16fcf6a793c1ef7c1114daf78ee05a258540e390d565dce6a887f22502f990ec",
+              "radial_nodes": 300,
+              "response_redshifts": 34,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 11.482498541008681,
+              "instrumented_ssc_seconds": 7.641242916986812,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "483eacbed07c853b87d813f31886f71fa74765891dfede5146cf37093efbe064",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "ssc",
+            "backend": "onecov",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 0.010559465722631542,
+            "std_seconds": 0.0005448545830657815,
+            "median_seconds": 0.010581283300416544,
+            "samples_seconds": [
+              0.011253587499959394,
+              0.010998279100749641,
+              0.011366462503792718,
+              0.011645345797296614,
+              0.011417104199063033,
+              0.011118416697718203,
+              0.011014816700480878,
+              0.010610108298715204,
+              0.010771691700210796,
+              0.010753174999263138,
+              0.010581283300416544,
+              0.010893454100005329,
+              0.011251437495229766,
+              0.011198558402247727,
+              0.010205183399375529,
+              0.010757566703250631,
+              0.010559462499804795,
+              0.010614000004716217,
+              0.010257712501334027,
+              0.010238745796959848,
+              0.010032237501582131,
+              0.010080383298918605,
+              0.010086349997436628,
+              0.010115800000494345,
+              0.009993958298582583,
+              0.009920154098654165,
+              0.009943012497387826,
+              0.00996122500509955,
+              0.00989673329750076,
+              0.00995715000317432,
+              0.009850041702156887
+            ],
+            "first_call_seconds": 0.01275562500813976,
+            "setup_seconds": 0.06276941602118313,
+            "batch_size": 10,
+            "checks": {
+              "max_variance_scaled_residual": 4.872682714658212e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "integrand = Pmm_response[:, :, None] * Pmm_response[:, None, :] * survey_variance_mmmm[0, 0, :, None, None]\nreturn simpson(integrand * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "0df0edce04150f9d4b9449c405565274c305fdbacf6b01222150f2db884b492f",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "4a15024d30a7779aa3e7f974f1d73227343cd1954b206d3f457592401d2938b5",
+              "inputs_sha256": "16fcf6a793c1ef7c1114daf78ee05a258540e390d565dce6a887f22502f990ec",
+              "radial_nodes": 300,
+              "response_redshifts": 34,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 11.482498541008681,
+              "instrumented_ssc_seconds": 7.641242916986812,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "483eacbed07c853b87d813f31886f71fa74765891dfede5146cf37093efbe064",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov_over_cocoa": 41.923497023399264,
+      "max_variance_scaled_difference": 2.272660538353345e-15
+    },
+    "ssc2401": {
+      "cocoa": {
+        "mean_seconds": 0.0010982674893282192,
+        "std_seconds": 7.052701681365721e-05,
+        "run_means_seconds": [
+          0.001124681042437191,
+          0.0010718539362192473
+        ],
+        "runs": [
+          {
+            "stage": "ssc",
+            "backend": "cocoa",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 2401,
+            "mean_seconds": 0.001124681042437191,
+            "std_seconds": 6.171662303247452e-05,
+            "median_seconds": 0.001120736337422083,
+            "samples_seconds": [
+              0.0011957220073478918,
+              0.0012624166750659545,
+              0.001135680320051809,
+              0.0010878469911403954,
+              0.0011965696661112208,
+              0.0011770140069226425,
+              0.0010879026570667822,
+              0.0011295833392068744,
+              0.0010976113456611831,
+              0.0011605276570965846,
+              0.0010793056765881677,
+              0.0011141943202043574,
+              0.001081139004478852,
+              0.0011726806599957247,
+              0.0010676113306544721,
+              0.0012221803384212155,
+              0.0010544306715019047,
+              0.0010288609967877467,
+              0.0011828473264661927,
+              0.001183430664241314,
+              0.0011270696607728798,
+              0.0010707363253459334,
+              0.0010029029993650813,
+              0.0011632639992361267,
+              0.0010740693154123921,
+              0.001198347347478072,
+              0.0010785139941920836,
+              0.0010588473329941432,
+              0.0011694166848125558,
+              0.001120736337422083,
+              0.0010836526635102928
+            ],
+            "first_call_seconds": 0.001676499960012734,
+            "setup_seconds": 0.01007812499301508,
+            "batch_size": 3,
+            "checks": {
+              "max_variance_scaled_residual": 5.5240951565642544e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "a50b0bf42bd8b1302c940e08ddeb36aa19b59928d21a0c30763dfd309ec33174",
+              "inputs_sha256": "76f35d12f523c70fbb16acf7d8bdb8efcf8a00d002b68fbbbd7fcec126aa6c3c",
+              "radial_nodes": 2401,
+              "response_redshifts": 139,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 14.725673749984708,
+              "instrumented_ssc_seconds": 28.81629674998112,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "3553ae08c66004765bbe492315de864f869e37d00a068fa84a210626ab6d61bb",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "ssc",
+            "backend": "cocoa",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 2401,
+            "mean_seconds": 0.0010718539362192473,
+            "std_seconds": 6.973605488711953e-05,
+            "median_seconds": 0.0010634166731809576,
+            "samples_seconds": [
+              0.0011758053442463279,
+              0.0010425416597475607,
+              0.001221180660650134,
+              0.0010553750131900113,
+              0.0009534306591376662,
+              0.0011221806635148823,
+              0.001066263997927308,
+              0.000973888672888279,
+              0.0011088193277828395,
+              0.0009672636709486445,
+              0.0011181386653333902,
+              0.0010169723342793684,
+              0.001108138996642083,
+              0.0011889306673159201,
+              0.0009791110060177743,
+              0.0010059860069304705,
+              0.001124778005760163,
+              0.0011145973306459684,
+              0.001055638655088842,
+              0.0010323473446381588,
+              0.0010041666682809591,
+              0.0011241110041737556,
+              0.001017694342105339,
+              0.001104888991297533,
+              0.0010785139941920836,
+              0.001041777664795518,
+              0.0010634166731809576,
+              0.0010015973433231313,
+              0.0010413056588731706,
+              0.0011531250008071463,
+              0.0011654859990812838
+            ],
+            "first_call_seconds": 0.0013191669713705778,
+            "setup_seconds": 0.009482417022809386,
+            "batch_size": 3,
+            "checks": {
+              "max_variance_scaled_residual": 5.5240951565642544e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "a50b0bf42bd8b1302c940e08ddeb36aa19b59928d21a0c30763dfd309ec33174",
+              "inputs_sha256": "76f35d12f523c70fbb16acf7d8bdb8efcf8a00d002b68fbbbd7fcec126aa6c3c",
+              "radial_nodes": 2401,
+              "response_redshifts": 139,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 14.725673749984708,
+              "instrumented_ssc_seconds": 28.81629674998112,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "3553ae08c66004765bbe492315de864f869e37d00a068fa84a210626ab6d61bb",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 0.11043711443636967,
+        "std_seconds": 0.009824130404695422,
+        "run_means_seconds": [
+          0.10126947264452416,
+          0.11960475622821518
+        ],
+        "runs": [
+          {
+            "stage": "ssc",
+            "backend": "onecov",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 2401,
+            "mean_seconds": 0.10126947264452416,
+            "std_seconds": 0.0023390411338814485,
+            "median_seconds": 0.10070544432771082,
+            "samples_seconds": [
+              0.09902138899390896,
+              0.09992968065974613,
+              0.09950426366413012,
+              0.10070544432771082,
+              0.10029558334887649,
+              0.09876118066798274,
+              0.10519406932871789,
+              0.10096477765667562,
+              0.10029752798921739,
+              0.10164097199837367,
+              0.09859936100353177,
+              0.1000243056526718,
+              0.09939901400745536,
+              0.09980098600499332,
+              0.10249612499804546,
+              0.10163694466852273,
+              0.10356202768161893,
+              0.10037101399696742,
+              0.09958463866496459,
+              0.10111515266665567,
+              0.09948140266351402,
+              0.09929544432088733,
+              0.10236608332100634,
+              0.10224733334810783,
+              0.10103380532624821,
+              0.10031208333869775,
+              0.1036850693441617,
+              0.11006808333331719,
+              0.10407418066946168,
+              0.10314355567485715,
+              0.10074215265922248
+            ],
+            "first_call_seconds": 0.11953041702508926,
+            "setup_seconds": 0.0575974159874022,
+            "batch_size": 3,
+            "checks": {
+              "max_variance_scaled_residual": 4.881070731751012e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "integrand = Pmm_response[:, :, None] * Pmm_response[:, None, :] * survey_variance_mmmm[0, 0, :, None, None]\nreturn simpson(integrand * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "0df0edce04150f9d4b9449c405565274c305fdbacf6b01222150f2db884b492f",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "a50b0bf42bd8b1302c940e08ddeb36aa19b59928d21a0c30763dfd309ec33174",
+              "inputs_sha256": "76f35d12f523c70fbb16acf7d8bdb8efcf8a00d002b68fbbbd7fcec126aa6c3c",
+              "radial_nodes": 2401,
+              "response_redshifts": 139,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 14.725673749984708,
+              "instrumented_ssc_seconds": 28.81629674998112,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "a2edb9156c78f7c083be2eff38c33447a9c2ef11a78cac057bf18fac67cc50d6",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "ssc",
+            "backend": "onecov",
+            "shape": [
+              100,
+              100
+            ],
+            "radial_nodes": 2401,
+            "mean_seconds": 0.11960475622821518,
+            "std_seconds": 0.004132641425181158,
+            "median_seconds": 0.11939018033444881,
+            "samples_seconds": [
+              0.1202224720036611,
+              0.1199291943339631,
+              0.12043293066866075,
+              0.12116352767528345,
+              0.13470454166720933,
+              0.12886033333294714,
+              0.12275523601177458,
+              0.1206715833201694,
+              0.12090086098760366,
+              0.12038111133733764,
+              0.12167693034280092,
+              0.12125462501232202,
+              0.12239220833483462,
+              0.12059006935063128,
+              0.11897127766860649,
+              0.12162990266612421,
+              0.11763597233220935,
+              0.11670612501135717,
+              0.11510154166414092,
+              0.11540116666583344,
+              0.11795426400688787,
+              0.1169921806625401,
+              0.11740097232783835,
+              0.11765105533413589,
+              0.11744587499803553,
+              0.11863875001048048,
+              0.11568201368208975,
+              0.11939018033444881,
+              0.11739758332259953,
+              0.11495380534324795,
+              0.1128591526648961
+            ],
+            "first_call_seconds": 0.13005508302012458,
+            "setup_seconds": 0.06079812499228865,
+            "batch_size": 3,
+            "checks": {
+              "max_variance_scaled_residual": 4.881070731751012e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "integrand = Pmm_response[:, :, None] * Pmm_response[:, None, :] * survey_variance_mmmm[0, 0, :, None, None]\nreturn simpson(integrand * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "0df0edce04150f9d4b9449c405565274c305fdbacf6b01222150f2db884b492f",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "config_sha256": "a50b0bf42bd8b1302c940e08ddeb36aa19b59928d21a0c30763dfd309ec33174",
+              "inputs_sha256": "76f35d12f523c70fbb16acf7d8bdb8efcf8a00d002b68fbbbd7fcec126aa6c3c",
+              "radial_nodes": 2401,
+              "response_redshifts": 139,
+              "mass_nodes": 200,
+              "shape": [
+                100,
+                100
+              ],
+              "setup_seconds": 14.725673749984708,
+              "instrumented_ssc_seconds": 28.81629674998112,
+              "timing_note": "includes passive local-array capture; not a benchmark",
+              "omp_threads": 8
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "a2edb9156c78f7c083be2eff38c33447a9c2ef11a78cac057bf18fac67cc50d6",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov_over_cocoa": 100.55575304693858,
+      "max_variance_scaled_difference": 5.524095156564254e-15
+    },
+    "cng300": {
+      "cocoa": {
+        "mean_seconds": 0.00021007207032638572,
+        "std_seconds": 4.815638840238125e-06,
+        "run_means_seconds": [
+          0.00021337317284046402,
+          0.0002067709678123074
+        ],
+        "runs": [
+          {
+            "stage": "connected",
+            "backend": "cocoa",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 0.00021337317284046402,
+            "std_seconds": 4.632521533803391e-06,
+            "median_seconds": 0.00021423667029011996,
+            "samples_seconds": [
+              0.00021659082965925337,
+              0.0002085266698850319,
+              0.00020949375000782312,
+              0.00021257709013298154,
+              0.00021456208953168243,
+              0.0002188816695706919,
+              0.0002187691698782146,
+              0.00021962209022603928,
+              0.0002190920803695917,
+              0.0002203145803650841,
+              0.00021500167029444127,
+              0.00021459000010509043,
+              0.00021629083959851414,
+              0.00021289917000103743,
+              0.0002121516701299697,
+              0.00021287832991220056,
+              0.00021219916990958154,
+              0.00021233666979242116,
+              0.00021400833036750556,
+              0.00021489124977961183,
+              0.00021747249993495644,
+              0.00021672333998139947,
+              0.00021454125002492218,
+              0.00021423667029011996,
+              0.00021104874962475152,
+              0.00020580540993250907,
+              0.00020266082952730358,
+              0.00020503333013039083,
+              0.00020273499947506935,
+              0.0002134141599526629,
+              0.00021521999966353178
+            ],
+            "first_call_seconds": 0.0003079159650951624,
+            "setup_seconds": 0.008911999990232289,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 1.3375014484590043e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "ec685a00908f5f3b2bf89d2211be4293135337595ccbd878f31079287b65e1a0",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "fff87e498719aa375cda1aaf1ae271d4acfa27ea459137928c61c06a828f787d",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 300,
+              "k_nodes": 9,
+              "mass_nodes": 400,
+              "delta_z": 0.5,
+              "redshifts": [
+                0.017500995,
+                0.517500995,
+                1.017500995,
+                1.517500995,
+                2.017500995,
+                2.517500995,
+                3.017500995,
+                3.4941666683333334,
+                3.9941666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9670111778460289,
+                0.9801208470937098,
+                0.9879663040268718,
+                0.9971538928151603,
+                1.0677477782182292
+              ],
+              "instrumented_seconds": 19.083811415999662,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "d8eb6c1ca5613bdb5cee7e57fb7049b39b24bcc4e25d6d4ee87d0b4ba7331bf3",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "connected",
+            "backend": "cocoa",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 0.0002067709678123074,
+            "std_seconds": 1.7811431428298422e-06,
+            "median_seconds": 0.00020648042031098156,
+            "samples_seconds": [
+              0.00021110458008479326,
+              0.0002058408298762515,
+              0.00020766665984410792,
+              0.00020575125003233552,
+              0.00020487042027525604,
+              0.0002071145799709484,
+              0.00020585125021170824,
+              0.0002055462502175942,
+              0.00020642374991439283,
+              0.00020701791974715887,
+              0.000210316670127213,
+              0.0002065783302532509,
+              0.00020747375034261496,
+              0.00020565417013131083,
+              0.00021040791005361826,
+              0.00020730582997202873,
+              0.0002062779199331999,
+              0.00020844249986112117,
+              0.00020995041995774955,
+              0.00020651000028010458,
+              0.00020865792001131922,
+              0.0002044441702309996,
+              0.00020651792001444847,
+              0.00020673333026934414,
+              0.00020446667040232568,
+              0.0002046625001821667,
+              0.0002060975000495091,
+              0.00020510166010353714,
+              0.00020532541966531426,
+              0.00020648042031098156,
+              0.00020530749985482545
+            ],
+            "first_call_seconds": 0.0003349170438013971,
+            "setup_seconds": 0.008527417026925832,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 1.3375014484590043e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "ec685a00908f5f3b2bf89d2211be4293135337595ccbd878f31079287b65e1a0",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "fff87e498719aa375cda1aaf1ae271d4acfa27ea459137928c61c06a828f787d",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 300,
+              "k_nodes": 9,
+              "mass_nodes": 400,
+              "delta_z": 0.5,
+              "redshifts": [
+                0.017500995,
+                0.517500995,
+                1.017500995,
+                1.517500995,
+                2.017500995,
+                2.517500995,
+                3.017500995,
+                3.4941666683333334,
+                3.9941666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9670111778460289,
+                0.9801208470937098,
+                0.9879663040268718,
+                0.9971538928151603,
+                1.0677477782182292
+              ],
+              "instrumented_seconds": 19.083811415999662,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "d8eb6c1ca5613bdb5cee7e57fb7049b39b24bcc4e25d6d4ee87d0b4ba7331bf3",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 9.080294372266036e-05,
+        "std_seconds": 5.848095885718846e-06,
+        "run_means_seconds": [
+          8.936356257406934e-05,
+          9.224232487125144e-05
+        ],
+        "runs": [
+          {
+            "stage": "connected",
+            "backend": "onecov",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 8.936356257406934e-05,
+            "std_seconds": 7.232594787406124e-06,
+            "median_seconds": 8.42920900322497e-05,
+            "samples_seconds": [
+              0.0001051200000802055,
+              9.966458019334823e-05,
+              0.00010021708032581956,
+              0.00010217458009719848,
+              9.757042047567666e-05,
+              9.719041001517326e-05,
+              9.668582992162555e-05,
+              9.74675000179559e-05,
+              9.697375004179776e-05,
+              9.971833962481469e-05,
+              8.792500011622906e-05,
+              8.666959009133279e-05,
+              8.689042006153614e-05,
+              8.934749988839031e-05,
+              8.444959006737917e-05,
+              8.409042027778923e-05,
+              8.405083965044468e-05,
+              8.386041969060898e-05,
+              8.420792000833899e-05,
+              8.37079097982496e-05,
+              8.394582953769714e-05,
+              8.355166995897889e-05,
+              8.41079099336639e-05,
+              8.370708033908158e-05,
+              8.37629201123491e-05,
+              8.373334014322609e-05,
+              8.368666982278228e-05,
+              8.386457979213446e-05,
+              8.383416978176684e-05,
+              8.380207989830524e-05,
+              8.42920900322497e-05
+            ],
+            "first_call_seconds": 0.00032699998700991273,
+            "setup_seconds": 0.05477779102511704,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 6.579110046428307e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "return simpson(trispec_integrand_mmmm[:, :, :, i_sample, j_sample] * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "1037b71c6dcae6ad7c046da376af7f5e46ea384398e8b8d345c78db0c1a27e4b",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "ec685a00908f5f3b2bf89d2211be4293135337595ccbd878f31079287b65e1a0",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "fff87e498719aa375cda1aaf1ae271d4acfa27ea459137928c61c06a828f787d",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 300,
+              "k_nodes": 9,
+              "mass_nodes": 400,
+              "delta_z": 0.5,
+              "redshifts": [
+                0.017500995,
+                0.517500995,
+                1.017500995,
+                1.517500995,
+                2.017500995,
+                2.517500995,
+                3.017500995,
+                3.4941666683333334,
+                3.9941666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9670111778460289,
+                0.9801208470937098,
+                0.9879663040268718,
+                0.9971538928151603,
+                1.0677477782182292
+              ],
+              "instrumented_seconds": 19.083811415999662,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "75c84d14f3402096f41b0565d6113886a19c573bf25c7af5a5803803717e454f",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "connected",
+            "backend": "onecov",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 300,
+            "mean_seconds": 9.224232487125144e-05,
+            "std_seconds": 3.5983709851396315e-06,
+            "median_seconds": 9.244916029274464e-05,
+            "samples_seconds": [
+              9.560708014760166e-05,
+              9.194082987960428e-05,
+              9.137292043305934e-05,
+              9.196833008900284e-05,
+              9.364166995510458e-05,
+              9.398417023476213e-05,
+              8.92262498382479e-05,
+              9.47587500559166e-05,
+              8.624250011052937e-05,
+              8.699374971911311e-05,
+              8.647416019812226e-05,
+              8.55645799310878e-05,
+              9.523458953481168e-05,
+              9.071083040907979e-05,
+              9.197083010803909e-05,
+              9.351166954729706e-05,
+              9.341958037111908e-05,
+              9.397000016178936e-05,
+              9.244916029274464e-05,
+              8.943584049120546e-05,
+              9.453874954488129e-05,
+              9.263416985049843e-05,
+              9.270665992517024e-05,
+              9.084541990887373e-05,
+              8.840458001941443e-05,
+              8.992624992970377e-05,
+              9.596041985787451e-05,
+              0.00010237292037345468,
+              9.867916000075639e-05,
+              9.378916991408914e-05,
+              9.117708017583937e-05
+            ],
+            "first_call_seconds": 0.0003215000033378601,
+            "setup_seconds": 0.05890674999682233,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 6.579110046428307e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "return simpson(trispec_integrand_mmmm[:, :, :, i_sample, j_sample] * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "1037b71c6dcae6ad7c046da376af7f5e46ea384398e8b8d345c78db0c1a27e4b",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "ec685a00908f5f3b2bf89d2211be4293135337595ccbd878f31079287b65e1a0",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "fff87e498719aa375cda1aaf1ae271d4acfa27ea459137928c61c06a828f787d",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 300,
+              "k_nodes": 9,
+              "mass_nodes": 400,
+              "delta_z": 0.5,
+              "redshifts": [
+                0.017500995,
+                0.517500995,
+                1.017500995,
+                1.517500995,
+                2.017500995,
+                2.517500995,
+                3.017500995,
+                3.4941666683333334,
+                3.9941666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9670111778460289,
+                0.9801208470937098,
+                0.9879663040268718,
+                0.9971538928151603,
+                1.0677477782182292
+              ],
+              "instrumented_seconds": 19.083811415999662,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "75c84d14f3402096f41b0565d6113886a19c573bf25c7af5a5803803717e454f",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov_over_cocoa": 0.43224662651051726,
+      "max_variance_scaled_difference": 1.1703137674016288e-15
+    },
+    "cng601": {
+      "cocoa": {
+        "mean_seconds": 0.00034768695500867077,
+        "std_seconds": 6.20413796863952e-06,
+        "run_means_seconds": [
+          0.00035012134390267273,
+          0.00034525256611466886
+        ],
+        "runs": [
+          {
+            "stage": "connected",
+            "backend": "cocoa",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 601,
+            "mean_seconds": 0.00035012134390267273,
+            "std_seconds": 6.572498971501543e-06,
+            "median_seconds": 0.00035159500024747105,
+            "samples_seconds": [
+              0.0003563624998787418,
+              0.0003405675000976771,
+              0.0003417425003135577,
+              0.0003403445798903704,
+              0.0003399454103782773,
+              0.00033835417008958756,
+              0.0003411725000478327,
+              0.0003495954198297113,
+              0.00034793833969160915,
+              0.0003462183300871402,
+              0.0003515612502815202,
+              0.0003517891699448228,
+              0.0003520245896652341,
+              0.0003675774997100234,
+              0.00035209416993893684,
+              0.00036095375020522624,
+              0.0003526104101911187,
+              0.00034913500014226883,
+              0.0003418795799370855,
+              0.0003534516703803092,
+              0.00035159500024747105,
+              0.00034976665978319943,
+              0.00035044707998167725,
+              0.00035686667019035667,
+              0.0003497945802519098,
+              0.0003525124996667728,
+              0.00035256333008874206,
+              0.0003533766698092222,
+              0.00035160332976374775,
+              0.00035198875004425643,
+              0.0003579287504544482
+            ],
+            "first_call_seconds": 0.000501292000990361,
+            "setup_seconds": 0.009389582963194698,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 1.5913800907665273e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "74e230db25ab4245c51d1ed1139a306c20cb1d2a4041d3aa6b2a67a008f5a2ba",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "6b299403b1e124cd7adf1381b10e65a764463b1a6b18235624a66f03f40f2022",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 601,
+              "k_nodes": 65,
+              "mass_nodes": 400,
+              "delta_z": 0.25,
+              "redshifts": [
+                0.017500995,
+                0.267500995,
+                0.517500995,
+                0.767500995,
+                1.017500995,
+                1.267500995,
+                1.517500995,
+                1.767500995,
+                2.017500995,
+                2.267500995,
+                2.517500995,
+                2.767500995,
+                3.017500995,
+                3.267500995,
+                3.4941666683333334,
+                3.7441666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9584944851389169,
+                0.9725774204263884,
+                0.9830652034477891,
+                0.9964262214717443,
+                1.0894366695151632
+              ],
+              "instrumented_seconds": 43.51344833400799,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "a230c820d95742629a45bbc634b9016c03743287c1f67df9c474520f6b2798cd",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "connected",
+            "backend": "cocoa",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 601,
+            "mean_seconds": 0.00034525256611466886,
+            "std_seconds": 4.777067671868191e-06,
+            "median_seconds": 0.00034442082978785037,
+            "samples_seconds": [
+              0.0003514195798197761,
+              0.0003468908299691975,
+              0.0003512612503254786,
+              0.00036395457980688663,
+              0.0003516374999890104,
+              0.00034357958007603885,
+              0.0003433208301430568,
+              0.00034471791994292286,
+              0.000346794169745408,
+              0.00034493417013436555,
+              0.00034182332979980855,
+              0.0003444854205008596,
+              0.0003490354097448289,
+              0.00034395124996080997,
+              0.00034167208010330794,
+              0.00034291125019080936,
+              0.00034119874995667485,
+              0.00034089458000380546,
+              0.0003477345802821219,
+              0.0003440845897421241,
+              0.00034442082978785037,
+              0.0003449395799543709,
+              0.0003418254101416096,
+              0.0003466562501853332,
+              0.0003440599999157712,
+              0.00034606667002663017,
+              0.00034144625009503216,
+              0.00034558208019006996,
+              0.0003428937494754791,
+              0.0003416833298979327,
+              0.000336953749647364
+            ],
+            "first_call_seconds": 0.00046791601926088333,
+            "setup_seconds": 0.008937124977819622,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 1.5913800907665273e-15,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "74e230db25ab4245c51d1ed1139a306c20cb1d2a4041d3aa6b2a67a008f5a2ba",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "6b299403b1e124cd7adf1381b10e65a764463b1a6b18235624a66f03f40f2022",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 601,
+              "k_nodes": 65,
+              "mass_nodes": 400,
+              "delta_z": 0.25,
+              "redshifts": [
+                0.017500995,
+                0.267500995,
+                0.517500995,
+                0.767500995,
+                1.017500995,
+                1.267500995,
+                1.517500995,
+                1.767500995,
+                2.017500995,
+                2.267500995,
+                2.517500995,
+                2.767500995,
+                3.017500995,
+                3.267500995,
+                3.4941666683333334,
+                3.7441666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9584944851389169,
+                0.9725774204263884,
+                0.9830652034477891,
+                0.9964262214717443,
+                1.0894366695151632
+              ],
+              "instrumented_seconds": 43.51344833400799,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "a230c820d95742629a45bbc634b9016c03743287c1f67df9c474520f6b2798cd",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 0.00010670542291688522,
+        "std_seconds": 5.029501495044898e-06,
+        "run_means_seconds": [
+          0.00011097541518299089,
+          0.00010243543065077954
+        ],
+        "runs": [
+          {
+            "stage": "connected",
+            "backend": "onecov",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 601,
+            "mean_seconds": 0.00011097541518299089,
+            "std_seconds": 6.110006224473976e-07,
+            "median_seconds": 0.00011084249999839812,
+            "samples_seconds": [
+              0.00011338999960571528,
+              0.00011077958974055946,
+              0.0001119216700317338,
+              0.00011180916044395417,
+              0.00011046166007872672,
+              0.00011107457976322621,
+              0.00011095708003267646,
+              0.00011043750040698797,
+              0.00011083040968514979,
+              0.00011101667012553663,
+              0.0001113720895955339,
+              0.00011143332987558097,
+              0.00011046542029362172,
+              0.00011099916999228299,
+              0.00011090582993347197,
+              0.0001106416602851823,
+              0.0001104395795846358,
+              0.000110649160342291,
+              0.00011049708002246916,
+              0.00011061041033826768,
+              0.00011050875007640571,
+              0.00011114666995126754,
+              0.00011084249999839812,
+              0.00011088082974310964,
+              0.00011175458028446883,
+              0.00011072207998950035,
+              0.00011066542007029056,
+              0.00011118083028122783,
+              0.00011065749975387008,
+              0.00011029458022676408,
+              0.000110892080119811
+            ],
+            "first_call_seconds": 0.00031358300475403666,
+            "setup_seconds": 0.052676749997772276,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 9.504519614928366e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "return simpson(trispec_integrand_mmmm[:, :, :, i_sample, j_sample] * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "1037b71c6dcae6ad7c046da376af7f5e46ea384398e8b8d345c78db0c1a27e4b",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "74e230db25ab4245c51d1ed1139a306c20cb1d2a4041d3aa6b2a67a008f5a2ba",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "6b299403b1e124cd7adf1381b10e65a764463b1a6b18235624a66f03f40f2022",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 601,
+              "k_nodes": 65,
+              "mass_nodes": 400,
+              "delta_z": 0.25,
+              "redshifts": [
+                0.017500995,
+                0.267500995,
+                0.517500995,
+                0.767500995,
+                1.017500995,
+                1.267500995,
+                1.517500995,
+                1.767500995,
+                2.017500995,
+                2.267500995,
+                2.517500995,
+                2.767500995,
+                3.017500995,
+                3.267500995,
+                3.4941666683333334,
+                3.7441666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9584944851389169,
+                0.9725774204263884,
+                0.9830652034477891,
+                0.9964262214717443,
+                1.0894366695151632
+              ],
+              "instrumented_seconds": 43.51344833400799,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "b3bbd1ddc3b285e48376f1673b51d200b8b94cb4a41d0214402193280f801ea2",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "connected",
+            "backend": "onecov",
+            "shape": [
+              8,
+              8
+            ],
+            "radial_nodes": 601,
+            "mean_seconds": 0.00010243543065077954,
+            "std_seconds": 3.6579304017796703e-06,
+            "median_seconds": 0.00010126292007043958,
+            "samples_seconds": [
+              0.00011435208027251065,
+              0.0001011941599426791,
+              0.00010046375042293221,
+              0.0001039800001308322,
+              9.865375002846122e-05,
+              0.00010393959004431963,
+              9.812083968427032e-05,
+              0.00010004166979342699,
+              0.00010125541943125427,
+              9.919625008478761e-05,
+              0.00010558374982792884,
+              0.0001007349998690188,
+              0.00010038957989308984,
+              0.00010461958008818328,
+              0.00010934208985418082,
+              9.902624995447695e-05,
+              0.00010126292007043958,
+              0.00010541834053583443,
+              0.00010949832969345152,
+              0.00010139375051949174,
+              0.00010095415986143053,
+              0.00010652541997842491,
+              0.00010177333024330437,
+              0.00010168000007979572,
+              0.00010273416992276908,
+              0.00010178458003792912,
+              0.00010020666988566518,
+              0.00010301166970748454,
+              0.00010065875016152858,
+              9.982083982322365e-05,
+              9.788166033104063e-05
+            ],
+            "first_call_seconds": 0.0004300830187276006,
+            "setup_seconds": 0.05913579202024266,
+            "batch_size": 100,
+            "checks": {
+              "max_variance_scaled_residual": 9.504519614928366e-16,
+              "repeated_max_absolute": 0.0
+            },
+            "implementation": {
+              "source_sha256": "7382aa049ed4eb511a8939eb9e174fcc3b6822f47785b82593dcf802bd5e87b3",
+              "expressions": "return simpson(trispec_integrand_mmmm[:, :, :, i_sample, j_sample] * weight[:, None, None], x=self.los_integration_chi, axis=0)",
+              "expressions_sha256": "1037b71c6dcae6ad7c046da376af7f5e46ea384398e8b8d345c78db0c1a27e4b",
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              }
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "inputs_sha256": "74e230db25ab4245c51d1ed1139a306c20cb1d2a4041d3aa6b2a67a008f5a2ba",
+              "script_sha256": "285206bd92bfa4e9055ae95fa61ab2049ec78a61659985226521820eae2c4231",
+              "config_sha256": "6b299403b1e124cd7adf1381b10e65a764463b1a6b18235624a66f03f40f2022",
+              "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+              "radial_nodes": 601,
+              "k_nodes": 65,
+              "mass_nodes": 400,
+              "delta_z": 0.25,
+              "redshifts": [
+                0.017500995,
+                0.267500995,
+                0.517500995,
+                0.767500995,
+                1.017500995,
+                1.267500995,
+                1.517500995,
+                1.767500995,
+                2.017500995,
+                2.267500995,
+                2.517500995,
+                2.767500995,
+                3.017500995,
+                3.267500995,
+                3.4941666683333334,
+                3.7441666683333334
+              ],
+              "total_correlation_eigenvalues": [
+                0.9584944851389169,
+                0.9725774204263884,
+                0.9830652034477891,
+                0.9964262214717443,
+                1.0894366695151632
+              ],
+              "instrumented_seconds": 43.51344833400799,
+              "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "b3bbd1ddc3b285e48376f1673b51d200b8b94cb4a41d0214402193280f801ea2",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov_over_cocoa": 0.3069008525621105,
+      "max_variance_scaled_difference": 1.3261500756387727e-15
+    },
+    "halo": {
+      "cocoa": {
+        "mean_seconds": 0.01993230100064962,
+        "std_seconds": 0.0009590322953545345,
+        "run_means_seconds": [
+          0.020269613548986275,
+          0.01959498845231296
+        ],
+        "runs": [
+          {
+            "stage": "halo",
+            "backend": "cocoa",
+            "shape": [
+              3,
+              200
+            ],
+            "radial_nodes": null,
+            "mean_seconds": 0.020269613548986275,
+            "std_seconds": 0.0008494080839679915,
+            "median_seconds": 0.0201063749846071,
+            "samples_seconds": [
+              0.022452291974332184,
+              0.01924195804167539,
+              0.02013645798433572,
+              0.02014045900432393,
+              0.020066875033080578,
+              0.019931540999095887,
+              0.01946699997643009,
+              0.020971750025637448,
+              0.020089040976017714,
+              0.0201063749846071,
+              0.02036200003931299
+            ],
+            "first_call_seconds": 0.0322283340501599,
+            "setup_seconds": 0.7512033749953844,
+            "batch_size": 1,
+            "checks": {
+              "i11": 0.0,
+              "i12": 0.0,
+              "i13": 0.0,
+              "i13_exchanged": 0.0,
+              "i04": 0.0,
+              "saved_i11_max_fractional": 0.0,
+              "saved_i12_max_fractional": 0.0
+            },
+            "implementation": {
+              "core": {
+                "commit": "927748b6916d069c01b3d8d762015defc502617d",
+                "status": ""
+              },
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+              "mass_nquad": 256,
+              "mass_panels": 8
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+              "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+              "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+              "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+              "mass_nodes": 800,
+              "redshifts": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+              "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "e3078d934cf584c4ef06265fee1145c3eb0db95a1a4b6736e60808ab5fcd3ee4",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "halo",
+            "backend": "cocoa",
+            "shape": [
+              3,
+              200
+            ],
+            "radial_nodes": null,
+            "mean_seconds": 0.01959498845231296,
+            "std_seconds": 0.0009796175920864655,
+            "median_seconds": 0.01933516701683402,
+            "samples_seconds": [
+              0.019297582970466465,
+              0.02209254098124802,
+              0.019170875020790845,
+              0.02013183297822252,
+              0.018704916001297534,
+              0.020135333004873246,
+              0.019628416979685426,
+              0.019606292014941573,
+              0.0184745829901658,
+              0.01933516701683402,
+              0.01896733301691711
+            ],
+            "first_call_seconds": 0.030311834008898586,
+            "setup_seconds": 0.7325907499762252,
+            "batch_size": 1,
+            "checks": {
+              "i11": 0.0,
+              "i12": 0.0,
+              "i13": 0.0,
+              "i13_exchanged": 0.0,
+              "i04": 0.0,
+              "saved_i11_max_fractional": 0.0,
+              "saved_i12_max_fractional": 0.0
+            },
+            "implementation": {
+              "core": {
+                "commit": "927748b6916d069c01b3d8d762015defc502617d",
+                "status": ""
+              },
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+              "mass_nquad": 256,
+              "mass_panels": 8
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+              "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+              "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+              "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+              "mass_nodes": 800,
+              "redshifts": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+              "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "e3078d934cf584c4ef06265fee1145c3eb0db95a1a4b6736e60808ab5fcd3ee4",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 2.4978355719146994,
+        "std_seconds": 0.03919174410399895,
+        "run_means_seconds": [
+          2.5104576362804933,
+          2.485213507548906
+        ],
+        "runs": [
+          {
+            "stage": "halo",
+            "backend": "onecov",
+            "shape": [
+              3,
+              200
+            ],
+            "radial_nodes": null,
+            "mean_seconds": 2.5104576362804933,
+            "std_seconds": 0.027553422318538454,
+            "median_seconds": 2.5077686670119874,
+            "samples_seconds": [
+              2.5353744589956477,
+              2.5077686670119874,
+              2.477294207958039,
+              2.506955332995858,
+              2.5171344580012374,
+              2.5349815829540603,
+              2.5601578330388293,
+              2.5054389580036514,
+              2.484637708053924,
+              2.519190000020899,
+              2.466100792051293
+            ],
+            "first_call_seconds": 2.6556373329949565,
+            "setup_seconds": 17.780269584036432,
+            "batch_size": 1,
+            "checks": {
+              "i11": 0.0,
+              "i12": 0.0,
+              "i13": 0.0,
+              "i13_exchanged": 0.0,
+              "i04": 0.0,
+              "saved_i11_max_fractional": 0.0,
+              "saved_i12_max_fractional": 0.0
+            },
+            "implementation": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "mass_nodes": 800,
+              "config_sha256": "944d1f8b8dfaa9753dfabfd6fb7cba81a4041c430258cff699109b64c6ad06c9",
+              "halo_source_sha256": "6b1a3288b541398ab916ca57dbc5aa0f12b13e065ddba5249a7248f169ac9f57",
+              "polyspectra_source_sha256": "37e8c7d04baad4a85b66d391b0d705ec41c33c54d45bad25dc9d61b017a94257"
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+              "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+              "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+              "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+              "mass_nodes": 800,
+              "redshifts": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+              "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "cce2e9f2a194f796f4a6ebfccab4a51fbe2bb61fa9778a07e9da325da3d0bf04",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          },
+          {
+            "stage": "halo",
+            "backend": "onecov",
+            "shape": [
+              3,
+              200
+            ],
+            "radial_nodes": null,
+            "mean_seconds": 2.485213507548906,
+            "std_seconds": 0.045998885763406785,
+            "median_seconds": 2.483225667034276,
+            "samples_seconds": [
+              2.4768726250040345,
+              2.506218374997843,
+              2.4768763330066577,
+              2.4808304159669206,
+              2.4783520419732668,
+              2.5256686659995466,
+              2.483225667034276,
+              2.487655167002231,
+              2.5296368330018595,
+              2.5291266670101322,
+              2.3628857920411974
+            ],
+            "first_call_seconds": 2.5624657919979654,
+            "setup_seconds": 18.20137462503044,
+            "batch_size": 1,
+            "checks": {
+              "i11": 0.0,
+              "i12": 0.0,
+              "i13": 0.0,
+              "i13_exchanged": 0.0,
+              "i04": 0.0,
+              "saved_i11_max_fractional": 0.0,
+              "saved_i12_max_fractional": 0.0
+            },
+            "implementation": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "mass_nodes": 800,
+              "config_sha256": "cd81c947660b40ce89e2f07b3631f441514a0c0ef97854b09244d52bb9eca776",
+              "halo_source_sha256": "6b1a3288b541398ab916ca57dbc5aa0f12b13e065ddba5249a7248f169ac9f57",
+              "polyspectra_source_sha256": "37e8c7d04baad4a85b66d391b0d705ec41c33c54d45bad25dc9d61b017a94257"
+            },
+            "input_export": {
+              "onecov": {
+                "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+                "status": ""
+              },
+              "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+              "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+              "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+              "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+              "mass_nodes": 800,
+              "redshifts": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+              "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+            },
+            "script_sha256": "b8bae150df6bdb236373f6e06c04a67eb5d3e8092830b8768ed3fe866cae8d12",
+            "output_sha256": "cce2e9f2a194f796f4a6ebfccab4a51fbe2bb61fa9778a07e9da325da3d0bf04",
+            "versions": {
+              "numpy": "1.26.3",
+              "scipy": "1.12.0"
+            },
+            "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:18:52) [Clang 18.1.8 ]",
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "thread_environment": {
+              "OMP_NUM_THREADS": "8",
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            }
+          }
+        ]
+      },
+      "onecov_over_cocoa": 125.31596687373384
+    }
+  },
+  "halo_refinements": {
+    "onecov": {
+      "i11": {
+        "all_k_max_fractional": 2.2390261020577285e-05,
+        "comparison_range_max_fractional": 7.334122282820488e-06
+      },
+      "i12": {
+        "all_k_max_fractional": 0.00215016507753496,
+        "comparison_range_max_fractional": 1.1697697507861982e-05
+      },
+      "i13": {
+        "all_k_max_fractional": 0.006178437921575686,
+        "comparison_range_max_fractional": 1.3301511975982727e-05
+      },
+      "i13_exchanged": {
+        "all_k_max_fractional": 0.006165427386669808,
+        "comparison_range_max_fractional": 1.3301511975982727e-05
+      },
+      "i04": {
+        "all_k_max_fractional": 0.01009833555709827,
+        "comparison_range_max_fractional": 1.4438385373960472e-05
+      }
+    },
+    "cocoa": {
+      "i11": {
+        "all_k_max_fractional": 1.2595253218172786e-07,
+        "comparison_range_max_fractional": 4.276559217863962e-08
+      },
+      "i12": {
+        "all_k_max_fractional": 1.12567776122674e-06,
+        "comparison_range_max_fractional": 3.972570750132576e-07
+      },
+      "i13": {
+        "all_k_max_fractional": 2.516831567400679e-05,
+        "comparison_range_max_fractional": 9.060353496348483e-07
+      },
+      "i13_exchanged": {
+        "all_k_max_fractional": 1.2406574974699325e-05,
+        "comparison_range_max_fractional": 9.060353496348483e-07
+      },
+      "i04": {
+        "all_k_max_fractional": 5.137715736114323e-05,
+        "comparison_range_max_fractional": 1.2915320688478005e-06
+      }
+    }
+  },
+  "halo_k_limits_h_mpc": [
+    9.999999999999997e-06,
+    92.25714271547015
+  ],
+  "halo_comparison_k_limits_h_mpc": [
+    0.001,
+    10
+  ],
+  "collector_sha256": "b62f0a43c20e69e35937b6c8890bc225c140ae7fe5785bf87cfc00b488ed3d8b"
+}

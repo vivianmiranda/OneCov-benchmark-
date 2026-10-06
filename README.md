@@ -43,8 +43,9 @@ The [SSC comparison](#ssc-comparison) and
 non-Gaussian contributions with shared inputs. The
 [halo study](#halo-comparison) identifies native-model differences, and the
 [trispectrum study](#trispectrum-comparison) isolates an off-diagonal
-2-halo assembly discrepancy. The timing comparison below covers Gaussian
-components and band averaging only.
+2-halo assembly discrepancy. Timing tables cover
+[Gaussian components](#validation), [SSC and cNG projection, and native
+halo moments](#non-gaussian-timings), with their different scopes stated.
 
 ## Contents
 
@@ -58,6 +59,7 @@ components and band averaging only.
 8. [Halo-model ingredients](#halo-comparison)
 9. [Separated halo trispectra](#trispectrum-comparison)
 10. [Connected non-Gaussian projection](#connected-comparison)
+11. [SSC, halo and cNG timing differences](#non-gaussian-timings)
 
 ## Scope <a name="scope"></a>
 
@@ -585,9 +587,13 @@ redshifts 0, 0.5 and 1. See the
 [response comparison record](results/ssc_response_20261005.json).
 
 This checks the response formula, not the projected SSC covariance.
-The default prescriptions differ: OneCov uses the linear-power slope;
-Cocoa uses the two-halo slope and transfers the fractional halo response
-to its nonlinear power. The two-halo prescription follows the corrected
+The default prescriptions differ:
+
+- **OneCov:** uses the linear-power slope.
+- **CoCoA:** uses the two-halo slope and transfers the fractional halo
+  response to its nonlinear power.
+
+The two-halo prescription follows the corrected
 Eq. 44 of [Takada & Hu (2013)](https://arxiv.org/html/1302.6994v3).
 The broader response treatment is described by
 [Barreira, Krause & Schmidt (2018)](https://arxiv.org/abs/1711.07467).
@@ -629,15 +635,21 @@ absolute differences in CoCoA/OneCov minus one over those sampled ranges:
 
 The raw [Tinker et al. (2010)](https://arxiv.org/abs/1001.3162) bias
 formulas agree within $`6\times10^{-16}`$ when evaluated at the same
-peak height. OneCov then divides the bias by a finite-mass-range
-normalization, measured here as 0.7725, 0.7119 and 0.6415. CoCoA instead
-sets the multiplicity normalization through its bias-consistency integral.
+peak height. Their subsequent normalizations differ:
+
+- **OneCov:** divides the bias by a finite-mass-range normalization,
+  measured here as 0.7725, 0.7119 and 0.6415.
+- **CoCoA:** retains the fitted bias and sets the multiplicity amplitude
+  through its bias-consistency integral.
+
 These choices explain the large bias offset; it is not a disagreement
 in the underlying bias formula.
 
-The concentration choices also differ: OneCov uses
-[Duffy et al. (2008)](https://arxiv.org/abs/0804.2486), while CoCoA uses
-[Bhattacharya et al. (2013)](https://arxiv.org/abs/1112.5479).
+The concentration choices also differ:
+
+- **OneCov:** [Duffy et al. (2008)](https://arxiv.org/abs/0804.2486).
+- **CoCoA:** [Bhattacharya et al. (2013)](https://arxiv.org/abs/1112.5479).
+
 At the same supplied concentration, the NFW profiles differ by less than
 $`1.4\times10^{-5}`$ absolutely over the exported grid. The native moment
 mass limits and SSC response transfer remain different, as described above.
@@ -943,9 +955,13 @@ T^{2h}_{13}=2P_L(K)I^1_1(K)I^1_3(K,Q,Q)
           +2P_L(Q)I^1_1(Q)I^1_3(K,K,Q).
 $$
 
-The two moments are different when $`K\ne Q`$.
-CoCoA uses both. The sampled OneCov revision uses $`I^1_3(K,Q,Q)`$ in
-both terms before mirroring the matrix. Repeating that choice only in
+The two moments are different when $`K\ne Q`$:
+
+- **CoCoA:** uses the distinct moment required by each partition.
+- **OneCov:** the sampled revision uses $`I^1_3(K,Q,Q)`$ in both terms
+  before mirroring the matrix.
+
+Repeating OneCov's choice only in
 CoCoA's **supplied diagnostic inputs** reduces the discrepancy below
 $`3.4\times10^{-16}`$. Neither source implementation was changed.
 The partition structure follows [Takada & Hu (2013), Eq. 29](https://arxiv.org/html/1302.6994v3).
@@ -1019,9 +1035,13 @@ behavior. This is separate from the off-diagonal 2h partition discrepancy
 and from the mass-integration check below. Neither numerical source was
 changed for these tests.
 
-By contrast, changing CoCoA's mass/angular rules from 96 to 256 nodes
-changes every sampled native term by less than **0.00040%**. Doubling
-OneCov's mass grid from 400 to 800 changes them by at most **0.0031%**.
+The other integration refinements give:
+
+- **CoCoA:** changing its mass/angular rules from 96 to 256 nodes changes
+  every sampled native term by less than **0.00040%**.
+- **OneCov:** doubling its mass grid from 400 to 800 changes the sampled
+  terms by at most **0.0031%**.
+
 These integration checks do not remove the distinct bias normalization,
 concentration relation or OneCov's low-k one-halo damping.
 
@@ -1105,6 +1125,120 @@ python scripts/compare_connected.py compare work/connected_redshift \
 ```bash
 python scripts/plot_connected.py work/trispectrum_final_256 \
   work/connected_cocoa_redshift --output results/figures
+```
+
+## SSC, halo and cNG timing differences <a name="non-gaussian-timings"></a>
+
+**Apple M2 Pro, macOS 13.7.5; eight OpenMP threads configured.** Runs are
+sequential. These are separate stages using resident inputs, not complete
+survey covariances. Means and scatter include two fresh processes per code.
+
+### Radial projection from shared inputs
+
+Both codes receive identical response or trispectrum tables and the same
+radial integration weights. Every timed matrix agrees with the saved native
+calculation to floating-point precision.
+
+| Projection | Matrix | Radial nodes | CoCoA (ms) | OneCov (ms) | OneCov / CoCoA |
+| --- | --- | ---: | ---: | ---: | ---: |
+| SSC | 100×100 | 300 | 0.236 ± 0.015 | 9.896 ± 0.869 | 41.9 |
+| SSC | 100×100 | 2401 | 1.098 ± 0.070 | 110.437 ± 9.824 | 100.6 |
+| cNG | 8×8 | 300 | 0.210 ± 0.005 | 0.091 ± 0.006 | 0.43 |
+| cNG | 8×8 | 601 | 0.348 ± 0.006 | 0.107 ± 0.005 | 0.31 |
+
+OneCov is faster for these tiny cNG projections; CoCoA is faster for the
+larger SSC projections. These differences do not measure the cost of
+generating the matter responses, survey-mask variance or trispectra.
+
+- **CoCoA:** calls the production covariance bindings. SSC includes
+  constructing shell responses and their weighted contraction; cNG uses
+  the generic connected projection API.
+- **OneCov:** the benchmark executes the unchanged integrand and Simpson
+  integration statements extracted from its native projection methods.
+  Those statements are checked against the saved native method outputs.
+  Enclosing table generation and tomography-container assembly are excluded.
+
+Both timers include fresh numerical outputs and intermediate allocations.
+Preparing the common inputs and their required array layouts is outside
+the timer. No profiler is active during measurement. Each process records
+31 batches; the first call is saved separately. The larger SSC OneCov case
+has process means 101.3 and 119.6 ms; the table includes that variation.
+
+### Native halo-moment generation
+
+This requests I11, I12, both I13 partitions and undamped I04 at redshifts
+0.1, 0.5 and 1. All 20,100 unordered pairs of the 200 wavenumbers are
+included at each redshift. The codes retain their native halo fits and
+concentration relations, so this is a **matched requested calculation,
+with different physical prescriptions**.
+
+| Halo stage | CoCoA (ms) | OneCov (ms) | OneCov / CoCoA |
+| --- | ---: | ---: | ---: |
+| Three-redshift moment tables | 19.93 ± 0.96 | 2497.84 ± 39.19 | 125.3 |
+
+- **CoCoA:** uses its combined production moment API with 256-point mass
+  quadrature per panel. The additional I02 output remains in the timer.
+- **OneCov:** calls its native moment and one-halo methods with 800 mass
+  nodes. The methods' own allocations and ancillary work remain included.
+
+The first evaluation is recorded separately; each process then measures
+11 evaluations. Cosmology initialization and first-use variance tables
+are excluded. The measured range is about 10⁻⁵–92.3 h/Mpc. Over the
+comparison's physical range, 0.001–10 h/Mpc, refining the mass integration
+changes all these moments by at most 0.00145% in OneCov and 0.000130% in
+CoCoA. At the extreme high-k end of the full requested grid, the largest
+changes are 1.01% and 0.00514%, respectively; that tail is not equally
+well converged.
+
+**None of these ratios is a full SSC/cNG forecast speedup.** In particular,
+the halo row excludes angular perturbation-theory averages, whose native
+diagonal convergence remains unresolved above. The
+[timing record](results/nongaussian_timing_20261006.json) contains raw
+samples, first calls, setup costs, source/input hashes and numerical checks.
+
+To reproduce representative rows after the corresponding exports above:
+
+**Step :one:**: in the **OneCov terminal**, time SSC projection.
+
+```bash
+python scripts/time_nongaussian.py ssc work/ssc_projection_300 \
+  --backend onecov --repeats 31 --batch-size 10 --output work/timing_ssc300_onecov
+```
+
+**Step :two:**: in the **Cocoa terminal**, time the same projection.
+
+```bash
+python scripts/time_nongaussian.py ssc work/ssc_projection_300 \
+  --backend cocoa --repeats 31 --batch-size 10 --output work/timing_ssc300_cocoa
+```
+
+**Step :three:**: in the **OneCov terminal**, time cNG projection.
+
+```bash
+python scripts/time_nongaussian.py connected work/connected_redshift \
+  --backend onecov --repeats 31 --batch-size 100 --output work/timing_cng601_onecov
+```
+
+**Step :four:**: in the **Cocoa terminal**, time the same projection.
+
+```bash
+python scripts/time_nongaussian.py connected work/connected_redshift \
+  --backend cocoa --repeats 31 --batch-size 100 --output work/timing_cng601_cocoa
+```
+
+**Step :five:**: in the **OneCov terminal**, time native halo moments.
+
+```bash
+python scripts/time_nongaussian.py halo work/halo_onecov_800 \
+  --backend onecov --repeats 11 --output work/timing_halo_onecov
+```
+
+**Step :six:**: in the **Cocoa terminal**, time native halo moments.
+
+```bash
+python scripts/time_nongaussian.py halo work/halo_onecov_800 \
+  --backend cocoa --repeats 11 --output work/timing_halo_cocoa \
+  --halo-reference work/halo_cocoa_matched_800
 ```
 
 ### Running the projected non-Gaussian pilots
