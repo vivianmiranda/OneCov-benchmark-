@@ -12,7 +12,9 @@ Every refreshed CoCoA comparison uses interface SHA-256
 All 38 stages in `work/wynn_refresh_20261006/status.txt` exited zero. These
 were accuracy-only runs at two OpenMP threads alongside the separate
 all-project regression; their elapsed times are not benchmarks. The
-all-project regression remains a separate acceptance gate.
+separate regression gate has now passed: 571 tests across all seven
+projects, 12 isolated debug tests and exact covariance-disabled NLA/TATT
+checks. The checked production interface hash is the same as above.
 
 The unchanged OneCov revision is
 `311c2cfbe9d584d9d29abd3d8edaeea673470b7f`. Twenty-nine saved native metadata
@@ -66,6 +68,33 @@ those entries are pending a quiet sequential measurement with the current
 mass panels and Wynn implementation. Existing timing JSON records are
 preserved, and native OneCov timings remain identified by their date.
 Do not substitute the concurrent refresh's elapsed times.
+
+## Production regression archive
+
+The final complete LSST check uses `work/cutoff_full_wynn_stability/`
+and the public default mass panels through 1e-40 Msun/h. All 1560 by 1560
+entries are retained. `results/wynn_stability_vs_production4_20261006.json`
+and `results/wynn_stability_vs_initial_20261006.json` record matching
+inputs, separate G/SSC/cNG/total changes and total positivity, with
+four-panel figures of the same names. These are CoCoA regression records;
+keep them out of the public cross-code README.
+
+Against previous production, G is bitwise identical. The largest absolute
+variance changes relative to the positive reference total are 3.71889e-7
+for SSC, 1.14586e-6 for cNG and 1.26732e-6 for total. Total generalized
+variance ratios span 0.999999508356 to 1.000001267319. Both totals are
+positive definite. Against initial Wynn, before the numerical fixes,
+the maximum total change is 1.32221e-5; both totals are positive as well.
+
+Covariance SHA256 is
+`23135f138c14b3dd50abf3ac5ec30fce4e31f161359e189780bb037c961dbc78`.
+Covariance and power archive hashes, current interface and source hashes,
+and comparison report provenance were rechecked after the runner ended.
+These are regression results, not Fisher convergence or tiny-halo physical
+calibration. The single diagnostic duration is not a new fair timing.
+
+The Schmidt follow-up is closed by the decision to keep the present Wynn
+prescription. Do not launch its proposed experiments or implementation.
 
 ## Documentation checks
 
