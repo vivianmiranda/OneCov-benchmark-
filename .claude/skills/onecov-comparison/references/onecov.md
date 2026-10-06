@@ -48,6 +48,15 @@ window by that bin's bias. The numerical value of the internal
 projected galaxy bias. A missing bias file can lead to a warning/fallback;
 verify parsed tables before a run.
 
+The one-lens case was tested and fails in the unmodified constructor:
+the bias reader returns a 1D array but `CovELLSpace.__init__` indexes it
+as `[tomo, z]`. The small galaxy pilot therefore selects **two distinct
+LSST lens bins**. Do not duplicate a population or patch the array shape
+silently. A two-lens, one-source Gaussian run completed with the native CLI.
+The parser also requires an HOD configuration even for shear-only and
+supplied-bias runs; the pilot carries the upstream example's ancillary HOD
+values. They are not an LSST HOD fit.
+
 **Amplitude.** OneCov accepts `sigma8`; Cocoa's LSST forecast specifies
 `As = 2.1e-9`. Compute sigma8 with CAMB at the same cosmology rather than
 guessing it. Matching sigma8 alone does not make internally generated
@@ -56,7 +65,10 @@ interpolation remain independent choices.
 
 **Power tables.** `Pmm_file` uses `z, k, P` with k in h/Mpc and P in
 (Mpc/h)^3. All k values for the first redshift precede the second
-redshift; use increasing z and at least two distinct z values. These
+redshift; use increasing z and at least two distinct z values. Retain the
+first table node above the maximum n(z) redshift, even if its value lies
+outside the physical survey: it supplies the last interpolation bracket.
+OneCov checks the full n(z) file support, including zero-density tails. These
 tables feed projected power. They do not replace every internal linear
 power calculation used by the halo response/trispectrum.
 
@@ -72,6 +84,11 @@ grid. Separate `ell_*_lensing` and `ell_*_clustering` settings select
 output bands; ggl shares clustering bands. Logarithmic band edges are
 truncated to unique integers, then centers are geometric means. Match
 the actual edges and weighting, not just a quoted number of bins.
+In this revision `__bin_cov_ell_gauss` averages integer multipoles with
+uniform weight. For a single bin [L,U) it sums the Gaussian numerator
+divided by (2ell+1), then divides by fsky*(U-L)^2. Cocoa's Fourier operator
+uses mode-count weights. Do not compare their native band matrices as
+identical estimators; first use an analytic check with the stated weights.
 
 **Components.** Set `split_gauss = True` and save a list as well as a
 matrix. The list preserves sample variance, mixed signal/noise, pure
@@ -138,11 +155,16 @@ CosmoLike. This source study alone is not a paper-level validation.
 
 ## Next scientific gates
 
-1. Test parser round trips and one-source shared-spectrum Gaussian output.
-2. Check exact band definitions, noise and covariance normalization with
-   an independent analytic Gaussian calculation.
-3. Test native spectra with the same cosmology, then supplied CAMB power.
+1. Done: exported project inputs and tested the native parser/CLI for a
+   one-source Gaussian matrix and a two-lens, one-source Gaussian matrix.
+2. Done for the single-source pilot: the independent uniform-ell Gaussian
+   sum agrees within 3.4e-7, limited by native text output precision.
+   This checks assembly, not spectrum interpolation convergence.
+3. Native and supplied-CAMB-power paths ran successfully. Their relative
+   spectra differences and interpolation convergence still need assessment.
 4. Match halo choices and inspect single-redshift response/trispectrum
    inputs before drawing conclusions from a projected cNG difference.
-5. Run one-bin G+SSC and G+cNG pilots separately, refine one control at a
-   time, then add a lens/source cross block. Only then budget full LSST.
+5. One-bin G+SSC and G+cNG pilots ran separately and passed output checks;
+   their positive totals do not establish component accuracy. Refine one
+   control at a time, then add non-Gaussian lens/source cross blocks.
+   Only then budget full LSST.

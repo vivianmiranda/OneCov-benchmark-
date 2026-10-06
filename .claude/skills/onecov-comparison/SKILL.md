@@ -6,9 +6,14 @@ description: Study and run OneCovariance against CoCoA for the LSST Y1 covarianc
 # CoCoA–OneCovariance comparison
 
 LSST Y1 is the benchmark. Begin with one source bin in Fourier space;
-extend to a lens bin and cross blocks after the small calculation works.
+extend to the two-lens pilot and cross blocks after that calculation works.
 The aim is to explain agreement and differences, not to make either code
-win by choosing a cheaper or different physical model.
+win by choosing a cheaper or different physical model. **Do not optimize
+OneCovariance.** Establish accuracy first, then time the implementations
+at their validated settings. Source-level performance observations only
+help budget affordable tests; they are not a request to rewrite the code.
+Do not put recommendations for speeding up OneCovariance in the README.
+Human documentation should explain matched inputs and relative differences.
 
 Read [the source study](references/onecov.md) before changing input
 formats, bias choices, numerical controls or component extraction. Use

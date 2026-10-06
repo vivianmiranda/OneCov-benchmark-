@@ -11,8 +11,14 @@ The aim is to understand where the codes agree, explain differences in
 their physical models and numerical methods, and measure execution time
 at settings whose numerical accuracy has been checked.
 
-**Status:** study setup. Comparison scripts and measured results will be
-added as each stage is completed.
+This is an **accuracy comparison first**. We are not optimizing or
+rewriting OneCovariance. Timing comparisons follow once the physical
+choices and numerical accuracy of both calculations are understood.
+
+**Status:** the LSST Y1 input exporter and bounded OneCovariance runners
+are implemented. Small Gaussian, G+SSC and G+cNG cases have run successfully.
+These are functional pilots; a converged comparison of the two codes is
+still ahead.
 
 ## Contents
 
@@ -23,11 +29,11 @@ added as each stage is completed.
 
 ## Scope <a name="scope"></a>
 
-The initial survey configurations are LSST Y1 and Roman real. We will start
-with small parts of their cosmic-shear, galaxy–galaxy-lensing and clustering
-covariances. Full survey matrices are a later goal, subject to measured
-runtime and memory requirements. Fourier-space comparisons will precede
-real-space ones.
+**LSST Y1 is the benchmark.** We start with small parts of its cosmic-shear,
+galaxy–galaxy-lensing and clustering covariances. Full survey matrices are
+a later goal, subject to measured runtime and memory requirements.
+Fourier-space comparisons precede real-space ones. Other surveys can be
+added after this comparison is understood.
 
 The covariance contributions will be kept separate:
 
@@ -76,10 +82,9 @@ using the released implementations.
 
 ### Keeping laptop runs small
 
-OneCovariance's runtime on this machine has not yet been measured. Each
-pilot will have a stated wall-time budget and record peak memory as well
-as elapsed time. Full matrices and broad parameter sweeps will not be
-the default laptop workload.
+Each pilot has a wall-time budget and records peak child memory as well
+as elapsed time. The default budget is ten minutes. Full matrices and
+broad parameter sweeps are not the default laptop workload.
 
 The timing breakdown must separate initialization, shared halo tables and
 projection/assembly. A single small block cannot predict the full cost:
@@ -123,17 +128,139 @@ will provide a mean and a measure of timing variation.
 
 ## Reproducing the comparison <a name="reproduction"></a>
 
-As the study develops, this repository will contain:
+### What the pilot represents
 
-| Planned directory | Contents |
+The exporter reads Cocoa's `projects/lsst_y1/covariance` configuration.
+The default subset is source bin 3 and lens bins 1 and 2, retaining their
+original LSST Y1 identities and densities.
+
+| Input | LSST Y1 forecast choice |
 | --- | --- |
-| `scripts/` | Python runners, comparison diagnostics and plotting scripts. |
-| `configs/` | Survey settings and numerical configurations for both codes. |
-| `inputs/` | Shared input tables and records of how they were generated. |
-| `results/` | Comparison outputs, machine-readable metrics and timing logs. |
-| `figures/` | Figures generated from the saved results. |
+| Area | 12,300 deg² |
+| Source density | 2 arcmin⁻² in the selected source bin |
+| Lens density | 3.6 arcmin⁻² in each selected lens bin |
+| Shape dispersion | 0.26 per component |
+| Lens biases | 1.72716 and 1.65168 for lens bins 1 and 2 |
+| Cosmology | Ωm = 0.3, Ωb = 0.05, h = 0.7, ns = 0.965, As = 2.1×10⁻⁹ |
+| First output | Five Fourier bands between ℓ = 30 and 3,000 |
 
-Every reported result will identify the code revisions, configuration,
-input provenance and command needed to reproduce it. The README will
-explain the physics and summarize the findings, with links to the saved
-evidence and any unresolved differences.
+Selecting one source bin does **not** put all five bins' galaxies into it.
+The scripts preserve its density and export its actual n(z) column. These
+are the project's forecast choices, not its supplied likelihood covariance.
+
+### Step 1️⃣: Export the Cocoa inputs
+
+Start Cocoa using its installation instructions, then change to this
+benchmark directory. The LSST covariance interface must be enabled.
+Commands below assume the two code checkouts are sibling directories.
+
+```bash
+export OMP_NUM_THREADS=8
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
+python scripts/prepare_lsst_y1.py \
+  --cocoa ../cocoa/Cocoa --output work/lsst_y1
+```
+
+This writes the selected distributions, constant bias tables, shared
+noise-free angular spectra, CAMB nonlinear power and a manifest containing
+revisions and input hashes. It computes sigma8 from the specified As for
+OneCovariance's amplitude input. It does not compute a covariance matrix.
+
+Use `--source-bin 4 --lens-bins 2 3` to select other original LSST bins.
+The two lens bins must be distinct. At the studied OneCov revision, its
+supplied-bias path fails for a single lens bin because the reader and
+constructor disagree about the array shape. Two real lens bins avoid that
+problem without modifying OneCovariance.
+
+### Step 2️⃣: Run the small Gaussian case
+
+Use an environment with OneCovariance's dependencies and its bundled
+Levin extension installed. See the [environment notes](docs/environment.md).
+Keep only one numerical job running at a time.
+
+```bash
+python scripts/run_onecov.py \
+  --onecov ../OneCovariance --inputs work/lsst_y1 \
+  --output work/shear_gaussian --timeout 180
+python scripts/check_result.py work/shear_gaussian
+```
+
+The default uses shared Cocoa angular spectra and produces a **5×5 shear
+Gaussian covariance**. `check_result.py` verifies finite entries, symmetry,
+positive definiteness and the Gaussian normalization against an independent
+integer-multipole sum.
+
+To include galaxy clustering, galaxy–shear and all their cross blocks:
+
+```bash
+python scripts/run_onecov.py \
+  --inputs work/lsst_y1 --case 3x2 \
+  --output work/small_3x2_gaussian --timeout 180
+python scripts/check_result.py work/small_3x2_gaussian
+```
+
+This gives a **30×30 matrix**, including the cross spectrum between the two
+lens bins. The analytic Gaussian checker currently covers shear; the 3x2
+check covers matrix finiteness, symmetry and positivity.
+
+> [!NOTE]
+> OneCovariance averages integer multipoles uniformly in these Gaussian
+> bands. Cocoa's Fourier operator uses mode-count weights. Identical band
+> edges alone therefore do not define identical estimators. The first check
+> verifies OneCovariance's own weighting; matching estimators across codes
+> is a separate comparison step.
+
+### Step 3️⃣: Add one contribution at a time
+
+```bash
+python scripts/run_onecov.py \
+  --inputs work/lsst_y1 --terms ssc --spectra native \
+  --output work/shear_ssc --timeout 600
+python scripts/check_result.py work/shear_ssc
+
+python scripts/run_onecov.py \
+  --inputs work/lsst_y1 --terms connected --spectra native \
+  --output work/shear_connected --timeout 600
+python scripts/check_result.py work/shear_connected
+```
+
+`--terms ssc` computes G+SSC; `--terms connected` computes G+cNG.
+The native list and separate matrix files preserve the contributions.
+The pilot's eight-point trispectrum table measures feasibility, **not
+converged cNG accuracy**. Halo prescriptions and footprint normalization
+still need to be matched before interpreting differences from Cocoa.
+
+The three spectrum choices isolate different calculations:
+
+| `--spectra` | What OneCovariance receives |
+| --- | --- |
+| `shared-cells` | Cocoa angular spectra; isolates Gaussian covariance assembly. |
+| `shared-power` | Cocoa CAMB nonlinear P(k,z); OneCov performs the angular projection. |
+| `native` | Cosmology and survey inputs; OneCov generates its own spectra. |
+
+Supplied power does not replace every linear-power calculation inside the
+halo response or trispectrum. Shared-input and native runs must retain
+their separate labels.
+
+### Inspecting and refining a run
+
+Every run writes `onecov.ini`, `input_manifest.json`, `preflight.log`,
+`native.log` and `run.json`. The latter records status, revisions, package
+versions, worker count, wall time and peak child memory. A timeout stops
+the child process group and keeps partial output. Retry in a new directory.
+
+The recorded wall time covers the fresh native CLI, including imports,
+setup, computation and writing. It is a feasibility measurement, not yet
+the separated timing breakdown needed for a performance comparison.
+Peak child memory is not a sum over simultaneous worker processes.
+
+Copy [onecov_pilot.ini](configs/onecov_pilot.ini), change one numerical
+control and pass it with `--template`. `--prepare-only` writes an INI without
+importing or running OneCovariance. Refining the internal spectrum grid
+does not refine a supplied C_ell table; regenerate that input separately.
+
+Generated files live under ignored `work/`. Small reviewed validation
+summaries belong in `results/`; full matrices and disposable runs do not.
+The scripts contain no changes to either code's numerical implementation.
