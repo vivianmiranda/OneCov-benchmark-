@@ -1,0 +1,10 @@
+.venv/
+.local/
+external_modules/code/
+external_modules/data/
+__pycache__/
+*.pyc
+.pytest_cache/
+# Generated inputs, native output and logs stay outside version control.
+# Promote small, reviewed summaries explicitly when reporting a result.
+work/
