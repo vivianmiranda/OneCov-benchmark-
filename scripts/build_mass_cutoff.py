@@ -14,17 +14,19 @@ import shutil
 import subprocess
 
 from common import revision, sha256
+from split_mass_rule import private_source
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--log10-min", type=int, default=2)
-    parser.add_argument("--sigma-log10-kmax", type=int, choices=(5, 7, 9),
+    parser.add_argument("--sigma-log10-kmax", type=int, choices=(5, 7, 9, 15),
                         default=5)
+    parser.add_argument("--split-tail", action="store_true")
     args = parser.parse_args()
-    if args.output.exists() or args.log10_min not in (-3, 2, 4, 6):
-        parser.error("use a new output directory and log10-min -3, 2, 4 or 6")
+    if args.output.exists() or args.log10_min not in (-20, -3, 2, 4, 6):
+        parser.error("use a new directory and log10-min -20, -3, 2, 4 or 6")
     root = Path(os.environ["ROOTDIR"])
     core = root/"external_modules/code/cosmolike_core"
     project = root/"projects/lsst_y1/interface"
@@ -70,6 +72,21 @@ def main():
             replacement=dict(before=sigma_before, after=sigma_after),
         )
     makefile += f"\nCFLAGS += -I {core}/cosmolike\n"
+    split_record = None
+    if args.split_tail:
+        halo_source = core/"cosmolike/covariances/halo_cov.c"
+        (target/"halo_cov.c").write_text(private_source(halo_source.read_text()))
+        original = "${ROOTDIR}/external_modules/code/cosmolike/covariances/halo_cov.c"
+        if makefile.count(original) != 1:
+            raise ValueError("the native halo source list has changed")
+        makefile = makefile.replace(original, "./halo_cov.c")
+        makefile += f"CFLAGS += -I {core}/cosmolike/covariances\n"
+        split_record = dict(
+            source_sha256=sha256(halo_source),
+            diagnostic_sha256=sha256(target/"halo_cov.c"),
+            rule_environment="COCOA_DIAGNOSTIC_TAIL_NQUAD",
+            split_mass=1e4,
+        )
     (target/"MakefileCosmolike").write_text(makefile)
     environment = dict(os.environ)
     environment.pop("IGNORE_COSMOLIKE_LSST_Y1_COVARIANCE", None)
@@ -88,6 +105,7 @@ def main():
         diagnostic_structs_sha256=sha256(target/"structs.c"),
         replacement=dict(before=before, after=after),
         sigma_integral=sigma_record,
+        split_tail=split_record,
         interface_sha256=sha256(target/"cosmolike_lsst_y1_interface.so"),
         production_interface_sha256=sha256(
             project/"cosmolike_lsst_y1_interface.so"),

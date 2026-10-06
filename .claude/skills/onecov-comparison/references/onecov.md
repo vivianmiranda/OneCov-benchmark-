@@ -173,14 +173,65 @@ plots and diagnostics are saved as results/microhalo*. Construction
 times52.126,51.912,52.362s: single sequential8-thread measurements with
 background application activity, not a precise slowdown estimate.
 
-Next authorized diagnostics: retain96 nodes/panel above1e4, integrate
-1e-20..1e4 with32 nodes total, compare a finer tail and complete G/SSC/cNG
-matrices.32 is explicitly authorized for this diagnostic only; do not
-remove the production minimum64. Then use32 per successive low-mass
-interval and test convergence acceleration of the partial sums (Aitken,
-Shanks/Wynn). Validate predictions against withheld later sums and the
-actual finite-k moments, not only the already-imposed I11(0)=1 limit.
+The authorized split-rule and sequence follow-up is completed below.
 No production adoption is authorized by these studies.
+
+## Split low-mass quadrature and sequence acceleration, 2026-10-06
+
+`split_mass_rule.py` changes only quadrature construction in a private
+copy of halo_cov.c. Upper panels retain the public nquad. Panels below
+1e4 use COCOA_DIAGNOSTIC_TAIL_NQUAD, set explicitly by benchmark runners.
+Native weights, profiles, SIMD sums and one final completion are retained.
+The installed sources and library are untouched.32 is an explicitly
+authorized diagnostic exception, not a change to the production >=64 rule.
+The private build uses mass minimum1e-20 and sigma kmax1e15, retaining the
+same log-log power continuation. Preserve all original upper mass nodes.
+
+Folders: work/split_tail_build, split_single32, split_intervals32,
+split_intervals128, split_refined. Upper quadrature96 throughout. Single32
+uses one24-decade lower interval. Intervals use six4-decade panels with
+32 or128 nodes. Refined uses128 lower nodes and table boost8 rather than4.
+Partial sums at exponents4,0,-4,-8,-12,-16,-20 retain every earlier node.
+All native corrected zero modes and repeatability checks pass.
+
+Single32 versus intervals128 changes the tested corrected ingredients
+<3e-12 fractionally. Missing z1 response at1e-20 is.09207 and resolved
+ordinary mass.92024. Fine table changes are~9.46e-6, much larger than the
+quadrature contrast; never call the latter absolute physical accuracy.
+At the smallest mass, sigma differs from the same-power OneCov hmf filter
+by.116%. The filter's1e13->1e15 tail change is1.11e-10.99.84% of variance
+comes from power above suppliedkmax143. Extreme-domain FFTLog/table
+accuracy and small-halo calibration remain limits of this diagnostic.
+
+Full folders: split_full_base4, split_full_single32, split_full_reference128.
+Times49.168,50.702,50.406s, sequential8 threads, single runs with background
+app activity: no precise speed claim. All1560 entries in G/SSC/cNG/total
+are checked. G is bitwise unchanged and totals positive. Single32 versus
+ref128: normalized entry differences<4e-13; mode ratios differ<7e-12 at
+eigensolver precision. Tail extension4->-20 on common tables changes total
+modes1.8673e-9. Extreme table-domain expansion at fixed1e4 instead gives
+8.31318e-5. Component plots/reports are results/split_full_*_20261006.json.
+
+`report_split_tail.py` tests Aitken delta-squared and mpmath's native
+Wynn/Shanks (randomized=False).40-digit arithmetic avoids additional
+algorithm rounding; inputs remain finite-accuracy double-precision
+quadratures. No noise recovery or randomized singularity handling.
+Known geometric-series check passes. At z1, raw last partialB=.907929;
+Aitken limit1.002344 and Wynn.999010. Wynn with5 partials gives1.000481,
+so convergence is not monotone. Held-out next-two partial sums after a
+fit through1e-12 agree within.0242%/.0749% acrossz. Refinement128/table8
+retains the behavior. All test extrapolations take~.029s in one batch.
+
+Extrapolating raw finite-k I11 after removing the native completion gives
+max errors.519% Aitken and.216% Wynn against the deep corrected reference.
+Existing completion atMmin1e4 differs only.00729% overk<=100. Thus no
+extrapolated forecast replaces that already-better completed moment;
+the full matrices test split quadrature, not an accelerated physical model.
+For tiny halos u~1, completed I11~1+integral dw*(u-1), explaining why rawB
+converges slowly while corrected finite-k moments barely change.
+
+Results, scientific plots and human explanations are in the README and
+results/split_tail_20261006.json. Timing comparisons remain tables.
 
 ## Low-mass cutoff study: scope
 

@@ -21,8 +21,14 @@ import numpy as np
 from common import revision, sha256
 
 
-def mass_edges(exponent):
+def mass_edges(exponent, tail_panels=None):
     """Append low-mass panels without moving the original eight panels."""
+    if tail_panels is not None and exponent < 4:
+        lower = [exponent]
+        if tail_panels == "intervals":
+            lower = range(exponent, 4, 4)
+        return np.concatenate(([math.log(10.0**value) for value in lower],
+                               mass_edges(4)))
     original = np.linspace(np.log(1e6), np.log(1e17), 9)
     lower = np.log(10.0)*np.arange(exponent, 6)
     if len(lower):
@@ -32,7 +38,7 @@ def mass_edges(exponent):
     return np.concatenate((lower, original))
 
 
-def completion(ci, scale, wave, edges, nquad):
+def completion(ci, scale, wave, edges, nquad, tail_nodes=None):
     """Read the missing weight from the same GSL rule and core halo fits.
 
     At zero wavenumber the normalized profile is one. Each mass node's
@@ -44,9 +50,17 @@ def completion(ci, scale, wave, edges, nquad):
     masses = []
     measures = []
     for lower, upper in zip(edges[:-1], edges[1:]):
+        panel_nodes, panel_weights = nodes, weights
+        if tail_nodes is not None and lower < math.log(1e4):
+            # The private C build uses GSL's 32-point table when requested.
+            # The public binding deliberately retains its >=64 contract.
+            # Gauss-Legendre roots provide the same rule for this scalar
+            # diagnostic of F and B; halo moments still come from C.
+            panel_nodes, panel_weights = np.polynomial.legendre.leggauss(
+                tail_nodes)
         half = (upper-lower)/2
-        masses.extend(np.exp((upper+lower)/2+half*nodes))
-        measures.extend(half*weights)
+        masses.extend(np.exp((upper+lower)/2+half*panel_nodes))
+        measures.extend(half*panel_weights)
     masses = np.asarray(masses)
     measures = np.asarray(measures)
     missing = []
@@ -87,6 +101,10 @@ def run(args):
 
     if args.interface and sha256(ci.__file__) != build_record["interface_sha256"]:
         raise ValueError("imported interface differs from the selected build")
+    if args.tail_nodes is not None:
+        if build_record is None or not build_record.get("split_tail"):
+            raise ValueError("the split rule needs the isolated split-tail build")
+        os.environ["COCOA_DIAGNOSTIC_TAIL_NQUAD"] = str(args.tail_nodes)
     # A private build can reproduce the old 1e6 table or extend it.
     # Do not request a mass integral below that build's supported domain.
     exponents = [6]
@@ -138,7 +156,7 @@ def run(args):
     saved = dict(redshift=redshift, k=wave_h, first=first, second=second)
     records = []
     for exponent in exponents:
-        edges = mass_edges(exponent)
+        edges = mass_edges(exponent, args.tail_panels)
         for nquad in args.nodes:
             key = f"m{exponent}_n{nquad}"
             arguments = dict(a=scale, k=grids, lnm_edges=edges, nquad=nquad)
@@ -156,7 +174,7 @@ def run(args):
                     raise ValueError("pair moments are not repeatable")
 
             missing, profiles, resolved_mass = completion(
-                ci, scale, wave, edges, nquad)
+                ci, scale, wave, edges, nquad, args.tail_nodes)
             zero, _ = ci.covariance.covariance_halo_moments(
                 a=scale, k=np.zeros((len(scale), 1)), lnm_edges=edges,
                 nquad=nquad, pair_moments=False)
@@ -220,6 +238,7 @@ def run(args):
         supplied_k_hmpc=[float(10**tables["log10k_2D"][0]),
                         float(10**tables["log10k_2D"][-1])],
         cosmology=settings["cosmology"],
+        tail_nodes=args.tail_nodes, tail_panels=args.tail_panels,
     )
     (args.output/"report.json").write_text(json.dumps(record, indent=2)+"\n")
 
@@ -232,13 +251,17 @@ def main():
     parser.add_argument("--nodes", type=int, nargs="+", default=[96, 128, 256])
     parser.add_argument("--repeats", type=int, default=11)
     parser.add_argument("--exponents", type=int, nargs="+",
-                        choices=(-3, 0, 2, 4, 6))
-    parser.add_argument("--tail-log10-max", type=int, choices=(7, 9), default=7)
+                        choices=(-20, -16, -12, -8, -4, -3, 0, 2, 4, 6))
+    parser.add_argument("--tail-nodes", type=int, choices=(32, 64, 96, 128, 256))
+    parser.add_argument("--tail-panels", choices=("single", "intervals"))
+    parser.add_argument("--tail-log10-max", type=int, choices=(7, 9, 15), default=7)
     args = parser.parse_args()
     if args.output.exists() or args.boost not in (1, 2, 4, 8):
         parser.error("use a new output directory and boost 1,2,4 or 8")
     if not set(args.nodes) <= {96, 128, 256, 512} or args.repeats < 2:
         parser.error("use supported quadratures and at least two repeats")
+    if (args.tail_nodes is None) != (args.tail_panels is None):
+        parser.error("specify both tail-nodes and tail-panels, or neither")
     signal.alarm(600)
     args.output.mkdir(parents=True)
     with (args.output/"run.log").open("w") as log:

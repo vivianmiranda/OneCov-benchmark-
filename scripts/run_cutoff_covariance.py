@@ -27,7 +27,9 @@ from diagnose_mass_cutoff import mass_edges
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--interface", type=Path)
-    parser.add_argument("--log10-min", type=int, choices=(-3, 2, 4, 6), default=6)
+    parser.add_argument("--log10-min", type=int, choices=(-20, -3, 2, 4, 6), default=6)
+    parser.add_argument("--tail-nodes", type=int, choices=(32, 64, 96, 128, 256))
+    parser.add_argument("--tail-panels", choices=("single", "intervals"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     output = args.output.resolve()
@@ -35,6 +37,8 @@ def main():
         parser.error("choose a new output directory")
     if args.interface is None and args.log10_min < 4:
         parser.error("cutoffs below 1e4 require an isolated wider-domain build")
+    if (args.tail_nodes is None) != (args.tail_panels is None):
+        parser.error("specify both tail-nodes and tail-panels, or neither")
     selected = None if args.interface is None else args.interface.resolve()
     signal.alarm(900)
 
@@ -57,6 +61,10 @@ def main():
             raise ValueError("imported interface differs from diagnostic build")
         if 10.0**args.log10_min < build["table_mass_min"]:
             raise ValueError("mass cutoff is below the isolated table domain")
+    if args.tail_nodes is not None:
+        if build is None or not build.get("split_tail"):
+            raise ValueError("the split rule needs the isolated split-tail build")
+        os.environ["COCOA_DIAGNOSTIC_TAIL_NQUAD"] = str(args.tail_nodes)
     output.mkdir(parents=True)
 
     # The example's relative theory paths follow the ordinary CLI contract.
@@ -64,10 +72,11 @@ def main():
     os.chdir(root)
     filename = project/"EXAMPLE_EVALUATE_COVARIANCE.yaml"
     settings, run = load_run_configuration(filename, survey)
-    settings["lnm_edges"] = mass_edges(args.log10_min)
+    settings["lnm_edges"] = mass_edges(args.log10_min, args.tail_panels)
     settings["execution"] = dict(
         backend="production", threads=run["threads"],
         diagnostic="mass cutoff with unchanged halo prescriptions",
+        tail_nodes=args.tail_nodes, tail_panels=args.tail_panels,
         table_domain=("native" if build is None else
                       f"isolated, minimum {build['table_mass_min']:g} Msun/h"),
     )
