@@ -42,11 +42,12 @@ def theta_matrix(blocks):
 
 
 def onecov(args, manifest):
-    """Call the native public G/SSC/cNG calculation on a common ell grid.
+    """Call native G/SSC/cNG for Fourier band centres or real-space annuli.
 
     args supplies input/output paths and numerical refinement controls.
     manifest supplies the exported cosmology, density and source bin.
-    Return four dimensionless [100,100] matrices and run provenance.
+    Return dimensionless covariance components and run provenance. Fourier
+    matrices are [100,100]; real-space matrices are [16,16], xi+ then xi-.
     """
     sys.path.insert(0, str(args.onecov.resolve()))
     from onecov.cov_input import FileInput, Input
@@ -184,12 +185,14 @@ def onecov(args, manifest):
 
 
 def cocoa(args, manifest):
-    """Call the production forecast for the same source and band centres.
+    """Call the production forecast for the same source and observables.
 
     The production call uses one-multipole operators. Dividing only G by
     30 matches OneCov's explicit band-centre mode count. SSC/cNG correlate
     the band centres through shared matter modes and receive no such factor.
     The numerical settings, native predictions and timings remain recorded.
+    Real-space instead requests both spin kernels and keeps G unchanged:
+    its annular bin averaging and noise are already included in the result.
     """
     runtime = args.cocoa.resolve()
     project = runtime/"projects/lsst_y1"
@@ -245,8 +248,9 @@ def cocoa(args, manifest):
     np.testing.assert_allclose(supplied[:, 2], power[:nredshift].ravel(),
                                rtol=1.e-11, atol=0)
 
-    # The initialized core retains all five lens/source bins for crossed
-    # spectra. Only the measured source-bin-3 E-mode row is requested.
+    # The initialized core retains all lens/source bins for crossed spectra.
+    # Select only source bin 3: one E-mode row in Fourier space, or the
+    # two observed correlations xi+ and xi- in real space.
     field = len(settings["lens_density_arcmin2"])+source
     rows = np.array([[0, field, field]], dtype=np.int32)
     if args.space == "real":

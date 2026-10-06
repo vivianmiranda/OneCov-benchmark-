@@ -59,6 +59,16 @@ the full LSST Y1 real-space comparison remains to be computed.
 [Vector figure](results/figures/complete_shear_difference.pdf) ·
 [Settings, results and reproduction](#complete-shear).
 
+**Real-space comparison:** the corresponding 16 × 16 matrix contains
+xi+ and xi− for the same source bin, including their cross-covariance.
+Each code uses its own real-space numerical settings: CoCoA's LSST defaults
+and OneCovariance's shipped real-space example.
+
+![Real-space CoCoA minus OneCovariance: Gaussian, SSC, connected non-Gaussian and total](results/figures/real_shear_difference.png)
+
+[Vector figure](results/figures/real_shear_difference.pdf) ·
+[Real-space results, timings and reproduction](#real-shear).
+
 ## Contents
 
 1. [Scope](#scope)
@@ -75,7 +85,8 @@ the full LSST Y1 real-space comparison remains to be computed.
 12. [Separated halo trispectra](#trispectrum-comparison)
 13. [Connected non-Gaussian projection](#connected-comparison)
 14. [SSC, halo and cNG timing differences](#non-gaussian-timings)
-15. [Complete shear covariance: CoCoA versus OneCovariance](#complete-shear)
+15. [Complete Fourier shear covariance](#complete-shear)
+16. [Real-space shear covariance](#real-shear)
 
 ## Scope <a name="scope"></a>
 
@@ -2174,4 +2185,134 @@ python scripts/complete_shear.py cocoa --inputs work/lsst_y1_complete \
 python scripts/plot_complete_shear.py work/complete_shear_cocoa \
   work/complete_shear_onecov --output work/complete_shear_comparison.json \
   --figure work/complete_shear_difference.png
+```
+
+
+## Real-space shear covariance <a name="real-shear"></a>
+
+This comparison measures **xi+ and xi− for LSST Y1 source bin 3** in
+**eight logarithmic angular bins from 2.5 to 250 arcminutes**. Both codes
+compute all 16 × 16 entries, including the covariance between xi+ and xi−.
+Gaussian, SSC and connected non-Gaussian contributions remain separate.
+The survey, cosmology, source distribution, shape noise and supplied CAMB
+nonlinear power are the same as in the [Fourier pilot](#complete-shear).
+
+**The numerical settings follow each code's own real-space example.**
+OneCovariance uses its shipped `config_files/config_3x2pt_rcf.ini`, with
+survey inputs and requested components changed for this comparison.
+Its numerical controls are not adjusted to imitate CoCoA's settings.
+
+- **CoCoA:** full-sky spin kernels, averaged over spherical annuli with
+  the area measure sin(theta) dtheta; LSST covariance defaults.
+- **OneCovariance:** flat-sky J0/J4 Bessel kernels, averaged with the
+  planar annular measure theta dtheta; the shipped real-space settings.
+
+The same bin boundaries therefore define slightly different angular
+averages. Footprint treatment and native halo prescriptions also differ,
+as described above. The figure measures their combined effect; it does
+not isolate the full-sky correction or certify either model as exact.
+
+| Numerical control | CoCoA | OneCovariance real-space example |
+| --- | --- | --- |
+| Multipoles for spectra | Through 100,000 | 500 logarithmic samples, 2–100,000 |
+| Angular transform | Discrete full-sky sum | Native Bessel integration |
+| Radial integration | 7 panels × 96 GSL nodes | 500 radial samples |
+| Halo mass integration | 10 panels × 96 GSL nodes | 900 mass samples |
+| Trispectrum k sampling | Project interpolation tables | 100 samples |
+| Power/response redshift spacing | Project interpolation tables | 0.08 |
+| Trispectrum redshift spacing | At radial integration nodes | 0.5 |
+| Angular integration tolerance | 96-point GSL rule per angular panel | 0.01 |
+
+OneCov's Bessel-weight table extends from multipole 1 to 100,000 in this
+revision. This is distinct from its 500-point spectrum table, which starts
+at 2. These values come from OneCov's example and implementation; they
+were not imposed to match the full-sky sum. The earlier CCL FFTLog benchmark
+supplied spectra only to 30,000, illustrating why controls must be read
+for each transform rather than transferred between methods.
+
+### Differences across the complete selected matrix
+
+Every pixel uses the same normalization as the Fourier figure: the
+component difference divided by the **OneCov total diagonal rms product**,
+in percent. Within each xi block, angular separation increases from left
+to right and from top to bottom. No matrix entries or angular bins are
+removed.
+
+| Component | Largest absolute difference / total rms product | Largest relative difference in its own diagonal |
+| --- | ---: | ---: |
+| Gaussian | 2.018% | 2.152% |
+| SSC | 0.662% | 20.945% |
+| Connected non-Gaussian | 0.268% | 28.692% |
+| Total | 2.125% | 2.125% |
+
+The totals' **symmetric parts are positive definite**. Their generalized
+variance ratios span **0.984781–1.023477**, a maximum change of **2.35%**.
+This comparison includes all correlated combinations of the 16 observables;
+it is not a Fisher-parameter convergence test.
+
+CoCoA's saved matrices are exactly symmetric. OneCov's largest
+antisymmetric residual is **0.00114% of the total rms product**, in the
+Gaussian component. The figure and archives retain the original entries.
+Only the eigenvalue diagnostic uses `(C + C.T)/2`; no eigenvalues are clipped
+or repaired. The residual is much smaller than the cross-code differences.
+
+These are **native-setting results**, not a claim of matched physical models
+or established numerical convergence. In particular, the native halo bias,
+concentration, response, angular-corner and two-halo partition differences
+identified earlier remain. The larger Gaussian difference also includes
+angular spectra, geometry and numerical integration; it cannot all be
+attributed to the full-sky versus flat-sky transform without a separate test.
+
+### Measured execution time
+
+Apple M2 Pro, eight OpenMP threads; single sequential runs. Numerical setup
+and covariance construction are timed separately; plotting and file writing
+are excluded. The two codes calculate the same observables with their own
+settings and halo prescriptions.
+
+| Code | Numerical setup | Covariance construction | Combined |
+| --- | ---: | ---: | ---: |
+| CoCoA production interface | 0.42 s | 45.44 s | **45.86 s** |
+| OneCovariance real-space example | 19.91 s | 513.64 s | **533.55 s (8.89 min)** |
+
+For **full LSST Y1**, the 1560 × 1560 OneCovariance runtime remains unmeasured.
+A planning allowance is **several hours, potentially longer**, rather than
+minutes; this is an estimate, not a measured timing or an upper bound.
+The one-source pilot already takes about nine minutes. Expanding it adds
+both angular bins and tomographic combinations, while some initialization
+is shared. Multiplying by the ratio of matrix dimensions would therefore
+not give a defensible runtime prediction.
+
+The [real-space comparison record](results/real_shear_20261006.json) contains
+input and source fingerprints, numerical settings, component diagnostics,
+asymmetries, eigenvalue conventions and measured times.
+
+### Reproducing the real-space comparison
+
+Use the shared input export from [Step 1 of the Fourier pilot](#complete-shear)
+and the separate installed OneCov and Cocoa environments. Run sequentially
+with eight OpenMP threads.
+
+**Step :one:**: in the **OneCov terminal**, run the native real-space example
+with the LSST source and the eight common angular bins.
+
+```bash
+python scripts/complete_shear.py onecov --space real \
+  --inputs work/lsst_y1_complete --output work/real_shear_onecov
+```
+
+**Step :two:**: after it finishes, in the **Cocoa terminal**, compute the
+same observables through the production interface.
+
+```bash
+python scripts/complete_shear.py cocoa --space real \
+  --inputs work/lsst_y1_complete --output work/real_shear_cocoa
+```
+
+**Step :three:**: compare every entry and save the four-panel figure.
+
+```bash
+python scripts/plot_complete_shear.py work/real_shear_cocoa \
+  work/real_shear_onecov --output work/real_shear_comparison.json \
+  --figure work/real_shear_difference.png
 ```

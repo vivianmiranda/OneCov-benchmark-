@@ -3,7 +3,7 @@
 All four panels use the same OneCov total-variance normalization. Separate
 colour ranges reveal small component differences without dividing by tiny
 off-diagonal entries. Inputs must come from complete_shear.py on identical
-source distributions, cosmology, density and multipole samples.
+source distributions, cosmology, density and measured multipoles or annuli.
 """
 
 import argparse
@@ -21,7 +21,7 @@ from common import sha256
 
 
 def read_result(folder):
-    """Read four [nell,nell] covariances and verify their archived hash."""
+    """Read four observable-by-observable covariances and check their hash."""
     report = json.loads((folder/"report.json").read_text())
     filename = folder/"covariance.npz"
     if sha256(filename) != report["covariance_sha256"]:
@@ -161,7 +161,7 @@ def main():
     figure.savefig(args.figure.with_suffix(".pdf"), bbox_inches="tight")
     plt.close(figure)
     print(json.dumps(report["components"], indent=2))
-    print("Both total matrices are positive definite.")
+    print("Both total symmetric parts are positive definite.")
 
 
 if __name__ == "__main__":

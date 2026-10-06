@@ -42,6 +42,47 @@ stopped at z=3 and correctly failed OneCov's z-support guard. Its output
 folder/log was preserved; fresh prepare_lsst_y1.py output includes the
 bracketing CAMB node beyond the source support and resolves that input error.
 
+## Real-space cross-code figure, 2026-10-06
+
+User explicitly requires OneCov's own real-space numerical settings, not
+controls chosen to mimic CoCoA's full-sky cutoff. Use the shipped
+config_files/config_3x2pt_rcf.ini with only physical survey/IA/calibration,
+selected observables, requested components and output locations adapted.
+The saved INI and template fingerprint record exactly what was used.
+Its native ell=2..1e5 (500 log samples), 500 radial nodes, 900 mass nodes,
+100 trispectrum k samples, dz=.08, tri_dz=.5, theta_accuracy=.01 and
+integration_intervals=400 were unchanged. The Bessel weight support is
+hardcoded 1..1e5 in this revision; distinguish that from spectrum samples.
+CCL-benchmark's original 0044cc6 LSST FFTLog script supplied ell<=30000;
+never transfer a full-sky cutoff requirement to a different transform.
+
+`complete_shear.py --space real` computes source bin 3 at eight common
+logarithmic annuli 2.5..250 arcmin, ordered xi+ then xi-, 16x16. It calls
+native CovTHETASpace.calc_covTHETA and the CoCoA production interface.
+OneCov split-G groups 7,8,9 (three entries each) and NG groups 7,8,9 are
+++, +-, --. Reverse ordering is the transpose of +-. Native auto-block
+asymmetries remain untouched. No code in either numerical library changed.
+
+Archives: work/real_shear_onecov_native_20261006 and
+work/real_shear_cocoa_20261006. Report results/real_shear_20261006.json;
+PNG/PDF results/figures/real_shear_difference. Every entry is included.
+Max percent difference / OneCov total rms product: G2.018179,
+SSC0.662422, cNG0.267596, total2.124543. Generalized total mode ratios
+.9847814351..1.0234774897. Symmetric-part correlation minimum eigenvalues
+are .16254508 (CoCoA), .16124295 (OneCov). Native OneCov maximum asymmetry
+is 1.13565e-5 of total rms (G); CoCoA is exactly symmetric. Eigenvalues
+use explicit symmetric parts only; plots and NPZ preserve raw matrices.
+Do not call these repaired or claim exact symmetry for OneCov.
+
+Sequential single runs at8 threads: CoCoA setup .419010s + construction
+45.443902s; OneCov setup19.910623s + construction513.642171s. These are
+native-setting construction measurements, not equal-accuracy timings.
+No additional numerical job ran simultaneously. Documentation and Git
+checks ran while waiting. Full LSST OneCov has not been timed. Hours or
+longer is a planning estimate, not a validated bound from matrix size.
+Native cNG convergence and attribution of the 2% Gaussian difference are
+pending; no Fisher-convergence claim. Do not retune OneCov defaults silently.
+
 ## Low-mass cutoff study: scope
 
 The requested study reduces the finite-range I11 completion by integrating
