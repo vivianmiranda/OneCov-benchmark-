@@ -500,9 +500,9 @@ $`g_1\gamma`$, $`g_2\gamma`$, $`\gamma\gamma`$, with five bands per spectrum.
 Including $`g_1g_2`$ checks cross-bin contractions even though this spectrum
 need not belong to the likelihood's data vector.
 
-The next comparison is the generation of the angular spectra themselves,
-first using shared CAMB power and then native power. Those calculations
-need their own convergence checks before interpreting relative differences.
+Agreement of independently generated angular spectra remains a separate
+test. Shared CAMB power can isolate their projection before native power
+and its numerical convergence are compared.
 
 ### Reproducing Gaussian plots and timings
 
@@ -541,6 +541,44 @@ This writes PNG and PDF versions. Omitting `--timings` regenerates only
 the matrix and component figures.
 
 ### Adding SSC and connected non-Gaussian contributions
+
+The first SSC ingredient comparison now checks the **matter-power
+response**, $`D=\partial P/\partial\delta_b`$: how power changes inside a
+large-scale background overdensity. With shared halo ingredients and a
+matched response prescription, Cocoa and OneCov agree to **4×10⁻¹⁶** at
+redshifts 0, 0.5 and 1. See the
+[response comparison record](results/ssc_response_20261005.json).
+
+This checks the response formula, not the projected SSC covariance.
+The default prescriptions differ: OneCov uses the linear-power slope;
+Cocoa uses the two-halo slope and transfers the fractional halo response
+to its nonlinear power. The two-halo prescription follows the corrected
+Eq. 44 of [Takada & Hu (2013)](https://arxiv.org/html/1302.6994v3).
+The broader response treatment is described by
+[Barreira, Krause & Schmidt (2018)](https://arxiv.org/abs/1711.07467).
+
+On shared ingredients, changing only that slope changes the sampled
+responses by at most 0.23%, 0.18% and 0.14%, respectively, over
+$`0.001\leq k\leq10\,h/\mathrm{Mpc}`$. This diagnostic excludes nonlinear
+power transfer and does not establish convergence of the native forecasts.
+
+To reproduce this ingredient check after the Gaussian example:
+
+**Step :one:**: in the **OneCov terminal**, export the native responses.
+
+```bash
+python scripts/ssc_response.py export work/assembly_shear_30_150/onecov.ini \
+  --output work/ssc_response_onecov
+```
+
+**Step :two:**: in the **Cocoa terminal**, compare the response formula.
+
+```bash
+python scripts/ssc_response.py compare work/ssc_response_onecov \
+  --output work/ssc_response_comparison
+```
+
+### Running the projected non-Gaussian pilots
 
 We assume installation is complete and the inputs are in `work/lsst_y1`.
 Open a fresh Bash terminal in `OneCov-benchmark-/`. Run the two calculations

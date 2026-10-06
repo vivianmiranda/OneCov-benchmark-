@@ -147,9 +147,17 @@ without further checks.
   a nonlinear Limber remainder. Keep the initial comparison Limber.
 - Real-space transforms use flat-sky J0/J2/J4 kernels. Cocoa uses full-sky
   bin-averaged kernels. This difference persists even if spectra agree.
-- No supplied footprint invokes an analytic circular/top-hat model.
-  Check its normalization and long-mode approximation against Cocoa's
-  spherical-cap variance before an SSC comparison at 12,300 deg^2.
+- With no supplied footprint, `Setup.calc_a_lm` builds a **spherical cap**
+  using HEALPix `query_disc` at NSIDE=1024, then `anafast(use_weights=True)`.
+  The radius is arccos(1-area/(2*pi)); retained multipoles are 0..3070.
+  This corrects the earlier description of an analytic circular fallback.
+  Cocoa uses analytic spherical-cap harmonics. Check pixel-area versus
+  nominal-area normalization and harmonic truncation before comparing SSC.
+  In particular, Cocoa checks raw C_0=area^2/(4*pi) to 1e-8: never pass a
+  pixelized mask with a mismatched nominal area into this fatal C guard.
+  OneCov's `survey_variance_mmmm` omits chi^-2, which appears later in
+  its projection; Cocoa's sigma_b^2 includes it. Compare complete formulas,
+  not intermediate arrays with different distance factors.
 - Native halo choices include `hmf` mass-function/bias models, a mass
   definition, Duffy concentration normalization and optional one-halo
   damping. The example's defaults are not automatically Cocoa's choices.
@@ -197,3 +205,31 @@ CosmoLike. This source study alone is not a paper-level validation.
    their positive totals do not establish component accuracy. Refine one
    control at a time, then add non-Gaussian lens/source cross blocks.
    Only then budget full LSST.
+
+## SSC response comparison started
+
+`ssc_response.py` exports OneCov's native matter response, P_linear,
+I11, I02, I12 and its differentiated spectrum at z=0, 0.5 and 1. Export
+runs in the OneCov environment, comparison in Cocoa's environment.
+The native one-halo helper supplies I02; `I_alpha_xy(alpha=0)` is not an
+implemented I02 path in this revision. No source or methods are patched.
+
+With shared moments, the same P_linear slope and fractional=False, Cocoa's
+production response routine agrees with OneCov to 3.91e-16 fractionally.
+NumPy checks the expression independently. This validates assembly only,
+not independent halo moments or the angular SSC matrix. Reviewed results
+are in `results/ssc_response_20261005.json`.
+
+The model choices still differ. OneCov differentiates log(k^3 P_linear).
+Cocoa's survey default differentiates log(I11^2 P_linear), using 47/21
+instead of 68/21 because its input slope excludes k^3. That is the corrected
+Takada-Hu (2013) Eq. 44. Cocoa additionally transfers the fractional halo
+response to a nonlinear target power. On shared OneCov ingredients, adding
+only the I11^2 slope changes responses by at most about 0.23%, 0.18% and
+0.14% at these redshifts over 0.001<=k<=10 h/Mpc. This pilot diagnostic is
+not a converged default-to-default comparison and excludes target transfer.
+
+Next: match the survey-window convention and projected shear response,
+then assess response/mass-grid and radial convergence separately. Native
+matter integrals temporarily extend the lower halo mass to 10^2 Msun/h;
+their true integration range cannot be inferred from the INI's M_min alone.
