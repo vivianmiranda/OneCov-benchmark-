@@ -677,10 +677,32 @@ python scripts/plot_halo.py work/halo_onecov_800 work/halo_cocoa_matched_800 \
 
 ### What the bias normalization changes
 
-The Tinker fit is a calibrated halo bias. Its consistency condition refers
-to the **full** mass distribution, not an arbitrary numerical mass range:
-$`\int b(\nu)f(\nu)\,d\nu=1`$.
-[Tinker et al. (2010), Eq. 7](https://arxiv.org/html/1001.3162)
+Halo bias describes how strongly halos of a given mass respond to a
+large-scale matter overdensity. If that overdensity is $`\delta_b`$,
+their fractional abundance changes, to first order, by $`b(M)\delta_b`$.
+This is the **halo bias inside the matter integrals**, distinct from the
+linear galaxy bias that multiplies a projected galaxy window.
+
+Write the fraction of matter in halos in a peak-height interval as
+$`f(\nu)\,d\nu`$, where $`\nu=\delta_c/\sigma(M,z)`$.
+Summing their responses with these mass weights should recover the
+response of matter itself: matter has bias one relative to itself.
+This gives the consistency condition
+
+$$
+\int_0^\infty b(\nu)f(\nu)\,d\nu=1.
+$$
+
+It involves **all** halo masses. This is the condition in
+[Tinker et al. (2010), Eq. 7](https://arxiv.org/html/1001.3162), not a
+requirement that the same integral over any truncated mass range equal one.
+
+Suppose a numerical table excludes low-mass halos. The integral over the
+remaining halos can fall below one even when the complete model satisfies
+the condition. Dividing all remaining biases by that smaller integral
+makes up the missing response by increasing the response of *every retained
+halo*. Adding the unresolved low-mass contribution separately is a different
+choice; these two treatments need not give the same small-scale covariance.
 
 Evaluating the two codes' fitted functions over an extended peak-height
 range gives the bias integral $`\int b(\nu)f(\nu)\,d\nu`$ below.
@@ -692,17 +714,56 @@ The finite-range divisor is denoted by N; its inverse multiplies the bias.
 | 0.5 | 0.974448 | 0.711928 | 1.40464 | 1.000000 |
 | 1.0 | 0.953907 | 0.641533 | 1.55877 | 1.000000 |
 
-Most of the finite-range deficit therefore comes from excluded low-peak
-halos. Dividing the fitted bias by that deficit raises it at **every**
-resolved mass. This is an extra prescription; it is not required by the
-calibrated Tinker relation.
+Here the extended integral evaluates each code's fitted functions over
+$`-90\leq\ln\nu\leq3.5`$. OneCov's divisor instead uses its finite
+matter-integration range, approximately $`10^2`$–$`10^{17}`$ solar masses/h.
+The lower peak heights in that range are 0.234, 0.287 and 0.363 at the
+three redshifts. A low mass cutoff can therefore still omit a substantial
+part of the extrapolated multiplicity function.
 
-In the tested OneCov revision, I11 cancels this bias divisor and adds the
-missing low-mass contribution explicitly. I12 and I13 retain the divisor.
-This different treatment matters for SSC and the multi-halo trispectrum.
-At fixed other ingredients, it multiplies 2h(1+3) and 3h by $`1/N`$,
-and 2h(2+2) by $`1/N^2`$. At $`z=1`$ these factors are 1.56 and 2.43;
-1h and 4h do not receive this correction.
+The extended OneCov integrals are close to one, while the finite-range
+values are appreciably smaller. Most of this deficit comes from the
+excluded low-peak halos. For example, at redshift one, the divisor 0.6415
+raises each retained halo's bias by **55.9%**. This is an additional
+prescription; the calibrated Tinker relation does not require that rescaling.
+
+To see how this reaches the covariance, a matter halo moment can be written
+as
+
+$$
+I_\mu^\beta(k_1,\ldots,k_\mu)=
+\int dM\,\frac{dn}{dM}\left(\frac{M}{\bar\rho_m}\right)^\mu
+b_\beta(M)\prod_{r=1}^{\mu}u(k_r|M).
+$$
+
+Here $`u`$ is the normalized halo density profile in Fourier space,
+$`b_0=1`$, and $`b_1=b`$. The subscript counts matter factors in one halo;
+the superscript selects the bias weight. Thus I11 means $`I_1^1`$,
+I12 means $`I_2^1`$, and I13 means $`I_3^1`$.
+
+In the tested OneCov revision, **I11 cancels the bias divisor** and adds
+an unresolved low-mass contribution explicitly. **I12 and I13 retain the
+divisor**. Consequently, matching the large-scale I11 limit does not make
+the higher moments identical.
+
+Keeping all other ingredients fixed, one retained bias factor contributes
+$`1/N`$ and two contribute $`1/N^2`$. The 2h(1+3) term contains I11 times
+I13, the 2h(2+2) term contains two I12 factors, and the 3h term contains
+one I12 and two I11 factors. Their changes are therefore:
+
+| Contribution | Effect of the retained bias divisor | Factor at redshift 1 |
+| --- | --- | ---: |
+| 1h | No biased halo moment | 1 |
+| 2h, 1+3 partition | One factor of 1/N | 1.56 |
+| 2h, 2+2 partition | Two factors of 1/N | 2.43 |
+| 3h | One factor of 1/N | 1.56 |
+| 4h | I11 factors cancel this divisor | 1 |
+
+SSC is also affected because its matter-power response contains I12.
+It does **not** follow that the whole SSC matrix or total cNG is multiplied
+by one of these numbers: each combines several terms with different weights.
+These factors isolate the normalization choice, not the full difference
+between the two native models.
 
 CoCoA instead retains the fitted bias and adjusts the multiplicity
 amplitude. Its mass-only integral $`\int f\,d\nu`$ is then 1.00649,
@@ -767,13 +828,74 @@ CoCoA's **supplied diagnostic inputs** reduces the discrepancy below
 $`3.4\times10^{-16}`$. Neither source implementation was changed.
 The partition structure follows [Takada & Hu (2013), Eq. 29](https://arxiv.org/html/1302.6994v3).
 
-Angular averages for unequal wavenumbers agree within
-$`2.8\times10^{-7}`$ fractionally when both receive the same linear
-power interpolation. Equal pairs approach zero internal wavenumber and
-are sensitive to OneCov's corner cutoff and extrapolation. Tightening
-its two corner controls from $`10^{-3}`$ to $`10^{-5}`$, then to
-$`10^{-7}`$, still changes some native 2h/3h entries substantially.
+### Why equal wavenumbers need a separate angular check
+
+The trispectrum depends on the angle between two Fourier vectors, even
+when their lengths K and Q are fixed. Averaging over that angle introduces
+internal wavenumbers
+
+$$
+q_\pm=|\boldsymbol K\pm\boldsymbol Q|
+     =\sqrt{K^2+Q^2\pm2KQ\mu},\qquad \mu=\cos\phi.
+$$
+
+These wavenumbers enter the linear power and perturbation-theory kernels.
+For unequal lengths, their minimum is $`|K-Q|>0`$. For equal lengths,
+$`q_-`$ reaches zero at parallel alignment and $`q_+`$ reaches zero at
+antiparallel alignment. The diagonal K=Q therefore samples a limit that
+well-separated off-diagonal pairs never reach.
+
+On the tested **unequal pairs**, the angular averages agree within
+$`2.8\times10^{-7}`$ fractionally when both codes receive the same
+interpolation of the linear matter power. Those pairs remain inside the
+supplied power table's domain. This result does not test the zero-wavenumber
+limit and must not be extended to the diagonal.
+
+OneCov's `matter_klim` identifies nearly equal lengths through
+$`|K-Q|<\mathrm{matter\_klim}`$; it has the same units as K, h/Mpc.
+Its dimensionless `matter_mulim` identifies nearly parallel or
+antiparallel vectors through $`1\mp\mu<\mathrm{matter\_mulim}`$.
+In these small angular regions, the sampled 2h/3h routines omit terms
+that would otherwise evaluate the very small internal wavenumber.
+These are **cutoffs in the integrand**, not just integration tolerances.
+
+For equal lengths, an angular cutoff of size epsilon excludes internal
+wavenumbers below approximately $`K\sqrt{2\epsilon}`$. At K=10 h/Mpc,
+epsilon values 10⁻³, 10⁻⁵ and 10⁻⁷ correspond to 0.447, 0.0447 and
+0.00447 h/Mpc. The first two therefore remove a region with appreciable
+linear power, despite their apparently small numerical settings.
+
+We reduced both controls together while keeping the mass grid and all
+physical inputs fixed. The largest fractional changes in the native
+halo terms were:
+
+| Corner controls | Largest 2h change | Largest 3h change |
+| --- | ---: | ---: |
+| 10⁻³ → 10⁻⁵ | 82.95% | 88.08% |
+| 10⁻⁵ → 10⁻⁷ | 39.16% | 40.60% |
+
+Each change is the absolute difference divided by the finer result.
+Both maxima occur at **K=Q=10 h/Mpc**: redshift one for 2h and redshift
+0.1 for 3h. The finer results increase in these cases; for example the
+2h value at redshift one changes from about 274 to 1607 to 2642
+(Mpc/h)⁹. These are individual matter-trispectrum terms, not percentages
+of a total survey covariance. The 1h and 4h values are unchanged in this
+particular cutoff scan.
+
+There is also a distinct domain issue at small external K: internal
+wavenumbers can fall below the supplied linear-power table, whose first
+node is 10⁻⁵ h/Mpc. Extending an interpolation beyond that node need not
+give the correct large-scale power. The unequal-pair comparison excludes
+this extrapolation. The large changes at K=10 above do not, by themselves,
+show that extrapolation caused them.
+
 **The native diagonal angular calculation is not converged by this test.**
+The last refinement still makes a large change, so 10⁻⁷ is not a validated
+reference merely because it is the smallest cutoff tried. Establishing
+that limit needs control of both the angular corner and the low-k power
+behavior. This is separate from the off-diagonal 2h partition discrepancy
+and from the mass-integration check below. Neither numerical source was
+changed for these tests.
 
 By contrast, changing CoCoA's mass/angular rules from 96 to 256 nodes
 changes every sampled native term by less than **0.00040%**. Doubling
