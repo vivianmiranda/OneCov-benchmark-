@@ -59,9 +59,10 @@ halo moments](#non-gaussian-timings), with their different scopes stated.
 8. [Halo-model ingredients](#halo-comparison)
 9. [Mass rms fluctuation sigma(M)](#sigma-comparison)
 10. [Halo-abundance differences](#abundance-comparison)
-11. [Separated halo trispectra](#trispectrum-comparison)
-12. [Connected non-Gaussian projection](#connected-comparison)
-13. [SSC, halo and cNG timing differences](#non-gaussian-timings)
+11. [Reducing CoCoA's low-mass correction](#mass-cutoff)
+12. [Separated halo trispectra](#trispectrum-comparison)
+13. [Connected non-Gaussian projection](#connected-comparison)
+14. [SSC, halo and cNG timing differences](#non-gaussian-timings)
 
 ## Scope <a name="scope"></a>
 
@@ -1135,6 +1136,212 @@ python scripts/diagnose_bias.py onecov --config work/shear_ssc/onecov.ini \
 ```bash
 python scripts/diagnose_bias.py cocoa --nodes 8193 \
   --output work/bias_cocoa_fine
+```
+
+## Reducing CoCoA's low-mass correction <a name="mass-cutoff"></a>
+
+**Extending the mass integral reduces the required correction, while
+changing the corrected predictions much less.** This study keeps CoCoA's
+multiplicity normalization, fitted bias, concentration and correction
+prescription unchanged. It tests whether more of the halo response can
+be calculated explicitly by lowering the minimum mass. OneCov's native
+predictions and both installed codes are unchanged.
+
+### What is being reduced?
+
+The resolved halos contribute a bias-weighted mass integral. Write its
+missing part as $`A_{\rm miss}`$, distinct from the multiplicity-function
+normalization discussed above:
+
+$$
+A_{\rm miss}(z)=1-\int_{M_{\min}}^{M_{\max}}
+dM\,\frac{dn}{dM}\,b(M,z)\frac{M}{\bar\rho_m}.
+$$
+
+CoCoA completes the one-profile moment with
+
+$$
+I_{11}(k,z)=I_{11}^{\rm resolved}(k,z)
++A_{\rm miss}(z)u(k|M_{\min},z).
+$$
+
+At zero wavenumber every normalized profile equals one, so this restores
+the unit matter response. At finite wavenumber, the omitted population is
+represented by the profile at the minimum mass. This is the additive
+prescription in [Mead et al. (2020), Appendix A](https://arxiv.org/html/2005.00009v2#A1).
+The approximation is effective when those halos are too small for their
+internal structure to matter on the scales being evaluated.
+
+Lowering the cutoff replaces part of that approximate contribution with
+explicit halo integrals. It does **not** change the separate full-range
+multiplicity normalization or remove the abundance offset discussed above.
+
+### How much does the correction decrease?
+
+The upper mass limit stays at 10¹⁷ solar masses/h. Each lower cutoff uses
+the same expanded sigma table and exactly the same power spectrum. New
+mass panels are added below the original range without moving its nodes.
+The values below use 512-point GSL quadrature per panel and internal
+table boost 8, with separate refinement checks.
+
+| Minimum mass [solar masses/h] | Missing response at z = 0.1 | At z = 0.5 | At z = 1 |
+| ---: | ---: | ---: | ---: |
+| 10⁶ | 21.6486% | 26.2624% | 31.9728% |
+| 10⁴ | 18.8546% | 23.1060% | 28.3848% |
+| 10² | 16.6180% | 20.5728% | 25.5131% |
+
+At redshift one, extending the integral by four mass decades reduces
+the correction weight by **6.46 percentage points**, or **20.2% of its
+original size**. The resolved contribution rises from 68.03% to 74.49%.
+It does not approach unity rapidly: substantial response remains in
+the model's extrapolated lower-mass population. Slow convergence of this
+integral is also discussed in the appendix cited above.
+
+These percentages are **bias-weighted response deficits**, not ordinary
+mass fractions and not covariance errors.
+
+![Missing halo response and corrected I11 cutoff dependence](results/figures/mass_cutoff.png)
+
+### Do the corrected predictions become more stable?
+
+Yes, across the tested cutoffs. We evaluate three redshifts, 41
+wavenumbers from 0.001 to 100 h/Mpc and all 861 unordered pairs, including
+diagonal and unequal pairs. The angular tree averages are held fixed.
+The table gives maximum absolute fractional changes, expressed in percent,
+relative to the lower-cutoff result. For a trispectrum pair, both
+wavenumbers must lie in the stated range.
+
+| Quantity | 10⁶ versus 10², k ≤ 10 h/Mpc | 10⁴ versus 10², k ≤ 10 h/Mpc | 10⁶ versus 10², k ≤ 100 h/Mpc | 10⁴ versus 10², k ≤ 100 h/Mpc |
+| --- | ---: | ---: | ---: | ---: |
+| Corrected I11 | 0.00111% | 0.00004296% | 0.1795% | 0.006987% |
+| Matter-power response entering SSC | 0.00000452% | 0.000000253% | 0.001384% | 0.00009550% |
+| Sum of matter trispectrum terms | 0.00122% | 0.00004749% | 0.2866% | 0.01116% |
+| Four-halo trispectrum term alone | 0.00442% | 0.0001718% | 0.7161% | 0.02794% |
+
+The last extension, from 10⁴ to 10², moves I11 and the summed trispectrum
+about 25 times less than the first extension, from 10⁶ to 10⁴. The
+one-halo trispectrum is unchanged to roundoff in this test. Its higher
+powers of halo mass strongly suppress the contribution of tiny halos.
+All five separate trispectrum contributions and halo moments are retained
+in the [result record](results/mass_cutoff_20261006.json).
+
+The corrected zero-wavenumber moment equals one to floating-point
+precision at **every** cutoff. Extending the mass range therefore does
+not repair a failed large-scale limit: it improves the explicit treatment
+of the population represented by the finite-wavenumber correction.
+
+The large correction weight and small prediction changes are consistent.
+For wavelengths much larger than a small halo, its profile is nearly one
+regardless of its exact mass. Moving that response from the completion
+term into explicit small halos then changes very little. At larger k,
+the profile shapes become distinguishable and the cutoff matters more.
+
+### Numerical checks and the power-spectrum limitation
+
+Increasing the mass rule from 256 to 512 nodes changes the tested moments
+and trispectrum terms by at most **0.0000316%**. Raising internal table
+boost from 4 to 8 changes them by at most **0.000946%**. These table errors
+largely cancel when two cutoffs use the same tables: the measured cutoff
+contrasts change by less than **0.000000181 percentage points** under
+both refinements. The especially small SSC-response changes are therefore
+resolved cutoff differences, not claims of equally small absolute errors.
+
+As a separate check, keeping the original cutoff while changing only the
+sigma-table domain moves the tested ingredients by at most **0.00123%**.
+This is why the main cutoff comparison uses one common expanded table.
+
+The supplied power table ends near **143 h/Mpc**. CoCoA continues it
+using its existing edge power law. The fraction of the computed mass
+variance coming from wavenumbers above that endpoint is approximately:
+
+| Halo mass [solar masses/h] | Variance supplied by the high-k continuation |
+| ---: | ---: |
+| 10⁶ | 5.44% |
+| 10⁴ | 40.52% |
+| 10² | 65.07% |
+
+Using OneCov's native hmf top-hat filter on this **same continued power**,
+extending the integration endpoint from 10⁵ to 10⁷ h/Mpc changes sigma
+by at most **0.00000348%**. The filter and CoCoA's FFTLog table agree
+within **0.000193%** at these masses and redshifts. Thus the numerical
+integration tail is small, but the extrapolated part of the input is not.
+Integrating the extrapolation accurately does not establish its physical
+accuracy or calibrate the halo fits at such low masses.
+
+**Conclusion:** the extension achieves its intended purpose: more halo
+response is integrated explicitly and less is assigned to the correction.
+The corrected ingredients also stabilize strongly across the tested
+cutoffs. This supports the existing completion on the tested moderate-k
+scales; it does not establish an exact infinite-range answer, a physically
+better small-halo model, or convergence of a projected survey covariance.
+The production mass limits and halo-model conventions remain unchanged.
+
+### Cost and reproduction
+
+On the Apple M2 Pro with eight OpenMP threads, the following times cover
+one call producing I11 and all five pair moments at all three redshifts.
+They are means and sample standard deviations of 11 repeated calls at
+512 nodes per panel. First-use tables, power generation, tree averages,
+SSC response and survey projection are excluded; these are **ingredient
+timings**, not full covariance runtimes.
+
+| Minimum mass [solar masses/h] | Mass panels | Halo-moment time [ms] | Relative to original range |
+| ---: | ---: | ---: | ---: |
+| 10⁶ | 8 | 5.58 ± 0.55 | 1.00 |
+| 10⁴ | 10 | 7.14 ± 0.82 | 1.28 |
+| 10² | 12 | 9.17 ± 1.33 | 1.64 |
+
+The measured halo-moment stage is therefore **28% slower** at 10⁴ and
+**64% slower** at 10². The extra panels calculate the newly included
+mass intervals. These percentages must not be applied directly to a
+full covariance runtime, which includes other stages.
+
+Reproduction uses an isolated diagnostic build with only the supported
+halo-table lower boundary extended. The installed CoCoA interface and
+its numerical source files are not edited. Activate the two environments
+as described above and execute these numerical runs sequentially.
+
+**Step :one:**: in the **Cocoa terminal**, prepare the wider table domain.
+
+```bash
+python scripts/build_mass_cutoff.py --output work/mass_cutoff_build
+```
+
+**Step :two:**: compare the cutoffs with the first accuracy settings.
+
+```bash
+python scripts/diagnose_mass_cutoff.py --interface work/mass_cutoff_build \
+  --output work/mass_cutoff_boost4
+```
+
+**Step :three:**: refine the tables and mass quadrature.
+
+```bash
+python scripts/diagnose_mass_cutoff.py --interface work/mass_cutoff_build \
+  --output work/mass_cutoff_boost8 --boost 8 --nodes 256 512
+```
+
+**Step :four:**: evaluate the original domain with the installed interface.
+
+```bash
+python scripts/diagnose_mass_cutoff.py --output work/mass_cutoff_native8 \
+  --boost 8 --nodes 256
+```
+
+**Step :five:**: in the **OneCov terminal**, check the shared-power tail.
+
+```bash
+python scripts/check_cutoff_power.py work/mass_cutoff_boost8 \
+  --output work/mass_cutoff_power.json
+```
+
+**Step :six:**: create a new summary and the scientific figure.
+
+```bash
+python scripts/report_mass_cutoff.py --fine work/mass_cutoff_boost8 \
+  --coarse work/mass_cutoff_boost4 --native work/mass_cutoff_native8 \
+  --power-check work/mass_cutoff_power.json \
+  --output work/mass_cutoff_summary.json
 ```
 
 ## Separated halo trispectra <a name="trispectrum-comparison"></a>
