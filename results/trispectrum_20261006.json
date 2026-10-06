@@ -1,0 +1,662 @@
+{
+  "shared_and_native": {
+    "export": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "inputs_sha256": "20cd51680e2f36d125c23f12523dee09a88e48d9601cedb00582fa6974569e0d",
+      "script_sha256": "156984506c77bc197ad2d8af7f6e3d79a1957e7c9ace9f2ebd2f1ccb15722e54",
+      "config_sha256": "9197f41652cf959c54a10b660b5748e6628e154ddb6f60ab1be3b0d8adef2b4b",
+      "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+      "mass_nodes": 800,
+      "k_nodes": 9,
+      "corner_guard": 0.001,
+      "redshifts": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "instrumented_seconds": 9.071161083993502,
+      "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+    },
+    "rows": [
+      {
+        "redshift": 0.1,
+        "shared_max_fractional": [
+          0.0,
+          0.11817735788970474,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          1.1102230246251565e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          3.3306690738754696e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6400293845197922e-07,
+          1.1287238110835318e-07,
+          2.7783348843790634e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.006211684769301451,
+            7.946709415061896
+          ],
+          [
+            -0.24453351950445712,
+            5.550443781013632
+          ],
+          [
+            -0.2232476502215922,
+            10.791336613922782
+          ],
+          [
+            -0.14661678240244413,
+            0.9468356054032865
+          ]
+        ]
+      },
+      {
+        "redshift": 0.5,
+        "shared_max_fractional": [
+          0.0,
+          0.12759096641874623,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6400293245677489e-07,
+          1.128723816634647e-07,
+          2.778334738939847e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.025659911513927547,
+            8.119683079283348
+          ],
+          [
+            -0.29201680986540224,
+            4.822138464065974
+          ],
+          [
+            -0.27031809008611896,
+            9.846779880867821
+          ],
+          [
+            -0.14662520392858147,
+            0.9465113253618462
+          ]
+        ]
+      },
+      {
+        "redshift": 1.0,
+        "shared_max_fractional": [
+          0.0,
+          0.13642563006225727,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          1.1102230246251565e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6400293478824324e-07,
+          1.1287238099733088e-07,
+          2.7783352019028484e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.047164647881235755,
+            8.311066051845946
+          ],
+          [
+            -0.3497113768025307,
+            3.4331096613589107
+          ],
+          [
+            -0.34230672899129244,
+            8.219225768946545
+          ],
+          [
+            -0.1466840634244444,
+            0.9457871787191812
+          ]
+        ]
+      }
+    ],
+    "halo_order": [
+      "1h",
+      "2h",
+      "3h",
+      "4h"
+    ],
+    "integration_accuracy": 2,
+    "core": {
+      "commit": "927748b6916d069c01b3d8d762015defc502617d",
+      "status": ""
+    },
+    "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+    "script_sha256": "9fe5179bf09ff56d929119cb2b00d74cd6a9d1907ddd0a9fdf53558ffb075368"
+  },
+  "coarse_cocoa": {
+    "export": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "inputs_sha256": "20cd51680e2f36d125c23f12523dee09a88e48d9601cedb00582fa6974569e0d",
+      "script_sha256": "156984506c77bc197ad2d8af7f6e3d79a1957e7c9ace9f2ebd2f1ccb15722e54",
+      "config_sha256": "9197f41652cf959c54a10b660b5748e6628e154ddb6f60ab1be3b0d8adef2b4b",
+      "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+      "mass_nodes": 800,
+      "k_nodes": 9,
+      "corner_guard": 0.001,
+      "redshifts": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "instrumented_seconds": 9.071161083993502,
+      "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+    },
+    "rows": [
+      {
+        "redshift": 0.1,
+        "shared_max_fractional": [
+          0.0,
+          0.11817735788970474,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          1.1102230246251565e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          3.3306690738754696e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6415948977943629e-07,
+          1.1278483058596578e-07,
+          2.778389458502062e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.0062103852863462095,
+            7.94669786118266
+          ],
+          [
+            -0.24453419456926506,
+            5.550442920444105
+          ],
+          [
+            -0.22324795727120816,
+            10.791336208350387
+          ],
+          [
+            -0.1466134363178072,
+            0.9468356088508627
+          ]
+        ]
+      },
+      {
+        "redshift": 0.5,
+        "shared_max_fractional": [
+          0.0,
+          0.12759096641874623,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.641594952195291e-07,
+          1.1278482969778736e-07,
+          2.77838954954035e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.025658611756141037,
+            8.119671515209337
+          ],
+          [
+            -0.2920172466039377,
+            4.8221379912777715
+          ],
+          [
+            -0.2703180991418298,
+            9.846778777879633
+          ],
+          [
+            -0.14662185998985355,
+            0.9465113247344801
+          ]
+        ]
+      },
+      {
+        "redshift": 1.0,
+        "shared_max_fractional": [
+          0.0,
+          0.13642563006225727,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          1.1102230246251565e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6415949755099746e-07,
+          1.1278482836551973e-07,
+          2.778389643909307e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.04716517134407794,
+            8.31107070458663
+          ],
+          [
+            -0.34971110662780625,
+            3.4331090014857963
+          ],
+          [
+            -0.3423067319703187,
+            8.219224598578304
+          ],
+          [
+            -0.14668072017386302,
+            0.9457871783956642
+          ]
+        ]
+      }
+    ],
+    "halo_order": [
+      "1h",
+      "2h",
+      "3h",
+      "4h"
+    ],
+    "integration_accuracy": 0,
+    "core": {
+      "commit": "927748b6916d069c01b3d8d762015defc502617d",
+      "status": ""
+    },
+    "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+    "script_sha256": "9fe5179bf09ff56d929119cb2b00d74cd6a9d1907ddd0a9fdf53558ffb075368"
+  },
+  "small_corner": {
+    "export": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "inputs_sha256": "ed5e890e7d63a7014431f93db5c06b307b62e36a7b9b4c83ee634ffcdc524ad6",
+      "script_sha256": "9fe5179bf09ff56d929119cb2b00d74cd6a9d1907ddd0a9fdf53558ffb075368",
+      "config_sha256": "2a6013740f0cf47f755be1431d8f284f6eb8aed020a694f7a52c539b9a1e6d4e",
+      "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+      "mass_nodes": 800,
+      "k_nodes": 9,
+      "corner_guard": 1e-07,
+      "redshifts": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "instrumented_seconds": 9.02463566599181,
+      "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+    },
+    "rows": [
+      {
+        "redshift": 0.1,
+        "shared_max_fractional": [
+          0.0,
+          0.11817735788970474,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          1.1102230246251565e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          3.3306690738754696e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6400293845197922e-07,
+          1.1287238110835318e-07,
+          2.7783348843790634e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.006211684769301451,
+            7.946709415061896
+          ],
+          [
+            -0.32017718982980403,
+            -0.01948880972402256
+          ],
+          [
+            -0.22410735040547325,
+            -0.1650160127787117
+          ],
+          [
+            -0.14661678240244413,
+            0.9468356054032865
+          ]
+        ]
+      },
+      {
+        "redshift": 0.5,
+        "shared_max_fractional": [
+          0.0,
+          0.12759096641874623,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6400293245677489e-07,
+          1.128723816634647e-07,
+          2.778334738939847e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.025659911513927547,
+            8.119683079283348
+          ],
+          [
+            -0.3986867229750194,
+            -0.07559148219991285
+          ],
+          [
+            -0.2710156920450113,
+            -0.23190323455403494
+          ],
+          [
+            -0.14662520392858147,
+            0.9465113253618462
+          ]
+        ]
+      },
+      {
+        "redshift": 1.0,
+        "shared_max_fractional": [
+          0.0,
+          0.13642563006225727,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          1.1102230246251565e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.6400293478824324e-07,
+          1.1287238099733088e-07,
+          2.7783352019028484e-07
+        ],
+        "native_fractional_range": [
+          [
+            0.047164647881235755,
+            8.311066051845946
+          ],
+          [
+            -0.5400607687368175,
+            -0.23023040867389255
+          ],
+          [
+            -0.3471557853281172,
+            -0.3185550913554258
+          ],
+          [
+            -0.1466840634244444,
+            0.9457871787191812
+          ]
+        ]
+      }
+    ],
+    "halo_order": [
+      "1h",
+      "2h",
+      "3h",
+      "4h"
+    ],
+    "integration_accuracy": 2,
+    "core": {
+      "commit": "927748b6916d069c01b3d8d762015defc502617d",
+      "status": ""
+    },
+    "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+    "script_sha256": "9fe5179bf09ff56d929119cb2b00d74cd6a9d1907ddd0a9fdf53558ffb075368"
+  },
+  "refinements": [
+    {
+      "coarse": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "9e3a6da1eff26a9907c7bba4b0773f56164f963ce7e1e1c294998f5d94f6f45e",
+        "script_sha256": "7c2d0babb5e55d9641231e38a93fa00f44b609ffeeb9c83cca9f67644afb728b",
+        "config_sha256": "fc5c80afc3ac0698d0d84b04ae622e42841bca42bb4cd218266f5ec5d1bca5bd",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 400,
+        "k_nodes": 9,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 7.9224361249944195,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "fine": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "20cd51680e2f36d125c23f12523dee09a88e48d9601cedb00582fa6974569e0d",
+        "script_sha256": "156984506c77bc197ad2d8af7f6e3d79a1957e7c9ace9f2ebd2f1ccb15722e54",
+        "config_sha256": "9197f41652cf959c54a10b660b5748e6628e154ddb6f60ab1be3b0d8adef2b4b",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 9.071161083993502,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "max_fractional_by_halo_order": [
+        1.4374288661023193e-05,
+        1.6427012510700223e-05,
+        1.165073839926034e-05,
+        3.010107282386265e-05
+      ]
+    },
+    {
+      "coarse": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "20cd51680e2f36d125c23f12523dee09a88e48d9601cedb00582fa6974569e0d",
+        "script_sha256": "156984506c77bc197ad2d8af7f6e3d79a1957e7c9ace9f2ebd2f1ccb15722e54",
+        "config_sha256": "9197f41652cf959c54a10b660b5748e6628e154ddb6f60ab1be3b0d8adef2b4b",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 9.071161083993502,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "fine": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "d96e5c20700947b8a159f1aac18e973992b94054c57faa24ea94982f6ceca99a",
+        "script_sha256": "156984506c77bc197ad2d8af7f6e3d79a1957e7c9ace9f2ebd2f1ccb15722e54",
+        "config_sha256": "8f4e0c6514d93893b23cd155e8e46dd1a94b94121673e77e321116f163018401",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 1e-05,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 9.133663541986607,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "max_fractional_by_halo_order": [
+        0.0,
+        0.8294693371735816,
+        0.8807827916227033,
+        0.0
+      ]
+    },
+    {
+      "coarse": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "d96e5c20700947b8a159f1aac18e973992b94054c57faa24ea94982f6ceca99a",
+        "script_sha256": "156984506c77bc197ad2d8af7f6e3d79a1957e7c9ace9f2ebd2f1ccb15722e54",
+        "config_sha256": "8f4e0c6514d93893b23cd155e8e46dd1a94b94121673e77e321116f163018401",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 1e-05,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 9.133663541986607,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "fine": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "ed5e890e7d63a7014431f93db5c06b307b62e36a7b9b4c83ee634ffcdc524ad6",
+        "script_sha256": "9fe5179bf09ff56d929119cb2b00d74cd6a9d1907ddd0a9fdf53558ffb075368",
+        "config_sha256": "2a6013740f0cf47f755be1431d8f284f6eb8aed020a694f7a52c539b9a1e6d4e",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 1e-07,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 9.02463566599181,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "max_fractional_by_halo_order": [
+        0.0,
+        0.3915995867358498,
+        0.4060140651902233,
+        0.0
+      ]
+    }
+  ],
+  "cocoa_96_to_256_max_fractional_by_halo_order": [
+    1.2914608078506973e-06,
+    1.4017729510484855e-06,
+    1.6411090490997537e-06,
+    3.9209637217041404e-06
+  ],
+  "collector_sha256": "6aef60193d9dd2209caa16474e385d193a104d31bc8594246707d1bbac1f7fb3"
+}

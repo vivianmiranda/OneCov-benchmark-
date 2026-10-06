@@ -1,6 +1,6 @@
 # CoCoA vs OneCovariance: covariance comparison
 
-This repository will compare covariance calculations from
+This repository compares covariance calculations from
 [CoCoA/CosmoLike](https://github.com/CosmoLike/cocoa) and
 [OneCovariance](https://github.com/rreischke/OneCovariance).
 It follows the reproducible-study format of
@@ -38,11 +38,13 @@ See the [comparison record](results/gaussian_assembly_20261005.json) and
 [reproduction steps](#matched-gaussian). This establishes the Gaussian
 contractions, noise normalization and binning for **shared spectra**.
 It does not establish agreement of native spectra or halo ingredients.
-The [SSC comparison](#ssc-comparison) separately tests the projected
-super-sample contribution. The [earlier functional pilots](results/functional_pilots_20261005.json)
-confirmed that the small native G, G+SSC and G+cNG paths run; their physical
-and numerical comparison remains ahead. The timing comparison below covers
-Gaussian components and band averaging only.
+The [SSC comparison](#ssc-comparison) and
+[cNG projection comparison](#connected-comparison) separately test the
+non-Gaussian contributions with shared inputs. The
+[halo study](#halo-comparison) identifies native-model differences, and the
+[trispectrum study](#trispectrum-comparison) isolates an off-diagonal
+2-halo assembly discrepancy. The timing comparison below covers Gaussian
+components and band averaging only.
 
 ## Contents
 
@@ -54,6 +56,8 @@ Gaussian components and band averaging only.
 6. [Matched Gaussian assembly](#matched-gaussian)
 7. [SSC comparison](#ssc-comparison)
 8. [Halo-model ingredients](#halo-comparison)
+9. [Separated halo trispectra](#trispectrum-comparison)
+10. [Connected non-Gaussian projection](#connected-comparison)
 
 ## Scope <a name="scope"></a>
 
@@ -669,6 +673,189 @@ python scripts/compare_halo.py compare work/halo_onecov_800 \
 ```bash
 python scripts/plot_halo.py work/halo_onecov_800 work/halo_cocoa_matched_800 \
   --output results/figures
+```
+
+### What the bias normalization changes
+
+The Tinker fit is a calibrated halo bias. Its consistency condition refers
+to the **full** mass distribution, not an arbitrary numerical mass range:
+$`\int b(\nu)f(\nu)\,d\nu=1`$.
+[Tinker et al. (2010), Eq. 7](https://arxiv.org/html/1001.3162)
+
+Evaluating the two codes' fitted functions over an extended peak-height
+range gives:
+
+| Redshift | OneCov raw $`\int bf\,d\nu`$, extended range | OneCov finite-range divisor | Bias multiplier $`1/N`$ | CoCoA $`\int bf\,d\nu`$ |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.1 | 0.993555 | 0.772506 | 1.29449 | 1.000000 |
+| 0.5 | 0.974448 | 0.711928 | 1.40464 | 1.000000 |
+| 1.0 | 0.953907 | 0.641533 | 1.55877 | 1.000000 |
+
+Most of the finite-range deficit therefore comes from excluded low-peak
+halos. Dividing the fitted bias by that deficit raises it at **every**
+resolved mass. This is an extra prescription; it is not required by the
+calibrated Tinker relation.
+
+In the tested OneCov revision, I11 cancels this bias divisor and adds the
+missing low-mass contribution explicitly. I12 and I13 retain the divisor.
+This different treatment matters for SSC and the multi-halo trispectrum.
+At fixed other ingredients, it multiplies 2h(1+3) and 3h by $`1/N`$,
+and 2h(2+2) by $`1/N^2`$. At $`z=1`$ these factors are 1.56 and 2.43;
+1h and 4h do not receive this correction.
+
+CoCoA instead retains the fitted bias and adjusts the multiplicity
+amplitude. Its mass-only integral $`\int f\,d\nu`$ is then 1.00649,
+1.02622 and 1.04832; it does **not** simultaneously enforce exact mass
+normalization. These are different modeling choices, not interchangeable
+implementations of one fit. Integrating extrapolated fits is a consistency
+diagnostic, not evidence that the fits are calibrated at arbitrarily low mass.
+
+The [normalization record](results/bias_normalization_20261006.json)
+includes the doubled-grid check. To reproduce it:
+
+**Step :one:**: in the **OneCov terminal**, evaluate its native fits.
+
+```bash
+python scripts/diagnose_bias.py onecov --config work/shear_ssc/onecov.ini \
+  --nodes 8193 --output work/bias_onecov_fine
+```
+
+**Step :two:**: in the **Cocoa terminal**, evaluate CoCoA's native fits.
+
+```bash
+python scripts/diagnose_bias.py cocoa --nodes 8193 \
+  --output work/bias_cocoa_fine
+```
+
+## Separated halo trispectra <a name="trispectrum-comparison"></a>
+
+We test 1h, 2h, 3h and 4h at redshifts 0.1, 0.5 and 1, using nine
+wavenumbers from 0.001 to 10 h/Mpc. All 45 unordered pairs are included.
+The two codes retain their native halo prescriptions for the solid/dashed
+curves below; these are **not matched-model predictions**.
+
+![Native halo terms and shared-input assembly](results/figures/trispectrum_terms.png)
+
+With **identical halo moments and angular averages**, the assembly test
+finds:
+
+| Contribution | Largest fractional discrepancy |
+| --- | ---: |
+| 1h | Exactly equal; the same supplied one-halo term is copied |
+| 2h, diagonal pairs | $`2.3\times10^{-16}`$ |
+| 2h, all pairs | **13.64%** |
+| 3h | $`2.3\times10^{-16}`$ |
+| 4h | $`2.3\times10^{-16}`$ |
+
+The off-diagonal 2h discrepancy is localized to the 1+3 halo partitions.
+For a covariance configuration $`(K,-K,Q,-Q)`$, their sum is
+
+$$
+T^{2h}_{13}=2P_L(K)I^1_1(K)I^1_3(K,Q,Q)
+          +2P_L(Q)I^1_1(Q)I^1_3(K,K,Q).
+$$
+
+The two moments are different when $`K\ne Q`$.
+CoCoA uses both. The sampled OneCov revision uses $`I^1_3(K,Q,Q)`$ in
+both terms before mirroring the matrix. Repeating that choice only in
+CoCoA's **supplied diagnostic inputs** reduces the discrepancy below
+$`3.4\times10^{-16}`$. Neither source implementation was changed.
+The partition structure follows [Takada & Hu (2013), Eq. 29](https://arxiv.org/html/1302.6994v3).
+
+Angular averages for unequal wavenumbers agree within
+$`2.8\times10^{-7}`$ fractionally when both receive the same linear
+power interpolation. Equal pairs approach zero internal wavenumber and
+are sensitive to OneCov's corner cutoff and extrapolation. Tightening
+its two corner controls from $`10^{-3}`$ to $`10^{-5}`$, then to
+$`10^{-7}`$, still changes some native 2h/3h entries substantially.
+**The native diagonal angular calculation is not converged by this test.**
+
+By contrast, changing CoCoA's mass/angular rules from 96 to 256 nodes
+changes every sampled native term by less than **0.00040%**. Doubling
+OneCov's mass grid from 400 to 800 changes them by at most **0.0031%**.
+These integration checks do not remove the distinct bias normalization,
+concentration relation or OneCov's low-k one-halo damping.
+
+The [trispectrum record](results/trispectrum_20261006.json) separates
+shared assembly, native models and refinement diagnostics.
+
+**Step :one:**: in the **OneCov terminal**, export the separated terms.
+
+```bash
+python scripts/compare_trispectrum.py export work/shear_ssc/onecov.ini \
+  --mass-nodes 800 --output work/trispectrum_800
+```
+
+**Step :two:**: in the **Cocoa terminal**, run both comparison scopes.
+
+```bash
+python scripts/compare_trispectrum.py compare work/trispectrum_800 \
+  --integration-accuracy 2 --output work/trispectrum_final_256
+```
+
+## Connected non-Gaussian projection <a name="connected-comparison"></a>
+
+The projection test supplies the same matter trispectrum, lensing window
+and radial weights to both codes. It covers eight multipoles between
+30 and 3000, including all 64 diagonal and off-diagonal entries.
+It tests radial assembly separately from the halo-model differences above.
+
+![Shared connected projection](results/figures/connected_projection.png)
+
+Across ten configurations, the largest
+$`|\Delta C_{ij}|/\sqrt{C_{ii}C_{jj}}`$ is
+**$`2.3\times10^{-15}`$**. This is agreement of the projection with
+shared inputs, not agreement of independently generated halo models.
+
+We also refine OneCov's native **five-band G+cNG** calculation, changing
+one control at a time. All ten total matrices are positive definite.
+Their correlation matrices have minimum eigenvalues above 0.957.
+
+| Refinement | Largest cNG change, variance-scaled | Largest G+cNG variance-mode change |
+| --- | ---: | ---: |
+| Wavenumber nodes: 9 → 17 | 38.29% | 2.008% |
+| Wavenumber nodes: 17 → 33 | 13.11% | 0.506% |
+| Wavenumber nodes: 33 → 65 | 9.59% | 0.276% |
+| Wavenumber nodes: 65 → 129 | 2.97% | 0.0903% |
+| Radial nodes: 300 → 601 | 0.0375% | 0.0286% |
+| Trispectrum redshift step: 0.5 → 0.25 | 7.08% | 0.645% |
+| Trispectrum redshift step: 0.25 → 0.125 | 3.15% | 0.311% |
+| Mass nodes: 400 → 800 | 0.00130% | 0.000128% |
+| Corner controls: $`10^{-3}`$ → $`10^{-5}`$ | 2.95% | 0.0884% |
+
+The cNG column divides each entry change by the finer cNG diagonal rms
+product. The total column tests every linear combination of the five
+bandpowers using generalized eigenvalues. These two diagnostics need
+not be similar: Gaussian noise can make a sizable component change small
+in the total covariance.
+
+**The coarse pilot is not a converged native cNG prediction.** In
+particular, the final redshift refinement still exceeds a 0.1% total-mode
+criterion. These tests do not establish full LSST or Fisher convergence,
+nor do they remove the native-model and 2h partition differences above.
+The [complete record](results/connected_20261006.json) gives settings,
+input hashes and every comparison.
+
+**Step :one:**: in the **OneCov terminal**, compute the native shear block.
+
+```bash
+python scripts/compare_connected.py export work/shear_ssc/onecov.ini \
+  --k-nodes 65 --radial-nodes 601 --delta-z 0.25 \
+  --output work/connected_redshift
+```
+
+**Step :two:**: in the **Cocoa terminal**, project its supplied matter tables.
+
+```bash
+python scripts/compare_connected.py compare work/connected_redshift \
+  --output work/connected_cocoa_redshift
+```
+
+**Step :three:**: in either terminal, draw the trispectrum and cNG figures.
+
+```bash
+python scripts/plot_connected.py work/trispectrum_final_256 \
+  work/connected_cocoa_redshift --output results/figures
 ```
 
 ### Running the projected non-Gaussian pilots

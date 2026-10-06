@@ -285,3 +285,82 @@ Native dP/ddelta_b differs by up to about 15%,21%,26% over the sampled k
 range, including concentration, bias normalization and fractional transfer.
 No model is silently retuned. Next compare separated trispectrum terms,
 using shared inputs to distinguish assembly from these halo choices.
+
+## Bias normalization and separated cNG, 2026-10-06
+
+`diagnose_bias.py` integrates the actual hmf and Cocoa fitted functions
+over ln(nu)=-90..3.5, at z=0.1,0.5,1. It is not an independent covariance
+implementation. Doubling 4097 to 8193 nodes leaves integrals unchanged to
+roundoff. hmf mass normalization gives int f=1 but int b_raw f equals
+0.993555,0.974448,0.953907. OneCov's finite M=1e2..1e17 interval instead
+has norm_bias=0.772506,0.711928,0.641533. The lower nu limits are
+0.233868,0.287245,0.362994, so the cutoff excludes a substantial fraction
+of the extrapolated fit. Dividing every bias by the finite integral is
+an extra prescription, not the calibrated Tinker Eq.7 constraint itself.
+
+Cocoa retains b_raw, normalizes f for int b f=1 (measured within 1.1e-9),
+but then int f=1.006486,1.026222,1.048320. Do not present this as satisfying
+both constraints or proof of simulation accuracy. OneCov I11 cancels
+norm_bias and adds missing low-mass weight; I12 and I13 retain it.
+Thus, at fixed other ingredients, the latter rescaling multiplies
+2h(13),3h by 1/N and 2h(22) by 1/N^2. Neither 1h nor 4h changes.
+
+`compare_trispectrum.py` captures unchanged native 234h locals and the
+native damped 1h. Three z, nine k=0.001..10, all 45 triangular pairs.
+OneCov angular int_2h/int_3h must be divided by two; restore their growth
+factors first because the object stores D^-2,D^-4,D^-6 factorizations.
+Cocoa's production algebra then agrees for 1h,3h,4h to roundoff. For 1h
+this is only a supplied-term copy, not a halo integral validation.
+
+The 2h off-diagonal discrepancy is 11.82%,12.76%,13.64% by redshift.
+OneCov's integral_mmm[i,j] is I13(K,Q,Q), but both 13 partitions use it;
+the second requires its transpose I13(Q,K,K). Cocoa uses both. Feeding
+the repeated moment into Cocoa removes the difference to <3.4e-16.
+This diagnostic alters supplied arrays only, never either source.
+Takada-Hu Eq.29 gives the four permutations and fixes this bookkeeping.
+Do not silently repair OneCov or call the native trispectra matched.
+
+Unequal-pair tree angular averages with the same quadratic log-P reader
+agree within 2.8e-7. Equal pairs are excluded from that particular test:
+an initial diagnostic extrapolated OneCov's quadratic log-P below its
+1e-5 table limit and grew unphysically at k approaching zero. The failed
+shared-domain experiment is preserved under trispectrum_cocoa_96_v2 and
+trispectrum_cocoa_800_*. The final script guards the internal k domain and
+compares only unequal pairs; native predictions still include diagonals.
+Native corner controls 1e-3->1e-5->1e-7 change some diagonal 2h/3h entries
+by tens of percent. Do not claim angular convergence there. Native Cocoa
+96->256 mass/angular rules change all sampled terms by <3.93e-6.
+
+Native model curves intentionally retain Duffy/Bhattacharya, bias and
+damping differences. All quantities passed to algebra/projection kernels
+use consistent Mpc/h units; native Cocoa output converts by (2997.92458)^9.
+
+`compare_connected.py` passively captures native covELL_non_gaussian while
+public calc_covELL constructs five-band G+cNG. Captured unbinned cNG has
+no survey-area divisor yet; the later native binning adds 1/area. Cocoa
+receives the actual trispectrum at eight multipoles, native W^2 and
+Simpson dchi/(area*chi^6), in one generic transform slot. Compare all 64
+entries. The native 5-band total separately supplies positivity and
+generalized variance-ratio diagnostics; never conflate these matrix sizes.
+
+Source code remains unchanged. All measured runtimes in these captures
+include instrumentation and are diagnostic costs, not performance claims.
+
+Ten cNG runs: k9,k17,k33,k65,k129 at radial300,dz0.5,mass400;
+radial601 at k65; dz0.25 then0.125; mass800 and corner1e-5 separately
+at k65,radial601,dz0.25. Default corner1e-3, k range1e-4..1e2.
+Shared projection agrees within 2.30e-15 variance-scaled in every run.
+All native five-band G+cNG totals are positive definite (minimum
+correlation eigenvalue >0.957). Final k65->129 change: 2.97% cNG,
+0.0903% total modes. Final dz0.25->0.125: 3.15% cNG, 0.311% total modes.
+Mass400->800: 0.00130% cNG, 0.000128% modes. Corner1e-3->1e-5:
+2.95% cNG, 0.0884% modes. Component changes use the finer cNG diagonal
+rms product. Generalized ratios use the finer total as denominator.
+
+`collect_ng_results.py` aggregates the preserved work folders into the
+three dated result records; `plot_connected.py` makes scientific figures.
+No timing bars or independent reference-library comparisons in README.
+Next gates: settle the 2h partition and bias-prescription interpretation
+before native equality claims; refine redshift interpolation further and
+validate near-diagonal angular treatment/domain independently. Do not
+certify full LSST or Fisher convergence from these one-source tests.
