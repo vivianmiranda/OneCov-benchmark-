@@ -88,7 +88,17 @@ In this revision `__bin_cov_ell_gauss` averages integer multipoles with
 uniform weight. For a single bin [L,U) it sums the Gaussian numerator
 divided by (2ell+1), then divides by fsky*(U-L)^2. Cocoa's Fourier operator
 uses mode-count weights. Do not compare their native band matrices as
-identical estimators; first use an analytic check with the stated weights.
+identical estimators. `compare_gaussian.py` supplies a benchmark-only
+uniform-weight operator to Cocoa's production Gaussian kernel; neither
+code's numerical source is changed.
+
+OneCov linearly interpolates the **Gaussian numerator**, after forming
+products of spectra. Interpolating each spectrum before forming products
+is a different approximation on a coarse grid. The assembly comparison
+therefore exports every integer ell in short intervals (30–150 and
+1500–1620 inclusive), with five bands that exclude the final endpoint.
+`get_Cells` replaces the internal ell grid with the supplied spectrum grid.
+Changing the template's `ell_bins` cannot refine a supplied spectrum.
 
 **Components.** Set `split_gauss = True` and save a list as well as a
 matrix. The list preserves sample variance, mixed signal/noise, pure
@@ -160,6 +170,15 @@ CosmoLike. This source study alone is not a paper-level validation.
 2. Done for the single-source pilot: the independent uniform-ell Gaussian
    sum agrees within 3.4e-7, limited by native text output precision.
    This checks assembly, not spectrum interpolation convergence.
+   The subsequent shared-integer-ell comparison also calls Cocoa's C kernel
+   and checks all 3x2 cross blocks. Both low-ell shear and 3x2, and high-ell
+   3x2, reproduce NumPy to OneCov's saved precision for every component.
+   Cocoa agrees with NumPy to floating-point precision. All totals are
+   positive definite; maximum generalized variance changes are 1.69e-7,
+   4.65e-6 and 4.62e-7. The component list has only five significant digits;
+   the total matrix has seven. Do not misidentify output rounding as a
+   physical discrepancy or confuse this with native spectrum convergence.
+   See `results/gaussian_assembly_20261005.json` for the reviewed record.
 3. Native and supplied-CAMB-power paths ran successfully. Their relative
    spectra differences and interpolation convergence still need assessment.
 4. Match halo choices and inspect single-redshift response/trispectrum

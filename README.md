@@ -15,16 +15,33 @@ This is an **accuracy comparison first**. We are not optimizing or
 rewriting OneCovariance. Timing comparisons follow once the physical
 choices and numerical accuracy of both calculations are understood.
 
-**Status:** the LSST Y1 input exporter and bounded OneCovariance runners
-are implemented. Small Gaussian, G+SSC and G+cNG cases have run successfully.
-These are functional pilots; a converged comparison of the two codes is
-still ahead.
+**First comparison completed:** Gaussian covariance assembly agrees for
+shared LSST Y1 angular spectra, matched noise and matched band weights.
+Three small tests cover one source bin alone and two lens bins with that
+source, including all crossed spectra. Both codes give positive definite
+total matrices in every case.
 
-The [initial validation record](results/functional_pilots_20261005.json)
-contains six successful pilots, their input/output hashes and checks.
-All totals are positive definite. The one-source Gaussian assembly agrees
-with its analytic check within 3.5×10⁻⁷. This is a check of the runner and
-estimator normalization, not a measurement of agreement between the codes.
+| Shared-spectrum test | Matrix | Integer multipoles | Largest variance-mode difference |
+| --- | --- | --- | ---: |
+| Shear, source bin 3 | 5×5 | 30–149 | 0.000017% |
+| 3×2pt, lens bins 1 and 2, source bin 3 | 30×30 | 30–149 | 0.000465% |
+| Same 3×2pt subset | 30×30 | 1500–1619 | 0.000046% |
+
+The differences are consistent with **OneCov's text-output rounding**:
+an independent NumPy calculation reproduces every saved total entry at
+seven significant digits and every split component at five significant
+digits. Cocoa agrees with NumPy to floating-point precision. The mode
+comparison considers every linear combination of the selected bandpowers,
+not just diagonal variances: it reports the largest $`|\lambda-1|`$ for
+$`C_{\mathrm{OneCov}}v=\lambda C_{\mathrm{Cocoa}}v`$, expressed as a percentage.
+
+See the [comparison record](results/gaussian_assembly_20261005.json) and
+[reproduction steps](#matched-gaussian). This establishes the Gaussian
+contractions, noise normalization and binning for **shared spectra**.
+It does not establish agreement of native spectra, SSC, cNG or real-space
+covariances. The [earlier functional pilots](results/functional_pilots_20261005.json)
+confirmed that the small native G, G+SSC and G+cNG paths run; their physical
+and numerical comparison remains ahead. No speed ratio is claimed here.
 
 ## Contents
 
@@ -33,6 +50,7 @@ estimator normalization, not a measurement of agreement between the codes.
 3. [Accuracy and execution time](#validation)
 4. [Installation and compilation](#installation)
 5. [Reproducing the comparison](#reproduction)
+6. [Matched Gaussian assembly](#matched-gaussian)
 
 ## Scope <a name="scope"></a>
 
@@ -386,9 +404,103 @@ check covers matrix finiteness, symmetry and positivity.
 > [!NOTE]
 > OneCovariance averages integer multipoles uniformly in these Gaussian
 > bands. Cocoa's Fourier operator uses mode-count weights. Identical band
-> edges alone therefore do not define identical estimators. The first check
-> verifies OneCovariance's own weighting; matching estimators across codes
-> is a separate comparison step.
+> edges alone therefore do not define identical estimators. The comparison
+> below supplies uniform weights to Cocoa's existing production Gaussian
+> kernel. This benchmark adapter does not change Cocoa's default estimator.
+
+### Comparing matched Gaussian assembly <a name="matched-gaussian"></a>
+
+Use the two terminals prepared above: one with Cocoa active, the other
+with `start_onecov.sh` active. Both should be in `OneCov-benchmark-/`, with
+the platform's eight-thread settings. Run the following steps sequentially.
+
+These tests use five bands in a narrow multipole interval. Exporting each
+integer multipole removes interpolation from the comparison. This matters:
+on a coarse grid, interpolating a product of spectra is different from
+interpolating each spectrum and then multiplying.
+
+**Step :one:**: in the **Cocoa terminal**, export the low-multipole inputs.
+
+```bash
+python scripts/prepare_lsst_y1.py \
+  --cocoa ../cocoa/Cocoa --output work/lsst_y1_integer_30_150 \
+  --integer-ell-range 30 150
+```
+
+The export includes both endpoints. The covariance sums include the lower
+band edge and exclude the upper edge, so these bands use multipoles 30–149.
+
+**Step :two:**: in the **OneCov terminal**, compute the shear covariance.
+
+```bash
+python scripts/run_onecov.py \
+  --inputs work/lsst_y1_integer_30_150 --case shear \
+  --band-limits 30 150 --output work/assembly_shear_30_150
+```
+
+**Step :three:**: in the **OneCov terminal**, compute all small 3×2pt blocks.
+
+```bash
+python scripts/run_onecov.py \
+  --inputs work/lsst_y1_integer_30_150 --case 3x2 \
+  --band-limits 30 150 --output work/assembly_3x2_30_150
+```
+
+**Step :four:**: in the **Cocoa terminal**, compare the shear calculation.
+
+```bash
+python scripts/compare_gaussian.py work/assembly_shear_30_150 \
+  --cocoa ../cocoa/Cocoa --output work/reviewed_gaussian/shear_30_150
+```
+
+**Step :five:**: in the **Cocoa terminal**, compare the 3×2pt calculation.
+
+```bash
+python scripts/compare_gaussian.py work/assembly_3x2_30_150 \
+  --cocoa ../cocoa/Cocoa --output work/reviewed_gaussian/3x2_30_150
+```
+
+**Step :six:**: in the **Cocoa terminal**, export the higher-multipole inputs.
+
+```bash
+python scripts/prepare_lsst_y1.py \
+  --cocoa ../cocoa/Cocoa --output work/lsst_y1_integer_1500_1620 \
+  --integer-ell-range 1500 1620
+```
+
+**Step :seven:**: in the **OneCov terminal**, compute this 3×2pt covariance.
+
+```bash
+python scripts/run_onecov.py \
+  --inputs work/lsst_y1_integer_1500_1620 --case 3x2 \
+  --band-limits 1500 1620 --output work/assembly_3x2_1500_1620
+```
+
+**Step :eight:**: in the **Cocoa terminal**, compare the higher multipoles.
+
+```bash
+python scripts/compare_gaussian.py work/assembly_3x2_1500_1620 \
+  --cocoa ../cocoa/Cocoa --output work/reviewed_gaussian/3x2_1500_1620
+```
+
+`compare_gaussian.py` calls Cocoa's production `_interface` with the shared
+spectra, diagonal shot/shape noise and uniform band weights. It also
+computes the two Gaussian Wick contractions independently with NumPy.
+No numerical source in either code is modified.
+
+Each comparison saves `comparison.json` and `matrices.npz`. These retain
+sample variance, mixed signal/noise, pure noise and their total separately.
+The script checks positive total matrices and generalized variance ratios
+between the codes. It fails if agreement exceeds the native text precision.
+
+For the 3×2pt tests, matrix order is $`g_1g_1`$, $`g_1g_2`$, $`g_2g_2`$,
+$`g_1\gamma`$, $`g_2\gamma`$, $`\gamma\gamma`$, with five bands per spectrum.
+Including $`g_1g_2`$ checks cross-bin contractions even though this spectrum
+need not belong to the likelihood's data vector.
+
+The next comparison is the generation of the angular spectra themselves,
+first using shared CAMB power and then native power. Those calculations
+need their own convergence checks before interpreting relative differences.
 
 ### Adding SSC and connected non-Gaussian contributions
 

@@ -54,6 +54,14 @@ def make_config(template, inputs, output, manifest, args, workers):
     config["bias"]["bias_files"] = str(inputs / "bias.txt")
     config["misc"] = {"num_cores": str(workers)}
 
+    # Narrow bands keep the integer-grid assembly test small. They change
+    # the measured estimator, not the covariance formula or the spectra.
+    if args.band_limits is not None:
+        lower, upper = args.band_limits
+        for tracer in ("lensing", "clustering"):
+            config["covELLspace settings"][f"ell_min_{tracer}"] = str(lower)
+            config["covELLspace settings"][f"ell_max_{tracer}"] = str(upper)
+
     cosmo = manifest["cosmology"]
     density_strings = []
     for value in manifest["lens_density_arcmin2"]:
@@ -164,6 +172,9 @@ def main():
                         "configs" / "onecov_pilot.ini")
     parser.add_argument("--timeout", type=float, default=600.0,
                         help="wall-time budget in seconds, default 600")
+    parser.add_argument("--band-limits", type=int, nargs=2,
+                        metavar=("LOWER", "UPPER"),
+                        help="override output band range [LOWER, UPPER)")
     parser.add_argument("--prepare-only", action="store_true",
                         help="write INI and provenance without importing OneCov")
     args = parser.parse_args()
@@ -178,6 +189,10 @@ def main():
         parser.error(f"{output} exists; select a new output directory")
     if not 0 < args.timeout < float("inf"):
         parser.error("--timeout must be a finite positive number of seconds")
+    if args.band_limits is not None:
+        lower, upper = args.band_limits
+        if lower < 2 or upper <= lower:
+            parser.error("--band-limits requires 2 <= LOWER < UPPER")
     try:
         workers = int(os.environ.get("OMP_NUM_THREADS", "0"))
     except ValueError:
