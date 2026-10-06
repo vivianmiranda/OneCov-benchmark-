@@ -27,7 +27,8 @@ from diagnose_mass_cutoff import mass_edges
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--interface", type=Path)
-    parser.add_argument("--log10-min", type=int, choices=(-20, -3, 2, 4, 6), default=6)
+    parser.add_argument("--log10-min", type=int,
+                        choices=(-50, -20, -3, 2, 4, 6), default=6)
     parser.add_argument("--tail-nodes", type=int, choices=(32, 64, 96, 128, 256))
     parser.add_argument("--tail-panels", choices=("single", "intervals"))
     parser.add_argument("--output", type=Path, required=True)

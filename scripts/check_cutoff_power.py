@@ -40,6 +40,8 @@ def main():
             limits.extend([1e8, float(wave[-1])])
         if wave[-1] >= 1e15:
             limits.extend([1e11, 1e13])
+        if wave[-1] >= 1e25:
+            limits.extend([1e21, 1e23])
         for limit in limits:
             selected = wave <= limit*(1+1e-14)
             values[str(limit)] = TopHat(wave[selected], power[selected]).sigma(

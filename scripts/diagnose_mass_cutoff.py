@@ -19,6 +19,7 @@ import time
 import numpy as np
 
 from common import revision, sha256
+from halo_normalization import mass_integral
 
 
 def mass_edges(exponent, tail_panels=None):
@@ -26,7 +27,7 @@ def mass_edges(exponent, tail_panels=None):
     if tail_panels is not None and exponent < 4:
         lower = [exponent]
         if tail_panels == "intervals":
-            lower = range(exponent, 4, 4)
+            lower += list(range(0, exponent, -4))[::-1]
         return np.concatenate(([math.log(10.0**value) for value in lower],
                                mass_edges(4)))
     original = np.linspace(np.log(1e6), np.log(1e17), 9)
@@ -153,7 +154,8 @@ def run(args):
             k=pairs, pk=pk, corner=corner, weight=angle_weight, ps=internal))
         linear.append(pk)
 
-    saved = dict(redshift=redshift, k=wave_h, first=first, second=second)
+    saved = dict(redshift=redshift, k=wave_h, first=first, second=second,
+                 full_mass_limit=np.array([mass_integral(ci, a) for a in scale]))
     records = []
     for exponent in exponents:
         edges = mass_edges(exponent, args.tail_panels)
@@ -251,10 +253,11 @@ def main():
     parser.add_argument("--nodes", type=int, nargs="+", default=[96, 128, 256])
     parser.add_argument("--repeats", type=int, default=11)
     parser.add_argument("--exponents", type=int, nargs="+",
-                        choices=(-20, -16, -12, -8, -4, -3, 0, 2, 4, 6))
+                        choices=range(-50, 7))
     parser.add_argument("--tail-nodes", type=int, choices=(32, 64, 96, 128, 256))
     parser.add_argument("--tail-panels", choices=("single", "intervals"))
-    parser.add_argument("--tail-log10-max", type=int, choices=(7, 9, 15), default=7)
+    parser.add_argument("--tail-log10-max", type=int,
+                        choices=(7, 9, 15, 25), default=7)
     args = parser.parse_args()
     if args.output.exists() or args.boost not in (1, 2, 4, 8):
         parser.error("use a new output directory and boost 1,2,4 or 8")

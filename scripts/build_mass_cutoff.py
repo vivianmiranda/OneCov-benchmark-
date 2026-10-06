@@ -21,12 +21,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--log10-min", type=int, default=2)
-    parser.add_argument("--sigma-log10-kmax", type=int, choices=(5, 7, 9, 15),
+    parser.add_argument("--sigma-log10-kmax", type=int, choices=(5, 7, 9, 15, 25),
                         default=5)
+    parser.add_argument("--sigma-bias", type=float, choices=(0.5, 1.5),
+                        default=1.5)
     parser.add_argument("--split-tail", action="store_true")
     args = parser.parse_args()
-    if args.output.exists() or args.log10_min not in (-20, -3, 2, 4, 6):
-        parser.error("use a new directory and log10-min -20, -3, 2, 4 or 6")
+    if args.output.exists() or args.log10_min not in (-50, -20, -3, 2, 4, 6):
+        parser.error("use a new directory and a supported minimum mass")
     root = Path(os.environ["ROOTDIR"])
     core = root/"external_modules/code/cosmolike_core"
     project = root/"projects/lsst_y1/interface"
@@ -50,8 +52,9 @@ def main():
         raise ValueError("the production build source list has changed")
     makefile = makefile.replace(original, "./structs.c")
     sigma_source = core/"cosmolike/cosmo3D.c"
-    sigma_record = dict(kmax_hmpc=1e5, source_sha256=sha256(sigma_source))
-    if args.sigma_log10_kmax != 5:
+    sigma_record = dict(kmax_hmpc=1e5, fftlog_bias=args.sigma_bias,
+                        source_sha256=sha256(sigma_source))
+    if args.sigma_log10_kmax != 5 or args.sigma_bias != 1.5:
         # The power reader still extrapolates the same supplied spectrum.
         # Changing its integration bound tests numerical tail coverage,
         # not the physical validity of that small-scale continuation.
@@ -63,8 +66,13 @@ def main():
             raise ValueError("the production sigma cutoff has changed")
         if makefile.count(sigma_original) != 1:
             raise ValueError("the production sigma source list has changed")
-        (target/"cosmo3D.c").write_text(
-            sigma_content.replace(sigma_before, sigma_after))
+        sigma_content = sigma_content.replace(sigma_before, sigma_after)
+        bias_before = "const double bias = 1.5;"
+        if sigma_content.count(bias_before) != 1:
+            raise ValueError("the production FFTLog bias has changed")
+        sigma_content = sigma_content.replace(
+            bias_before, f"const double bias = {args.sigma_bias};")
+        (target/"cosmo3D.c").write_text(sigma_content)
         makefile = makefile.replace(sigma_original, "./cosmo3D.c")
         sigma_record.update(
             kmax_hmpc=10.0**args.sigma_log10_kmax,

@@ -233,6 +233,76 @@ converges slowly while corrected finite-k moments barely change.
 Results, scientific plots and human explanations are in the README and
 results/split_tail_20261006.json. Timing comparisons remain tables.
 
+## Deeper acceleration and numerical FFTLog weighting, 2026-10-06
+
+The follow-up goal is to find the shallowest reliable cutoff before
+numerical error dominates. Do not dismiss this goal merely because the
+existing completion already imposes I11(0)=1. No production adoption or
+change to either halo fit is authorized by the diagnostic study.
+
+Private build work/deep_series_build extends Mmin to1e-50, sigma kmax
+to1e25, and changes the FFTLog weighting b from1.5 to0.5. The factor
+k^-b removed from Delta² is restored by the analytic Mellin kernel.
+This changes finite-FFT conditioning/periodic approximation, not physical
+power, halo bias or multiplicity normalization. Do not attribute all
+improvement specifically to floating-point roundoff without isolating it.
+
+The one-variable control work/split_bias05_control versus split_refined
+keeps Mmin1e-20, kmax1e15, table boost8, tail128 and all supplied P fixed.
+Only b changes. Native same-power OneCov filter discrepancy at1e-20 falls
+from0.116% to0.000173%. report_fftlog_bias.py verifies shared arrays,
+domains and controls. Deep same-power sigma at1e-50 differs0.000237%;
+the filter kmax1e23->1e25 change is<1.11e-10 fractionally.
+
+work/deep_series32 and deep_series128 use exponents4,0,-4,...,-48,-50;
+upper96 nodes unchanged, lower32/table4 versus lower128/table8. The
+panel boundaries stay anchored at4,0,-4,...; -50 adds two decades without
+moving previous nodes. Do not feed that last unequal interval into the
+equal-step sequence. A held-out geometric prediction of it errs<0.000114%.
+
+report_deep_series.py compares Aitken, Wynn last7 and highest available
+odd-order window. Highest-order includes the newest sum, dropping only
+the oldest when an odd input count is required. Atz1 rawB at1e-48=.974640;
+Wynn=.99999615, refined=.99999636. At1e-40, maximum finite-k I11 error
+versus fine completed native I11 is0.00668% (fine0.00665%). At1e-48 it is
+0.000858% (fine0.000776%). First tested cutoffs passing0.1%,0.01%,0.001%
+are1e-32,1e-40,1e-48. This is an ingredient diagnostic at three redshifts
+and41 k=.001..100, not a universal covariance accuracy target. Last7 Wynn
+has an unstable near-pole at1e-28; more depth/order alone is not a test.
+
+Crucial distinction: the full fitted ordinary mass integral atz1 is
+1.04832034, independent of the covariance cutoff. Lowering the cutoff or
+accelerating cannot turn it into1. With a unit-mass shape f0, full
+integral b*f0=.95390689; Cocoa rescales f=f0/.95390689 to impose unit
+bias integral, hence full mass1.04832. This precedes mass truncation.
+Never suggest the4.83% mass excess is omitted low-mass weight. The earlier
+phrase 'even when the full model satisfies the condition' meant ONLY
+the bias-weighted condition. README now explicitly separates both.
+At1e-50 directF(z1)=1.019583; Wynn predicts1.0483204. Limits are measured
+from the same private build at fine settings in work/deep_mass_limit,
+using the analytic mass_integral helper. No normalization is changed.
+
+Full native completed LSST runs deep_full20/deep_full50 take50.297/51.300s
+sequentially, OMP8/BLAS1. Every1560x1560 entry compared; G bitwise equal,
+SSC/cNG/total changes over reference total rms <=5.45e-14, both positive,
+generalized modes <=2.61e-12 from unity (comparison precision). These
+test cutoff extension, NOT an accelerated replacement covariance.
+No full accelerated forecast has been generated; that validation remains
+separate if replacing the existing completion is later requested.
+
+Results and figures: deep_series, deep_series_power, fftlog_bias,
+fftlog_bias_control, deep_full_extension, all suffixed20261006.json.
+All native source files and the installed library remain unchanged.
+
+Keep the main README's low-mass discussion short: compare original1e6
+with the experimental1e-40+Wynn case. Detailed intermediate scans and
+reproduction moved to docs/low_mass_study.md. Do not call Wynn the released
+or production implementation. The saved original-domain mass_cutoff_native8
+control (upper256, table8) has maximum completed-I11 discrepancy0.18046%
+from the same deep reference, versus0.00668% for the proposed Wynn case.
+Supplied P is identical, but sigma domain/weighting and quadrature also
+differ; this is a configuration comparison, not an isolated Wynn speedup.
+
 ## Low-mass cutoff study: scope
 
 The requested study reduces the finite-range I11 completion by integrating

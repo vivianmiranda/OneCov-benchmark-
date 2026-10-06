@@ -1,0 +1,397 @@
+{
+  "mass": [
+    1e-20,
+    10000.0
+  ],
+  "redshift": [
+    0.1,
+    0.5,
+    1.0
+  ],
+  "fractional_sigma_errors": {
+    "bias1.5": [
+      [
+        0.0011212230931805234,
+        -6.472471355545295e-07
+      ],
+      [
+        0.0011578936085332447,
+        -6.456050235525979e-07
+      ],
+      [
+        0.0011593015250521699,
+        1.1305130398486796e-06
+      ]
+    ],
+    "bias0.5": [
+      [
+        4.99170771384172e-09,
+        -6.213407460764486e-07
+      ],
+      [
+        6.609809810598222e-09,
+        -6.196943836966895e-07
+      ],
+      [
+        1.7329462931314765e-06,
+        1.1564318460610679e-06
+      ]
+    ]
+  },
+  "old_run": {
+    "core": {
+      "commit": "8125fa358e3c93cef3be83b6ba38ad24e84255d6",
+      "status": ""
+    },
+    "interface_sha256": "72e503d565c25192d628dc7a92c6dc2d97b77af5003a59ed960c05a80bf8d4b6",
+    "diagnostic_build": {
+      "core": {
+        "commit": "8125fa358e3c93cef3be83b6ba38ad24e84255d6",
+        "status": ""
+      },
+      "project": {
+        "commit": "64d624d9813bfa9ec35cc380fb0ba73cd5259c27",
+        "status": ""
+      },
+      "table_mass_min": 1e-20,
+      "table_mass_max": 1e+17,
+      "production_structs_sha256": "d63b72c4a00b673315e9f5433cbcfd51754721d4dff4bd02937c55b804d771d3",
+      "diagnostic_structs_sha256": "1ea5f5d8c1f518b22382a3ca9d5437aac1b309c3869d7e08a2916355b2d009b3",
+      "replacement": {
+        "before": ".halo_m = {1.0e+4, 1.0e+17}",
+        "after": ".halo_m = {1.0e-20, 1.0e+17}"
+      },
+      "sigma_integral": {
+        "kmax_hmpc": 1000000000000000.0,
+        "source_sha256": "9b60a3231bdcb46e98005c16eec838141e4ae5f396ebc94910e1bf2178fb4af9",
+        "diagnostic_sha256": "06e6f2d18c38cb27bf42a1d011a99bf61fb8e292ee064fbfb2f63595a047b91e",
+        "replacement": {
+          "before": "const double kmax = 1.e5;",
+          "after": "const double kmax = 1.e15;"
+        }
+      },
+      "split_tail": {
+        "source_sha256": "caa5d600c7dfdea8f6b6f1f7447869840c122b7e58c1b04bee63c1472d5e45a4",
+        "diagnostic_sha256": "5b4a86761d6f879471e8f1bc2421d46af755b7176357ed19b20304e2f2c3a69a",
+        "rule_environment": "COCOA_DIAGNOSTIC_TAIL_NQUAD",
+        "split_mass": 10000.0
+      },
+      "interface_sha256": "72e503d565c25192d628dc7a92c6dc2d97b77af5003a59ed960c05a80bf8d4b6",
+      "production_interface_sha256": "a823854f914b7feac365272ccf4dfeba251ea0f54ab54471f28e4cbd32ec64d6"
+    },
+    "boost": 8.0,
+    "records": [
+      {
+        "key": "m4_n96",
+        "mass_min": 10000.0,
+        "mass_panels": 10,
+        "nquad": 96,
+        "missing_weight": [
+          0.1885455449082225,
+          0.23105970021009437,
+          0.28384825826141
+        ],
+        "resolved_mass": [
+          0.7119034451593941,
+          0.6652051628796657,
+          0.6053453737971576
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.09923720802180469,
+        "seconds": [
+          0.0017284999485127628,
+          0.001406166993547231,
+          0.0019840410095639527
+        ]
+      },
+      {
+        "key": "m0_n96",
+        "mass_min": 1.0,
+        "mass_panels": 11,
+        "nquad": 96,
+        "missing_weight": [
+          0.1474120705733506,
+          0.18436037535968575,
+          0.23086646980535608
+        ],
+        "resolved_mass": [
+          0.7810239262604068,
+          0.7439681012753989,
+          0.6947203597743811
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.0017640829901210964,
+        "seconds": [
+          0.001641084032598883,
+          0.0022821250022388995,
+          0.0019167909631505609
+        ]
+      },
+      {
+        "key": "m-4_n96",
+        "mass_min": 0.0001,
+        "mass_panels": 12,
+        "nquad": 96,
+        "missing_weight": [
+          0.11709599100709212,
+          0.1494735508264654,
+          0.19095432898541642
+        ],
+        "resolved_mass": [
+          0.8310992848172762,
+          0.8020451545847157,
+          0.7616612207754558
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.002471917017828673,
+        "seconds": [
+          0.00193349999608472,
+          0.002445791964419186,
+          0.002070249989628792
+        ]
+      },
+      {
+        "key": "m-8_n96",
+        "mass_min": 1e-08,
+        "mass_panels": 13,
+        "nquad": 96,
+        "missing_weight": [
+          0.09350668022326425,
+          0.1218504096267955,
+          0.15887734593418978
+        ],
+        "resolved_mass": [
+          0.8692409922860959,
+          0.8471197226634039,
+          0.8145269094235369
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.003273624985013157,
+        "seconds": [
+          0.0029475410119630396,
+          0.0020170420175418258,
+          0.0019105839892290533
+        ]
+      },
+      {
+        "key": "m-12_n96",
+        "mass_min": 1e-12,
+        "mass_panels": 14,
+        "nquad": 96,
+        "missing_weight": [
+          0.07478729794403316,
+          0.09950244540460196,
+          0.13245248277906707
+        ],
+        "resolved_mass": [
+          0.8988391845574475,
+          0.8827917705006535,
+          0.8571607114377475
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.0023714580456726253,
+        "seconds": [
+          0.00355391699122265,
+          0.0028876669821329415,
+          0.002667708962690085
+        ]
+      },
+      {
+        "key": "m-16_n96",
+        "mass_min": 1e-16,
+        "mass_panels": 15,
+        "nquad": 96,
+        "missing_weight": [
+          0.0598250515633445,
+          0.08127389349453751,
+          0.11046930273840128
+        ],
+        "resolved_mass": [
+          0.9219755886710267,
+          0.9112451677307802,
+          0.8918467862789835
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.0029594579827971756,
+        "seconds": [
+          0.002624583023134619,
+          0.0031484580249525607,
+          0.0038312500109896064
+        ]
+      },
+      {
+        "key": "m-20_n96",
+        "mass_min": 1e-20,
+        "mass_panels": 16,
+        "nquad": 96,
+        "missing_weight": [
+          0.0478108659344898,
+          0.06632976492829823,
+          0.09207110762082504
+        ],
+        "resolved_mass": [
+          0.940153391109482,
+          0.9340639765699345,
+          0.9202381863119132
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.002616334008052945,
+        "seconds": [
+          0.0030254169832915068,
+          0.003125749994069338,
+          0.0025563749950379133
+        ]
+      }
+    ],
+    "threads": 8,
+    "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+    "ingredients_sha256": "2f11a9203c0d0e51008fd67f9a8e1177d98254ebf81f933967070941d537fdb2",
+    "script_sha256": "4634db977d1413081babc2679ef64f3aab64eb41fe08177c3fb86dcf3e17c174",
+    "supplied_k_hmpc": [
+      1.4618471318296477e-05,
+      142.85714285714283
+    ],
+    "cosmology": {
+      "omegam": 0.3,
+      "omegab": 0.05,
+      "H0": 70.0,
+      "ns": 0.965,
+      "As_1e9": 2.1,
+      "w": -1.0,
+      "w0pwa": -1.0,
+      "mnu": 0.0,
+      "AccuracyBoost": 1.0,
+      "CLAccuracyBoost": 1.0,
+      "CAMBAccuracyBoost": 1.0,
+      "kmax": 20.0,
+      "k_per_logint": 20,
+      "non_linear_emul": 2,
+      "lens_potential_accuracy": 1.0,
+      "halofit_version": "takahashi"
+    },
+    "tail_nodes": 128,
+    "tail_panels": "intervals"
+  },
+  "new_run": {
+    "core": {
+      "commit": "8125fa358e3c93cef3be83b6ba38ad24e84255d6",
+      "status": ""
+    },
+    "interface_sha256": "39ea49bfb1a370c2df7901b55c18ee9481cbef2a029a8a64e6d35d4726171d40",
+    "diagnostic_build": {
+      "core": {
+        "commit": "8125fa358e3c93cef3be83b6ba38ad24e84255d6",
+        "status": ""
+      },
+      "project": {
+        "commit": "64d624d9813bfa9ec35cc380fb0ba73cd5259c27",
+        "status": ""
+      },
+      "table_mass_min": 1e-20,
+      "table_mass_max": 1e+17,
+      "production_structs_sha256": "d63b72c4a00b673315e9f5433cbcfd51754721d4dff4bd02937c55b804d771d3",
+      "diagnostic_structs_sha256": "1ea5f5d8c1f518b22382a3ca9d5437aac1b309c3869d7e08a2916355b2d009b3",
+      "replacement": {
+        "before": ".halo_m = {1.0e+4, 1.0e+17}",
+        "after": ".halo_m = {1.0e-20, 1.0e+17}"
+      },
+      "sigma_integral": {
+        "kmax_hmpc": 1000000000000000.0,
+        "fftlog_bias": 0.5,
+        "source_sha256": "9b60a3231bdcb46e98005c16eec838141e4ae5f396ebc94910e1bf2178fb4af9",
+        "diagnostic_sha256": "03d4c232539c70107cb79259c88c6304b339d7678667dc51af3faaf9d83444a3",
+        "replacement": {
+          "before": "const double kmax = 1.e5;",
+          "after": "const double kmax = 1.e15;"
+        }
+      },
+      "split_tail": {
+        "source_sha256": "caa5d600c7dfdea8f6b6f1f7447869840c122b7e58c1b04bee63c1472d5e45a4",
+        "diagnostic_sha256": "5b4a86761d6f879471e8f1bc2421d46af755b7176357ed19b20304e2f2c3a69a",
+        "rule_environment": "COCOA_DIAGNOSTIC_TAIL_NQUAD",
+        "split_mass": 10000.0
+      },
+      "interface_sha256": "39ea49bfb1a370c2df7901b55c18ee9481cbef2a029a8a64e6d35d4726171d40",
+      "production_interface_sha256": "a823854f914b7feac365272ccf4dfeba251ea0f54ab54471f28e4cbd32ec64d6"
+    },
+    "boost": 8.0,
+    "records": [
+      {
+        "key": "m4_n96",
+        "mass_min": 10000.0,
+        "mass_panels": 10,
+        "nquad": 96,
+        "missing_weight": [
+          0.18854554260854228,
+          0.2310596976060162,
+          0.2838482553072569
+        ],
+        "resolved_mass": [
+          0.7119034490480236,
+          0.6652051672769157,
+          0.6053453787535229
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.09905449999496341,
+        "seconds": [
+          0.0016438329475931823,
+          0.001689333003014326,
+          0.001499583013355732
+        ]
+      },
+      {
+        "key": "m-20_n96",
+        "mass_min": 1e-20,
+        "mass_panels": 16,
+        "nquad": 96,
+        "missing_weight": [
+          0.04783735399991307,
+          0.06636232048389579,
+          0.09211269798924282
+        ],
+        "resolved_mass": [
+          0.9401137415604874,
+          0.9340148127547744,
+          0.9201747255498322
+        ],
+        "zero_mode_error": 0.0,
+        "first_call_seconds": 0.0027051250217482448,
+        "seconds": [
+          0.0029877499910071492,
+          0.0025884589995257556,
+          0.003553040965925902
+        ]
+      }
+    ],
+    "threads": 8,
+    "power_table_sha256": "26ed1a29b47f82e2aa3de13de93e5ccd3bf88bc7ceb802125157ca12211fff70",
+    "ingredients_sha256": "88b6dae511e6043be88e4075bbc14ba177d389ff3d1cb6e8aec3e6f68880bd56",
+    "script_sha256": "e69ff887d7bf191cd75da2a9866177278e04ed59efd07435201f48854dae5715",
+    "supplied_k_hmpc": [
+      1.4618471318296477e-05,
+      142.85714285714283
+    ],
+    "cosmology": {
+      "omegam": 0.3,
+      "omegab": 0.05,
+      "H0": 70.0,
+      "ns": 0.965,
+      "As_1e9": 2.1,
+      "w": -1.0,
+      "w0pwa": -1.0,
+      "mnu": 0.0,
+      "AccuracyBoost": 1.0,
+      "CLAccuracyBoost": 1.0,
+      "CAMBAccuracyBoost": 1.0,
+      "kmax": 20.0,
+      "k_per_logint": 20,
+      "non_linear_emul": 2,
+      "lens_potential_accuracy": 1.0,
+      "halofit_version": "takahashi"
+    },
+    "tail_nodes": 128,
+    "tail_panels": "intervals"
+  },
+  "filter_sha256": "e718711560cbd0387517bb4defa45cf8acccccc42ee17751175036d2bbdba1c3",
+  "script_sha256": "e6a40d4e6f0392d7bc5a2fdf8ffb5aa2f15defd9b2490615f48c7bdb139d82e9"
+}
