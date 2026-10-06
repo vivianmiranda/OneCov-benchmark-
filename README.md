@@ -11,6 +11,13 @@ The aim is to understand where the codes agree, explain differences in
 their physical models and numerical methods, and measure execution time
 at settings whose numerical accuracy has been checked.
 
+The numerical results and figures below use CoCoA's current Wynn-accelerated
+I11 calculation and FFTLog weighting, checked on **2026-10-06**. OneCov's
+unchanged saved outputs are compared with freshly computed CoCoA outputs;
+the [refresh record](results/wynn_refresh_20261006.json) identifies both.
+Timings retain their stated measurement dates. Fresh timings of the updated
+native halo calculation and complete CoCoA covariances are still pending.
+
 This is an **accuracy comparison first**. We are not optimizing or
 rewriting OneCovariance. Timing comparisons follow once the physical
 choices and numerical accuracy of both calculations are understood.
@@ -160,8 +167,8 @@ Vector figures: [matrices](results/figures/gaussian_matrices.pdf),
 
 ### Gaussian timing differences
 
-**Apple M2 Pro, macOS 13.7.5, eight OpenMP threads.** Both codes receive
-the same spectra already in memory and compute all three Gaussian parts.
+**Recorded 2026-10-05: Apple M2 Pro, macOS 13.7.5, eight OpenMP threads.**
+Both codes receive the same spectra already in memory and compute all three Gaussian parts.
 Cocoa uses its production `_interface`; OneCov uses its unmodified
 `covELL_gaussian` method.
 
@@ -669,10 +676,10 @@ absolute differences in CoCoA/OneCov minus one over those sampled ranges:
 
 | Quantity | z = 0.1 | z = 0.5 | z = 1 |
 | --- | ---: | ---: | ---: |
-| Mass rms fluctuation, sigma(M) | 0.0324% | 0.0304% | 0.0296% |
-| Halo abundance, dn/dlnM | 0.774% | 2.739% | 4.936% |
-| Native halo bias | 22.8% | 28.9% | 35.9% |
-| Native matter-power response | 14.9% | 21.2% | 25.9% |
+| Mass rms fluctuation, sigma(M) | 0.0323% | 0.0304% | 0.0295% |
+| Halo abundance, dn/dlnM | 0.773% | 2.737% | 4.936% |
+| Native halo bias | 22.7% | 28.8% | 35.8% |
+| Native matter-power response | 14.8% | 21.1% | 25.8% |
 
 The raw [Tinker et al. (2010)](https://arxiv.org/abs/1001.3162) bias
 formulas agree within $`6\times10^{-16}`$ when evaluated at the same
@@ -702,9 +709,10 @@ mass limits and SSC response transfer remain different, as described above.
 
 Mass-integration refinement is much smaller than these native differences.
 For I11, I02, I12 and the response, OneCov's 400 → 800 mass-node change is
-at most **0.0012%**; CoCoA's 96 → 256 nodes per mass panel changes them by
-at most **0.000040%**. This checks the mass integration at the supplied
-power resolution; it does not certify either prescription's physical accuracy.
+at most **0.0012%**. CoCoA's level 0 → 2 refinement changes these quantities
+by at most **0.000028%**: upper-panel quadrature increases from 96 to 256
+nodes, and low-mass-panel quadrature from 32 to 128 nodes. This checks the
+mass integration at the supplied power resolution; it does not certify either prescription's physical accuracy.
 
 **Step :one:**: in the **OneCov terminal**, export the halo quantities.
 
@@ -754,8 +762,10 @@ enter it; those choices enter later halo calculations.
 - **CoCoA:** reads the supplied CAMB linear-power tables, normalized by
   the primordial amplitude A_s. FFTLog evaluates the top-hat integral
   and its mass derivative. The spectrum is continued with its edge power
-  laws over approximately 10⁻⁷–10⁵ h/Mpc. Cubic interpolation fills dense
-  mass tables, followed by linear lookups in mass and scale factor.
+  laws over approximately 10⁻⁷–10²⁵ h/Mpc to support the very low covariance
+  mass limit. This extrapolation extends the supplied spectrum; it adds
+  no calibrated small-scale physics. Cubic interpolation fills dense mass
+  tables, followed by linear lookups in mass and scale factor.
 - **OneCov:** its `hmf` dependency obtains a CAMB transfer function and
   normalizes the power to an input sigma8. It evolves that spectrum with
   `CambGrowth`. Its native top-hat filter uses Simpson integration on the
@@ -784,19 +794,22 @@ over the sampled masses between 10¹⁰ and 10¹⁵ solar masses/h.
 | --- | ---: | ---: | ---: |
 | Use CoCoA power at the same 200 k nodes and same radii | 0.01608% | 0.01407% | 0.01412% |
 | Integrate that power on 12,737 nodes over the same range | 0.01594% | 0.01594% | 0.01594% |
-| Extend to CoCoA's integration range, with a dense grid | 0.000158% | 0.000158% | 0.000158% |
+| Extend the shared filter to 10⁻⁷–10⁵ h/Mpc, with a dense grid | 0.000158% | 0.000158% | 0.000158% |
 | Use CoCoA's density in the mass-to-radius relation | 0.001607% | 0.001607% | 0.001607% |
-| Replace the shared-input filter result by CoCoA's default FFTLog/table result | 0.000334% | 0.000266% | 0.001175% |
+| Replace the shared-input filter result by CoCoA's default FFTLog/table result | 0.000313% | 0.000246% | 0.001154% |
 
 The first two effects are the largest. **The maxima occur at different
 masses, so the columns must not be added.** The final row includes
 CoCoA's mass/time table interpolation as well as its FFTLog calculation;
-it is not an isolated error of the transform itself.
+it is not an isolated error of the transform itself. The shared filter
+stops at 10⁵ h/Mpc, whereas the current FFTLog integral extends to 10²⁵.
+This comparison covers resolved masses of 10¹⁰–10¹⁵ solar masses/h; it
+does not validate the extrapolated spectrum at the tiny tail masses.
 
 Doubling the wide shared-input integration from 32,769 to 65,537 samples
 changes sigma by less than 0.000000062%. Raising CoCoA's internal table
 boost from one to four, while keeping the supplied power fixed, leaves
-at most 0.000611% disagreement with that shared-input filter calculation.
+at most 0.000591% disagreement with that shared-input filter calculation.
 
 ![Sigma and halo-abundance diagnostics](results/figures/sigma_abundance.png)
 
@@ -833,7 +846,7 @@ The original benchmark also used **different amplitude paths**:
 - **CoCoA forecast:** the actual CAMB call reports sigma8 = 0.826704159.
   Integrating that call's interpolated linear power with OneCov's dense
   filter gives 0.826616612; integrating the installed CoCoA power reader
-  gives 0.826613956. CoCoA's FFTLog value at R=8 Mpc/h is 0.826615311
+  gives 0.826613956. CoCoA's FFTLog value at R=8 Mpc/h is 0.826615157
   with the refined internal tables.
 
 Thus, CAMB's reported sigma8, the integral of its interpolated spectrum,
@@ -888,9 +901,9 @@ bias-normalization amplitudes consequently separate further toward z=1:
 
 | Redshift | Multiplicity amplitude change, CoCoA / OneCov − 1 | Full abundance difference across masses | Residual after dividing out that amplitude |
 | ---: | ---: | ---: | ---: |
-| 0.1 | +0.6486% | +0.4566% to +0.7740% | −0.1908% to +0.1246% |
-| 0.5 | +2.6222% | +2.4003% to +2.7385% | −0.2163% to +0.1133% |
-| 1.0 | +4.8320% | +4.5475% to +4.9362% | −0.2714% to +0.0994% |
+| 0.1 | +0.6486% | +0.4571% to +0.7733% | −0.1903% to +0.1239% |
+| 0.5 | +2.6222% | +2.4003% to +2.7373% | −0.2162% to +0.1122% |
+| 1.0 | +4.8320% | +4.5474% to +4.9362% | −0.2715% to +0.0993% |
 
 At z=1, the approximately 5% abundance offset is therefore mostly the
 **4.832% normalization change**, not an amplification of a 0.03% sigma
@@ -1004,14 +1017,22 @@ ordinary mass integral equals one. The tested codes handle this as follows:
   rescaling and adds a separate contribution for unresolved low-mass halos.
 - **CoCoA:** it keeps the fitted halo bias unchanged and normalizes the
   multiplicity function through the full bias-weighted integral. Its
-  covariance I11 routine also adds a separate unresolved contribution,
-  assigning the missing response to the profile at the minimum halo mass.
-  It does not divide the biases in I12 or I13 by a finite-range integral.
+  covariance integrals extend to $`10^{-40}\,M_\odot/h`$. For I11, Wynn's
+  epsilon algorithm estimates the limiting value from successive partial
+  integrals of the low-mass tail. A residual contribution then enforces
+  I11(0) = 1. I12 and I13 retain direct mass integration and the fitted bias;
+  neither is divided by a finite-range bias integral.
 
 Thus, **both codes add an unresolved contribution to I11**. The key
 difference discussed here is the bias rescaling retained by OneCov's
 higher moments, together with the different multiplicity normalization.
 The moments and their consequences for the covariance are explained below.
+
+CoCoA uses Wynn acceleration only for I11, whose low-mass contribution
+converges slowly. The extra mass factors in higher halo moments suppress
+that tail, so those moments use direct quadrature. Extending the integration
+does not renormalize the fitted multiplicity function: the distinct mass
+and bias constraints below still apply.
 
 Evaluating the two codes' fitted functions over an extended peak-height
 range gives the bias integral $`\int b(\nu)f(\nu)\,d\nu`$ below.
@@ -1400,9 +1421,11 @@ python scripts/plot_connected.py work/trispectrum_final_256 \
 
 ## SSC, halo and cNG timing differences <a name="non-gaussian-timings"></a>
 
-**Apple M2 Pro, macOS 13.7.5; eight OpenMP threads configured.** Runs are
-sequential. These are separate stages using resident inputs, not complete
-survey covariances. Means and scatter include two fresh processes per code.
+**Recorded 2026-10-06: Apple M2 Pro, macOS 13.7.5; eight OpenMP threads
+configured.** These projection timings precede the current halo refresh;
+they time the unchanged projection routines using supplied tables. Runs
+were sequential. These are separate stages using resident inputs, not
+complete survey covariances. Means and scatter include two fresh processes per code.
 
 ### Radial projection from shared inputs
 
@@ -1438,34 +1461,29 @@ has process means 101.3 and 119.6 ms; the table includes that variation.
 ### Native halo-moment generation
 
 This requests I11, I12, both I13 partitions and undamped I04 at redshifts
-0.1, 0.5 and 1. All 20,100 unordered pairs of the 200 wavenumbers are
-included at each redshift. The codes retain their native halo fits and
-concentration relations, so this is a **matched requested calculation,
-with different physical prescriptions**.
+0.1, 0.5 and 1, including all 20,100 unordered pairs of 200 wavenumbers at
+each redshift. The codes retain their native halo fits and concentration
+relations, so the requested outputs match while their prescriptions differ.
 
 | Halo stage | CoCoA (ms) | OneCov (ms) | OneCov / CoCoA |
 | --- | ---: | ---: | ---: |
-| Three-redshift moment tables | 19.93 ± 0.96 | 2497.84 ± 39.19 | 125.3 |
+| Three-redshift moment tables | Pending current measurement | 2497.84 ± 39.19 | Pending |
 
-- **CoCoA:** uses its combined production moment API with 256-point mass
-  quadrature per panel. The additional I02 output remains in the timer.
-- **OneCov:** calls its native moment and one-halo methods with 800 mass
-  nodes. The methods' own allocations and ancillary work remain included.
+The OneCov value was recorded on 2026-10-06 with 800 mass nodes. It includes
+the native routines' allocations and ancillary work, but excludes cosmology
+initialization and first-use variance tables. The first evaluation was
+recorded separately; two fresh processes then measured 11 evaluations each.
 
-The first evaluation is recorded separately; each process then measures
-11 evaluations. Cosmology initialization and first-use variance tables
-are excluded. The measured range is about 10⁻⁵–92.3 h/Mpc. Over the
-comparison's physical range, 0.001–10 h/Mpc, refining the mass integration
-changes all these moments by at most 0.00145% in OneCov and 0.000130% in
-CoCoA. At the extreme high-k end of the full requested grid, the largest
-changes are 1.01% and 0.00514%, respectively; that tail is not equally
-well converged.
+CoCoA's current mass integration and I11 acceleration need a new sequential
+timing. The concurrent correctness refresh is not used as a performance
+measurement. Its integration checks are reported in the
+[halo](#halo-comparison) and [trispectrum](#trispectrum-comparison) sections.
 
-**None of these ratios is a full SSC/cNG forecast speedup.** In particular,
-the halo row excludes angular perturbation-theory averages, whose native
-diagonal convergence remains unresolved above. The
-[timing record](results/nongaussian_timing_20261006.json) contains raw
-samples, first calls, setup costs, source/input hashes and numerical checks.
+**None of these component timings is a full SSC/cNG forecast speedup.**
+The native angular perturbation-theory averages are outside the halo-stage
+timer, and their diagonal convergence remains unresolved. The
+[timing record](results/nongaussian_timing_20261006.json) preserves the
+previous measurements and exact timed scopes.
 
 To reproduce representative rows after the corresponding exports above:
 
@@ -1697,12 +1715,17 @@ comparison of covariance modes, not a Fisher-parameter convergence result.
   Each code performs its own Gaussian line-of-sight projection; angular
   spectra are not supplied from one code to the other.
 - **CoCoA:** retains its bias-consistent multiplicity amplitude,
-  Bhattacharya concentration, additive I11 completion, 10⁴ lower mass
-  limit, two-halo response slope, nonlinear response transfer and analytic
-  spherical-cap harmonics.
+  Bhattacharya concentration, mass integration down to 10⁻⁴⁰, Wynn
+  acceleration and residual completion for I11, two-halo response slope,
+  nonlinear response transfer and analytic spherical-cap harmonics.
 - **OneCovariance:** retains its finite-range bias normalization, Duffy
-  concentration, native low-mass completion, 10⁶ lower mass limit,
-  one-halo damping, linear-power response slope and pixelized cap.
+  concentration, native low-mass completion, one-halo damping,
+  linear-power response slope and pixelized cap. Its configured lower
+  mass limit is 10⁶; its matter-moment routines extend it internally to 10².
+
+Mass limits in these bullets are in solar masses/h. The very low CoCoA
+limit continues the mathematical fits; it is not a claim that those fits
+have been calibrated at these halo masses.
 
 The shared nonlinear table does not replace each code's internal linear
 power used for halo ingredients. The small amplitude/radiation difference
@@ -1719,7 +1742,7 @@ described in the trispectrum study.
 | Numerical control | CoCoA | OneCovariance |
 | --- | --- | --- |
 | Radial integration | 7 panels, 96 GSL nodes per panel | 601 radial nodes |
-| Halo mass integration | 10 panels, 96 GSL nodes per panel | 400 mass nodes |
+| Halo mass integration | 10 upper panels × 96 nodes; 11 low-mass panels × 32 nodes | 400 mass nodes |
 | Trispectrum sampling | Project default multipole table | 129 k nodes |
 | Power/response redshift spacing | Project default tables | 0.05 |
 | Trispectrum redshift spacing | Evaluated at radial nodes | 0.125 |
@@ -1796,7 +1819,7 @@ not isolate the full-sky correction or certify either model as exact.
 | Multipoles for spectra | Through 100,000 | 500 logarithmic samples, 2–100,000 |
 | Angular transform | Discrete full-sky sum | Native Bessel integration |
 | Radial integration | 7 panels × 96 GSL nodes | 500 radial samples |
-| Halo mass integration | 10 panels × 96 GSL nodes | 900 mass samples |
+| Halo mass integration | 10 upper panels × 96 nodes; 11 low-mass panels × 32 nodes | 900 mass samples |
 | Trispectrum k sampling | Project interpolation tables | 100 samples |
 | Power/response redshift spacing | Project interpolation tables | 0.08 |
 | Trispectrum redshift spacing | At radial integration nodes | 0.5 |
@@ -1844,14 +1867,15 @@ attributed to the full-sky versus flat-sky transform without a separate test.
 
 ### Measured execution time
 
-Apple M2 Pro, eight OpenMP threads; single sequential runs. Numerical setup
-and covariance construction are timed separately; plotting and file writing
-are excluded. The two codes calculate the same observables with their own
-settings and halo prescriptions.
+The OneCov timing below was recorded on **2026-10-06**, on an Apple M2 Pro
+with eight OpenMP threads, in a single sequential run. Numerical setup and
+covariance construction were timed separately; plotting and file writing
+were excluded. CoCoA's refreshed matrix was computed during an accuracy-only
+run, so its updated production timing remains pending.
 
 | Code | Numerical setup | Covariance construction | Combined |
 | --- | ---: | ---: | ---: |
-| CoCoA production interface | 0.42 s | 45.44 s | **45.86 s** |
+| CoCoA production interface | Pending | Pending | Pending |
 | OneCovariance real-space example | 19.91 s | 513.64 s | **533.55 s (8.89 min)** |
 
 For **full LSST Y1**, the 1560 × 1560 OneCovariance runtime remains unmeasured.
@@ -1864,7 +1888,8 @@ not give a defensible runtime prediction.
 
 The [real-space comparison record](results/real_shear_20261006.json) contains
 input and source fingerprints, numerical settings, component diagnostics,
-asymmetries, eigenvalue conventions and measured times.
+asymmetries and eigenvalue conventions. It retains the native OneCov timing
+and explicitly excludes the concurrent CoCoA run from performance claims.
 
 ### Reproducing the real-space comparison
 

@@ -22,40 +22,40 @@
     {
       "redshift": 0.1,
       "sigma_fractional_range": [
-        -0.0003238297030538906,
-        -4.914151420010171e-05
+        -0.00032298627230553656,
+        -5.0716917322168875e-05
       ],
       "dndlnm_fractional_range": [
-        0.004566428398178113,
-        0.007740077465537176
+        0.0045708064037788265,
+        0.0077331179219060076
       ],
       "bias_fractional_range": [
-        -0.22748059260554498,
-        -0.22713133930908835
+        -0.22748054504700266,
+        -0.22713037470046638
       ],
       "concentration_fractional_range": [
-        -0.2533654317593048,
-        0.07830154751470797
+        -0.2533654854985986,
+        0.07830105484989236
       ],
       "linear_fractional_range": [
         -0.0021749565585966746,
         0.002014726105604936
       ],
       "i11_fractional_range": [
-        -0.002732846335708028,
-        0.0012207418690455274
+        -0.0027253533162119314,
+        0.0012214511681887252
       ],
       "i02_fractional_range": [
-        0.005856265349606815,
-        0.043303215635994485
+        0.005854378411189076,
+        0.043302709703702646
       ],
       "i12_fractional_range": [
-        -0.2228137662528059,
-        -0.17503614973171933
+        -0.22281524518240126,
+        -0.1750364056978092
       ],
       "response_fractional_range": [
-        -0.14814454423893042,
-        0.03270555489087168
+        -0.1481444017617337,
+        0.0327054548004182
       ],
       "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
       "nfw_matched_concentration_max_absolute": 1.270629801902734e-05
@@ -63,40 +63,40 @@
     {
       "redshift": 0.5,
       "sigma_fractional_range": [
-        -0.0003044072074044335,
-        -2.9728195345857245e-05
+        -0.0003035637601163099,
+        -3.130362913572604e-05
       ],
       "dndlnm_fractional_range": [
-        0.024002837629671703,
-        0.027385127884159255
+        0.024003141722734433,
+        0.027373342086908004
       ],
       "bias_fractional_range": [
-        -0.2880592668318843,
-        -0.28771202458337053
+        -0.2880591339701495,
+        -0.28771100488522694
       ],
       "concentration_fractional_range": [
-        -0.24036958632775907,
-        0.09707028027815734
+        -0.24036964100178493,
+        0.09706977903797243
       ],
       "linear_fractional_range": [
         -0.002134937997475328,
         0.002054830283086728
       ],
       "i11_fractional_range": [
-        -0.011590088588564695,
-        -2.093132334124448e-10
+        -0.011581395168634767,
+        -2.6040114509129353e-10
       ],
       "i02_fractional_range": [
-        0.025409274598871656,
-        0.06052499187086302
+        0.025407383952169127,
+        0.06052450588073488
       ],
       "i12_fractional_range": [
-        -0.2698317948159489,
-        -0.22720995339469974
+        -0.26983316571117644,
+        -0.22721018397618553
       ],
       "response_fractional_range": [
-        -0.21149803102158604,
-        0.0826857382465711
+        -0.21149790909906252,
+        0.0826855865967624
       ],
       "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
       "nfw_matched_concentration_max_absolute": 1.3324818601556654e-05
@@ -104,40 +104,40 @@
     {
       "redshift": 1.0,
       "sigma_fractional_range": [
-        -0.0002958594116205804,
-        -2.120074655376225e-05
+        -0.0002950159570790367,
+        -2.277619407220488e-05
       ],
       "dndlnm_fractional_range": [
-        0.04547469614069488,
-        0.04936189017226833
+        0.04547439566735534,
+        0.049361760184891024
       ],
       "bias_fractional_range": [
-        -0.35845265690204864,
-        -0.35811400739529775
+        -0.35845251648022614,
+        -0.3581130011094291
       ],
       "concentration_fractional_range": [
-        -0.2748589977524779,
-        0.04725999050711249
+        -0.27485904994344657,
+        0.04725951202429557
       ],
       "linear_fractional_range": [
         -0.002135987951803031,
         0.0020535585726384475
       ],
       "i11_fractional_range": [
-        -0.018168885135692703,
-        -5.453925089327072e-10
+        -0.0181587119822747,
+        -6.576114097711638e-10
       ],
       "i02_fractional_range": [
-        0.03207779282444956,
-        0.049314840083581
+        0.032077405196516695,
+        0.04931373014679408
       ],
       "i12_fractional_range": [
-        -0.3333806675009521,
-        -0.324680066606745
+        -0.3333808512971017,
+        -0.32468052492019017
       ],
       "response_fractional_range": [
-        -0.25836094929355735,
-        0.15130813779502916
+        -0.25836083408138133,
+        0.1513079313372574
       ],
       "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
       "nfw_matched_concentration_max_absolute": 1.3855390691597247e-05
@@ -145,11 +145,11 @@
   ],
   "integration_accuracy": 2,
   "core": {
-    "commit": "927748b6916d069c01b3d8d762015defc502617d",
+    "commit": "26a0f97cb8e727fc9abc6c3a0441015255eea739",
     "status": ""
   },
-  "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
-  "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+  "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+  "script_sha256": "645d6b6aac701c43a4774bc592fe82227e82ede758cfb40069b1e43c3ff2d951",
   "statistic_mass_range": [
     10000000000.0,
     1000000000000000.0
@@ -164,7 +164,16 @@
     83260988173.74922,
     83260988173.74922
   ],
-  "native_choices": "Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m, matter moment lower mass 1e6; fractional response transferred to nonlinear P",
+  "mass_min": 9.999999999999985e-41,
+  "mass_max": 1.000000000000001e+17,
+  "native_choices": "Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m; production mass panels and I11 completion; fractional response transferred to nonlinear P",
+  "refresh": {
+    "date": "2026-10-06",
+    "numerical_core_commit": "d95867f",
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "omp_threads": 2,
+    "scope": "Accuracy-only refresh; concurrent runs are not performance measurements. Unchanged OneCov records were reused after hash verification."
+  },
   "convergence": {
     "onecov_200_to_400": {
       "i11": 0.00011928801301830383,
@@ -179,12 +188,13 @@
       "response": 1.0537238333552246e-05
     },
     "cocoa_96_to_256": {
-      "i11": 4.276559217863962e-08,
-      "i02": 1.4442023243965707e-07,
-      "i12": 3.972570750132576e-07,
-      "response": 2.0186701066293722e-07
+      "i11": 2.4155149436211332e-08,
+      "i02": 2.79587713092333e-07,
+      "i12": 2.5021270344538493e-07,
+      "response": 1.2688228090418363e-07
     }
   },
+  "convergence_metric": "Maximum absolute coarse/fine minus one over all three redshifts and 0.001 <= k <= 10 h/Mpc. OneCov native refinements are unchanged saved results. CoCoA upper-panel nodes change 96 to 256 and low-mass-panel nodes 32 to 128.",
   "onecov_bias_normalizations": [
     0.7725061668012478,
     0.7119279514932214,
@@ -194,8 +204,7 @@
     "work/halo_onecov_200/inputs.npz": "4263235a99f8cd28a043d3808597121ddd4a2063fc264a6903e01e7fba0ab8a9",
     "work/halo_onecov_400/inputs.npz": "b2e108b35c0ce380fa92d8dada08b6b96c3bd8547bf3d4108efb5006dc7df7d7",
     "work/halo_onecov_800/inputs.npz": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
-    "work/halo_cocoa_96/cocoa.npz": "e12baee25ccc997aa9b1f7ffee66199511bda0c4cf89e670b1c7f495c8a94b12",
-    "work/halo_cocoa_256/cocoa.npz": "e03c720f0895f92779b3d25f0d1e43c9b85b293fbab81be39ea485e18d1400da",
-    "work/halo_cocoa_matched_800/cocoa.npz": "97a1fb543bb5f174a6ffb997223fbe9b27f0682a6a530160c292859a3b14f895"
+    "work/wynn_refresh_20261006/halo_cocoa_96/cocoa.npz": "69521706f716936e61788c4b3b58b99c693751fb0b5a2a145e70cf08b98fc8a4",
+    "work/wynn_refresh_20261006/halo_cocoa_matched_800/cocoa.npz": "444d7d3ec68a0029e1951a6ff2549863645353ca25dbfc716fef63edebe7055d"
   }
 }

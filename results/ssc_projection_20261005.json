@@ -32,7 +32,7 @@
       "minimum_simpson_weight": 0.06869239509623097,
       "minimum_ssc_correlation_eigenvalue": 4.112035840523899e-11,
       "max_ssc_correlation_asymmetry": 0.0,
-      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
       "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
       "passed": true,
       "remaining": "independent halo responses, radial and interpolation convergence"
@@ -68,7 +68,7 @@
       "minimum_simpson_weight": 0.034241093462503994,
       "minimum_ssc_correlation_eigenvalue": 7.631600534671816e-10,
       "max_ssc_correlation_asymmetry": 0.0,
-      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
       "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
       "passed": true,
       "remaining": "independent halo responses, radial and interpolation convergence"
@@ -104,7 +104,7 @@
       "minimum_simpson_weight": 0.017121692517894593,
       "minimum_ssc_correlation_eigenvalue": 8.243270247186632e-10,
       "max_ssc_correlation_asymmetry": 0.0,
-      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
       "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
       "passed": true,
       "remaining": "independent halo responses, radial and interpolation convergence"
@@ -140,7 +140,7 @@
       "minimum_simpson_weight": 0.017121692517894593,
       "minimum_ssc_correlation_eigenvalue": 8.321448025249932e-10,
       "max_ssc_correlation_asymmetry": 0.0,
-      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
       "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
       "passed": true,
       "remaining": "independent halo responses, radial and interpolation convergence"
@@ -176,7 +176,7 @@
       "minimum_simpson_weight": 0.008560988454522887,
       "minimum_ssc_correlation_eigenvalue": 8.333510236804222e-10,
       "max_ssc_correlation_asymmetry": 0.0,
-      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
       "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
       "passed": true,
       "remaining": "independent halo responses, radial and interpolation convergence"
@@ -212,7 +212,7 @@
       "minimum_simpson_weight": 0.008560988454522887,
       "minimum_ssc_correlation_eigenvalue": 8.3518099295449e-10,
       "max_ssc_correlation_asymmetry": 0.0,
-      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
       "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
       "passed": true,
       "remaining": "independent halo responses, radial and interpolation convergence"
@@ -254,5 +254,13 @@
     30.0,
     3000.0
   ],
-  "observer": "passive return-local capture; OneCov numerical source unchanged"
+  "observer": "passive return-local capture; OneCov numerical source unchanged",
+  "refresh": {
+    "date": "2026-10-06",
+    "numerical_core_commit": "d95867f",
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "omp_threads": 2,
+    "scope": "Accuracy-only refresh; concurrent runs are not performance measurements. Unchanged OneCov records were reused after hash verification."
+  },
+  "refinement_provenance": "Native OneCov matrices unchanged; metadata hashes verified in wynn_refresh_20261006.json."
 }

@@ -2,34 +2,6 @@
   "scope": "Gaussian assembly with shared integer-multipole spectra, matched noise and uniform band weights",
   "date_local": "2026-10-05",
   "timezone": "America/New_York",
-  "implementations": {
-    "onecov": {
-      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
-      "status": ""
-    },
-    "cocoa": {
-      "commit": "9fe523c9bdf095528f115de4126980598099a2df",
-      "status": ""
-    },
-    "cosmolike_core": {
-      "commit": "927748b6916d069c01b3d8d762015defc502617d",
-      "status": ""
-    },
-    "lsst_y1": {
-      "commit": "4156d6277567620b7342a2960af670ebe14247c7",
-      "status": ""
-    },
-    "cocoa_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
-    "onecov_packages": {
-      "numpy": "1.26.3",
-      "scipy": "1.12.0",
-      "astropy": "6.1.7",
-      "hmf": "3.5.2",
-      "healpy": "1.19.0",
-      "camb": "1.6.7",
-      "levin": "0.0.1"
-    }
-  },
   "benchmark_scripts_sha256": {
     "prepare_lsst_y1.py": "3633a3e94e26a03964ec479d863b96d539f5209fc2d9b8a48fa00d9f4da43796",
     "run_onecov.py": "2099e64350aa413e7424f1e69fecf6354dca65447ba3b996497c6c5835ef8575",
@@ -118,20 +90,19 @@
     "total_matrix": 7,
     "split_component_list": 5
   },
-  "conclusion": "Every native output entry matches the independent NumPy reference at its printed precision. Cocoa agrees with the reference to floating-point precision. All total matrices are positive definite.",
+  "conclusion": "CoCoA and OneCov agree within the native text-output precision for all supplied-spectrum Gaussian cases. All total matrices are positive definite.",
   "not_established": [
-    "Native angular-spectrum or projection agreement",
-    "SSC or connected non-Gaussian agreement",
-    "Real-space, full-survey or Fisher convergence",
-    "Relative execution speed: the two runners time different amounts of work"
+    "Native angular-spectrum agreement by this shared-input test",
+    "Full-survey or Fisher convergence",
+    "Current execution time: this refresh was run concurrently for accuracy only"
   ],
   "cases": [
     {
       "name": "shear_30_150",
       "local_native_directory": "work/assembly_shear_30_150",
-      "local_comparison_directory": "work/reviewed_gaussian/shear_30_150",
+      "local_comparison_directory": "work/wynn_refresh_20261006/reviewed_gaussian/shear_30_150",
       "native_created_utc": "2026-10-06T02:48:01.418354+00:00",
-      "omp_threads": 8,
+      "omp_threads": 2,
       "blas_threads": 1,
       "input_files_sha256": {
         "Cgg.txt": "1fac0ddcae44862a61671a82d62d4fad75f809b472ce16dd089bdb8390feca1f",
@@ -148,8 +119,8 @@
         "work/assembly_shear_30_150/native.log": "9544754c4d88366e52fabd16d276991f0239166c01d1301468f7d2b6e07e4304",
         "work/assembly_shear_30_150/covariance_matrix_gauss.mat": "5763bcbb1ee268f89b93dd4b97ccf47fa3a265d8c6e0972ccf74475374787d01",
         "work/assembly_shear_30_150/covariance_list.dat": "1122128aeca1bd86b65c48f9139ad39ae0bff6361e200cc9e5c730b2aa02849e",
-        "work/reviewed_gaussian/shear_30_150/comparison.json": "91b776510cc92658bad884aee22fb5220d5c5ff09eb7f0f027f0f4c2e54c9b67",
-        "work/reviewed_gaussian/shear_30_150/matrices.npz": "35515c32d2aef73bec7e727fc8b39cc0045ec0d88f4d028088090f2f7cd63eb3"
+        "work/wynn_refresh_20261006/reviewed_gaussian/shear_30_150/matrices.npz": "35515c32d2aef73bec7e727fc8b39cc0045ec0d88f4d028088090f2f7cd63eb3",
+        "work/wynn_refresh_20261006/reviewed_gaussian/shear_30_150/comparison.json": "696efb1b974f1865009c727f7882acd6273a570a27f501b37b6760dbac71942e"
       },
       "shape": [
         5,
@@ -246,14 +217,21 @@
         1.0000000096816568,
         1.0000001685929822
       ],
-      "max_generalized_variance_change": 1.6859298224147778e-07
+      "max_generalized_variance_change": 1.6859298224147778e-07,
+      "native_omp_threads": 8,
+      "core": {
+        "commit": "2fb282129257eeae49797a7f2318f535049125f4",
+        "status": ""
+      },
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "comparer_sha256": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c"
     },
     {
       "name": "3x2_30_150",
       "local_native_directory": "work/assembly_3x2_30_150",
-      "local_comparison_directory": "work/reviewed_gaussian/3x2_30_150",
+      "local_comparison_directory": "work/wynn_refresh_20261006/reviewed_gaussian/3x2_30_150",
       "native_created_utc": "2026-10-06T02:48:38.954503+00:00",
-      "omp_threads": 8,
+      "omp_threads": 2,
       "blas_threads": 1,
       "input_files_sha256": {
         "Cgg.txt": "1fac0ddcae44862a61671a82d62d4fad75f809b472ce16dd089bdb8390feca1f",
@@ -270,8 +248,8 @@
         "work/assembly_3x2_30_150/native.log": "91188286b0ca19cc9d9832552030004c4dbadf7e7d6591e5b869c00912e6c9bc",
         "work/assembly_3x2_30_150/covariance_matrix_gauss.mat": "b7401f16b2f672cdf83cd1ff57cd6a6e907df4ae601719d9310645d8f641d19f",
         "work/assembly_3x2_30_150/covariance_list.dat": "cfa00c4468f13963047fc861bab5c2f3062544186dfd8ce2115fc57e24c2f5e2",
-        "work/reviewed_gaussian/3x2_30_150/comparison.json": "8b4a4dbc229512696a02917f393c9e83d13655b9e434a231e928ee875eb08195",
-        "work/reviewed_gaussian/3x2_30_150/matrices.npz": "e46b8ec5040ae8924974ac4adf29a0749064f01fdf2de60c6ffce04a3b1cedf0"
+        "work/wynn_refresh_20261006/reviewed_gaussian/3x2_30_150/matrices.npz": "e46b8ec5040ae8924974ac4adf29a0749064f01fdf2de60c6ffce04a3b1cedf0",
+        "work/wynn_refresh_20261006/reviewed_gaussian/3x2_30_150/comparison.json": "2481958f2537b2bbd292ed5c2e732c474578d8848d8bd6772763665230bb33c8"
       },
       "shape": [
         30,
@@ -388,14 +366,21 @@
         0.9999992045463281,
         1.000004646602013
       ],
-      "max_generalized_variance_change": 4.64660201293654e-06
+      "max_generalized_variance_change": 4.64660201293654e-06,
+      "native_omp_threads": 8,
+      "core": {
+        "commit": "2fb282129257eeae49797a7f2318f535049125f4",
+        "status": ""
+      },
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "comparer_sha256": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c"
     },
     {
       "name": "3x2_1500_1620",
       "local_native_directory": "work/assembly_3x2_1500_1620",
-      "local_comparison_directory": "work/reviewed_gaussian/3x2_1500_1620",
+      "local_comparison_directory": "work/wynn_refresh_20261006/reviewed_gaussian/3x2_1500_1620",
       "native_created_utc": "2026-10-06T02:49:54.756017+00:00",
-      "omp_threads": 8,
+      "omp_threads": 2,
       "blas_threads": 1,
       "input_files_sha256": {
         "Cgg.txt": "74d962482593d9e4e53f31311cf826c88704beeb07ce80dc473bf432fc64c110",
@@ -412,8 +397,8 @@
         "work/assembly_3x2_1500_1620/native.log": "2acd459ea56a604f421ba9a7b65a1e61bb751fff658a9167d18c93e756e397a1",
         "work/assembly_3x2_1500_1620/covariance_matrix_gauss.mat": "eaa5d4e38ac13baeff3c67b9cc0c5dbd58b32019f98098f033284ff63be042c6",
         "work/assembly_3x2_1500_1620/covariance_list.dat": "2a24b4001a93dd0894a2a0b91722490cf71a9ab1318ffe8fe454a98cc9a49829",
-        "work/reviewed_gaussian/3x2_1500_1620/comparison.json": "3091784c739059f51ad5dae11904ba55387ed31b989ac80aaeb04fe22626a2f2",
-        "work/reviewed_gaussian/3x2_1500_1620/matrices.npz": "8cfc3d2f4f0f68a9809958564d7bad7cb70fd723398567ecca2077281e366605"
+        "work/wynn_refresh_20261006/reviewed_gaussian/3x2_1500_1620/matrices.npz": "8cfc3d2f4f0f68a9809958564d7bad7cb70fd723398567ecca2077281e366605",
+        "work/wynn_refresh_20261006/reviewed_gaussian/3x2_1500_1620/comparison.json": "49b322e50ce8f8b0f3814ab9bd32a2595e3952dc58e424714293107e1a550d6e"
       },
       "shape": [
         30,
@@ -530,7 +515,49 @@
         0.9999995375705828,
         1.000000318719084
       ],
-      "max_generalized_variance_change": 4.624294172028698e-07
+      "max_generalized_variance_change": 4.624294172028698e-07,
+      "native_omp_threads": 8,
+      "core": {
+        "commit": "2fb282129257eeae49797a7f2318f535049125f4",
+        "status": ""
+      },
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "comparer_sha256": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c"
     }
-  ]
+  ],
+  "refresh": {
+    "date": "2026-10-06",
+    "numerical_core_commit": "d95867f",
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "omp_threads": 2,
+    "scope": "Accuracy-only refresh; concurrent runs are not performance measurements. Unchanged OneCov records were reused after hash verification."
+  },
+  "source_input_implementations": {
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "cocoa": {
+      "commit": "9fe523c9bdf095528f115de4126980598099a2df",
+      "status": ""
+    },
+    "cosmolike_core": {
+      "commit": "927748b6916d069c01b3d8d762015defc502617d",
+      "status": ""
+    },
+    "lsst_y1": {
+      "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+      "status": ""
+    },
+    "cocoa_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+    "onecov_packages": {
+      "numpy": "1.26.3",
+      "scipy": "1.12.0",
+      "astropy": "6.1.7",
+      "hmf": "3.5.2",
+      "healpy": "1.19.0",
+      "camb": "1.6.7",
+      "levin": "0.0.1"
+    }
+  }
 }
