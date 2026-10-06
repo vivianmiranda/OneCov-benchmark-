@@ -1,0 +1,405 @@
+{
+  "date": "2026-10-05",
+  "purpose": "Functional validation of bounded LSST Y1 OneCovariance runners",
+  "script_commit": "ef612e2d50d31041a86d0c836bbbe97a38d89faf",
+  "hardware": "Apple M2 Pro, macOS 13.7.5, eight requested workers, BLAS one",
+  "interpretation": "No inter-code accuracy or performance claim. No convergence scan.",
+  "timing_scope": "Single feasibility runs including fresh CLI imports, setup, computation and output; no quiet-machine comparison.",
+  "checks": "Finite symmetric positive total; finite components summing to total. Single-source Gaussian formula checked to saved-text precision.",
+  "template": "configs/onecov_pilot.ini",
+  "template_sha256": "fcc63a7dfa066a4931e2ac4889fd1b488244afef8196d2a65ced24e28bcff173",
+  "onecov_source_modified": false,
+  "runs": [
+    {
+      "run": "gaussian_shared_03",
+      "case": "shear",
+      "terms": "gaussian",
+      "spectra": "shared-cells",
+      "checks": {
+        "shape": [
+          5,
+          5
+        ],
+        "max_correlation_asymmetry": 0.0,
+        "min_correlation_eigenvalue": 0.9999999999999999,
+        "positive_total": true,
+        "components": {
+          "covariance_matrix_gauss.mat": {
+            "max_absolute_entry": 2.956453e-19
+          }
+        },
+        "component_sum_max_normalized_difference": 0.0,
+        "gaussian_max_normalized_difference": 3.350699716982085e-07,
+        "gaussian_tolerance": 3e-06,
+        "gaussian_scope": "uniform-ell bands; saved spectra/text precision"
+      },
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "packages": {
+        "numpy": "1.26.3",
+        "scipy": "1.12.0",
+        "astropy": "6.1.7",
+        "hmf": "3.5.2",
+        "healpy": "1.19.0",
+        "camb": "1.6.7",
+        "levin": "0.0.1"
+      },
+      "camb_version": "1.6.7",
+      "native_cli_wall_seconds": 12.861131166981068,
+      "peak_child_rss_mib": 312.234375,
+      "input_sha256": {
+        "Cgg.txt": "5e2d6d049ff9284872a07675c7d302b9c1f2b0f8c356153994aa0a37c049a7f5",
+        "Cgm.txt": "80784c43938704cd2a443ca32fe0d1d1096b816bdbe6fa6b2fb154707afd2735",
+        "Cmm.txt": "294a0741b88f74ebca233a9775c47cd37d1ae081fb2cd86e67d898797c54049a",
+        "Pmm.txt": "d8b1859f9da685d06d6ad087b285e34014959f047ab1d4db8b858e7824b704b4",
+        "bias.txt": "431f3a194e9cf28139cd85615fdd0ddc0390be6a8f0867e4f03fe88dd6387274",
+        "lens.nz": "274ddebd2e5551af9f181fda2a6fe9626c38da28270d473fa7396ee681edd410",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "native_config_sha256": "243902812ac124f74d379c5a0189b6cf26632021ae059c2bd8ae231aa8e4828f",
+      "output_sha256": {
+        "covariance_matrix.mat": "5fcb45db8fc7275b366d1f67e82f8fc3c2e13a90b2067f4ed82b66f2310a2e7c",
+        "covariance_matrix_gauss.mat": "5fcb45db8fc7275b366d1f67e82f8fc3c2e13a90b2067f4ed82b66f2310a2e7c"
+      }
+    },
+    {
+      "run": "gaussian_3x2_two_lenses",
+      "case": "3x2",
+      "terms": "gaussian",
+      "spectra": "shared-cells",
+      "checks": {
+        "shape": [
+          30,
+          30
+        ],
+        "max_correlation_asymmetry": 1.1102230246251565e-16,
+        "min_correlation_eigenvalue": 0.052759364968146386,
+        "positive_total": true,
+        "components": {
+          "covariance_matrix_gauss.mat": {
+            "max_absolute_entry": 3.892951e-12
+          }
+        },
+        "component_sum_max_normalized_difference": 0.0
+      },
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "packages": {
+        "numpy": "1.26.3",
+        "scipy": "1.12.0",
+        "astropy": "6.1.7",
+        "hmf": "3.5.2",
+        "healpy": "1.19.0",
+        "camb": "1.6.7",
+        "levin": "0.0.1"
+      },
+      "camb_version": "1.6.7",
+      "native_cli_wall_seconds": 13.723784959001932,
+      "peak_child_rss_mib": 341.109375,
+      "input_sha256": {
+        "Cgg.txt": "3c94b77d79e5058460c10ffe682e729fd649aaeb4ad8ed4cd951aaf701cc9d6f",
+        "Cgm.txt": "1dab559dd888c9855207eb801e87619c1cc20f7aec1eab04a4ad1ba6835a8d49",
+        "Cmm.txt": "294a0741b88f74ebca233a9775c47cd37d1ae081fb2cd86e67d898797c54049a",
+        "Pmm.txt": "d8b1859f9da685d06d6ad087b285e34014959f047ab1d4db8b858e7824b704b4",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "native_config_sha256": "7b5cf54543319fa02c4248a26c359067ba49cfaac0cdff42a635e65750811f43",
+      "output_sha256": {
+        "covariance_matrix.mat": "cc2a4e10a216580e6e20d9c9fbb76a76456ed866e59971d2e25e7ca594de8be7",
+        "covariance_matrix_gauss.mat": "cc2a4e10a216580e6e20d9c9fbb76a76456ed866e59971d2e25e7ca594de8be7"
+      }
+    },
+    {
+      "run": "shear_ssc_native",
+      "case": "shear",
+      "terms": "ssc",
+      "spectra": "native",
+      "checks": {
+        "shape": [
+          5,
+          5
+        ],
+        "max_correlation_asymmetry": 1.3877787807814457e-17,
+        "min_correlation_eigenvalue": 0.8782233750304507,
+        "positive_total": true,
+        "components": {
+          "covariance_matrix_SSC.mat": {
+            "max_absolute_entry": 7.074356e-21
+          },
+          "covariance_matrix_gauss.mat": {
+            "max_absolute_entry": 2.94278e-19
+          }
+        },
+        "component_sum_max_normalized_difference": 6.990445212586858e-07,
+        "gaussian_max_normalized_difference": 3.26353977244824e-07,
+        "gaussian_tolerance": 3e-06,
+        "gaussian_scope": "uniform-ell bands; saved spectra/text precision"
+      },
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "packages": {
+        "numpy": "1.26.3",
+        "scipy": "1.12.0",
+        "astropy": "6.1.7",
+        "hmf": "3.5.2",
+        "healpy": "1.19.0",
+        "camb": "1.6.7",
+        "levin": "0.0.1"
+      },
+      "camb_version": "1.6.7",
+      "native_cli_wall_seconds": 20.65314287500223,
+      "peak_child_rss_mib": 893.765625,
+      "input_sha256": {
+        "Cgg.txt": "3c94b77d79e5058460c10ffe682e729fd649aaeb4ad8ed4cd951aaf701cc9d6f",
+        "Cgm.txt": "1dab559dd888c9855207eb801e87619c1cc20f7aec1eab04a4ad1ba6835a8d49",
+        "Cmm.txt": "294a0741b88f74ebca233a9775c47cd37d1ae081fb2cd86e67d898797c54049a",
+        "Pmm.txt": "d8b1859f9da685d06d6ad087b285e34014959f047ab1d4db8b858e7824b704b4",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "native_config_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+      "output_sha256": {
+        "covariance_matrix.mat": "3422c08ff51b2a358bf848dcece11752360bf3cf6f419579673f7ab6afc17f6d",
+        "covariance_matrix_SSC.mat": "25e238d87bbd441a5a344ed8fa3a2ad0333e698ea63fe3c8a6d554312f229d2e",
+        "covariance_matrix_gauss.mat": "0f82f7ea735984f723c100dc65036f97f034c90e0375432a9f49b8ea5686b995"
+      }
+    },
+    {
+      "run": "shear_connected_native",
+      "case": "shear",
+      "terms": "connected",
+      "spectra": "native",
+      "checks": {
+        "shape": [
+          5,
+          5
+        ],
+        "max_correlation_asymmetry": 3.469446951953614e-18,
+        "min_correlation_eigenvalue": 0.9692520926316568,
+        "positive_total": true,
+        "components": {
+          "covariance_matrix_gauss.mat": {
+            "max_absolute_entry": 2.94278e-19
+          },
+          "covariance_matrix_nongauss.mat": {
+            "max_absolute_entry": 2.952451e-21
+          }
+        },
+        "component_sum_max_normalized_difference": 1.648552217449552e-07,
+        "gaussian_max_normalized_difference": 3.26353977244824e-07,
+        "gaussian_tolerance": 3e-06,
+        "gaussian_scope": "uniform-ell bands; saved spectra/text precision"
+      },
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "packages": {
+        "numpy": "1.26.3",
+        "scipy": "1.12.0",
+        "astropy": "6.1.7",
+        "hmf": "3.5.2",
+        "healpy": "1.19.0",
+        "camb": "1.6.7",
+        "levin": "0.0.1"
+      },
+      "camb_version": "1.6.7",
+      "native_cli_wall_seconds": 17.79142695805058,
+      "peak_child_rss_mib": 1089.96875,
+      "input_sha256": {
+        "Cgg.txt": "3c94b77d79e5058460c10ffe682e729fd649aaeb4ad8ed4cd951aaf701cc9d6f",
+        "Cgm.txt": "1dab559dd888c9855207eb801e87619c1cc20f7aec1eab04a4ad1ba6835a8d49",
+        "Cmm.txt": "294a0741b88f74ebca233a9775c47cd37d1ae081fb2cd86e67d898797c54049a",
+        "Pmm.txt": "d8b1859f9da685d06d6ad087b285e34014959f047ab1d4db8b858e7824b704b4",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "native_config_sha256": "52ffe10c6d4bd162eb6906dc8970dd00691e2dfbb349360bb3fede35841ce251",
+      "output_sha256": {
+        "covariance_matrix.mat": "3efe633bb9b6eb24ac73ca77db470dc8da3086b150409091379666ae2e863cfd",
+        "covariance_matrix_gauss.mat": "0f82f7ea735984f723c100dc65036f97f034c90e0375432a9f49b8ea5686b995",
+        "covariance_matrix_nongauss.mat": "6ccbdbc2418b6079e613776699cc1410dfd2ee12638793462a68e4988ba7e216"
+      }
+    },
+    {
+      "run": "shear_shared_power_02",
+      "case": "shear",
+      "terms": "gaussian",
+      "spectra": "shared-power",
+      "checks": {
+        "shape": [
+          5,
+          5
+        ],
+        "max_correlation_asymmetry": 0.0,
+        "min_correlation_eigenvalue": 0.9999999999999999,
+        "positive_total": true,
+        "components": {
+          "covariance_matrix_gauss.mat": {
+            "max_absolute_entry": 2.942982e-19
+          }
+        },
+        "component_sum_max_normalized_difference": 0.0,
+        "gaussian_max_normalized_difference": 3.4297778578439336e-07,
+        "gaussian_tolerance": 3e-06,
+        "gaussian_scope": "uniform-ell bands; saved spectra/text precision"
+      },
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "packages": {
+        "numpy": "1.26.3",
+        "scipy": "1.12.0",
+        "astropy": "6.1.7",
+        "hmf": "3.5.2",
+        "healpy": "1.19.0",
+        "camb": "1.6.7",
+        "levin": "0.0.1"
+      },
+      "camb_version": "1.6.7",
+      "native_cli_wall_seconds": 10.920636625029147,
+      "peak_child_rss_mib": 444.234375,
+      "input_sha256": {
+        "Cgg.txt": "3c94b77d79e5058460c10ffe682e729fd649aaeb4ad8ed4cd951aaf701cc9d6f",
+        "Cgm.txt": "1dab559dd888c9855207eb801e87619c1cc20f7aec1eab04a4ad1ba6835a8d49",
+        "Cmm.txt": "294a0741b88f74ebca233a9775c47cd37d1ae081fb2cd86e67d898797c54049a",
+        "Pmm.txt": "a293d9e147d7c68d42b5766241e9b17f7b359368976cc910aa5d4be91f026fc2",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "native_config_sha256": "5e02981903097e260523da011c3e4abed9a67b6b13abc44b94f136f0fef26c65",
+      "output_sha256": {
+        "covariance_matrix.mat": "b3691fb891254db3d368e431ba5dd353599cc065ec46a8e0b5d79290829539d9",
+        "covariance_matrix_gauss.mat": "b3691fb891254db3d368e431ba5dd353599cc065ec46a8e0b5d79290829539d9"
+      }
+    },
+    {
+      "run": "gaussian_3x2_native",
+      "case": "3x2",
+      "terms": "gaussian",
+      "spectra": "native",
+      "checks": {
+        "shape": [
+          30,
+          30
+        ],
+        "max_correlation_asymmetry": 1.1102230246251565e-16,
+        "min_correlation_eigenvalue": 0.05355088980863565,
+        "positive_total": true,
+        "components": {
+          "covariance_matrix_gauss.mat": {
+            "max_absolute_entry": 4.053694e-12
+          }
+        },
+        "component_sum_max_normalized_difference": 0.0
+      },
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "packages": {
+        "numpy": "1.26.3",
+        "scipy": "1.12.0",
+        "astropy": "6.1.7",
+        "hmf": "3.5.2",
+        "healpy": "1.19.0",
+        "camb": "1.6.7",
+        "levin": "0.0.1"
+      },
+      "camb_version": "1.6.7",
+      "native_cli_wall_seconds": 13.707844791992102,
+      "peak_child_rss_mib": 300.703125,
+      "input_sha256": {
+        "Cgg.txt": "3c94b77d79e5058460c10ffe682e729fd649aaeb4ad8ed4cd951aaf701cc9d6f",
+        "Cgm.txt": "1dab559dd888c9855207eb801e87619c1cc20f7aec1eab04a4ad1ba6835a8d49",
+        "Cmm.txt": "294a0741b88f74ebca233a9775c47cd37d1ae081fb2cd86e67d898797c54049a",
+        "Pmm.txt": "a293d9e147d7c68d42b5766241e9b17f7b359368976cc910aa5d4be91f026fc2",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "native_config_sha256": "1da38d7ddd0b05045fdbeaf678bf73cf6c260f48d4ae9f25699305df64b191de",
+      "output_sha256": {
+        "covariance_matrix.mat": "9b412a82af48c81b6fce248ce120c3403b0903bb3729b4fd423818eb3e8e7c08",
+        "covariance_matrix_gauss.mat": "9b412a82af48c81b6fce248ce120c3403b0903bb3729b4fd423818eb3e8e7c08"
+      }
+    }
+  ],
+  "guard_checks": [
+    "existing output refused",
+    "unset worker count refused",
+    "changed input hash refused",
+    "native child terminated on deadline"
+  ],
+  "pending": [
+    "match Fourier estimator weights between codes",
+    "quantify and converge native spectrum differences",
+    "match halo prescriptions and SSC footprint definitions",
+    "refine SSC and cNG controls before interpreting differences",
+    "compare converged components and only then execution times"
+  ],
+  "lsst_inputs": {
+    "cosmology": {
+      "omegam": 0.3,
+      "omegab": 0.05,
+      "H0": 70.0,
+      "ns": 0.965,
+      "As_1e9": 2.1,
+      "w": -1.0,
+      "w0pwa": -1.0,
+      "mnu": 0.0,
+      "AccuracyBoost": 1.0,
+      "CLAccuracyBoost": 1.0,
+      "CAMBAccuracyBoost": 1.0,
+      "kmax": 20.0,
+      "k_per_logint": 20,
+      "non_linear_emul": 2,
+      "lens_potential_accuracy": 1.0,
+      "halofit_version": "takahashi"
+    },
+    "sigma8": 0.8267178343728806,
+    "source_bin_1based": 3,
+    "lens_bins_1based": [
+      1,
+      2
+    ],
+    "area_deg2": 12300.0,
+    "source_density_arcmin2": 2.0,
+    "lens_density_arcmin2": [
+      3.6,
+      3.6
+    ],
+    "sigma_e_component": 0.26,
+    "bias": [
+      1.72716,
+      1.65168
+    ],
+    "source_nz_sha256": "de0bd0ee395ade11ca08af7fbee3b414528ff4c628fda8c56a1da76befe995f8",
+    "lens_nz_sha256": "dcdd1b15476287ffdd7091d605a684ac2c7807728ad2147155b2632f1280b256",
+    "cocoa": {
+      "commit": "9fe523c9bdf095528f115de4126980598099a2df",
+      "status": ""
+    },
+    "core": {
+      "commit": "927748b6916d069c01b3d8d762015defc502617d",
+      "status": ""
+    },
+    "lsst_y1": {
+      "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+      "status": ""
+    }
+  },
+  "camb_source_commit": "6c978c716e163157c95191ee1c089e8b36c8adb9"
+}

@@ -20,6 +20,12 @@ are implemented. Small Gaussian, G+SSC and G+cNG cases have run successfully.
 These are functional pilots; a converged comparison of the two codes is
 still ahead.
 
+The [initial validation record](results/functional_pilots_20261005.json)
+contains six successful pilots, their input/output hashes and checks.
+All totals are positive definite. The one-source Gaussian assembly agrees
+with its analytic check within 3.5×10⁻⁷. This is a check of the runner and
+estimator normalization, not a measurement of agreement between the codes.
+
 ## Contents
 
 1. [Scope](#scope)
