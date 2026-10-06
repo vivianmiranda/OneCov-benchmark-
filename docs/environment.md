@@ -6,7 +6,7 @@ environment. Both use the Cocoa Conda base; files in `work/` connect their
 calculations. Open separate Bash terminals for the two runtime environments.
 
 For the Cocoa export, use the activation, covariance compilation and
-platform-specific thread settings in [Step 1 of the README](../README.md#reproduction).
+platform-specific thread settings in the [Cocoa export instructions](../README.md#reproduction).
 These follow the main Cocoa and LSST Y1 READMEs; no additional Cocoa
 environment variables or dependency installation are required here.
 
@@ -82,7 +82,7 @@ count explicitly:
 export OMP_NUM_THREADS=8
 ```
 
-Keep the platform-specific OpenMP settings from Step 1 of the README:
+Keep the platform-specific OpenMP settings shown in the README:
 `OMP_PROC_BIND=close` on Linux or `disabled` on macOS (arm), with
 `OMP_PLACES=cores` and `OMP_DYNAMIC=FALSE`.
 

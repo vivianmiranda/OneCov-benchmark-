@@ -91,6 +91,9 @@ and smallest numerical case when dependencies are available; state clearly
 when only preparation or parsing was tested.
 
 Keep the human README self-contained; do not send readers to this skill
-or a private study directory. Commit coherent progress locally. Never push.
+or a private study directory. Follow Cocoa's numbered Step format: give
+each command its own step and code block. A continued command may span
+lines; do not combine independent commands or semicolon chains in a box.
+Commit coherent progress locally. Never push.
 Installing missing packages requires explicit authorization; use an
 isolated environment and do not upgrade the Cocoa environment.

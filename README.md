@@ -229,52 +229,72 @@ Selecting one source bin does **not** put all five bins' galaxies into it.
 The scripts preserve its density and export its actual n(z) column. These
 are the project's forecast choices, not its supplied likelihood covariance.
 
-### Step 1️⃣: Export the Cocoa inputs
+### Exporting the Cocoa inputs
 
 Follow the [main Cocoa setup](https://github.com/CosmoLike/cocoa#cobaya_base_code_examples)
 and [LSST Y1 covariance instructions](https://github.com/CosmoLike/cocoa_lsst_y1#computing_covariances).
 We assume Cocoa and LSST Y1 are installed, the shell is Bash, and
 `cocoa/`, `OneCovariance/` and `OneCov-benchmark-/` are sibling directories.
 
-In a second, fresh Bash terminal, start from this benchmark directory and
-activate Cocoa and its private environment:
+Open a second, fresh Bash terminal in `OneCov-benchmark-/`.
+
+**Step :one:**: activate the Conda base.
 
 ```bash
 conda activate cocoa
+```
+
+**Step :two:**: enter Cocoa's runtime directory.
+
+```bash
 cd ../cocoa/Cocoa
+```
+
+**Step :three:**: activate Cocoa's private environment.
+
+```bash
 source start_cocoa.sh
 ```
 
-If the LSST covariance interface is not already enabled, compile it once:
+**Step :four:**: enable the LSST Y1 project and covariance bindings.
 
 ```bash
-unset IGNORE_COSMOLIKE_LSST_Y1_CODE
-unset IGNORE_COSMOLIKE_LSST_Y1_COVARIANCE
+unset IGNORE_COSMOLIKE_LSST_Y1_CODE IGNORE_COSMOLIKE_LSST_Y1_COVARIANCE
+```
+
+**Step :five:**: compile the project interface.
+
+```bash
 source ./projects/lsst_y1/scripts/compile_lsst_y1.sh
 ```
 
-Select eight OpenMP threads using Cocoa's settings for your platform.
+**Step :six:**: select eight OpenMP threads using your platform's settings.
 
 - Linux
 
   ```bash
-  export OMP_NUM_THREADS=8; export OMP_PROC_BIND=close; \
-  export OMP_PLACES=cores; export OMP_DYNAMIC=FALSE; \
-  export OPENBLAS_NUM_THREADS=1; export MKL_NUM_THREADS=1
+  export OMP_NUM_THREADS=8 OMP_PROC_BIND=close \
+    OMP_PLACES=cores OMP_DYNAMIC=FALSE \
+    OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
   ```
 
 - macOS (arm)
 
   ```bash
-  export OMP_NUM_THREADS=8; export OMP_PROC_BIND=disabled; \
-  export OMP_PLACES=cores; export OMP_DYNAMIC=FALSE; \
-  export OPENBLAS_NUM_THREADS=1; export MKL_NUM_THREADS=1
+  export OMP_NUM_THREADS=8 OMP_PROC_BIND=disabled \
+    OMP_PLACES=cores OMP_DYNAMIC=FALSE \
+    OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
   ```
 
-Return to the benchmark directory and export the inputs:
+**Step :seven:**: return to the benchmark directory.
 
 ```bash
 cd ../../OneCov-benchmark-
+```
+
+**Step :eight:**: export the LSST Y1 inputs.
+
+```bash
 python scripts/prepare_lsst_y1.py \
   --cocoa ../cocoa/Cocoa --output work/lsst_y1
 ```
@@ -290,23 +310,53 @@ supplied-bias path fails for a single lens bin because the reader and
 constructor disagree about the array shape. Two real lens bins avoid that
 problem without modifying OneCovariance.
 
-### Step 2️⃣: Run the small Gaussian case
+### Running the small Gaussian case
 
-In the comparison terminal, activate the environment prepared above if it
-is not already active:
+We assume installation is complete and the inputs are in `work/lsst_y1`.
+Open a fresh Bash terminal in `OneCov-benchmark-/`. Run one numerical job
+at a time.
+
+**Step :one:**: activate the Conda base.
 
 ```bash
 conda activate cocoa
+```
+
+**Step :two:**: activate the comparison's private environment.
+
+```bash
 source start_onecov.sh
 ```
 
-Use the Linux or macOS OpenMP settings from Step 1 and keep only one
-numerical job running at a time.
+**Step :three:**: select eight OpenMP threads using your platform's settings.
+
+- Linux
+
+  ```bash
+  export OMP_NUM_THREADS=8 OMP_PROC_BIND=close \
+    OMP_PLACES=cores OMP_DYNAMIC=FALSE \
+    OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  ```
+
+- macOS (arm)
+
+  ```bash
+  export OMP_NUM_THREADS=8 OMP_PROC_BIND=disabled \
+    OMP_PLACES=cores OMP_DYNAMIC=FALSE \
+    OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  ```
+
+**Step :four:**: compute the five-band shear Gaussian covariance.
 
 ```bash
 python scripts/run_onecov.py \
   --onecov ../OneCovariance --inputs work/lsst_y1 \
   --output work/shear_gaussian --timeout 180
+```
+
+**Step :five:**: check the saved shear covariance.
+
+```bash
 python scripts/check_result.py work/shear_gaussian
 ```
 
@@ -315,12 +365,17 @@ Gaussian covariance**. `check_result.py` verifies finite entries, symmetry,
 positive definiteness and the Gaussian normalization against an independent
 integer-multipole sum.
 
-To include galaxy clustering, galaxy–shear and all their cross blocks:
+**Step :six:**: include galaxy clustering, galaxy–shear and their cross blocks.
 
 ```bash
 python scripts/run_onecov.py \
   --inputs work/lsst_y1 --case 3x2 \
   --output work/small_3x2_gaussian --timeout 180
+```
+
+**Step :seven:**: check the saved 3×2pt covariance.
+
+```bash
 python scripts/check_result.py work/small_3x2_gaussian
 ```
 
@@ -335,17 +390,67 @@ check covers matrix finiteness, symmetry and positivity.
 > verifies OneCovariance's own weighting; matching estimators across codes
 > is a separate comparison step.
 
-### Step 3️⃣: Add one contribution at a time
+### Adding SSC and connected non-Gaussian contributions
+
+We assume installation is complete and the inputs are in `work/lsst_y1`.
+Open a fresh Bash terminal in `OneCov-benchmark-/`. Run the two calculations
+sequentially.
+
+**Step :one:**: activate the Conda base.
+
+```bash
+conda activate cocoa
+```
+
+**Step :two:**: activate the comparison's private environment.
+
+```bash
+source start_onecov.sh
+```
+
+**Step :three:**: select eight OpenMP threads using your platform's settings.
+
+- Linux
+
+  ```bash
+  export OMP_NUM_THREADS=8 OMP_PROC_BIND=close \
+    OMP_PLACES=cores OMP_DYNAMIC=FALSE \
+    OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  ```
+
+- macOS (arm)
+
+  ```bash
+  export OMP_NUM_THREADS=8 OMP_PROC_BIND=disabled \
+    OMP_PLACES=cores OMP_DYNAMIC=FALSE \
+    OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+  ```
+
+**Step :four:**: compute the shear Gaussian and SSC contributions.
 
 ```bash
 python scripts/run_onecov.py \
   --inputs work/lsst_y1 --terms ssc --spectra native \
   --output work/shear_ssc --timeout 600
-python scripts/check_result.py work/shear_ssc
+```
 
+**Step :five:**: check the saved Gaussian plus SSC covariance.
+
+```bash
+python scripts/check_result.py work/shear_ssc
+```
+
+**Step :six:**: compute the shear Gaussian and connected contributions.
+
+```bash
 python scripts/run_onecov.py \
   --inputs work/lsst_y1 --terms connected --spectra native \
   --output work/shear_connected --timeout 600
+```
+
+**Step :seven:**: check the saved Gaussian plus connected covariance.
+
+```bash
 python scripts/check_result.py work/shear_connected
 ```
 
