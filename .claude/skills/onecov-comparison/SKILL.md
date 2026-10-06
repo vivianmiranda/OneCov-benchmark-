@@ -14,6 +14,8 @@ at their validated settings. Source-level performance observations only
 help budget affordable tests; they are not a request to rewrite the code.
 Do not put recommendations for speeding up OneCovariance in the README.
 Human documentation should explain matched inputs and relative differences.
+Report execution times and speed ratios in tables, not plots. Reserve
+figures for the covariance quantities and their differences between codes.
 
 Read [the source study](references/onecov.md) before changing input
 formats, bias choices, numerical controls or component extraction. Use

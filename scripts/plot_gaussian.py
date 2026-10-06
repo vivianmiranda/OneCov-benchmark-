@@ -1,4 +1,4 @@
-"""Plot the validated Gaussian matrices, components and optional timings.
+"""Plot the validated Gaussian matrices and variance components.
 
 Run in either prepared environment. Inputs are the reviewed comparison
 folders; figures are ordinary PNG/PDF files suitable for the README.
@@ -6,7 +6,6 @@ Residuals here use OneCov's saved text, so they expose its output rounding.
 """
 
 import argparse
-import json
 from pathlib import Path
 
 import matplotlib
@@ -44,8 +43,6 @@ def main():
     parser.add_argument("--comparisons", type=Path, required=True,
                         help="parent folder containing the reviewed cases")
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--timings", type=Path,
-                        help="optional reviewed timing summary JSON")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({"font.size": 10, "axes.spines.top": False,
@@ -117,26 +114,6 @@ def main():
     save_figure(figure=figure, output=args.output, name="gaussian_matrices")
     save_figure(figure=fractions, output=args.output, name="gaussian_components")
 
-    if args.timings:
-        timing = json.loads(args.timings.read_text())
-        figure, axis = plt.subplots(figsize=(8, 4.8), layout="constrained")
-        positions = np.arange(len(timing["cases"]))
-        for shift, backend, color in ((-0.18, "cocoa", "#2563a6"),
-                                       (0.18, "onecov", "#c05621")):
-            means = np.array([case[backend]["mean_seconds"]
-                              for case in timing["cases"]]) * 1000
-            scatter = np.array([case[backend]["std_seconds"]
-                                for case in timing["cases"]]) * 1000
-            axis.bar(positions + shift, means, width=0.35,
-                     yerr=scatter, capsize=3,
-                     label="CoCoA" if backend == "cocoa" else "OneCovariance",
-                     color=color)
-        axis.set_yscale("log")
-        axis.set_ylabel("Gaussian assembly [ms; logarithmic scale]")
-        axis.set_xticks(positions, ["Shear, low ℓ", "3×2pt, low ℓ", "3×2pt, high ℓ"])
-        axis.set_title("Shared spectra in memory · three Gaussian components")
-        axis.legend()
-        save_figure(figure=figure, output=args.output, name="gaussian_timing")
     print(f"Saved Gaussian plots to {args.output}")
 
 
