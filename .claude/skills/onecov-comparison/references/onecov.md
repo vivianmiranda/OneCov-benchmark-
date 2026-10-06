@@ -364,3 +364,36 @@ Next gates: settle the 2h partition and bias-prescription interpretation
 before native equality claims; refine redshift interpolation further and
 validate near-diagonal angular treatment/domain independently. Do not
 certify full LSST or Fisher convergence from these one-source tests.
+
+## Controlled stage timing, 2026-10-06
+
+`time_nongaussian.py` measures resident-input SSC/cNG projection and native
+halo-moment calls, without the diagnostic profiler. OneCov projection
+statements are extracted by AST from cov_ell_space.py without arithmetic
+changes; only the destination assignment becomes a return. Source and
+expression hashes are recorded. This is an explicit diagnostic adapter,
+not a public full-method timing or a replacement numerical implementation.
+Each output reproduces the earlier actual native method export.
+
+Two sequential processes per backend on quiet M2 Pro, OMP8/BLAS1. SSC
+100x100, radial300/2401: Cocoa 0.236/1.098 ms, OneCov 9.896/110.437 ms.
+cNG8x8, radial300/601: Cocoa 0.210/0.348 ms, OneCov 0.091/0.107 ms.
+No mask, response, halo or angular-table generation enters those timers.
+Input layout preparation is excluded on both sides; fresh output and
+intermediate allocations are included. Report all results, including
+OneCov's advantage on the small cNG blocks. Never infer full-survey ratios.
+
+Native I11/I12/both I13/I04 at three z and 200 k nodes: Cocoa 19.93 ms,
+OneCov 2497.84 ms. The native fits differ. Cocoa's extra I02 and OneCov's
+native ancillary work stay timed. First calls/setup recorded separately;
+the headline excludes first-use sigma tables and cosmology. Saved native
+I11/diagonal I12 reproduced exactly. Refining mass400->800 vs GL96->256
+changes all moments at k=.001..10 by <=1.45e-5 vs1.30e-6; high-k tails
+of the requested 1e-5..92.3 grid reach 1.01% vs0.00514%. No blanket
+convergence claim over those tails. See nongaussian_timing_20261006.json.
+
+README comparisons of what each code does use explicitly named bullets.
+Explain f(nu)dnu as mass fraction, distinguish normalization from quadrature
+accuracy, and never interpret Cocoa's imposed int b f=1 as superior
+integration. Both native I11 paths add unresolved-low-mass completion;
+OneCov alone retains its finite-range bias divisor in I12/I13.

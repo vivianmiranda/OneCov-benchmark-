@@ -43,8 +43,9 @@ The [SSC comparison](#ssc-comparison) and
 non-Gaussian contributions with shared inputs. The
 [halo study](#halo-comparison) identifies native-model differences, and the
 [trispectrum study](#trispectrum-comparison) isolates an off-diagonal
-2-halo assembly discrepancy. The timing comparison below covers Gaussian
-components and band averaging only.
+2-halo assembly discrepancy. Timing tables cover
+[Gaussian components](#validation), [SSC and cNG projection, and native
+halo moments](#non-gaussian-timings), with their different scopes stated.
 
 ## Contents
 
@@ -58,6 +59,7 @@ components and band averaging only.
 8. [Halo-model ingredients](#halo-comparison)
 9. [Separated halo trispectra](#trispectrum-comparison)
 10. [Connected non-Gaussian projection](#connected-comparison)
+11. [SSC, halo and cNG timing differences](#non-gaussian-timings)
 
 ## Scope <a name="scope"></a>
 
@@ -585,9 +587,13 @@ redshifts 0, 0.5 and 1. See the
 [response comparison record](results/ssc_response_20261005.json).
 
 This checks the response formula, not the projected SSC covariance.
-The default prescriptions differ: OneCov uses the linear-power slope;
-Cocoa uses the two-halo slope and transfers the fractional halo response
-to its nonlinear power. The two-halo prescription follows the corrected
+The default prescriptions differ:
+
+- **OneCov:** uses the linear-power slope.
+- **CoCoA:** uses the two-halo slope and transfers the fractional halo
+  response to its nonlinear power.
+
+The two-halo prescription follows the corrected
 Eq. 44 of [Takada & Hu (2013)](https://arxiv.org/html/1302.6994v3).
 The broader response treatment is described by
 [Barreira, Krause & Schmidt (2018)](https://arxiv.org/abs/1711.07467).
@@ -629,15 +635,21 @@ absolute differences in CoCoA/OneCov minus one over those sampled ranges:
 
 The raw [Tinker et al. (2010)](https://arxiv.org/abs/1001.3162) bias
 formulas agree within $`6\times10^{-16}`$ when evaluated at the same
-peak height. OneCov then divides the bias by a finite-mass-range
-normalization, measured here as 0.7725, 0.7119 and 0.6415. CoCoA instead
-sets the multiplicity normalization through its bias-consistency integral.
+peak height. Their subsequent normalizations differ:
+
+- **OneCov:** divides the bias by a finite-mass-range normalization,
+  measured here as 0.7725, 0.7119 and 0.6415.
+- **CoCoA:** retains the fitted bias and sets the multiplicity amplitude
+  through its bias-consistency integral.
+
 These choices explain the large bias offset; it is not a disagreement
 in the underlying bias formula.
 
-The concentration choices also differ: OneCov uses
-[Duffy et al. (2008)](https://arxiv.org/abs/0804.2486), while CoCoA uses
-[Bhattacharya et al. (2013)](https://arxiv.org/abs/1112.5479).
+The concentration choices also differ:
+
+- **OneCov:** [Duffy et al. (2008)](https://arxiv.org/abs/0804.2486).
+- **CoCoA:** [Bhattacharya et al. (2013)](https://arxiv.org/abs/1112.5479).
+
 At the same supplied concentration, the NFW profiles differ by less than
 $`1.4\times10^{-5}`$ absolutely over the exported grid. The native moment
 mass limits and SSC response transfer remain different, as described above.
@@ -683,9 +695,55 @@ their fractional abundance changes, to first order, by $`b(M)\delta_b`$.
 This is the **halo bias inside the matter integrals**, distinct from the
 linear galaxy bias that multiplies a projected galaxy window.
 
-Write the fraction of matter in halos in a peak-height interval as
-$`f(\nu)\,d\nu`$, where $`\nu=\delta_c/\sigma(M,z)`$.
-Summing their responses with these mass weights should recover the
+#### What the multiplicity function means
+
+The **halo mass function**, $`dn/dM`$, counts halos: it gives the number
+per comoving volume per interval of halo mass. The **multiplicity
+function**, $`f(\nu)`$, describes the same population using *fractions
+of the total matter mass*, with peak height rather than mass as its argument.
+
+Peak height is $`\nu=\delta_c/\sigma(M,z)`$. Here $`\sigma(M,z)`$ is
+the rms linear density fluctuation after smoothing over a region that
+contains mass M, and $`\delta_c\simeq1.686`$ is the spherical-collapse
+threshold. Large nu means collapse requires an unusually large fluctuation;
+those halos are rare. At a fixed redshift, increasing halo mass generally
+increases nu.
+
+In the convention used here, **$`f(\nu)\,d\nu`$ is the fraction of
+matter assigned to halos in the interval from nu to nu+dnu**. For example,
+an integral of 0.1 over a particular peak-height interval would assign
+10% of the matter mass to those halos. It would not mean that they are
+10% of the halos by number: one massive halo contains much more matter
+than one small halo.
+
+The conversion to halo counts is
+
+$$
+\frac{dn}{dM}
+=\frac{\bar\rho_m}{M}\,f(\nu)\frac{d\nu}{dM}.
+$$
+
+The density times the mass fraction gives matter mass per volume;
+dividing by M converts it to a number of halos. The derivative changes
+the interval from peak height to halo mass. Equivalently,
+$`(M/\bar\rho_m)(dn/dM)\,dM=f(\nu)\,d\nu`$.
+The benchmark uses massless neutrinos, so the mean matter density here
+also equals the mean cold-matter-plus-baryon density.
+
+If the model assigns all matter to halos, its mass normalization is
+$`\int f(\nu)\,d\nu=1`$. This is different from the **bias-weighted**
+normalization below. Multiplying f by a common amplitude changes the
+predicted abundance at every mass; it does not change the bias assigned
+to an individual halo.
+
+Conventions vary across papers and libraries: some quote mass fraction
+per logarithmic peak height, $`\nu f(\nu)\,d\ln\nu`$, or use a function
+of sigma instead. The measure must be converted with the function.
+All integrals in this section use f per unit nu, as defined above.
+
+#### Why the bias-weighted integral should be one
+
+Summing the halo responses with these mass weights should recover the
 response of matter itself: matter has bias one relative to itself.
 This gives the consistency condition
 
@@ -699,16 +757,28 @@ requirement that the same integral over any truncated mass range equal one.
 
 Suppose a numerical table excludes low-mass halos. The integral over the
 remaining halos can fall below one even when the complete model satisfies
-the condition. Dividing all remaining biases by that smaller integral
-makes up the missing response by increasing the response of *every retained
-halo*. Adding the unresolved low-mass contribution separately is a different
-choice; these two treatments need not give the same small-scale covariance.
+the condition. The tested codes handle this as follows:
+
+- **OneCov:** its bias routine divides the fitted halo bias by the
+  finite-range bias integral. This increases the response of every retained
+  halo. I12 and I13 use that rescaled bias. Its I11 routine cancels the
+  rescaling and adds a separate contribution for unresolved low-mass halos.
+- **CoCoA:** it keeps the fitted halo bias unchanged and normalizes the
+  multiplicity function through the full bias-weighted integral. Its
+  covariance I11 routine also adds a separate unresolved contribution,
+  assigning the missing response to the profile at the minimum halo mass.
+  It does not divide the biases in I12 or I13 by a finite-range integral.
+
+Thus, **both codes add an unresolved contribution to I11**. The key
+difference discussed here is the bias rescaling retained by OneCov's
+higher moments, together with the different multiplicity normalization.
+The moments and their consequences for the covariance are explained below.
 
 Evaluating the two codes' fitted functions over an extended peak-height
 range gives the bias integral $`\int b(\nu)f(\nu)\,d\nu`$ below.
 The finite-range divisor is denoted by N; its inverse multiplies the bias.
 
-| Redshift | OneCov bias integral | OneCov divisor N | Bias multiplier 1/N | CoCoA bias integral |
+| Redshift | OneCov raw-bias integral | OneCov divisor N | Bias multiplier 1/N | CoCoA normalized integral |
 | ---: | ---: | ---: | ---: | ---: |
 | 0.1 | 0.993555 | 0.772506 | 1.29449 | 1.000000 |
 | 0.5 | 0.974448 | 0.711928 | 1.40464 | 1.000000 |
@@ -772,6 +842,70 @@ normalization. These are different modeling choices, not interchangeable
 implementations of one fit. Integrating extrapolated fits is a consistency
 diagnostic, not evidence that the fits are calibrated at arbitrarily low mass.
 
+#### Why CoCoA's integral equals one
+
+**CoCoA's value 1.000000 is imposed by its normalization. It is not an
+integration-accuracy score.** The code starts with the fitted shape of
+the multiplicity function, then chooses its amplitude using the fitted
+halo bias. If that unnormalized shape is $`\widetilde f`$, the calculation
+is
+
+$$
+A(z)=\left[\int_0^\infty b(\nu)\widetilde f(\nu,z)\,d\nu\right]^{-1},
+\qquad f(\nu,z)=A(z)\widetilde f(\nu,z).
+$$
+
+Substituting this definition back into the bias integral gives
+
+$$
+\int b f\,d\nu
+=\frac{\int b\widetilde f\,d\nu}
+       {\int b\widetilde f\,d\nu}=1.
+$$
+
+The fitted bias of an individual halo is unchanged. Instead, the
+abundance assigned to every halo mass is multiplied by the common
+amplitude A. This enforces the desired large-scale matter response.
+In the halo model, the two-halo matter power contains
+$`[I_1^1(k)]^2P_L(k)`$; the complete-mass limit $`I_1^1(0)=1`$ gives
+the linear power on sufficiently large scales. Finite mass integrations
+still need to account for halos outside their limits.
+
+**A worked example.** At redshift one, the extended OneCov fit has
+mass integral one and raw-bias integral approximately 0.953907. Changing
+only its multiplicity amplitude by a factor of
+$`1/0.953907\simeq1.04832`$ would make the bias integral one, while
+making the mass integral approximately 1.04832. This illustrates the
+tradeoff seen in CoCoA's reported normalization: one common amplitude
+cannot generally force both differently weighted integrals to one.
+
+The three numbers at redshift one therefore answer different questions:
+
+| Value | What was integrated or imposed? | Interpretation |
+| ---: | --- | --- |
+| 0.953907 | Extended OneCov multiplicity times raw halo bias | The fitted functions, with their chosen mass normalization, do not give exactly unit bias normalization. |
+| 0.641533 | OneCov's finite-range raw-bias integral | The numerical mass interval also excludes halo response outside that interval. |
+| 1.000000 | CoCoA's bias-normalized multiplicity times raw halo bias | The multiplicity amplitude was chosen to enforce this condition. |
+
+**What would demonstrate better numerical integration?** Keep the
+integrand and its limits fixed, increase the numerical resolution, and
+check that the result stabilizes. That test was performed separately
+by doubling the peak-height integration grid; the displayed values are
+stable. Resolving a fixed interval more finely cannot restore the halos
+outside it.
+
+To test whether the *range* is sufficient, extend the limits while
+keeping the fitted functions fixed. Our extended-range diagnostic does
+this for the mathematical fits. It does not establish that these fits
+remain physically calibrated at arbitrarily low masses.
+
+Thus, the appropriate range depends on the question: the normalization
+condition refers to the full modeled halo population, while a finite
+halo table covers a restricted population whose missing contribution
+must be treated explicitly. CoCoA's unit result confirms its chosen
+normalization in this test; it does not by itself establish better
+quadrature, more accurate halo abundances, or a more accurate covariance.
+
 The [normalization record](results/bias_normalization_20261006.json)
 includes the doubled-grid check. To reproduce it:
 
@@ -821,9 +955,13 @@ T^{2h}_{13}=2P_L(K)I^1_1(K)I^1_3(K,Q,Q)
           +2P_L(Q)I^1_1(Q)I^1_3(K,K,Q).
 $$
 
-The two moments are different when $`K\ne Q`$.
-CoCoA uses both. The sampled OneCov revision uses $`I^1_3(K,Q,Q)`$ in
-both terms before mirroring the matrix. Repeating that choice only in
+The two moments are different when $`K\ne Q`$:
+
+- **CoCoA:** uses the distinct moment required by each partition.
+- **OneCov:** the sampled revision uses $`I^1_3(K,Q,Q)`$ in both terms
+  before mirroring the matrix.
+
+Repeating OneCov's choice only in
 CoCoA's **supplied diagnostic inputs** reduces the discrepancy below
 $`3.4\times10^{-16}`$. Neither source implementation was changed.
 The partition structure follows [Takada & Hu (2013), Eq. 29](https://arxiv.org/html/1302.6994v3).
@@ -897,9 +1035,13 @@ behavior. This is separate from the off-diagonal 2h partition discrepancy
 and from the mass-integration check below. Neither numerical source was
 changed for these tests.
 
-By contrast, changing CoCoA's mass/angular rules from 96 to 256 nodes
-changes every sampled native term by less than **0.00040%**. Doubling
-OneCov's mass grid from 400 to 800 changes them by at most **0.0031%**.
+The other integration refinements give:
+
+- **CoCoA:** changing its mass/angular rules from 96 to 256 nodes changes
+  every sampled native term by less than **0.00040%**.
+- **OneCov:** doubling its mass grid from 400 to 800 changes the sampled
+  terms by at most **0.0031%**.
+
 These integration checks do not remove the distinct bias normalization,
 concentration relation or OneCov's low-k one-halo damping.
 
@@ -983,6 +1125,120 @@ python scripts/compare_connected.py compare work/connected_redshift \
 ```bash
 python scripts/plot_connected.py work/trispectrum_final_256 \
   work/connected_cocoa_redshift --output results/figures
+```
+
+## SSC, halo and cNG timing differences <a name="non-gaussian-timings"></a>
+
+**Apple M2 Pro, macOS 13.7.5; eight OpenMP threads configured.** Runs are
+sequential. These are separate stages using resident inputs, not complete
+survey covariances. Means and scatter include two fresh processes per code.
+
+### Radial projection from shared inputs
+
+Both codes receive identical response or trispectrum tables and the same
+radial integration weights. Every timed matrix agrees with the saved native
+calculation to floating-point precision.
+
+| Projection | Matrix | Radial nodes | CoCoA (ms) | OneCov (ms) | OneCov / CoCoA |
+| --- | --- | ---: | ---: | ---: | ---: |
+| SSC | 100×100 | 300 | 0.236 ± 0.015 | 9.896 ± 0.869 | 41.9 |
+| SSC | 100×100 | 2401 | 1.098 ± 0.070 | 110.437 ± 9.824 | 100.6 |
+| cNG | 8×8 | 300 | 0.210 ± 0.005 | 0.091 ± 0.006 | 0.43 |
+| cNG | 8×8 | 601 | 0.348 ± 0.006 | 0.107 ± 0.005 | 0.31 |
+
+OneCov is faster for these tiny cNG projections; CoCoA is faster for the
+larger SSC projections. These differences do not measure the cost of
+generating the matter responses, survey-mask variance or trispectra.
+
+- **CoCoA:** calls the production covariance bindings. SSC includes
+  constructing shell responses and their weighted contraction; cNG uses
+  the generic connected projection API.
+- **OneCov:** the benchmark executes the unchanged integrand and Simpson
+  integration statements extracted from its native projection methods.
+  Those statements are checked against the saved native method outputs.
+  Enclosing table generation and tomography-container assembly are excluded.
+
+Both timers include fresh numerical outputs and intermediate allocations.
+Preparing the common inputs and their required array layouts is outside
+the timer. No profiler is active during measurement. Each process records
+31 batches; the first call is saved separately. The larger SSC OneCov case
+has process means 101.3 and 119.6 ms; the table includes that variation.
+
+### Native halo-moment generation
+
+This requests I11, I12, both I13 partitions and undamped I04 at redshifts
+0.1, 0.5 and 1. All 20,100 unordered pairs of the 200 wavenumbers are
+included at each redshift. The codes retain their native halo fits and
+concentration relations, so this is a **matched requested calculation,
+with different physical prescriptions**.
+
+| Halo stage | CoCoA (ms) | OneCov (ms) | OneCov / CoCoA |
+| --- | ---: | ---: | ---: |
+| Three-redshift moment tables | 19.93 ± 0.96 | 2497.84 ± 39.19 | 125.3 |
+
+- **CoCoA:** uses its combined production moment API with 256-point mass
+  quadrature per panel. The additional I02 output remains in the timer.
+- **OneCov:** calls its native moment and one-halo methods with 800 mass
+  nodes. The methods' own allocations and ancillary work remain included.
+
+The first evaluation is recorded separately; each process then measures
+11 evaluations. Cosmology initialization and first-use variance tables
+are excluded. The measured range is about 10⁻⁵–92.3 h/Mpc. Over the
+comparison's physical range, 0.001–10 h/Mpc, refining the mass integration
+changes all these moments by at most 0.00145% in OneCov and 0.000130% in
+CoCoA. At the extreme high-k end of the full requested grid, the largest
+changes are 1.01% and 0.00514%, respectively; that tail is not equally
+well converged.
+
+**None of these ratios is a full SSC/cNG forecast speedup.** In particular,
+the halo row excludes angular perturbation-theory averages, whose native
+diagonal convergence remains unresolved above. The
+[timing record](results/nongaussian_timing_20261006.json) contains raw
+samples, first calls, setup costs, source/input hashes and numerical checks.
+
+To reproduce representative rows after the corresponding exports above:
+
+**Step :one:**: in the **OneCov terminal**, time SSC projection.
+
+```bash
+python scripts/time_nongaussian.py ssc work/ssc_projection_300 \
+  --backend onecov --repeats 31 --batch-size 10 --output work/timing_ssc300_onecov
+```
+
+**Step :two:**: in the **Cocoa terminal**, time the same projection.
+
+```bash
+python scripts/time_nongaussian.py ssc work/ssc_projection_300 \
+  --backend cocoa --repeats 31 --batch-size 10 --output work/timing_ssc300_cocoa
+```
+
+**Step :three:**: in the **OneCov terminal**, time cNG projection.
+
+```bash
+python scripts/time_nongaussian.py connected work/connected_redshift \
+  --backend onecov --repeats 31 --batch-size 100 --output work/timing_cng601_onecov
+```
+
+**Step :four:**: in the **Cocoa terminal**, time the same projection.
+
+```bash
+python scripts/time_nongaussian.py connected work/connected_redshift \
+  --backend cocoa --repeats 31 --batch-size 100 --output work/timing_cng601_cocoa
+```
+
+**Step :five:**: in the **OneCov terminal**, time native halo moments.
+
+```bash
+python scripts/time_nongaussian.py halo work/halo_onecov_800 \
+  --backend onecov --repeats 11 --output work/timing_halo_onecov
+```
+
+**Step :six:**: in the **Cocoa terminal**, time native halo moments.
+
+```bash
+python scripts/time_nongaussian.py halo work/halo_onecov_800 \
+  --backend cocoa --repeats 11 --output work/timing_halo_cocoa \
+  --halo-reference work/halo_cocoa_matched_800
 ```
 
 ### Running the projected non-Gaussian pilots
