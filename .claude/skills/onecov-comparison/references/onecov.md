@@ -397,3 +397,47 @@ Explain f(nu)dnu as mass fraction, distinguish normalization from quadrature
 accuracy, and never interpret Cocoa's imposed int b f=1 as superior
 integration. Both native I11 paths add unresolved-low-mass completion;
 OneCov alone retains its finite-range bias divisor in I12/I13.
+
+## Sigma and abundance diagnosis, 2026-10-06
+
+`diagnose_sigma.py` exports the actual Cocoa power reader, sigma and mass
+slope, holding its input power fixed while refining internal tables 1/2/4.
+The OneCov environment calls its unchanged hmf TopHat on those arrays.
+This is a two-code shared-input comparison, not a third reference library.
+Native hmf sigma is reproduced to roundoff before changing inputs.
+
+At z=.1,.5,1 over 1e10..1e15 Msun/h, native maximum sigma offsets are
+0.03238%,0.03044%,0.02959%. Replacing P on the same 200 k nodes changes
+sigma by <=0.01608%; dense integration of that same Cocoa reader changes
+it by <=0.01594%. Range continuation contributes <=0.000158%, the density
+convention <=0.001607%. Same-power/same-radius FFTLog plus table residuals
+are <=0.000334%,0.000266%,0.001175%; internal boost4 reduces the largest
+to0.000611%. Maxima occur at different masses and must not be added.
+
+OneCov native power200->400->800->1600->3200->6400->12800 was tested;
+the last sigma change is1.40e-7 fractionally. Native normalization changes
+with this grid too. The initial prepare_lsst_y1.py sigma8 conversion is
+a separate CAMB call, not the exact forecast call: supplied0.826717834
+vs actual forecast CAMB0.826704159. Forecast nnu3.046 vs pilot3.044.
+OneCov's dense filter on forecast CAMB interpolated P gives0.826616612;
+on the core reader gives0.826613956. Core FFTLog at R8, internal boost4,
+gives0.826615311. Do not blame the resulting amplitude mismatch on FFTLog
+or silently overwrite the frozen original inputs. An explicitly matched
+future native comparison should resolve this amplitude/radiation setup.
+Matching sigma8 for the dense spectra at each z leaves <=0.0081% shape
+differences. The detailed source of that remainder is not yet isolated.
+
+Abundance ratio factorization into density, f at matched nu, peak shift
+and mass slope reproduces the archived ratio within6.7e-16. Matched-nu
+multiplicity ratios are constant over masses:1.00648649,1.02622216,
+1.04832034. This explains the growing z1 abundance offset. After dividing
+out this amplitude, residual ranges are[-.1908,.1246]%,[-.2163,.1133]%,
+[-.2714,.0994]%. It is not a 0.03% sigma error amplified into5%.
+`report_sigma.py` writes the quantitative record and science figure;
+no numerical source of either code was changed.
+
+Response citations must distinguish implementation from context. Cocoa's
+fractional halo response uses corrected Takada-Hu Eq44, then transfers it
+to target nonlinear P. OneCov uses the linear slope (no I11 derivative).
+Barreira-Krause-Schmidt2018 is broader density/tidal response context;
+neither tested isotropic halo prescription implements its full treatment.

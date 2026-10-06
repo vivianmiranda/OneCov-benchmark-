@@ -18,7 +18,7 @@ def main():
     native = np.load(args.onecov/"inputs.npz")
     cocoa = np.load(args.cocoa/"cocoa.npz")
     quantities = (
-        ("sigma", r"Mass variance $\sigma(M)$", True),
+        ("sigma", r"Mass rms fluctuation $\sigma(M)$", True),
         ("dndlnm", r"Abundance $dn/d\ln M$", True),
         ("bias", "Native halo bias", True),
         ("concentration", "Native concentration", True),

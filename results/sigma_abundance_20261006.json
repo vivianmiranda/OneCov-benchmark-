@@ -1,0 +1,446 @@
+{
+  "redshifts": [
+    0.1,
+    0.5,
+    1.0
+  ],
+  "sigma_native_max_fractional": [
+    0.0003238297030538906,
+    0.00030440720740410043,
+    0.00029585941162046936
+  ],
+  "sigma_controlled_steps": {
+    "onecov_native -> cocoa_power_native_onecov_radius": [
+      0.00016076007590171137,
+      0.00014066367880416486,
+      0.00014120694721553306
+    ],
+    "cocoa_power_native_onecov_radius -> cocoa_power_dense_onecov_radius": [
+      0.00015935999935312584,
+      0.00015935479002315844,
+      0.00015935132347688619
+    ],
+    "cocoa_power_dense_onecov_radius -> cocoa_power_wide_onecov_radius": [
+      1.575727804015159e-06,
+      1.5757485203327093e-06,
+      1.575786102936405e-06
+    ],
+    "cocoa_power_wide_onecov_radius -> shared_filter_stride1": [
+      1.606645810880991e-05,
+      1.606645840479537e-05,
+      1.6066458935037886e-05
+    ],
+    "shared_filter_stride1 -> cocoa_fft_boost1": [
+      3.3377346848606493e-06,
+      2.6608518910453682e-06,
+      1.1747486706292776e-05
+    ]
+  },
+  "sigma_shared_max_fractional": [
+    3.3377346848606493e-06,
+    2.6608518910453682e-06,
+    1.1747486706292776e-05
+  ],
+  "sigma_shared_boost4_max_fractional": [
+    3.5611768920418285e-06,
+    3.436418861024748e-06,
+    6.108366508827956e-06
+  ],
+  "sigma_filter_refinement": [
+    6.193343615734648e-10,
+    6.187370615862164e-10,
+    6.186433587629381e-10
+  ],
+  "sigma_onecov_native_refinements": {
+    "200 -> 400": [
+      0.0001327301842755091,
+      0.000132730184275065,
+      0.0001327301842755091
+    ],
+    "400 -> 800": [
+      6.998109557510013e-05,
+      6.998109557510013e-05,
+      6.998109557510013e-05
+    ],
+    "800 -> 1600": [
+      3.224529630618811e-05,
+      3.224529630629913e-05,
+      3.224529630607709e-05
+    ],
+    "1600 -> 3200": [
+      4.523036100545497e-06,
+      4.523036100545497e-06,
+      4.523036100434474e-06
+    ],
+    "3200 -> 6400": [
+      2.0494642591906143e-06,
+      2.0494642591906143e-06,
+      2.0494642591906143e-06
+    ],
+    "6400 -> 12800": [
+      1.3983859570299018e-07,
+      1.3983859548094557e-07,
+      1.3983859548094557e-07
+    ]
+  },
+  "sigma_common_amplitude_max_fractional": [
+    8.051548063625624e-05,
+    8.050851162133554e-05,
+    8.049633748541396e-05
+  ],
+  "sigma8_cocoa_power": [
+    0.7850036610299912,
+    0.6391462080755369,
+    0.5057685126395352
+  ],
+  "sigma8_onecov_fine": [
+    0.7851046848738238,
+    0.639215614161355,
+    0.5058237115199903
+  ],
+  "sigma8_z0": {
+    "power_reader_z0": 0.826613955520287,
+    "power_camb_z0": 0.8266166123459517
+  },
+  "abundance_factors": [
+    {
+      "z": 0.1,
+      "native_filter_check": 5.551115123125783e-16,
+      "factor_ranges": {
+        "density": [
+          0.9999401499651916,
+          0.9999401499651916
+        ],
+        "multiplicity_at_same_peak": [
+          1.0064864894125742,
+          1.0064864894125771
+        ],
+        "multiplicity_peak_shift": [
+          0.9991536020237893,
+          0.9999694855737825
+        ],
+        "peak_height": [
+          1.0000491439292074,
+          1.0003239346027
+        ],
+        "mass_derivative": [
+          0.9986833560996634,
+          1.0018033844504304
+        ]
+      },
+      "abundance_ratio_range": [
+        1.004566428398178,
+        1.0077400774655372
+      ]
+    },
+    {
+      "z": 0.5,
+      "native_filter_check": 5.551115123125783e-16,
+      "factor_ranges": {
+        "density": [
+          0.9999401499651916,
+          0.9999401499651916
+        ],
+        "multiplicity_at_same_peak": [
+          1.0262221625478665,
+          1.0262221625478696
+        ],
+        "multiplicity_peak_shift": [
+          0.9989283090810969,
+          0.999976100029043
+        ],
+        "peak_height": [
+          1.0000297290791378,
+          1.0003044998993682
+        ],
+        "mass_derivative": [
+          0.998683375200703,
+          1.0018034016659774
+        ]
+      },
+      "abundance_ratio_range": [
+        1.0240028376296715,
+        1.0273851278841593
+      ]
+    },
+    {
+      "z": 1.0,
+      "native_filter_check": 5.551115123125783e-16,
+      "factor_ranges": {
+        "density": [
+          0.9999401499651916,
+          0.9999401499651916
+        ],
+        "multiplicity_at_same_peak": [
+          1.0483203417109566,
+          1.0483203417109621
+        ],
+        "multiplicity_peak_shift": [
+          0.9983637675550715,
+          0.9999763512143985
+        ],
+        "peak_height": [
+          1.000021201196035,
+          1.0002959469703168
+        ],
+        "mass_derivative": [
+          0.9986833998648821,
+          1.0018034314408881
+        ]
+      },
+      "abundance_ratio_range": [
+        1.0454746961406949,
+        1.0493618901722683
+      ]
+    }
+  ],
+  "abundance_without_amplitude_range": [
+    [
+      -0.0019076868240121003,
+      0.0012455090715552952
+    ],
+    [
+      -0.00216261643841853,
+      0.0011332490943334328
+    ],
+    [
+      -0.0027144809244284973,
+      0.0009935402566065843
+    ]
+  ],
+  "source_reports": {
+    "onecov": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "rows": [
+        {
+          "z": 0.1,
+          "native_filter_check": 5.551115123125783e-16,
+          "factor_ranges": {
+            "density": [
+              0.9999401499651916,
+              0.9999401499651916
+            ],
+            "multiplicity_at_same_peak": [
+              1.0064864894125742,
+              1.0064864894125771
+            ],
+            "multiplicity_peak_shift": [
+              0.9991536020237893,
+              0.9999694855737825
+            ],
+            "peak_height": [
+              1.0000491439292074,
+              1.0003239346027
+            ],
+            "mass_derivative": [
+              0.9986833560996634,
+              1.0018033844504304
+            ]
+          },
+          "abundance_ratio_range": [
+            1.004566428398178,
+            1.0077400774655372
+          ]
+        },
+        {
+          "z": 0.5,
+          "native_filter_check": 5.551115123125783e-16,
+          "factor_ranges": {
+            "density": [
+              0.9999401499651916,
+              0.9999401499651916
+            ],
+            "multiplicity_at_same_peak": [
+              1.0262221625478665,
+              1.0262221625478696
+            ],
+            "multiplicity_peak_shift": [
+              0.9989283090810969,
+              0.999976100029043
+            ],
+            "peak_height": [
+              1.0000297290791378,
+              1.0003044998993682
+            ],
+            "mass_derivative": [
+              0.998683375200703,
+              1.0018034016659774
+            ]
+          },
+          "abundance_ratio_range": [
+            1.0240028376296715,
+            1.0273851278841593
+          ]
+        },
+        {
+          "z": 1.0,
+          "native_filter_check": 5.551115123125783e-16,
+          "factor_ranges": {
+            "density": [
+              0.9999401499651916,
+              0.9999401499651916
+            ],
+            "multiplicity_at_same_peak": [
+              1.0483203417109566,
+              1.0483203417109621
+            ],
+            "multiplicity_peak_shift": [
+              0.9983637675550715,
+              0.9999763512143985
+            ],
+            "peak_height": [
+              1.000021201196035,
+              1.0002959469703168
+            ],
+            "mass_derivative": [
+              0.9986833998648821,
+              1.0018034314408881
+            ]
+          },
+          "abundance_ratio_range": [
+            1.0454746961406949,
+            1.0493618901722683
+          ]
+        }
+      ],
+      "growth_model": "CambGrowth",
+      "sigma8_input": 0.8267178343728806,
+      "growth_factors": [
+        0.9496645707308218,
+        0.7731967895778648,
+        0.6118456138665164
+      ],
+      "filter_source_sha256": "c48a66127fc01ef4c5fb58461bfa6bc29645e0596925fe53948b422b7c352015",
+      "cocoa_export": {
+        "core": {
+          "commit": "927748b6916d069c01b3d8d762015defc502617d",
+          "status": ""
+        },
+        "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+        "cosmology": {
+          "omegam": 0.3,
+          "omegab": 0.05,
+          "H0": 70.0,
+          "ns": 0.965,
+          "As_1e9": 2.1,
+          "w": -1.0,
+          "w0pwa": -1.0,
+          "mnu": 0.0,
+          "AccuracyBoost": 1.0,
+          "CLAccuracyBoost": 1.0,
+          "CAMBAccuracyBoost": 1.0,
+          "kmax": 20.0,
+          "k_per_logint": 20,
+          "non_linear_emul": 2,
+          "lens_potential_accuracy": 1.0,
+          "halofit_version": "takahashi"
+        },
+        "power_table_shape": [
+          140,
+          1500
+        ],
+        "power_table_sha256": "efe4a0c8d8473b99b2f7b971fb8e517a9fe2dea9bb35445ab76c72d5912918be",
+        "native_export": {
+          "onecov": {
+            "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+            "status": ""
+          },
+          "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+          "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+          "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+          "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+          "mass_nodes": 800,
+          "redshifts": [
+            0.1,
+            0.5,
+            1.0
+          ],
+          "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+          "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+        },
+        "script_sha256": "b7380fa7da4e4fc7df1ff12650c74365cef5e1470638b41892ab0a24eaf6d66d"
+      },
+      "native_export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+        "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+        "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+        "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+        "mass_nodes": 800,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+        "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+      },
+      "script_sha256": "fb4b66aa9c22906a57f8253c78c857efa19717218e151b8db27a5f8b79dc0889"
+    },
+    "cocoa": {
+      "core": {
+        "commit": "927748b6916d069c01b3d8d762015defc502617d",
+        "status": ""
+      },
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "cosmology": {
+        "omegam": 0.3,
+        "omegab": 0.05,
+        "H0": 70.0,
+        "ns": 0.965,
+        "As_1e9": 2.1,
+        "w": -1.0,
+        "w0pwa": -1.0,
+        "mnu": 0.0,
+        "AccuracyBoost": 1.0,
+        "CLAccuracyBoost": 1.0,
+        "CAMBAccuracyBoost": 1.0,
+        "kmax": 20.0,
+        "k_per_logint": 20,
+        "non_linear_emul": 2,
+        "lens_potential_accuracy": 1.0,
+        "halofit_version": "takahashi"
+      },
+      "camb_sigma8": 0.8267041594290006,
+      "core_sigma8_fft": 0.8266153107640403,
+      "camb_neff": 3.046,
+      "camb_k_per_logint": 0,
+      "camb_kmax": 20.0,
+      "power_table_shape": [
+        140,
+        1500
+      ],
+      "power_table_sha256": "727f023f28c4321342bb75d671235c10ac15464d457b2f77425f6ceb8f2c7db6",
+      "native_export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+        "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+        "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+        "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+        "mass_nodes": 800,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+        "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+      },
+      "script_sha256": "5fc6c2da1f2645415ee22e614eeb2a27ebed9a2141ffb0f36d0dfab797644374"
+    }
+  },
+  "inputs_sha256": {
+    "onecov": "1819126db223dc3467f7c6b43f87ec9ddeab9bbf01545e18e4521425e571458e",
+    "cocoa": "727f023f28c4321342bb75d671235c10ac15464d457b2f77425f6ceb8f2c7db6"
+  },
+  "script_sha256": "f4c2566414a2d0cc1d2f89f5eea5e7f8c57d7cfa0fffa03c72c0303bcd722422"
+}
