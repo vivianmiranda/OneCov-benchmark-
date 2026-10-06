@@ -1,0 +1,536 @@
+{
+  "scope": "Gaussian assembly with shared integer-multipole spectra, matched noise and uniform band weights",
+  "date_local": "2026-10-05",
+  "timezone": "America/New_York",
+  "implementations": {
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "cocoa": {
+      "commit": "9fe523c9bdf095528f115de4126980598099a2df",
+      "status": ""
+    },
+    "cosmolike_core": {
+      "commit": "927748b6916d069c01b3d8d762015defc502617d",
+      "status": ""
+    },
+    "lsst_y1": {
+      "commit": "4156d6277567620b7342a2960af670ebe14247c7",
+      "status": ""
+    },
+    "cocoa_interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+    "onecov_packages": {
+      "numpy": "1.26.3",
+      "scipy": "1.12.0",
+      "astropy": "6.1.7",
+      "hmf": "3.5.2",
+      "healpy": "1.19.0",
+      "camb": "1.6.7",
+      "levin": "0.0.1"
+    }
+  },
+  "benchmark_scripts_sha256": {
+    "prepare_lsst_y1.py": "3633a3e94e26a03964ec479d863b96d539f5209fc2d9b8a48fa00d9f4da43796",
+    "run_onecov.py": "2099e64350aa413e7424f1e69fecf6354dca65447ba3b996497c6c5835ef8575",
+    "compare_gaussian.py": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c"
+  },
+  "common_inputs": {
+    "survey": "LSST Y1 forecast subset",
+    "source_bin_1based": 3,
+    "lens_bins_1based": [
+      1,
+      2
+    ],
+    "area_deg2": 12300.0,
+    "source_density_arcmin2": 2.0,
+    "lens_density_arcmin2": [
+      3.6,
+      3.6
+    ],
+    "sigma_e_component": 0.26,
+    "bias": [
+      1.72716,
+      1.65168
+    ],
+    "cosmology": {
+      "omegam": 0.3,
+      "omegab": 0.05,
+      "H0": 70.0,
+      "ns": 0.965,
+      "As_1e9": 2.1,
+      "w": -1.0,
+      "w0pwa": -1.0,
+      "mnu": 0.0,
+      "AccuracyBoost": 1.0,
+      "CLAccuracyBoost": 1.0,
+      "CAMBAccuracyBoost": 1.0,
+      "kmax": 20.0,
+      "k_per_logint": 20,
+      "non_linear_emul": 2,
+      "lens_potential_accuracy": 1.0,
+      "halofit_version": "takahashi"
+    },
+    "sigma8": 0.8267178343728806,
+    "gaussian": {
+      "nonlimber": false,
+      "ia": "none",
+      "A1": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "A2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "B_TA": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "radial_nquad": 96,
+    "nwindow": 16385,
+    "a_edges": [
+      0.2222222222222222,
+      0.3333333333333333,
+      0.4,
+      0.5,
+      0.5882352941176471,
+      0.7142857142857143,
+      0.8333333333333334,
+      0.9999900000999989
+    ],
+    "source_nz_sha256": "de0bd0ee395ade11ca08af7fbee3b414528ff4c628fda8c56a1da76befe995f8",
+    "lens_nz_sha256": "dcdd1b15476287ffdd7091d605a684ac2c7807728ad2147155b2632f1280b256"
+  },
+  "units": "C_ell and noise dimensionless; input densities per square arcminute; area in square degrees",
+  "estimator": "Mean of C_ell with uniform integer-ell weights inside each half-open band; fsky approximation",
+  "onecov_output_significant_digits": {
+    "total_matrix": 7,
+    "split_component_list": 5
+  },
+  "conclusion": "Every native output entry matches the independent NumPy reference at its printed precision. Cocoa agrees with the reference to floating-point precision. All total matrices are positive definite.",
+  "not_established": [
+    "Native angular-spectrum or projection agreement",
+    "SSC or connected non-Gaussian agreement",
+    "Real-space, full-survey or Fisher convergence",
+    "Relative execution speed: the two runners time different amounts of work"
+  ],
+  "cases": [
+    {
+      "name": "shear_30_150",
+      "local_native_directory": "work/assembly_shear_30_150",
+      "local_comparison_directory": "work/reviewed_gaussian/shear_30_150",
+      "native_created_utc": "2026-10-06T02:48:01.418354+00:00",
+      "omp_threads": 8,
+      "blas_threads": 1,
+      "input_files_sha256": {
+        "Cgg.txt": "1fac0ddcae44862a61671a82d62d4fad75f809b472ce16dd089bdb8390feca1f",
+        "Cgm.txt": "38750d17fbe3bfa8869167ff39d3c21ea09e8e11f3126e9a6e915a58775b1daf",
+        "Cmm.txt": "99e33e776e882ae89a1a6de52952915504fa9084b9255d29c319c0a6aea15a23",
+        "Pmm.txt": "a293d9e147d7c68d42b5766241e9b17f7b359368976cc910aa5d4be91f026fc2",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "result_files_sha256": {
+        "work/assembly_shear_30_150/run.json": "3a8b3e488f7edd050d9b39e7f8d9ccad76cb4a1bfd21725eafb259e0831220ca",
+        "work/assembly_shear_30_150/onecov.ini": "c82cd8bff45e67e4eb618f767fcf50040221ab01949c3d34deb198ec1008589c",
+        "work/assembly_shear_30_150/native.log": "9544754c4d88366e52fabd16d276991f0239166c01d1301468f7d2b6e07e4304",
+        "work/assembly_shear_30_150/covariance_matrix_gauss.mat": "5763bcbb1ee268f89b93dd4b97ccf47fa3a265d8c6e0972ccf74475374787d01",
+        "work/assembly_shear_30_150/covariance_list.dat": "1122128aeca1bd86b65c48f9139ad39ae0bff6361e200cc9e5c730b2aa02849e",
+        "work/reviewed_gaussian/shear_30_150/comparison.json": "91b776510cc92658bad884aee22fb5220d5c5ff09eb7f0f027f0f4c2e54c9b67",
+        "work/reviewed_gaussian/shear_30_150/matrices.npz": "35515c32d2aef73bec7e727fc8b39cc0045ec0d88f4d028088090f2f7cd63eb3"
+      },
+      "shape": [
+        5,
+        5
+      ],
+      "band_edges": [
+        30,
+        41,
+        57,
+        78,
+        108,
+        150
+      ],
+      "pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "components": {
+        "sample_variance": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 0.0,
+            "max_fractional_nonzero_error": 0.0
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 1.797653277148519e-05,
+            "max_fractional_nonzero_error": 2.5856995216056973e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 1.797653277148519e-05,
+            "max_fractional_nonzero_error": 2.5856995216056973e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "mixed": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 3.2948599052521046e-16,
+            "max_fractional_nonzero_error": 7.112718292136379e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 5.643659035491587e-06,
+            "max_fractional_nonzero_error": 1.2183145265853218e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 5.6436590351621005e-06,
+            "max_fractional_nonzero_error": 1.2183145265141938e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "noise": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 3.303802685523739e-17,
+            "max_fractional_nonzero_error": 1.7046308629254236e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 9.214384979330693e-07,
+            "max_fractional_nonzero_error": 1.152587578298632e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 9.214384979207395e-07,
+            "max_fractional_nonzero_error": 1.152587578283209e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "total": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 3.2948599052521046e-16,
+            "max_fractional_nonzero_error": 3.294859905252104e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 1.6859298231609024e-07,
+            "max_fractional_nonzero_error": 1.6859298231609022e-07
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 1.6859298251336708e-07,
+            "max_fractional_nonzero_error": 1.685929825133671e-07
+          },
+          "onecov_text_tolerance": 1e-06,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        }
+      },
+      "passed": true,
+      "cocoa_min_scaled_eigenvalue": 0.9999999999999998,
+      "onecov_min_scaled_eigenvalue": 1.000000009681657,
+      "generalized_variance_ratio_range": [
+        1.0000000096816568,
+        1.0000001685929822
+      ],
+      "max_generalized_variance_change": 1.6859298224147778e-07
+    },
+    {
+      "name": "3x2_30_150",
+      "local_native_directory": "work/assembly_3x2_30_150",
+      "local_comparison_directory": "work/reviewed_gaussian/3x2_30_150",
+      "native_created_utc": "2026-10-06T02:48:38.954503+00:00",
+      "omp_threads": 8,
+      "blas_threads": 1,
+      "input_files_sha256": {
+        "Cgg.txt": "1fac0ddcae44862a61671a82d62d4fad75f809b472ce16dd089bdb8390feca1f",
+        "Cgm.txt": "38750d17fbe3bfa8869167ff39d3c21ea09e8e11f3126e9a6e915a58775b1daf",
+        "Cmm.txt": "99e33e776e882ae89a1a6de52952915504fa9084b9255d29c319c0a6aea15a23",
+        "Pmm.txt": "a293d9e147d7c68d42b5766241e9b17f7b359368976cc910aa5d4be91f026fc2",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "result_files_sha256": {
+        "work/assembly_3x2_30_150/run.json": "8ad217d20d77ff9b9c0f42064a244aae37e486b8c2c5ca9a83d646f09a6c9d8a",
+        "work/assembly_3x2_30_150/onecov.ini": "cc78f2fad94315636accae42bcd442701ed948754fd30fffca7929a13337e84f",
+        "work/assembly_3x2_30_150/native.log": "91188286b0ca19cc9d9832552030004c4dbadf7e7d6591e5b869c00912e6c9bc",
+        "work/assembly_3x2_30_150/covariance_matrix_gauss.mat": "b7401f16b2f672cdf83cd1ff57cd6a6e907df4ae601719d9310645d8f641d19f",
+        "work/assembly_3x2_30_150/covariance_list.dat": "cfa00c4468f13963047fc861bab5c2f3062544186dfd8ce2115fc57e24c2f5e2",
+        "work/reviewed_gaussian/3x2_30_150/comparison.json": "8b4a4dbc229512696a02917f393c9e83d13655b9e434a231e928ee875eb08195",
+        "work/reviewed_gaussian/3x2_30_150/matrices.npz": "e46b8ec5040ae8924974ac4adf29a0749064f01fdf2de60c6ffce04a3b1cedf0"
+      },
+      "shape": [
+        30,
+        30
+      ],
+      "band_edges": [
+        30,
+        41,
+        57,
+        78,
+        108,
+        150
+      ],
+      "pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "components": {
+        "sample_variance": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 3.4286382786711877e-16,
+            "max_fractional_nonzero_error": 4.825366823241185e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 4.069755010767853e-05,
+            "max_fractional_nonzero_error": 4.11928728285276e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 4.0697550107854966e-05,
+            "max_fractional_nonzero_error": 4.11928728285276e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "mixed": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 6.098578655278093e-16,
+            "max_fractional_nonzero_error": 8.118086623187634e-13
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 1.1060542411222926e-05,
+            "max_fractional_nonzero_error": 4.307411913487347e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 1.1060542411052872e-05,
+            "max_fractional_nonzero_error": 4.3074119148354196e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "noise": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 3.303802685523739e-17,
+            "max_fractional_nonzero_error": 2.9228875114747164e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 9.214384979330693e-07,
+            "max_fractional_nonzero_error": 2.0438477868803156e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 9.214384979207395e-07,
+            "max_fractional_nonzero_error": 2.043847786909544e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "total": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 4.976051428689058e-16,
+            "max_fractional_nonzero_error": 6.436986399025595e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 3.7730642395392996e-07,
+            "max_fractional_nonzero_error": 4.27168786702799e-07
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 3.773064241303665e-07,
+            "max_fractional_nonzero_error": 4.271687865503503e-07
+          },
+          "onecov_text_tolerance": 1e-06,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        }
+      },
+      "passed": true,
+      "cocoa_min_scaled_eigenvalue": 0.04843861870935022,
+      "onecov_min_scaled_eigenvalue": 0.048438816988722266,
+      "generalized_variance_ratio_range": [
+        0.9999992045463281,
+        1.000004646602013
+      ],
+      "max_generalized_variance_change": 4.64660201293654e-06
+    },
+    {
+      "name": "3x2_1500_1620",
+      "local_native_directory": "work/assembly_3x2_1500_1620",
+      "local_comparison_directory": "work/reviewed_gaussian/3x2_1500_1620",
+      "native_created_utc": "2026-10-06T02:49:54.756017+00:00",
+      "omp_threads": 8,
+      "blas_threads": 1,
+      "input_files_sha256": {
+        "Cgg.txt": "74d962482593d9e4e53f31311cf826c88704beeb07ce80dc473bf432fc64c110",
+        "Cgm.txt": "d439d1ac23cea09ce384db6bc55aa609fc1284c8ee94cdd62153f16dac7d19d3",
+        "Cmm.txt": "65277cafb822fb6d141143eea6fe05d5a151d7acd9e4615918c5b4736161583c",
+        "Pmm.txt": "a293d9e147d7c68d42b5766241e9b17f7b359368976cc910aa5d4be91f026fc2",
+        "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+        "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+        "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+      },
+      "result_files_sha256": {
+        "work/assembly_3x2_1500_1620/run.json": "06be6702d5226558743c7554c77b9ce440c16d8246a2a5884d2220d75d69378a",
+        "work/assembly_3x2_1500_1620/onecov.ini": "ef223cba84c539487c21d4707c1833879e57eae535729c3f2d08916e4313c398",
+        "work/assembly_3x2_1500_1620/native.log": "2acd459ea56a604f421ba9a7b65a1e61bb751fff658a9167d18c93e756e397a1",
+        "work/assembly_3x2_1500_1620/covariance_matrix_gauss.mat": "eaa5d4e38ac13baeff3c67b9cc0c5dbd58b32019f98098f033284ff63be042c6",
+        "work/assembly_3x2_1500_1620/covariance_list.dat": "2a24b4001a93dd0894a2a0b91722490cf71a9ab1318ffe8fe454a98cc9a49829",
+        "work/reviewed_gaussian/3x2_1500_1620/comparison.json": "3091784c739059f51ad5dae11904ba55387ed31b989ac80aaeb04fe22626a2f2",
+        "work/reviewed_gaussian/3x2_1500_1620/matrices.npz": "8cfc3d2f4f0f68a9809958564d7bad7cb70fd723398567ecca2077281e366605"
+      },
+      "shape": [
+        30,
+        30
+      ],
+      "band_edges": [
+        1500,
+        1523,
+        1546,
+        1570,
+        1595,
+        1620
+      ],
+      "pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "components": {
+        "sample_variance": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 1.7669049138064693e-16,
+            "max_fractional_nonzero_error": 4.3904124864137445e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 2.236580599483462e-05,
+            "max_fractional_nonzero_error": 4.2147728647844056e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 2.2365805994725345e-05,
+            "max_fractional_nonzero_error": 4.214772864767842e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "mixed": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 5.166947892801827e-16,
+            "max_fractional_nonzero_error": 1.662443827115946e-14
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 3.5474901140060155e-05,
+            "max_fractional_nonzero_error": 3.9678855565860544e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 3.5474901140167125e-05,
+            "max_fractional_nonzero_error": 3.9678855565980186e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "noise": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 1.2553957926967153e-16,
+            "max_fractional_nonzero_error": 1.3775421526797137e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 4.136030544832766e-06,
+            "max_fractional_nonzero_error": 2.0839420440308404e-05
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 4.1360305447094305e-06,
+            "max_fractional_nonzero_error": 2.0839420440177866e-05
+          },
+          "onecov_text_tolerance": 6e-05,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        },
+        "total": {
+          "cocoa_vs_numpy": {
+            "max_variance_scaled_residual": 4.933436497829103e-16,
+            "max_fractional_nonzero_error": 5.457025400487877e-16
+          },
+          "onecov_vs_numpy": {
+            "max_variance_scaled_residual": 3.8623245795806484e-07,
+            "max_fractional_nonzero_error": 4.1808155775511053e-07
+          },
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 3.8623245819783975e-07,
+            "max_fractional_nonzero_error": 4.1808155757017714e-07
+          },
+          "onecov_text_tolerance": 1e-06,
+          "matches_numpy_at_native_text_precision": true,
+          "passed": true
+        }
+      },
+      "passed": true,
+      "cocoa_min_scaled_eigenvalue": 0.6143112377421698,
+      "onecov_min_scaled_eigenvalue": 0.6143113301656523,
+      "generalized_variance_ratio_range": [
+        0.9999995375705828,
+        1.000000318719084
+      ],
+      "max_generalized_variance_change": 4.624294172028698e-07
+    }
+  ]
+}

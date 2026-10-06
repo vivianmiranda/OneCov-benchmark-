@@ -64,6 +64,9 @@ def main():
     parser.add_argument("--source-bin", type=int, choices=range(1, 6), default=3)
     parser.add_argument("--lens-bins", type=int, nargs=2, choices=range(1, 6),
                         default=[1, 2], help="two distinct original LSST lens bins")
+    parser.add_argument("--integer-ell-range", type=int, nargs=2,
+                        metavar=("FIRST", "LAST"),
+                        help="export every integer ell, inclusive; assembly test")
     args = parser.parse_args()
     cocoa = args.cocoa.resolve()
     output = args.output.resolve()
@@ -75,6 +78,10 @@ def main():
         parser.error(f"{output} exists; choose a new --output to preserve inputs")
     if args.lens_bins[0] == args.lens_bins[1]:
         parser.error("--lens-bins must select two distinct LSST populations")
+    if args.integer_ell_range is not None:
+        first, last = args.integer_ell_range
+        if first < 2 or last <= first:
+            parser.error("--integer-ell-range requires 2 <= FIRST < LAST")
 
     # Project initialization installs exactly its forecast cosmology in C.
     # Its production bindings avoid the notebook Armadillo array conversion.
@@ -116,6 +123,11 @@ def main():
     # A dense spectrum grid spans the pilot's five output bands. A source
     # leg needs the shear spin factor; noise is added later by OneCov.
     ell = np.geomspace(start=10.0, stop=5000.0, num=257)
+    if args.integer_ell_range is not None:
+        # Gaussian band sums run over integer multipoles. Supplying each
+        # one removes spectrum interpolation from an assembly comparison.
+        first, last = args.integer_ell_range
+        ell = np.arange(first, last + 1, dtype=float)
     snapshot = limber_spectra(
         interface=ci.covariance,
         ell=ell,
@@ -192,6 +204,11 @@ def main():
         "camb_source": revision(directory=cocoa / "external_modules" /
                                 "code" / "CAMB"),
         "gaussian": settings["gaussian"],
+        "ell_grid": {
+            "first": float(ell[0]), "last": float(ell[-1]),
+            "count": len(ell),
+            "spacing": "integer" if args.integer_ell_range else "log",
+        },
         "radial_nquad": settings["radial_nquad"],
         "nwindow": settings["nwindow"],
         "a_edges": settings["a_edges"].tolist(),
