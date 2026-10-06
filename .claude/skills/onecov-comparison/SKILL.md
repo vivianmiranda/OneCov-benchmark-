@@ -14,6 +14,16 @@ at their validated settings. Source-level performance observations only
 help budget affordable tests; they are not a request to rewrite the code.
 Do not put recommendations for speeding up OneCovariance in the README.
 Human documentation should explain matched inputs and relative differences.
+The README describes the current implementations and current cross-code
+measurements. Historical CoCoA cutoff scans and hypothetical alternative
+halo prescriptions belong only in skill references, not labeled historical
+sections of the README. See `references/historical_mass_cutoffs.md` and
+`references/historical_normalization.md` for those preserved studies.
+After the production Wynn adoption is validated and committed, refresh
+every current comparison plot, table, timing and associated README claim
+with the new CoCoA implementation before starting the Schmidt population
+study. Reuse unchanged OneCovariance inputs/results only with checked
+provenance; do not present stale CoCoA measurements as the new baseline.
 Report execution times and speed ratios in tables, not plots. Reserve
 figures for the covariance quantities and their differences between codes.
 
