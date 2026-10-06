@@ -1,0 +1,201 @@
+{
+  "scope": "native halo prescriptions; equality is not expected",
+  "export": {
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "source_sha256": "50cb48dc37044dd25b34414259b482e9d9ec6f73f77cea3831c8d9dd75452fed",
+    "config_sha256": "4bc37c27fd585f21373ef0d6bccbbed69cb027379b0bde84bfd7474979440261",
+    "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+    "inputs_sha256": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+    "mass_nodes": 800,
+    "redshifts": [
+      0.1,
+      0.5,
+      1.0
+    ],
+    "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+    "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+  },
+  "rows": [
+    {
+      "redshift": 0.1,
+      "sigma_fractional_range": [
+        -0.0003238297030538906,
+        -4.914151420010171e-05
+      ],
+      "dndlnm_fractional_range": [
+        0.004566428398178113,
+        0.007740077465537176
+      ],
+      "bias_fractional_range": [
+        -0.22748059260554498,
+        -0.22713133930908835
+      ],
+      "concentration_fractional_range": [
+        -0.2533654317593048,
+        0.07830154751470797
+      ],
+      "linear_fractional_range": [
+        -0.0021749565585966746,
+        0.002014726105604936
+      ],
+      "i11_fractional_range": [
+        -0.002732846335708028,
+        0.0012207418690455274
+      ],
+      "i02_fractional_range": [
+        0.005856265349606815,
+        0.043303215635994485
+      ],
+      "i12_fractional_range": [
+        -0.2228137662528059,
+        -0.17503614973171933
+      ],
+      "response_fractional_range": [
+        -0.14814454423893042,
+        0.03270555489087168
+      ],
+      "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
+      "nfw_matched_concentration_max_absolute": 1.270629801902734e-05
+    },
+    {
+      "redshift": 0.5,
+      "sigma_fractional_range": [
+        -0.0003044072074044335,
+        -2.9728195345857245e-05
+      ],
+      "dndlnm_fractional_range": [
+        0.024002837629671703,
+        0.027385127884159255
+      ],
+      "bias_fractional_range": [
+        -0.2880592668318843,
+        -0.28771202458337053
+      ],
+      "concentration_fractional_range": [
+        -0.24036958632775907,
+        0.09707028027815734
+      ],
+      "linear_fractional_range": [
+        -0.002134937997475328,
+        0.002054830283086728
+      ],
+      "i11_fractional_range": [
+        -0.011590088588564695,
+        -2.093132334124448e-10
+      ],
+      "i02_fractional_range": [
+        0.025409274598871656,
+        0.06052499187086302
+      ],
+      "i12_fractional_range": [
+        -0.2698317948159489,
+        -0.22720995339469974
+      ],
+      "response_fractional_range": [
+        -0.21149803102158604,
+        0.0826857382465711
+      ],
+      "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
+      "nfw_matched_concentration_max_absolute": 1.3324818601556654e-05
+    },
+    {
+      "redshift": 1.0,
+      "sigma_fractional_range": [
+        -0.0002958594116205804,
+        -2.120074655376225e-05
+      ],
+      "dndlnm_fractional_range": [
+        0.04547469614069488,
+        0.04936189017226833
+      ],
+      "bias_fractional_range": [
+        -0.35845265690204864,
+        -0.35811400739529775
+      ],
+      "concentration_fractional_range": [
+        -0.2748589977524779,
+        0.04725999050711249
+      ],
+      "linear_fractional_range": [
+        -0.002135987951803031,
+        0.0020535585726384475
+      ],
+      "i11_fractional_range": [
+        -0.018168885135692703,
+        -5.453925089327072e-10
+      ],
+      "i02_fractional_range": [
+        0.03207779282444956,
+        0.049314840083581
+      ],
+      "i12_fractional_range": [
+        -0.3333806675009521,
+        -0.324680066606745
+      ],
+      "response_fractional_range": [
+        -0.25836094929355735,
+        0.15130813779502916
+      ],
+      "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
+      "nfw_matched_concentration_max_absolute": 1.3855390691597247e-05
+    }
+  ],
+  "integration_accuracy": 2,
+  "core": {
+    "commit": "927748b6916d069c01b3d8d762015defc502617d",
+    "status": ""
+  },
+  "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+  "script_sha256": "5787502db0e7b7b10b63267c01dd2ad74092697f27f4f0b94abbe793a12082e2",
+  "statistic_mass_range": [
+    10000000000.0,
+    1000000000000000.0
+  ],
+  "statistic_k_range": [
+    0.001,
+    10
+  ],
+  "cocoa_density": 83256005000.70885,
+  "onecov_density": [
+    83260988173.74922,
+    83260988173.74922,
+    83260988173.74922
+  ],
+  "native_choices": "Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m, matter moment lower mass 1e6; fractional response transferred to nonlinear P",
+  "convergence": {
+    "onecov_200_to_400": {
+      "i11": 0.00011928801301830383,
+      "i02": 0.0001711373604342814,
+      "i12": 0.00017290963120841774,
+      "response": 0.00016733098501853227
+    },
+    "onecov_400_to_800": {
+      "i11": 7.334122282820488e-06,
+      "i02": 1.0978058276434055e-05,
+      "i12": 1.169747484186523e-05,
+      "response": 1.0537238333552246e-05
+    },
+    "cocoa_96_to_256": {
+      "i11": 4.276559217863962e-08,
+      "i02": 1.4442023243965707e-07,
+      "i12": 3.972570750132576e-07,
+      "response": 2.0186701066293722e-07
+    }
+  },
+  "onecov_bias_normalizations": [
+    0.7725061668012478,
+    0.7119279514932214,
+    0.6415334357905156
+  ],
+  "files_sha256": {
+    "work/halo_onecov_200/inputs.npz": "4263235a99f8cd28a043d3808597121ddd4a2063fc264a6903e01e7fba0ab8a9",
+    "work/halo_onecov_400/inputs.npz": "b2e108b35c0ce380fa92d8dada08b6b96c3bd8547bf3d4108efb5006dc7df7d7",
+    "work/halo_onecov_800/inputs.npz": "c0b1f02b2c617fc7d48a0045fff2f34f8354bee720f6fc1a703086394fedfd30",
+    "work/halo_cocoa_96/cocoa.npz": "e12baee25ccc997aa9b1f7ffee66199511bda0c4cf89e670b1c7f495c8a94b12",
+    "work/halo_cocoa_256/cocoa.npz": "e03c720f0895f92779b3d25f0d1e43c9b85b293fbab81be39ea485e18d1400da",
+    "work/halo_cocoa_matched_800/cocoa.npz": "97a1fb543bb5f174a6ffb997223fbe9b27f0682a6a530160c292859a3b14f895"
+  }
+}

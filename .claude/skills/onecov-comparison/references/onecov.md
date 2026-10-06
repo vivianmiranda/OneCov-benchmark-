@@ -233,3 +233,55 @@ Next: match the survey-window convention and projected shear response,
 then assess response/mass-grid and radial convergence separately. Native
 matter integrals temporarily extend the lower halo mass to 10^2 Msun/h;
 their true integration range cannot be inferred from the INI's M_min alone.
+
+## Shared SSC projection, 2026-10-05
+
+`compare_ssc.py` runs the unchanged OneCov `covELL_ssc`, then feeds its
+actual shell response, linear long-mode power, lensing window and Simpson
+radial rule to Cocoa's production kernels. `capture_native.py` passively
+reads named locals at function return using Python's profiler. It does
+not replace methods or alter arithmetic. Its instrumented elapsed times
+are diagnostic costs, never an uninstrumented performance comparison.
+
+Six 100x100 shear matrices at ell=30..3000 agree within 6.47e-15 in
+|delta C_ij|/sqrt(C_ii C_jj). All are symmetric and positive definite.
+Radial grids 300,601,1201 were checked; at delta_z=0.05 the 1201->2401
+change is 4.01e-5. At 2401 nodes delta_z=0.05->0.025 changes the matrix
+by 4.27e-4. This does not establish halo/power-grid or Fisher convergence.
+The native input reader can enlarge an underspecified ell grid; always
+archive actual model.ellrange, not merely the requested ell_bins.
+
+OneCov's pixelized cap has monopole area 0.048998% below the nominal
+12300 deg^2 area. The comparison supplies that monopole area to Cocoa's
+raw-mask guard, then explicitly restores OneCov's nominal area squared
+normalization. This adapter is only unit/normalization matching. Replacing
+the mask with Cocoa's analytic cap at the same nominal area and L_max=3070
+changes the shared SSC by at most 0.0395%. No numerical source is edited.
+
+Results: `results/ssc_projection_20261005.json`; plot and reproduction in
+README. The source inputs/results are preserved under work/ssc_projection_*
+and work/ssc_comparison_*. Earlier smoke/failure folders remain preserved.
+
+## Native halo comparison
+
+`compare_halo.py` evaluates the native models at z=0.1,0.5,1, avoiding
+the core halo reader's excluded a=1 endpoint. OneCov mass nodes were
+200,400,800; Cocoa mass GL rules were 96 and 256 per panel. Over
+k=0.001..10, the final OneCov refinement changes I11/I02/I12/response by
+<=1.17e-5, the Cocoa refinement by <=3.98e-7. Native differences persist.
+
+The bias formula at equal nu agrees to 5.56e-16. OneCov divides its raw
+Tinker bias by norm_bias=0.772506,0.711928,0.641533 from a finite range.
+Cocoa leaves the raw bias and normalizes f(nu) through int b f dnu=1.
+OneCov's I11 multiplies the normalized bias by norm_bias again and adds
+an unresolved-mass completion; I12/I13 retain the normalized bias. Do not
+assume that matching the label Tinker10 matches the moments.
+
+OneCov uses Duffy08; Cocoa Bhattacharya13. Also record the small density
+constant difference: 8.326098817e10 versus 8.325600500e10 in Msun/h per
+(Mpc/h)^3. With supplied equal concentration, max absolute NFW difference
+is 1.39e-5 over the export; it is not a native-concentration agreement.
+Native dP/ddelta_b differs by up to about 15%,21%,26% over the sampled k
+range, including concentration, bias normalization and fractional transfer.
+No model is silently retuned. Next compare separated trispectrum terms,
+using shared inputs to distinguish assembly from these halo choices.

@@ -1,0 +1,258 @@
+{
+  "scope": "shared-input shear SSC projection; not independent native forecasts",
+  "cases": {
+    "300": {
+      "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+      "export": {
+        "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "config_sha256": "4a15024d30a7779aa3e7f974f1d73227343cd1954b206d3f457592401d2938b5",
+        "inputs_sha256": "16fcf6a793c1ef7c1114daf78ee05a258540e390d565dce6a887f22502f990ec",
+        "radial_nodes": 300,
+        "response_redshifts": 34,
+        "mass_nodes": 200,
+        "shape": [
+          100,
+          100
+        ],
+        "setup_seconds": 11.482498541008681,
+        "instrumented_ssc_seconds": 7.641242916986812,
+        "timing_note": "includes passive local-array capture; not a benchmark",
+        "omp_threads": 8
+      },
+      "max_variance_scaled_difference": 2.1660229208905687e-15,
+      "mask_variance_max_fractional_difference": 8.104628079763643e-15,
+      "analytic_cap_max_variance_scaled_change": 0.0003946287606914187,
+      "pixel_area_fractional_difference": -0.0004899757142089456,
+      "minimum_simpson_weight": 0.06869239509623097,
+      "minimum_ssc_correlation_eigenvalue": 4.112035840523899e-11,
+      "max_ssc_correlation_asymmetry": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+      "passed": true,
+      "remaining": "independent halo responses, radial and interpolation convergence"
+    },
+    "601": {
+      "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+      "export": {
+        "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "config_sha256": "80c81ded24da654a4a162b35c4c12e39138db876526796815161be9b6799e3dd",
+        "inputs_sha256": "417c912e6f0e5316359884a40064dade0de5105bcf64fe0281773f5226976959",
+        "radial_nodes": 601,
+        "response_redshifts": 34,
+        "mass_nodes": 200,
+        "shape": [
+          100,
+          100
+        ],
+        "setup_seconds": 11.407786958036013,
+        "instrumented_ssc_seconds": 8.670287707995158,
+        "timing_note": "includes passive local-array capture; not a benchmark",
+        "omp_threads": 8
+      },
+      "max_variance_scaled_difference": 3.0281714431240625e-15,
+      "mask_variance_max_fractional_difference": 7.993605777301127e-15,
+      "analytic_cap_max_variance_scaled_change": 0.000394624892065251,
+      "pixel_area_fractional_difference": -0.0004899757142089456,
+      "minimum_simpson_weight": 0.034241093462503994,
+      "minimum_ssc_correlation_eigenvalue": 7.631600534671816e-10,
+      "max_ssc_correlation_asymmetry": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+      "passed": true,
+      "remaining": "independent halo responses, radial and interpolation convergence"
+    },
+    "1201": {
+      "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+      "export": {
+        "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "config_sha256": "27e5ef5f80790fbd5bad2e292ea32d3313ceea067a7bd5a95d1357f0951becd8",
+        "inputs_sha256": "2f1109a502372281014b0d9a05da3f2aa538bfaf3d40c84ccb9e402590d074d1",
+        "radial_nodes": 1201,
+        "response_redshifts": 34,
+        "mass_nodes": 200,
+        "shape": [
+          100,
+          100
+        ],
+        "setup_seconds": 11.312074957997538,
+        "instrumented_ssc_seconds": 10.79634120798437,
+        "timing_note": "includes passive local-array capture; not a benchmark",
+        "omp_threads": 8
+      },
+      "max_variance_scaled_difference": 4.0145867727344335e-15,
+      "mask_variance_max_fractional_difference": 9.547918011776346e-15,
+      "analytic_cap_max_variance_scaled_change": 0.00039462617207067284,
+      "pixel_area_fractional_difference": -0.0004899757142089456,
+      "minimum_simpson_weight": 0.017121692517894593,
+      "minimum_ssc_correlation_eigenvalue": 8.243270247186632e-10,
+      "max_ssc_correlation_asymmetry": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+      "passed": true,
+      "remaining": "independent halo responses, radial and interpolation convergence"
+    },
+    "zfine": {
+      "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+      "export": {
+        "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "config_sha256": "e4f275d8953574cd0fe10a8b9b2269cc1ee9470201542e56fab46320198ef85d",
+        "inputs_sha256": "eac3ae11af256072947cf87d9307884bef275c5f249142ec64d6bf4cadb204d9",
+        "radial_nodes": 1201,
+        "response_redshifts": 69,
+        "mass_nodes": 200,
+        "shape": [
+          100,
+          100
+        ],
+        "setup_seconds": 12.370753124996554,
+        "instrumented_ssc_seconds": 14.669586666976102,
+        "timing_note": "includes passive local-array capture; not a benchmark",
+        "omp_threads": 8
+      },
+      "max_variance_scaled_difference": 4.450260585643564e-15,
+      "mask_variance_max_fractional_difference": 9.880984919163893e-15,
+      "analytic_cap_max_variance_scaled_change": 0.0003946189338707324,
+      "pixel_area_fractional_difference": -0.0004899757142089456,
+      "minimum_simpson_weight": 0.017121692517894593,
+      "minimum_ssc_correlation_eigenvalue": 8.321448025249932e-10,
+      "max_ssc_correlation_asymmetry": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+      "passed": true,
+      "remaining": "independent halo responses, radial and interpolation convergence"
+    },
+    "radialfine": {
+      "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+      "export": {
+        "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "config_sha256": "4507c49bc7f6d859faa7a7a898b3dbaa8058726511f79c8f9af8964dba39749f",
+        "inputs_sha256": "9e7a0200bea99384025b361761e6e0818b3f060a86c8625a76936abe3610154a",
+        "radial_nodes": 2401,
+        "response_redshifts": 69,
+        "mass_nodes": 200,
+        "shape": [
+          100,
+          100
+        ],
+        "setup_seconds": 12.435281791957095,
+        "instrumented_ssc_seconds": 19.423583124997094,
+        "timing_note": "includes passive local-array capture; not a benchmark",
+        "omp_threads": 8
+      },
+      "max_variance_scaled_difference": 6.466958622768926e-15,
+      "mask_variance_max_fractional_difference": 1.1102230246251565e-14,
+      "analytic_cap_max_variance_scaled_change": 0.000394618841615598,
+      "pixel_area_fractional_difference": -0.0004899757142089456,
+      "minimum_simpson_weight": 0.008560988454522887,
+      "minimum_ssc_correlation_eigenvalue": 8.333510236804222e-10,
+      "max_ssc_correlation_asymmetry": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+      "passed": true,
+      "remaining": "independent halo responses, radial and interpolation convergence"
+    },
+    "zfiner": {
+      "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+      "export": {
+        "scope": "unbinned shear SSC; native OneCov inputs shared with Cocoa",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "config_sha256": "a50b0bf42bd8b1302c940e08ddeb36aa19b59928d21a0c30763dfd309ec33174",
+        "inputs_sha256": "76f35d12f523c70fbb16acf7d8bdb8efcf8a00d002b68fbbbd7fcec126aa6c3c",
+        "radial_nodes": 2401,
+        "response_redshifts": 139,
+        "mass_nodes": 200,
+        "shape": [
+          100,
+          100
+        ],
+        "setup_seconds": 14.725673749984708,
+        "instrumented_ssc_seconds": 28.81629674998112,
+        "timing_note": "includes passive local-array capture; not a benchmark",
+        "omp_threads": 8
+      },
+      "max_variance_scaled_difference": 5.178839209278989e-15,
+      "mask_variance_max_fractional_difference": 1.1213252548714081e-14,
+      "analytic_cap_max_variance_scaled_change": 0.0003946126863646833,
+      "pixel_area_fractional_difference": -0.0004899757142089456,
+      "minimum_simpson_weight": 0.008560988454522887,
+      "minimum_ssc_correlation_eigenvalue": 8.3518099295449e-10,
+      "max_ssc_correlation_asymmetry": 0.0,
+      "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+      "script_sha256": "64a32cd183484fea8b6bcfde89d6acfe7cdd42392bbd5f1ef78ebd73c66a5040",
+      "passed": true,
+      "remaining": "independent halo responses, radial and interpolation convergence"
+    }
+  },
+  "refinements": [
+    {
+      "coarse": "300",
+      "fine": "601",
+      "max_variance_scaled_difference": 0.0004301375599834487,
+      "max_diagonal_fractional_difference": 0.00043013755998355663
+    },
+    {
+      "coarse": "601",
+      "fine": "1201",
+      "max_variance_scaled_difference": 0.00041220212784702964,
+      "max_diagonal_fractional_difference": 0.0004122021278469834
+    },
+    {
+      "coarse": "1201",
+      "fine": "zfine",
+      "max_variance_scaled_difference": 0.0018313923838263536,
+      "max_diagonal_fractional_difference": 0.0018313923838264579
+    },
+    {
+      "coarse": "zfine",
+      "fine": "radialfine",
+      "max_variance_scaled_difference": 4.006028946856006e-05,
+      "max_diagonal_fractional_difference": 3.99374672044317e-05
+    },
+    {
+      "coarse": "radialfine",
+      "fine": "zfiner",
+      "max_variance_scaled_difference": 0.00042722709809732255,
+      "max_diagonal_fractional_difference": 0.00042722709809739357
+    }
+  ],
+  "ell_range": [
+    30.0,
+    3000.0
+  ],
+  "observer": "passive return-local capture; OneCov numerical source unchanged"
+}

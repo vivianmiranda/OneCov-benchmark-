@@ -37,8 +37,9 @@ $`C_{\mathrm{OneCov}}v=\lambda C_{\mathrm{Cocoa}}v`$, expressed as a percentage.
 See the [comparison record](results/gaussian_assembly_20261005.json) and
 [reproduction steps](#matched-gaussian). This establishes the Gaussian
 contractions, noise normalization and binning for **shared spectra**.
-It does not establish agreement of native spectra, SSC, cNG or real-space
-covariances. The [earlier functional pilots](results/functional_pilots_20261005.json)
+It does not establish agreement of native spectra or halo ingredients.
+The [SSC comparison](#ssc-comparison) separately tests the projected
+super-sample contribution. The [earlier functional pilots](results/functional_pilots_20261005.json)
 confirmed that the small native G, G+SSC and G+cNG paths run; their physical
 and numerical comparison remains ahead. The timing comparison below covers
 Gaussian components and band averaging only.
@@ -51,6 +52,8 @@ Gaussian components and band averaging only.
 4. [Installation and compilation](#installation)
 5. [Reproducing the comparison](#reproduction)
 6. [Matched Gaussian assembly](#matched-gaussian)
+7. [SSC comparison](#ssc-comparison)
+8. [Halo-model ingredients](#halo-comparison)
 
 ## Scope <a name="scope"></a>
 
@@ -531,7 +534,44 @@ python scripts/plot_gaussian.py --comparisons work/reviewed_gaussian \
 This writes PNG and PDF versions of the matrix and component figures.
 Execution times are reported in the table above.
 
-### Adding SSC and connected non-Gaussian contributions
+## SSC comparison <a name="ssc-comparison"></a>
+
+The projected comparison covers a **100×100 shear SSC matrix** for LSST
+Y1 source bin 3, at multipoles from 30 to 3000. CoCoA and OneCov use the
+same matter responses, linear power, radial samples and lensing window.
+The matrix includes off-diagonal multipole correlations. This isolates
+projection from differences in the two codes' halo prescriptions.
+
+The codes agree to floating-point precision. Replacing only OneCov's
+pixelized spherical-cap footprint with CoCoA's analytic cap changes the
+matrix by at most **0.040%**, at the same area and mask multipole cutoff.
+The metric is $`|\Delta C_{ij}|/\sqrt{C_{ii}C_{jj}}`$; no diagonal-only
+agreement is assumed. See the
+[SSC projection record](results/ssc_projection_20261005.json).
+
+![SSC projection comparison](results/figures/ssc_projection.png)
+
+[Vector figure](results/figures/ssc_projection.pdf).
+
+Refining the shared calculation gives the following largest matrix
+changes, using the finer matrix's diagonal for normalization:
+
+| Refinement | Largest SSC change |
+| --- | ---: |
+| Radial nodes: 300 → 601 | 0.0430% |
+| Radial nodes: 601 → 1201 | 0.0412% |
+| Response redshift spacing: 0.1 → 0.05, at 1201 radial nodes | 0.1831% |
+| Radial nodes: 1201 → 2401, at spacing 0.05 | 0.0040% |
+| Response redshift spacing: 0.05 → 0.025, at 2401 radial nodes | 0.0427% |
+
+Every shared-input CoCoA–OneCov comparison agrees within
+$`7\times10^{-15}`$ in the same metric, and all six SSC matrices are
+positive definite. These tests establish the shared-input projection;
+halo mass/power sampling and native response choices still require their
+own comparisons. Small SSC entries and Fisher information are not
+certified by the diagonal-normalized convergence metric alone.
+
+### Matter-power response
 
 The first SSC ingredient comparison now checks the **matter-power
 response**, $`D=\partial P/\partial\delta_b`$: how power changes inside a
@@ -567,6 +607,68 @@ python scripts/ssc_response.py export work/assembly_shear_30_150/onecov.ini \
 ```bash
 python scripts/ssc_response.py compare work/ssc_response_onecov \
   --output work/ssc_response_comparison
+```
+
+## Halo-model ingredients <a name="halo-comparison"></a>
+
+The native halo prescriptions **do not produce identical inputs**. We
+compare $`z=0.1,0.5,1`$, masses $`10^{10}`$–$`10^{15}\,M_\odot/h`$, and
+wavenumbers $`0.001`$–$`10\,h/\mathrm{Mpc}`$. The following are the largest
+absolute differences in CoCoA/OneCov minus one over those sampled ranges:
+
+| Quantity | z = 0.1 | z = 0.5 | z = 1 |
+| --- | ---: | ---: | ---: |
+| Mass rms fluctuation, sigma(M) | 0.033% | 0.031% | 0.030% |
+| Halo abundance, dn/dlnM | 0.8% | 2.8% | 5.0% |
+| Native halo bias | 22.8% | 28.9% | 35.9% |
+| Native matter-power response | 14.9% | 21.2% | 25.9% |
+
+The raw [Tinker et al. (2010)](https://arxiv.org/abs/1001.3162) bias
+formulas agree within $`6\times10^{-16}`$ when evaluated at the same
+peak height. OneCov then divides the bias by a finite-mass-range
+normalization, measured here as 0.7725, 0.7119 and 0.6415. CoCoA instead
+sets the multiplicity normalization through its bias-consistency integral.
+These choices explain the large bias offset; it is not a disagreement
+in the underlying bias formula.
+
+The concentration choices also differ: OneCov uses
+[Duffy et al. (2008)](https://arxiv.org/abs/0804.2486), while CoCoA uses
+[Bhattacharya et al. (2013)](https://arxiv.org/abs/1112.5479).
+At the same supplied concentration, the NFW profiles differ by less than
+$`1.4\times10^{-5}`$ absolutely over the exported grid. The native moment
+mass limits and SSC response transfer remain different, as described above.
+
+![Native halo ingredients](results/figures/halo_ingredients.png)
+
+[Vector figure](results/figures/halo_ingredients.pdf) ·
+[Detailed results](results/halo_ingredients_20261005.json).
+
+Mass-integration refinement is much smaller than these native differences.
+For I11, I02, I12 and the response, OneCov's 400 → 800 mass-node change is
+at most **0.0012%**; CoCoA's 96 → 256 nodes per mass panel changes them by
+at most **0.000040%**. This checks the mass integration at the supplied
+power resolution; it does not certify either prescription's physical accuracy.
+
+**Step :one:**: in the **OneCov terminal**, export the halo quantities.
+
+```bash
+python scripts/compare_halo.py export work/shear_ssc/onecov.ini \
+  --mass-nodes 800 --output work/halo_onecov_800
+```
+
+**Step :two:**: in the **Cocoa terminal**, evaluate the corresponding
+CoCoA quantities at the same redshifts, masses and wavenumbers.
+
+```bash
+python scripts/compare_halo.py compare work/halo_onecov_800 \
+  --integration-accuracy 2 --output work/halo_cocoa_matched_800
+```
+
+**Step :three:**: in either terminal, make the halo comparison figure.
+
+```bash
+python scripts/plot_halo.py work/halo_onecov_800 work/halo_cocoa_matched_800 \
+  --output results/figures
 ```
 
 ### Running the projected non-Gaussian pilots
@@ -619,7 +721,41 @@ python scripts/run_onecov.py \
 python scripts/check_result.py work/shear_ssc
 ```
 
-**Step :six:**: compute the shear Gaussian and connected contributions.
+### Reproducing the SSC matrix comparison
+
+After the shear SSC pilot above, use the two prepared environments.
+
+**Step :one:**: in the **OneCov terminal**, export its SSC matrix and
+the inputs used by its projection.
+
+```bash
+python scripts/compare_ssc.py export work/shear_ssc/onecov.ini \
+  --output work/ssc_projection_300
+```
+
+**Step :two:**: in the **Cocoa terminal**, compute the same matrix with
+CoCoA's production kernels and compare every entry.
+
+```bash
+python scripts/compare_ssc.py compare work/ssc_projection_300 \
+  --output work/ssc_comparison_300
+```
+
+**Step :three:**: in either terminal, make the covariance comparison plot.
+
+```bash
+python scripts/plot_ssc.py work/ssc_comparison_300 --output results/figures
+```
+
+Use `--radial-nodes`, `--delta-z` and `--mass-nodes` on the export to
+refine one numerical input at a time, saving each run in a new directory.
+The comparison uses OneCov's actual radial integration rule in both codes.
+Native halo inputs and response prescriptions are separate comparisons.
+
+### Running a connected non-Gaussian pilot
+
+**Step :one:**: in the **OneCov terminal**, compute the shear Gaussian and
+connected contributions.
 
 ```bash
 python scripts/run_onecov.py \
@@ -627,7 +763,7 @@ python scripts/run_onecov.py \
   --output work/shear_connected --timeout 600
 ```
 
-**Step :seven:**: check the saved Gaussian plus connected covariance.
+**Step :two:**: check the saved Gaussian plus connected covariance.
 
 ```bash
 python scripts/check_result.py work/shear_connected
