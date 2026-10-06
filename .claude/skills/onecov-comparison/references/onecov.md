@@ -1,5 +1,60 @@
 # Local OneCovariance source study
 
+## Low-mass cutoff study: scope
+
+The requested study reduces the finite-range I11 completion by integrating
+more low-mass halos explicitly. Keep CoCoA's multiplicity normalization,
+fitted bias, concentration and additive minimum-mass-profile prescription
+unchanged. This is not a request to reconcile the two codes by changing
+either halo model or to adopt a different normalization convention.
+
+Use an isolated LSST build with only its halo-table lower mass boundary
+extended from 1e6 to 1e2 Msun/h. Keep the installed interface and repository
+C/C++ sources unchanged. Compare integration cutoffs 1e6, 1e4 and 1e2
+using the same wide sigma table, preserving every original mass panel.
+Refine GSL mass quadrature and internal tables separately. Record missing
+bias-weighted response, corrected moments, SSC response, separate 1h--4h
+terms, and repeated ingredient times. Check the original-domain build at
+the original cutoff to identify mass-table regridding effects.
+
+The supplied CAMB table ends near 143 h/Mpc; the native edge continuation
+is held fixed. Check the sigma integration tail using that same continued
+power. Extending its numerical range does not physically calibrate the
+extrapolated small-scale spectrum or low-mass halo fits. Do not infer
+survey/Fisher convergence from the ingredient study or interpret a large
+completion weight as an equally large prediction error.
+
+Completed record: `results/mass_cutoff_20261006.json`. At z=0.1,0.5,1,
+lowering M_min from 1e6 to 1e2 changes missing weights from
+[0.216486,0.262624,0.319728] to [0.166180,0.205728,0.255131]. At z=1 this
+is a 20.2% reduction of the correction, not a 20.2% covariance change.
+Over k<=10 h/Mpc, corrected I11 changes <=0.00111% and the summed
+trispectrum <=0.00123%; over k<=100 these are 0.1795% and 0.2866%.
+The 1e4-to-1e2 changes are about 25 times smaller than 1e6-to-1e4.
+The isolated 4h term can change 0.7161% over the larger k interval.
+Corrected k=0 moments are exactly one in the saved outputs.
+
+All cutoffs share one table domain, all original mass panels, supplied
+power hashes and angular averages. GSL256->512 changes moments/terms
+<=3.16e-7 fractionally; internal boost4->8 <=9.46e-6. Their common
+errors cancel in cutoff differences: the largest contrast shift is
+1.81e-9 fractionally. Original-versus-expanded table domain at the same
+1e6 cutoff changes ingredients <=1.23e-5 fractionally; keep this separate.
+
+At masses 1e6,1e4,1e2, respectively, about 5.44%,40.52%,65.07% of sigma^2
+comes from above the supplied k endpoint. OneCov's native hmf filter on
+the same continued power confirms the 1e5->1e7 integration-tail change
+in sigma is <=3.48e-8 fractionally; it agrees with core sigma within
+1.93e-6. This validates numerical coverage of the chosen continuation,
+not its physical accuracy. Do not describe the lower-cutoff run as a
+calibrated improvement to small-halo physics or as a new production default.
+
+Halo moments only, 3 redshifts x 41 k x 861 unordered pairs, GL512:
+11-repeat mean/stddev at 8 threads are 5.58+/-0.55,7.14+/-0.82,
+9.17+/-1.33 ms at the three cutoffs. These exclude first-use tables,
+power/tree/response generation and survey projection. No production C/C++
+source, installed interface or OneCov numerical code was changed.
+
 Studied 2026-10-05 at OneCovariance commit `311c2cf`. Paths below are
 relative to that checkout. These are implementation findings, not measured
 agreement with CoCoA. Recheck contracts if the checkout changes.
