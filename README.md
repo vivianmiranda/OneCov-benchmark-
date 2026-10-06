@@ -683,9 +683,55 @@ their fractional abundance changes, to first order, by $`b(M)\delta_b`$.
 This is the **halo bias inside the matter integrals**, distinct from the
 linear galaxy bias that multiplies a projected galaxy window.
 
-Write the fraction of matter in halos in a peak-height interval as
-$`f(\nu)\,d\nu`$, where $`\nu=\delta_c/\sigma(M,z)`$.
-Summing their responses with these mass weights should recover the
+#### What the multiplicity function means
+
+The **halo mass function**, $`dn/dM`$, counts halos: it gives the number
+per comoving volume per interval of halo mass. The **multiplicity
+function**, $`f(\nu)`$, describes the same population using *fractions
+of the total matter mass*, with peak height rather than mass as its argument.
+
+Peak height is $`\nu=\delta_c/\sigma(M,z)`$. Here $`\sigma(M,z)`$ is
+the rms linear density fluctuation after smoothing over a region that
+contains mass M, and $`\delta_c\simeq1.686`$ is the spherical-collapse
+threshold. Large nu means collapse requires an unusually large fluctuation;
+those halos are rare. At a fixed redshift, increasing halo mass generally
+increases nu.
+
+In the convention used here, **$`f(\nu)\,d\nu`$ is the fraction of
+matter assigned to halos in the interval from nu to nu+dnu**. For example,
+an integral of 0.1 over a particular peak-height interval would assign
+10% of the matter mass to those halos. It would not mean that they are
+10% of the halos by number: one massive halo contains much more matter
+than one small halo.
+
+The conversion to halo counts is
+
+$$
+\frac{dn}{dM}
+=\frac{\bar\rho_m}{M}\,f(\nu)\frac{d\nu}{dM}.
+$$
+
+The density times the mass fraction gives matter mass per volume;
+dividing by M converts it to a number of halos. The derivative changes
+the interval from peak height to halo mass. Equivalently,
+$`(M/\bar\rho_m)(dn/dM)\,dM=f(\nu)\,d\nu`$.
+The benchmark uses massless neutrinos, so the mean matter density here
+also equals the mean cold-matter-plus-baryon density.
+
+If the model assigns all matter to halos, its mass normalization is
+$`\int f(\nu)\,d\nu=1`$. This is different from the **bias-weighted**
+normalization below. Multiplying f by a common amplitude changes the
+predicted abundance at every mass; it does not change the bias assigned
+to an individual halo.
+
+Conventions vary across papers and libraries: some quote mass fraction
+per logarithmic peak height, $`\nu f(\nu)\,d\ln\nu`$, or use a function
+of sigma instead. The measure must be converted with the function.
+All integrals in this section use f per unit nu, as defined above.
+
+#### Why the bias-weighted integral should be one
+
+Summing the halo responses with these mass weights should recover the
 response of matter itself: matter has bias one relative to itself.
 This gives the consistency condition
 
@@ -699,16 +745,28 @@ requirement that the same integral over any truncated mass range equal one.
 
 Suppose a numerical table excludes low-mass halos. The integral over the
 remaining halos can fall below one even when the complete model satisfies
-the condition. Dividing all remaining biases by that smaller integral
-makes up the missing response by increasing the response of *every retained
-halo*. Adding the unresolved low-mass contribution separately is a different
-choice; these two treatments need not give the same small-scale covariance.
+the condition. The tested codes handle this as follows:
+
+- **OneCov:** its bias routine divides the fitted halo bias by the
+  finite-range bias integral. This increases the response of every retained
+  halo. I12 and I13 use that rescaled bias. Its I11 routine cancels the
+  rescaling and adds a separate contribution for unresolved low-mass halos.
+- **CoCoA:** it keeps the fitted halo bias unchanged and normalizes the
+  multiplicity function through the full bias-weighted integral. Its
+  covariance I11 routine also adds a separate unresolved contribution,
+  assigning the missing response to the profile at the minimum halo mass.
+  It does not divide the biases in I12 or I13 by a finite-range integral.
+
+Thus, **both codes add an unresolved contribution to I11**. The key
+difference discussed here is the bias rescaling retained by OneCov's
+higher moments, together with the different multiplicity normalization.
+The moments and their consequences for the covariance are explained below.
 
 Evaluating the two codes' fitted functions over an extended peak-height
 range gives the bias integral $`\int b(\nu)f(\nu)\,d\nu`$ below.
 The finite-range divisor is denoted by N; its inverse multiplies the bias.
 
-| Redshift | OneCov bias integral | OneCov divisor N | Bias multiplier 1/N | CoCoA bias integral |
+| Redshift | OneCov raw-bias integral | OneCov divisor N | Bias multiplier 1/N | CoCoA normalized integral |
 | ---: | ---: | ---: | ---: | ---: |
 | 0.1 | 0.993555 | 0.772506 | 1.29449 | 1.000000 |
 | 0.5 | 0.974448 | 0.711928 | 1.40464 | 1.000000 |
@@ -771,6 +829,70 @@ amplitude. Its mass-only integral $`\int f\,d\nu`$ is then 1.00649,
 normalization. These are different modeling choices, not interchangeable
 implementations of one fit. Integrating extrapolated fits is a consistency
 diagnostic, not evidence that the fits are calibrated at arbitrarily low mass.
+
+#### Why CoCoA's integral equals one
+
+**CoCoA's value 1.000000 is imposed by its normalization. It is not an
+integration-accuracy score.** The code starts with the fitted shape of
+the multiplicity function, then chooses its amplitude using the fitted
+halo bias. If that unnormalized shape is $`\widetilde f`$, the calculation
+is
+
+$$
+A(z)=\left[\int_0^\infty b(\nu)\widetilde f(\nu,z)\,d\nu\right]^{-1},
+\qquad f(\nu,z)=A(z)\widetilde f(\nu,z).
+$$
+
+Substituting this definition back into the bias integral gives
+
+$$
+\int b f\,d\nu
+=\frac{\int b\widetilde f\,d\nu}
+       {\int b\widetilde f\,d\nu}=1.
+$$
+
+The fitted bias of an individual halo is unchanged. Instead, the
+abundance assigned to every halo mass is multiplied by the common
+amplitude A. This enforces the desired large-scale matter response.
+In the halo model, the two-halo matter power contains
+$`[I_1^1(k)]^2P_L(k)`$; the complete-mass limit $`I_1^1(0)=1`$ gives
+the linear power on sufficiently large scales. Finite mass integrations
+still need to account for halos outside their limits.
+
+**A worked example.** At redshift one, the extended OneCov fit has
+mass integral one and raw-bias integral approximately 0.953907. Changing
+only its multiplicity amplitude by a factor of
+$`1/0.953907\simeq1.04832`$ would make the bias integral one, while
+making the mass integral approximately 1.04832. This illustrates the
+tradeoff seen in CoCoA's reported normalization: one common amplitude
+cannot generally force both differently weighted integrals to one.
+
+The three numbers at redshift one therefore answer different questions:
+
+| Value | What was integrated or imposed? | Interpretation |
+| ---: | --- | --- |
+| 0.953907 | Extended OneCov multiplicity times raw halo bias | The fitted functions, with their chosen mass normalization, do not give exactly unit bias normalization. |
+| 0.641533 | OneCov's finite-range raw-bias integral | The numerical mass interval also excludes halo response outside that interval. |
+| 1.000000 | CoCoA's bias-normalized multiplicity times raw halo bias | The multiplicity amplitude was chosen to enforce this condition. |
+
+**What would demonstrate better numerical integration?** Keep the
+integrand and its limits fixed, increase the numerical resolution, and
+check that the result stabilizes. That test was performed separately
+by doubling the peak-height integration grid; the displayed values are
+stable. Resolving a fixed interval more finely cannot restore the halos
+outside it.
+
+To test whether the *range* is sufficient, extend the limits while
+keeping the fitted functions fixed. Our extended-range diagnostic does
+this for the mathematical fits. It does not establish that these fits
+remain physically calibrated at arbitrarily low masses.
+
+Thus, the appropriate range depends on the question: the normalization
+condition refers to the full modeled halo population, while a finite
+halo table covers a restricted population whose missing contribution
+must be treated explicitly. CoCoA's unit result confirms its chosen
+normalization in this test; it does not by itself establish better
+quadrature, more accurate halo abundances, or a more accurate covariance.
 
 The [normalization record](results/bias_normalization_20261006.json)
 includes the doubled-grid check. To reproduce it:
