@@ -1782,6 +1782,193 @@ but this test supplies no practical covariance-accuracy reason to replace
 the production 10⁴ cutoff with 10⁻³. The numerical tail can be integrated
 accurately; the small-halo modeling assumptions remain a separate issue.
 
+### A cheap split integral down to 10⁻²⁰
+
+**A 32-node low-mass tail works well in this diagnostic.** The ordinary
+integral above 10⁴ keeps its ten panels and 96 nodes per panel. A second
+integral covers 10⁻²⁰ to 10⁴ with only **32 nodes total**. Its halo weights,
+profiles and additive completion use the same native C calculations.
+The completion is applied once, after summing both pieces.
+
+The comparison uses an isolated build. The production minimum of 64
+quadrature nodes and production mass cutoff of 10⁴ remain unchanged.
+
+We compare three ways to integrate the added tail:
+
+- **One interval:** 32 nodes across all 24 mass decades.
+- **Successive intervals:** six four-decade intervals, 32 nodes each.
+- **Finer check:** the same six intervals, 128 nodes each.
+
+All three use the same extended sigma table and the same retained
+upper-mass nodes. The single 32-node tail and the finer check differ
+by less than **3 × 10⁻¹² fractionally** across the tested corrected
+moments, trispectrum terms and SSC response. This is a comparison at
+fixed tables, not a claim of that absolute physical accuracy.
+
+At z = 1 the unresolved response falls from 28.38% at the 10⁴ cutoff
+to **9.21%** at 10⁻²⁰. The ordinary resolved mass fraction rises to
+**92.02%**. Neither fact changes the multiplicity normalization of the
+full fitted model.
+
+#### Why so few low-mass nodes can work
+
+Write the bias-weighted halo integration measure as
+$`dw=(dn/dM)b(M)(M/\bar\rho_m)dM`$. For very small halos,
+$`u(k|M)`$ is almost one on the scales being evaluated. The completed
+moment can then be written approximately as
+
+$$
+I_{11}(k)\simeq\int dw\,u(k|M)+1-\int dw
+=1+\int dw\,[u(k|M)-1].
+$$
+
+The raw integral of the response converges slowly. But in the last
+expression its low-mass integrand is multiplied by a profile difference
+that is nearly zero. The explicit integral and the completion cancel
+most of the sensitivity to those tiny halos, including much of the
+low-mass quadrature error. Higher moments also contain additional powers
+of halo mass, which suppress the small-halo contribution.
+
+The actual implementation retains the minimum-mass profile instead of
+replacing it by one. The equation explains the limiting behavior; it is
+not a new implementation or a change to the halo prescription.
+
+#### Complete matrices and execution time
+
+Every entry of the 1,560 × 1,560 G, SSC, cNG and total matrices is
+compared. The 32-node tail and finer tail give Gaussian matrices that
+are bitwise equal. Their SSC, cNG and total entry differences are all
+below **4 × 10⁻¹³ of the reference total rms product**. Generalized
+total-mode differences are below 7 × 10⁻¹², at the numerical precision
+of this matrix comparison. Both totals are positive definite.
+
+![Full covariance: single 32-node tail minus the subdivided finer tail](results/figures/split_full_rule.png)
+
+Extending the cutoff from 10⁴ to 10⁻²⁰ on common tables changes the
+largest total variance mode by only **1.87 × 10⁻⁷%**, essentially the
+same sensitivity already seen when extending to 10⁻³. Further reducing
+the correction weight does not materially change this forecast.
+
+![Full covariance: 10⁻²⁰ cutoff minus 10⁴ on the same tables](results/figures/split_full_extension.png)
+
+| Configuration on common extended tables | Total mass nodes | Complete construction [s] |
+| --- | ---: | ---: |
+| Stop at 10⁴ | 960 | 49.17 |
+| Add one 32-node tail down to 10⁻²⁰ | 992 | 50.70 |
+| Add six 128-node intervals down to 10⁻²⁰ | 1,728 | 50.41 |
+
+These single sequential eight-thread measurements include first-use
+tables and all components, excluding CAMB setup and file writing.
+They show an affordable calculation; their scatter does not establish
+a speed advantage for one low-mass rule.
+
+The expanded table domain itself changes total modes by **0.00831%** at
+a fixed 10⁴ integration cutoff. The separate
+[full domain-control figure](results/figures/split_full_domain.png)
+keeps that numerical table effect distinct from the added halo integral.
+
+At 10⁻²⁰, **99.84% of sigma squared comes from extrapolated power**.
+The power integration was extended to 10¹⁵ h/Mpc; OneCov's same-input
+filter changes sigma by less than 1.11 × 10⁻¹⁰ when extending its endpoint
+from 10¹³ to 10¹⁵. CoCoA's FFTLog/table result differs from that filter by
+up to **0.116% at the smallest mass**, despite much closer agreement at
+larger masses. This extreme-domain numerical limitation and the uncalibrated
+small-halo physics remain distinct from the excellent agreement between
+the two mass quadratures. No production adoption follows from this test.
+
+### Extrapolating the partial sums
+
+The proposed method is called **convergence acceleration**. We test
+Aitken's delta-squared transformation and the iterated Shanks
+transformation, evaluated with Wynn's epsilon algorithm. These methods
+infer a limiting sum from how successive partial sums change. See
+[Brezinski & Redivo-Zaglia](https://arxiv.org/abs/1402.2473) for the
+relationship between Shanks transformations and epsilon algorithms.
+
+The partial integrals stop at 10⁴, 1, 10⁻⁴, 10⁻⁸, 10⁻¹², 10⁻¹⁶ and
+10⁻²⁰ solar masses/h. Every added four-decade interval uses 32 nodes,
+preserving all earlier quadrature samples. For the zero-wavenumber
+bias-weighted integral, the known full-fit limit is one.
+
+| Lowest included mass [solar masses/h] | Raw partial response at z = 1 | Aitken estimate of the limit | Wynn estimate of the limit |
+| ---: | ---: | ---: | ---: |
+| 10⁻⁴ | 0.809046 | 0.930930 | 0.930930 |
+| 10⁻¹² | 0.867548 | 0.991089 | 1.000481 |
+| 10⁻²⁰ | 0.907929 | 1.002344 | 0.999010 |
+
+**The acceleration helps the raw sum, but does not improve on the known
+normalization already enforced by CoCoA.** Wynn's error at z = 1 drops
+to 0.0481% with five partial sums, then grows to 0.0990% with seven.
+Adding terms does not guarantee a better extrapolation.
+
+As a prediction check, fitting a geometric remainder using only partial
+sums through 10⁻¹² predicts the held-out 10⁻¹⁶ and 10⁻²⁰ integrals within
+0.0242% and 0.0749%, respectively, across the three redshifts. Repeating
+with finer low-mass quadrature and denser internal tables retains the
+same broad behavior.
+
+![Low-mass partial sums and Aitken extrapolation](results/figures/split_tail.png)
+
+The finite-wavenumber test is more relevant to covariance. We remove the
+native completion from the saved I11 moments, extrapolate these resolved
+partial integrals, and compare with the finely integrated, completed I11.
+With all seven partial sums, the largest discrepancies over the tested
+redshifts and 0.001–100 h/Mpc range are **0.519% for Aitken** and
+**0.216% for Wynn**. Keeping the existing completion at the ordinary
+10⁴ cutoff instead changes I11 by only **0.00729%** against the same
+deep-cutoff reference.
+
+The extrapolation arithmetic took **0.029 seconds** for this batch of
+estimates; it is not the expensive part. Generating additional partial
+integrals adds work, and the tested extrapolation is less accurate than
+the existing completed moment. We therefore do not replace the completion
+or generate a forecast with an extrapolation that misses its known
+large-scale normalization. The full-matrix figures above validate the
+cheap split quadrature, not an extrapolated covariance model.
+
+The [split-tail and series record](results/split_tail_20261006.json),
+[shared-power check](results/split_tail_power_20261006.json),
+[full quadrature comparison](results/split_full_rule_20261006.json),
+[full cutoff comparison](results/split_full_extension_20261006.json) and
+[table-domain control](results/split_full_domain_20261006.json)
+preserve the settings and separate component diagnostics.
+
+#### Reproducing the split and partial integrals
+
+Use the Cocoa environment described above. These commands create an
+isolated diagnostic build; the installed library remains unchanged.
+
+**Step :one:** build the extended table domain and separate low-mass rule.
+
+```bash
+python scripts/build_mass_cutoff.py --log10-min -20 \
+  --sigma-log10-kmax 15 --split-tail --output work/split_tail_build
+```
+
+**Step :two:** test a single 32-node tail with ordinary upper-mass quadrature.
+
+```bash
+python scripts/diagnose_mass_cutoff.py --interface work/split_tail_build \
+  --exponents 4 -20 --boost 4 --nodes 96 --repeats 3 \
+  --tail-nodes 32 --tail-panels single --tail-log10-max 15 \
+  --output work/split_single32
+```
+
+**Step :three:** save the successive partial integrals.
+
+```bash
+python scripts/diagnose_mass_cutoff.py --interface work/split_tail_build \
+  --exponents 4 0 -4 -8 -12 -16 -20 --boost 4 --nodes 96 --repeats 3 \
+  --tail-nodes 32 --tail-panels intervals --tail-log10-max 15 \
+  --output work/split_intervals32
+```
+
+The saved comparison repeats the tail with 128 nodes per interval and
+then raises the table boost to 8. `report_split_tail.py` compares those
+four runs and computes the partial-sum estimates. Full matrices use
+`run_cutoff_covariance.py` with the same `--interface`, `--log10-min`,
+`--tail-nodes` and `--tail-panels` choices.
+
 ### Cost and reproduction of the 10⁶-to-10² scan
 
 On the Apple M2 Pro with eight OpenMP threads, the following times cover

@@ -38,6 +38,8 @@ def main():
         limits = [report["supplied_k_hmpc"][1], 1e5, 1e6, 1e7]
         if wave[-1] > 1e7:
             limits.extend([1e8, float(wave[-1])])
+        if wave[-1] >= 1e15:
+            limits.extend([1e11, 1e13])
         for limit in limits:
             selected = wave <= limit*(1+1e-14)
             values[str(limit)] = TopHat(wave[selected], power[selected]).sigma(
