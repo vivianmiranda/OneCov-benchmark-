@@ -52,6 +52,8 @@ Gaussian components and band averaging only.
 4. [Installation and compilation](#installation)
 5. [Reproducing the comparison](#reproduction)
 6. [Matched Gaussian assembly](#matched-gaussian)
+7. [SSC comparison](#ssc-comparison)
+8. [Halo-model ingredients](#halo-comparison)
 
 ## Scope <a name="scope"></a>
 
@@ -605,6 +607,68 @@ python scripts/ssc_response.py export work/assembly_shear_30_150/onecov.ini \
 ```bash
 python scripts/ssc_response.py compare work/ssc_response_onecov \
   --output work/ssc_response_comparison
+```
+
+## Halo-model ingredients <a name="halo-comparison"></a>
+
+The native halo prescriptions **do not produce identical inputs**. We
+compare $`z=0.1,0.5,1`$, masses $`10^{10}`$–$`10^{15}\,M_\odot/h`$, and
+wavenumbers $`0.001`$–$`10\,h/\mathrm{Mpc}`$. The following are the largest
+absolute differences in CoCoA/OneCov minus one over those sampled ranges:
+
+| Quantity | z = 0.1 | z = 0.5 | z = 1 |
+| --- | ---: | ---: | ---: |
+| Mass rms fluctuation, sigma(M) | 0.033% | 0.031% | 0.030% |
+| Halo abundance, dn/dlnM | 0.8% | 2.8% | 5.0% |
+| Native halo bias | 22.8% | 28.9% | 35.9% |
+| Native matter-power response | 14.9% | 21.2% | 25.9% |
+
+The raw [Tinker et al. (2010)](https://arxiv.org/abs/1001.3162) bias
+formulas agree within $`6\times10^{-16}`$ when evaluated at the same
+peak height. OneCov then divides the bias by a finite-mass-range
+normalization, measured here as 0.7725, 0.7119 and 0.6415. CoCoA instead
+sets the multiplicity normalization through its bias-consistency integral.
+These choices explain the large bias offset; it is not a disagreement
+in the underlying bias formula.
+
+The concentration choices also differ: OneCov uses
+[Duffy et al. (2008)](https://arxiv.org/abs/0804.2486), while CoCoA uses
+[Bhattacharya et al. (2013)](https://arxiv.org/abs/1112.5479).
+At the same supplied concentration, the NFW profiles differ by less than
+$`1.4\times10^{-5}`$ absolutely over the exported grid. The native moment
+mass limits and SSC response transfer remain different, as described above.
+
+![Native halo ingredients](results/figures/halo_ingredients.png)
+
+[Vector figure](results/figures/halo_ingredients.pdf) ·
+[Detailed results](results/halo_ingredients_20261005.json).
+
+Mass-integration refinement is much smaller than these native differences.
+For I11, I02, I12 and the response, OneCov's 400 → 800 mass-node change is
+at most **0.0012%**; CoCoA's 96 → 256 nodes per mass panel changes them by
+at most **0.000040%**. This checks the mass integration at the supplied
+power resolution; it does not certify either prescription's physical accuracy.
+
+**Step :one:**: in the **OneCov terminal**, export the halo quantities.
+
+```bash
+python scripts/compare_halo.py export work/shear_ssc/onecov.ini \
+  --mass-nodes 800 --output work/halo_onecov_800
+```
+
+**Step :two:**: in the **Cocoa terminal**, evaluate the corresponding
+CoCoA quantities at the same redshifts, masses and wavenumbers.
+
+```bash
+python scripts/compare_halo.py compare work/halo_onecov_800 \
+  --integration-accuracy 2 --output work/halo_cocoa_matched_800
+```
+
+**Step :three:**: in either terminal, make the halo comparison figure.
+
+```bash
+python scripts/plot_halo.py work/halo_onecov_800 work/halo_cocoa_matched_800 \
+  --output results/figures
 ```
 
 ### Running the projected non-Gaussian pilots

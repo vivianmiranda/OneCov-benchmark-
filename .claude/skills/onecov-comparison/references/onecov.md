@@ -261,3 +261,27 @@ changes the shared SSC by at most 0.0395%. No numerical source is edited.
 Results: `results/ssc_projection_20261005.json`; plot and reproduction in
 README. The source inputs/results are preserved under work/ssc_projection_*
 and work/ssc_comparison_*. Earlier smoke/failure folders remain preserved.
+
+## Native halo comparison
+
+`compare_halo.py` evaluates the native models at z=0.1,0.5,1, avoiding
+the core halo reader's excluded a=1 endpoint. OneCov mass nodes were
+200,400,800; Cocoa mass GL rules were 96 and 256 per panel. Over
+k=0.001..10, the final OneCov refinement changes I11/I02/I12/response by
+<=1.17e-5, the Cocoa refinement by <=3.98e-7. Native differences persist.
+
+The bias formula at equal nu agrees to 5.56e-16. OneCov divides its raw
+Tinker bias by norm_bias=0.772506,0.711928,0.641533 from a finite range.
+Cocoa leaves the raw bias and normalizes f(nu) through int b f dnu=1.
+OneCov's I11 multiplies the normalized bias by norm_bias again and adds
+an unresolved-mass completion; I12/I13 retain the normalized bias. Do not
+assume that matching the label Tinker10 matches the moments.
+
+OneCov uses Duffy08; Cocoa Bhattacharya13. Also record the small density
+constant difference: 8.326098817e10 versus 8.325600500e10 in Msun/h per
+(Mpc/h)^3. With supplied equal concentration, max absolute NFW difference
+is 1.39e-5 over the export; it is not a native-concentration agreement.
+Native dP/ddelta_b differs by up to about 15%,21%,26% over the sampled k
+range, including concentration, bias normalization and fractional transfer.
+No model is silently retuned. Next compare separated trispectrum terms,
+using shared inputs to distinguish assembly from these halo choices.
