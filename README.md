@@ -28,11 +28,10 @@ total matrices in every case.
 | Same 3×2pt subset | 30×30 | 1500–1619 | 0.000046% |
 
 The differences are consistent with **OneCov's text-output rounding**:
-an independent NumPy calculation reproduces every saved total entry at
-seven significant digits and every split component at five significant
-digits. Cocoa agrees with NumPy to floating-point precision. The mode
-comparison considers every linear combination of the selected bandpowers,
-not just diagonal variances: it reports the largest $`|\lambda-1|`$ for
+OneCov saves totals at seven significant digits and split components at
+five significant digits. The mode comparison considers every linear
+combination of the selected bandpowers, not just diagonal variances:
+it reports the largest $`|\lambda-1|`$ for
 $`C_{\mathrm{OneCov}}v=\lambda C_{\mathrm{Cocoa}}v`$, expressed as a percentage.
 
 See the [comparison record](results/gaussian_assembly_20261005.json) and
@@ -146,8 +145,6 @@ The timer includes numerical output allocation, but excludes spectrum
 generation, initialization and file writing. OneCov's final rearrangement
 of its blocks into one matrix is also outside the timer. These are
 **small Gaussian component timings, not full-survey covariance runtimes**.
-The in-memory components of both codes agree with NumPy within 10⁻¹⁵ in
-variance-scaled residuals.
 
 ![Gaussian component timings](results/figures/gaussian_timing.png)
 
@@ -382,8 +379,7 @@ python scripts/check_result.py work/shear_gaussian
 
 The default uses shared Cocoa angular spectra and produces a **5×5 shear
 Gaussian covariance**. `check_result.py` verifies finite entries, symmetry,
-positive definiteness and the Gaussian normalization against an independent
-integer-multipole sum.
+and positive definiteness.
 
 **Step :six:**: include galaxy clustering, galaxy–shear and their cross blocks.
 
@@ -400,8 +396,7 @@ python scripts/check_result.py work/small_3x2_gaussian
 ```
 
 This gives a **30×30 matrix**, including the cross spectrum between the two
-lens bins. The analytic Gaussian checker currently covers shear; the 3x2
-check covers matrix finiteness, symmetry and positivity.
+lens bins. The check covers matrix finiteness, symmetry and positivity.
 
 > [!NOTE]
 > OneCovariance averages integer multipoles uniformly in these Gaussian
@@ -486,8 +481,8 @@ python scripts/compare_gaussian.py work/assembly_3x2_1500_1620 \
 ```
 
 `compare_gaussian.py` calls Cocoa's production `_interface` with the shared
-spectra, diagonal shot/shape noise and uniform band weights. It also
-computes the two Gaussian Wick contractions independently with NumPy.
+spectra, diagonal shot/shape noise and uniform band weights, then compares
+the resulting components with OneCov's output.
 No numerical source in either code is modified.
 
 Each comparison saves `comparison.json` and `matrices.npz`. These retain
@@ -500,9 +495,9 @@ $`g_1\gamma`$, $`g_2\gamma`$, $`\gamma\gamma`$, with five bands per spectrum.
 Including $`g_1g_2`$ checks cross-bin contractions even though this spectrum
 need not belong to the likelihood's data vector.
 
-Agreement of independently generated angular spectra remains a separate
-test. Shared CAMB power can isolate their projection before native power
-and its numerical convergence are compared.
+Agreement of angular spectra generated separately by each code remains
+a separate test. Shared CAMB power can isolate their projection before
+native power and its numerical convergence are compared.
 
 ### Reproducing Gaussian plots and timings
 
