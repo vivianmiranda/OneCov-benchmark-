@@ -1,0 +1,803 @@
+{
+  "scope": "Shared resident spectra to sample-variance, mixed and pure-noise Gaussian band covariances",
+  "hardware": "Apple M2 Pro, macOS 13.7.5",
+  "omp_threads": 8,
+  "blas_threads": 1,
+  "execution": "Separate sequential processes; heavy background sync had settled; ordinary desktop apps remained open",
+  "excludes": [
+    "process startup",
+    "spectrum generation",
+    "cosmology and halo initialization",
+    "file writing",
+    "OneCov final output repacking"
+  ],
+  "method": "31 timed batches per run, 100 calls per Cocoa batch and 10 per OneCov batch. First call recorded separately. Two Cocoa cases repeated to assess scatter; all samples retained.",
+  "interpretation": "Small Gaussian component and band-averaging benchmark; not a full survey or full CLI speed ratio",
+  "cases": [
+    {
+      "name": "shear_30_150",
+      "cocoa": {
+        "mean_seconds": 0.00037438742592067065,
+        "std_seconds": 9.110959406612848e-05,
+        "median_seconds": 0.0003238785397843458,
+        "runs": [
+          {
+            "backend": "cocoa",
+            "case": "shear",
+            "band_edges": [
+              30,
+              41,
+              57,
+              78,
+              108,
+              150
+            ],
+            "shape": [
+              5,
+              5
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 0.009570415946654975,
+            "first_call_seconds": 0.0006542080081999302,
+            "samples_seconds": [
+              0.0005474204197525978,
+              0.0005410616705194116,
+              0.000536085829953663,
+              0.000552809169748798,
+              0.0005354912497568875,
+              0.0005371454101987184,
+              0.0005398324999259785,
+              0.0005368995800381527,
+              0.000537416249862872,
+              0.0005379224999342114,
+              0.0005348637502174824,
+              0.0005448791600065306,
+              0.0005395295901689678,
+              0.0005364762502722443,
+              0.0003653891698922962,
+              0.0003245891601545736,
+              0.0003241200000047684,
+              0.0003219379199435934,
+              0.00032355166971683504,
+              0.0003232166700763628,
+              0.0003205370798241347,
+              0.00032206000003498047,
+              0.00031973165983799844,
+              0.0003243133402429521,
+              0.00032079833035822956,
+              0.00032199624984059484,
+              0.00032127790967933833,
+              0.00032164458010811356,
+              0.0003220625000540167,
+              0.0003223383403383195,
+              0.0003230445896042511
+            ],
+            "batch_size": 100,
+            "mean_seconds": 0.0004219497580667056,
+            "std_seconds": 0.00010908160957036032,
+            "median_seconds": 0.0003245891601545736,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 0.0,
+                "max_fractional_nonzero_error": 0.0
+              },
+              "noise": {
+                "max_variance_scaled_residual": 3.303802685523739e-17,
+                "max_fractional_nonzero_error": 1.7046308629254236e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 3.294859905252104e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 7.112718292136379e-16
+              }
+            },
+            "comparison_sha256": "91b776510cc92658bad884aee22fb5220d5c5ff09eb7f0f027f0f4c2e54c9b67",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing/cocoa_shear_30_150/timing.json",
+            "file_sha256": "1348452efed9a77ea181b32efcabf5a56c5a627ebb2a50755b5354b778f376f7"
+          },
+          {
+            "backend": "cocoa",
+            "case": "shear",
+            "band_edges": [
+              30,
+              41,
+              57,
+              78,
+              108,
+              150
+            ],
+            "shape": [
+              5,
+              5
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 0.009696875000372529,
+            "first_call_seconds": 0.0005508339963853359,
+            "samples_seconds": [
+              0.0004204491700511426,
+              0.0003253512503579259,
+              0.00032226000039372595,
+              0.00032230124983470885,
+              0.0003248545899987221,
+              0.00032390124979428945,
+              0.0003245487494859844,
+              0.00032328750006854534,
+              0.0003209062502719462,
+              0.0003238558297744021,
+              0.0003228249994572252,
+              0.0003217829199275002,
+              0.00032229040982201696,
+              0.0003217770799528807,
+              0.00032316708005964757,
+              0.000323305829660967,
+              0.0003225758299231529,
+              0.0003225166699849069,
+              0.0003218133398331702,
+              0.00032281499996315686,
+              0.0003235787496669218,
+              0.00032359124976210295,
+              0.000326761250034906,
+              0.00032690499967429786,
+              0.00032573083997704087,
+              0.00032602582999970766,
+              0.0003253316698828712,
+              0.0003247779101366177,
+              0.0003210866695735604,
+              0.00032511207973584533,
+              0.0003260916599538177
+            ],
+            "batch_size": 100,
+            "mean_seconds": 0.00032682509377463567,
+            "std_seconds": 1.745436178747051e-05,
+            "median_seconds": 0.0003235787496669218,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 0.0,
+                "max_fractional_nonzero_error": 0.0
+              },
+              "noise": {
+                "max_variance_scaled_residual": 3.303802685523739e-17,
+                "max_fractional_nonzero_error": 1.7046308629254236e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 3.294859905252104e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 7.112718292136379e-16
+              }
+            },
+            "comparison_sha256": "91b776510cc92658bad884aee22fb5220d5c5ff09eb7f0f027f0f4c2e54c9b67",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing_check/cocoa_shear_30_150/timing.json",
+            "file_sha256": "e6c2eaef22165a3044bea50a387547268103271331dc98979a799a2e63d95883"
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 0.0007859487867643756,
+        "std_seconds": 2.108130458647913e-05,
+        "median_seconds": 0.000785170798189938,
+        "runs": [
+          {
+            "backend": "onecov",
+            "case": "shear",
+            "band_edges": [
+              30,
+              41,
+              57,
+              78,
+              108,
+              150
+            ],
+            "shape": [
+              5,
+              5
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 12.023356625053566,
+            "first_call_seconds": 0.0014430840383283794,
+            "samples_seconds": [
+              0.0008143915969412774,
+              0.0008544915996026248,
+              0.000803141703363508,
+              0.0007727875025011599,
+              0.0007836249948013574,
+              0.000793704204261303,
+              0.0007637042028363795,
+              0.0007662416028324515,
+              0.0008020750014111399,
+              0.0007926582999061793,
+              0.0007735125022009015,
+              0.0007992832979653031,
+              0.0007663875003345311,
+              0.000759283296065405,
+              0.0008125291962642223,
+              0.0007956124958582222,
+              0.0007966125034727156,
+              0.000785170798189938,
+              0.0007752459030598402,
+              0.0007904124970082194,
+              0.0007684874988626688,
+              0.0007557125005405396,
+              0.0007809959002770484,
+              0.0007926416001282632,
+              0.0007987542019691318,
+              0.0007638832961674779,
+              0.0007648833969142288,
+              0.0007563874998595566,
+              0.0008026833005715161,
+              0.0007952582964207977,
+              0.0007838541991077363
+            ],
+            "batch_size": 10,
+            "mean_seconds": 0.0007859487867643756,
+            "std_seconds": 2.108130458647913e-05,
+            "median_seconds": 0.000785170798189938,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+              "status": ""
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 1.5114538427147896e-16,
+                "max_fractional_nonzero_error": 2.1740374118394787e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 7.112718292136379e-16
+              },
+              "noise": {
+                "max_variance_scaled_residual": 6.607605371047478e-17,
+                "max_fractional_nonzero_error": 3.3993982588642297e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 3.294859905252104e-16
+              }
+            },
+            "comparison_sha256": "91b776510cc92658bad884aee22fb5220d5c5ff09eb7f0f027f0f4c2e54c9b67",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing/onecov_shear_30_150/timing.json",
+            "file_sha256": "a5696e36141e953040dc494117772304f6fe0190e291e930177d7d592ab16942"
+          }
+        ]
+      },
+      "onecov_over_cocoa": 2.0992926908045013
+    },
+    {
+      "name": "3x2_30_150",
+      "cocoa": {
+        "mean_seconds": 0.00024249692305719725,
+        "std_seconds": 1.3707919429075183e-05,
+        "median_seconds": 0.00024061521020485088,
+        "runs": [
+          {
+            "backend": "cocoa",
+            "case": "3x2",
+            "band_edges": [
+              30,
+              41,
+              57,
+              78,
+              108,
+              150
+            ],
+            "shape": [
+              30,
+              30
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 0.01188470801571384,
+            "first_call_seconds": 0.0007406669901683927,
+            "samples_seconds": [
+              0.00034751250001136214,
+              0.00024062542011961342,
+              0.0002389112499076873,
+              0.00023967334011103957,
+              0.00023883208981715143,
+              0.0002400129195302725,
+              0.0002389566699275747,
+              0.00024038417031988502,
+              0.00023996040981728585,
+              0.00024138375010807067,
+              0.0002411062497412786,
+              0.00024123915995005518,
+              0.00023924749984871596,
+              0.0002400108298752457,
+              0.00023880333988927306,
+              0.00024040040967520326,
+              0.00023905459034722298,
+              0.00024153249978553504,
+              0.0002376720798201859,
+              0.00024363250005990267,
+              0.00025196208036504686,
+              0.00024217374972067772,
+              0.00024261292011942714,
+              0.00024093084037303924,
+              0.00024159708991646766,
+              0.0002394300000742078,
+              0.00023986499989405273,
+              0.0002422466699499637,
+              0.0002412679197732359,
+              0.0002413029200397432,
+              0.00024205124995205552
+            ],
+            "batch_size": 100,
+            "mean_seconds": 0.00024433522964001543,
+            "std_seconds": 1.9304797352165075e-05,
+            "median_seconds": 0.00024062542011961342,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 3.4286382786711877e-16,
+                "max_fractional_nonzero_error": 4.825366823241185e-16
+              },
+              "noise": {
+                "max_variance_scaled_residual": 3.303802685523739e-17,
+                "max_fractional_nonzero_error": 2.9228875114747164e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 4.976051428689058e-16,
+                "max_fractional_nonzero_error": 6.436986399025595e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 6.098578655278093e-16,
+                "max_fractional_nonzero_error": 8.118086623187634e-13
+              }
+            },
+            "comparison_sha256": "8b4a4dbc229512696a02917f393c9e83d13655b9e434a231e928ee875eb08195",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing/cocoa_3x2_30_150/timing.json",
+            "file_sha256": "36f3583559519fc24481483b40106e3753ea26f5a800a0b532b1434c84381872"
+          },
+          {
+            "backend": "cocoa",
+            "case": "3x2",
+            "band_edges": [
+              30,
+              41,
+              57,
+              78,
+              108,
+              150
+            ],
+            "shape": [
+              30,
+              30
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 0.010243625030852854,
+            "first_call_seconds": 0.0003428750205785036,
+            "samples_seconds": [
+              0.00024194500001613052,
+              0.0002411729097366333,
+              0.00023800334020052105,
+              0.000239989580004476,
+              0.00024031750042922796,
+              0.00023942582949530334,
+              0.0002397654199739918,
+              0.00023966584005393087,
+              0.00024077916983515025,
+              0.00024012584006413818,
+              0.00024041792028583586,
+              0.00023956542019732297,
+              0.00023789707978721708,
+              0.0002379762497730553,
+              0.00024053999979514629,
+              0.00024170541029889137,
+              0.00024005417013540865,
+              0.00023827416996937244,
+              0.00023920084000565112,
+              0.00024132833001203836,
+              0.00024383667041547597,
+              0.00024086540972348302,
+              0.0002425416698679328,
+              0.0002410024998243898,
+              0.0002429158304585144,
+              0.00024151874997187405,
+              0.00024060500029008837,
+              0.00024240999948233366,
+              0.00024174292047973722,
+              0.00024374792003072798,
+              0.00024108042009174824
+            ],
+            "batch_size": 100,
+            "mean_seconds": 0.00024065861647437896,
+            "std_seconds": 1.5551348016533837e-06,
+            "median_seconds": 0.00024060500029008837,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 3.4286382786711877e-16,
+                "max_fractional_nonzero_error": 4.825366823241185e-16
+              },
+              "noise": {
+                "max_variance_scaled_residual": 3.303802685523739e-17,
+                "max_fractional_nonzero_error": 2.9228875114747164e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 4.976051428689058e-16,
+                "max_fractional_nonzero_error": 6.436986399025595e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 6.098578655278093e-16,
+                "max_fractional_nonzero_error": 8.118086623187634e-13
+              }
+            },
+            "comparison_sha256": "8b4a4dbc229512696a02917f393c9e83d13655b9e434a231e928ee875eb08195",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing_check/cocoa_3x2_30_150/timing.json",
+            "file_sha256": "5aabbe98d46989f5f47d94fdc310be1320d8dc593da27d90e5e916a17b59b3de"
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 0.009646920954823612,
+        "std_seconds": 0.00019283223371066759,
+        "median_seconds": 0.009554112498881296,
+        "runs": [
+          {
+            "backend": "onecov",
+            "case": "3x2",
+            "band_edges": [
+              30,
+              41,
+              57,
+              78,
+              108,
+              150
+            ],
+            "shape": [
+              30,
+              30
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 13.058497124991845,
+            "first_call_seconds": 0.011496999999508262,
+            "samples_seconds": [
+              0.010315012495266274,
+              0.009654954099096358,
+              0.00974721250240691,
+              0.00945108329760842,
+              0.009547266596928238,
+              0.009516629198333248,
+              0.009548941702814773,
+              0.009525991702685133,
+              0.009461795800598338,
+              0.009518466697772964,
+              0.009541858296142892,
+              0.00950530000263825,
+              0.00953104579821229,
+              0.009453941602259874,
+              0.009539187501650304,
+              0.00982514580246061,
+              0.00959033330436796,
+              0.009810741699766368,
+              0.009889070794451981,
+              0.009825004200683907,
+              0.009608737495727836,
+              0.009494183305650949,
+              0.009512812498724089,
+              0.009572020795894786,
+              0.009521787503035738,
+              0.009974862501258031,
+              0.00982753750286065,
+              0.009691620798548684,
+              0.009886137500870973,
+              0.009611754101933911,
+              0.009554112498881296
+            ],
+            "batch_size": 10,
+            "mean_seconds": 0.009646920954823612,
+            "std_seconds": 0.00019283223371066759,
+            "median_seconds": 0.009554112498881296,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+              "status": ""
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 4.852287859155922e-16,
+                "max_fractional_nonzero_error": 6.409440323817052e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 3.2948599052521046e-16,
+                "max_fractional_nonzero_error": 8.265444134261421e-16
+              },
+              "noise": {
+                "max_variance_scaled_residual": 6.607605371047478e-17,
+                "max_fractional_nonzero_error": 1.0230106290161507e-15
+              },
+              "total": {
+                "max_variance_scaled_residual": 4.852287859155922e-16,
+                "max_fractional_nonzero_error": 6.409440323817052e-16
+              }
+            },
+            "comparison_sha256": "8b4a4dbc229512696a02917f393c9e83d13655b9e434a231e928ee875eb08195",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing/onecov_3x2_30_150/timing.json",
+            "file_sha256": "572774eddfa6d00166cf0bbdcb8ef0f1121cffcb0c290e067a6f642dc9f22936"
+          }
+        ]
+      },
+      "onecov_over_cocoa": 39.781622105564665
+    },
+    {
+      "name": "3x2_1500_1620",
+      "cocoa": {
+        "mean_seconds": 0.00024287444905513115,
+        "std_seconds": 3.1868282801621846e-06,
+        "median_seconds": 0.0002425249997759238,
+        "runs": [
+          {
+            "backend": "cocoa",
+            "case": "3x2",
+            "band_edges": [
+              1500,
+              1523,
+              1546,
+              1570,
+              1595,
+              1620
+            ],
+            "shape": [
+              30,
+              30
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 0.010609416000079364,
+            "first_call_seconds": 0.00044241698924452066,
+            "samples_seconds": [
+              0.0002499716600868851,
+              0.0002514304203214124,
+              0.00024180541979148984,
+              0.0002430150000145659,
+              0.00024197791004553436,
+              0.00024193666991777717,
+              0.00024003624974284322,
+              0.0002421262499410659,
+              0.000242842499865219,
+              0.00024251041002571583,
+              0.0002447366702836007,
+              0.00024088667007163167,
+              0.0002407662500627339,
+              0.0002452554099727422,
+              0.00024406250042375178,
+              0.00024372291984036564,
+              0.0002425249997759238,
+              0.00024275749980006366,
+              0.00024250915972515941,
+              0.0002445816702675074,
+              0.00024348917009774595,
+              0.0002423358295345679,
+              0.0002413712500128895,
+              0.00024346792022697628,
+              0.00023121500038541853,
+              0.00024416583997663113,
+              0.00024202250002417714,
+              0.00024469709023833275,
+              0.00024180582957342267,
+              0.00024211875046603381,
+              0.0002429625001968816
+            ],
+            "batch_size": 100,
+            "mean_seconds": 0.00024287444905513115,
+            "std_seconds": 3.1868282801621846e-06,
+            "median_seconds": 0.0002425249997759238,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173"
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 1.7669049138064693e-16,
+                "max_fractional_nonzero_error": 4.3904124864137445e-16
+              },
+              "noise": {
+                "max_variance_scaled_residual": 1.2553957926967153e-16,
+                "max_fractional_nonzero_error": 1.3775421526797137e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 4.933436497829103e-16,
+                "max_fractional_nonzero_error": 5.457025400487877e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 5.166947892801827e-16,
+                "max_fractional_nonzero_error": 1.662443827115946e-14
+              }
+            },
+            "comparison_sha256": "3091784c739059f51ad5dae11904ba55387ed31b989ac80aaeb04fe22626a2f2",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing/cocoa_3x2_1500_1620/timing.json",
+            "file_sha256": "b610a9ffc43664d0b865d523aeaa2c785442fae8028d8e4f0af685e934a39ada"
+          }
+        ]
+      },
+      "onecov": {
+        "mean_seconds": 0.009893966677238143,
+        "std_seconds": 0.00020232155137746237,
+        "median_seconds": 0.009903545898851007,
+        "runs": [
+          {
+            "backend": "onecov",
+            "case": "3x2",
+            "band_edges": [
+              1500,
+              1523,
+              1546,
+              1570,
+              1595,
+              1620
+            ],
+            "shape": [
+              30,
+              30
+            ],
+            "scope": "resident shared spectra to three Gaussian components; allocations included; OneCov output repacking excluded",
+            "setup_scope": "imports inside backend setup, input parsing and initialization; not a process-start timer",
+            "setup_seconds": 13.05458695901325,
+            "first_call_seconds": 0.012010792037472129,
+            "samples_seconds": [
+              0.010306808399036527,
+              0.009966020798310637,
+              0.009774987498531118,
+              0.009924054198199883,
+              0.010049245896516368,
+              0.009987070801435039,
+              0.01010358749772422,
+              0.009848558297380804,
+              0.009543883299920708,
+              0.009689554199576378,
+              0.009561358304927126,
+              0.009694962500361726,
+              0.009913137496914715,
+              0.009602220804663376,
+              0.009722791600506753,
+              0.009822358301607891,
+              0.010048583301249891,
+              0.009845187497558073,
+              0.009823429200332611,
+              0.009676620899699628,
+              0.009987983398605137,
+              0.01001462500425987,
+              0.010034279205137863,
+              0.009985870897071435,
+              0.009880249999696389,
+              0.009765112499007956,
+              0.009729925001738592,
+              0.01018195420037955,
+              0.010410570900421589,
+              0.009914429194759577,
+              0.009903545898851007
+            ],
+            "batch_size": 10,
+            "mean_seconds": 0.009893966677238143,
+            "std_seconds": 0.00020232155137746237,
+            "median_seconds": 0.009903545898851007,
+            "omp_threads": 8,
+            "thread_environment": {
+              "OMP_PROC_BIND": "disabled",
+              "OMP_PLACES": "cores",
+              "OMP_DYNAMIC": "FALSE",
+              "OPENBLAS_NUM_THREADS": "1",
+              "MKL_NUM_THREADS": "1"
+            },
+            "platform": "macOS-13.7.5-arm64-arm-64bit",
+            "implementation": {
+              "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+              "status": ""
+            },
+            "checks": {
+              "sample_variance": {
+                "max_variance_scaled_residual": 3.984931984881434e-16,
+                "max_fractional_nonzero_error": 6.496641417010257e-16
+              },
+              "mixed": {
+                "max_variance_scaled_residual": 5.342144708672188e-16,
+                "max_fractional_nonzero_error": 6.460048056819653e-16
+              },
+              "noise": {
+                "max_variance_scaled_residual": 1.2333591244572757e-16,
+                "max_fractional_nonzero_error": 6.775165309915473e-16
+              },
+              "total": {
+                "max_variance_scaled_residual": 6.410573650406626e-16,
+                "max_fractional_nonzero_error": 6.410573650406626e-16
+              }
+            },
+            "comparison_sha256": "3091784c739059f51ad5dae11904ba55387ed31b989ac80aaeb04fe22626a2f2",
+            "script_sha256": "404453903fce055f3fe310f2722e5f0ef8091fdce38490af8a1f2d6adbbc28a5",
+            "local_file": "work/gaussian_timing/onecov_3x2_1500_1620/timing.json",
+            "file_sha256": "afe0cb4f9ec06708aa948c0380b4e46fdb25ad1ea018631f70030490fbd7c3ab"
+          }
+        ]
+      },
+      "onecov_over_cocoa": 40.73695983965883
+    }
+  ]
+}
