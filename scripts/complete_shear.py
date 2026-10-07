@@ -26,7 +26,7 @@ from pathlib import Path
 
 import numpy as np
 
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 from run_onecov import make_config
 
 
@@ -276,6 +276,7 @@ def cocoa(args, manifest):
         matrices["theta_edges_arcmin"] = settings["theta_edges_arcmin"]
     record = {
         "core": revision(core),
+        "installed_power": power_table_record(tables, settings),
         "project": revision(project),
         "interface_sha256": sha256(ci.__file__),
         "setup_seconds": setup_seconds,

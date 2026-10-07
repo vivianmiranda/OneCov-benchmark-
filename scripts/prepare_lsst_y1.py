@@ -21,7 +21,7 @@ from pathlib import Path
 
 import numpy as np
 
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 
 
 def export_distribution(filename, bin_numbers, output):
@@ -61,6 +61,8 @@ def main():
     parser.add_argument("--cocoa", type=Path, required=True,
                         help="runtime root containing projects/lsst_y1")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--expected-power-nodes", type=int,
+                        help="fail if initialize returns a different k count")
     parser.add_argument("--source-bin", type=int, choices=range(1, 6), default=3)
     parser.add_argument("--lens-bins", type=int, nargs=2, choices=range(1, 6),
                         default=[1, 2], help="two distinct original LSST lens bins")
@@ -97,6 +99,12 @@ def main():
 
     settings = configuration(gaussian={"nonlimber": False, "ia": "none"})
     tables = initialize(interface=ci, settings=settings)
+    power_record = power_table_record(tables=tables, settings=settings)
+    if (args.expected_power_nodes is not None
+            and power_record["nk"] != args.expected_power_nodes):
+        raise ValueError("Initialized power grid has "
+                         f"{power_record['nk']} nodes, expected "
+                         f"{args.expected_power_nodes}; check production defaults")
     cosmology = settings["cosmology"]
 
     # sigma8 is the rms linear density contrast in an 8 Mpc/h sphere at z=0.
@@ -140,6 +148,10 @@ def main():
     source = 5 + args.source_bin - 1
 
     output.mkdir(parents=True)
+    # Preserve the complete installed power arrays, including linear/cb
+    # tables that OneCov's Pmm file does not replace inside its halo model.
+    np.savez_compressed(output / "power_tables.npz", **{
+        name: tables[name] for name in power_record["arrays"]})
     lens_file = project / settings["lens_file"]
     source_file = project / settings["source_file"]
     z_lens = export_distribution(
@@ -199,6 +211,9 @@ def main():
         "sigma_e_component": settings["sigma_e_component"][args.source_bin-1],
         "bias": bias.tolist(),
         "cosmology": cosmology,
+        "installed_power": power_record,
+        "power_preparation_sha256": sha256(
+            core / "cosmolike_notebook_utils/covariance/power.py"),
         "sigma8": sigma8,
         "camb_version": camb.__version__,
         "camb_source": revision(directory=cocoa / "external_modules" /

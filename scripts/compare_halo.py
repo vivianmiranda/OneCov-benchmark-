@@ -17,7 +17,7 @@ from pathlib import Path
 
 import numpy as np
 
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 
 
 def export(args):
@@ -93,7 +93,7 @@ def compare(args):
     data = np.load(args.source/"inputs.npz")
     settings = configuration(gaussian={"nonlimber": False, "ia": "none"},
                              integration_accuracy=args.integration_accuracy)
-    initialize(ci, settings)
+    tables = initialize(ci, settings)
     # Unit constants come from the initialized core's structs.c.
     length = 2997.92458
     rho = 7.4775e21*settings["cosmology"]["omegam"]/length**3
@@ -156,6 +156,7 @@ def compare(args):
             values["profile_matched_c"][row]-data["profile"][row])))
         rows.append(report)
     record = dict(scope="native halo prescriptions; equality is not expected",
+                  installed_power=power_table_record(tables, settings),
                   export=metadata, rows=rows, integration_accuracy=args.integration_accuracy,
                   core=revision(core), interface_sha256=sha256(ci.__file__),
                   script_sha256=sha256(__file__),

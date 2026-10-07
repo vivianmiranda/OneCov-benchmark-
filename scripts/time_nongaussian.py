@@ -26,7 +26,7 @@ from types import SimpleNamespace
 import numpy as np
 from scipy.integrate import simpson
 
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 
 
 def native_projection(onecov, stage):
@@ -144,7 +144,7 @@ def halo_call(args, data):
         from lsst_y1_covariance import configuration, initialize
         settings = configuration(gaussian={"nonlimber": False, "ia": "none"},
                                  integration_accuracy=args.integration_accuracy)
-        initialize(ci, settings)
+        tables = initialize(ci, settings)
         scale = np.ascontiguousarray(1/(1+data["redshift"]))
         wavenumbers = np.ascontiguousarray(data["k"]*2997.92458)
 
@@ -153,6 +153,7 @@ def halo_call(args, data):
                 a=scale, k=wavenumbers, lnm_edges=settings["lnm_edges"],
                 nquad=settings["halo_mass_nquad"])
         return compute, dict(core=revision(core), interface_sha256=sha256(ci.__file__),
+                             installed_power=power_table_record(tables, settings),
                              mass_nquad=settings["halo_mass_nquad"],
                              mass_panels=len(settings["lnm_edges"])-1)
 
