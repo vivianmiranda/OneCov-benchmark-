@@ -77,6 +77,24 @@ and OneCovariance's shipped real-space example.
 [Vector figure](results/figures/real_shear_difference.pdf) ·
 [Real-space results, timings and reproduction](#real-shear).
 
+> [!WARNING]
+> **Small-to-full covariance runtime scales differently in the two codes.**
+>
+> - **CoCoA:** most construction time goes into shared matter responses and
+>   trispectra. Additional observable pairs reuse those tables, and their
+>   projections are comparatively inexpensive. A small pilot already pays
+>   much of the full-survey cost, making runtime extrapolation more
+>   predictable when the cosmology and numerical grids stay fixed.
+> - **OneCovariance:** real-space SSC and cNG also spend substantial time
+>   in repeated angular integrations. That work grows with angular-bin
+>   pairs and tomographic combinations. A one-source pilot does not measure
+>   that growth; additional scaling tests are needed for a full-survey
+>   runtime estimate.
+>
+> **The pilot speed ratios below are not full-survey speed ratios.** Neither
+> multiplying by the number of matrix entries nor applying CoCoA's measured
+> small-to-full runtime factor gives a reliable OneCov forecast.
+
 ## Contents
 
 1. [Scope](#scope)
@@ -1725,7 +1743,7 @@ For component X, each pixel shows
 $$
 100\,\frac{C^{X}_{\mathrm{CoCoA},ij}-C^{X}_{\mathrm{OneCov},ij}}
 {\sqrt{C^{\mathrm{total}}_{\mathrm{OneCov},ii}
-       C^{\mathrm{total}}_{\mathrm{OneCov},jj}}.
+       C^{\mathrm{total}}_{\mathrm{OneCov},jj}}}.
 $$
 
 The colour scale is in percent, with its own range in each panel. The
@@ -1791,18 +1809,21 @@ differences and total-mode diagnostics.
 
 ### Execution time
 
-One fresh process per code, on the same M2 Pro with eight OpenMP threads:
+One fresh process per code, on the same M2 Pro with eight OpenMP threads
+and the fans set to maximum:
 
 | Code | Setup (s) | Covariance construction (s) | Combined (s) |
 | --- | ---: | ---: | ---: |
-| CoCoA | 0.49 | 20.99 | 21.48 |
-| OneCovariance | 19.11 | 71.55 | 90.66 |
+| CoCoA | 0.52 | 22.18 | 22.70 |
+| OneCovariance | 19.72 | 70.39 | 90.11 |
 
-CoCoA's construction is **3.41× faster** in this 100×100 source-bin pilot;
-including setup gives **4.22×**. These are single measurements, including
+CoCoA's construction is **3.17× faster** in this 100×100 source-bin pilot;
+including setup gives **3.97×**. These are single measurements, including
 first-use halo and angular calculations, with plotting and file writing
 excluded. Both timed G, SSC, cNG and total matrices, their multipoles and
-signals are exactly equal to their respective accuracy archives.
+signals are exactly equal to their respective accuracy archives. The
+[complete-pilot timing record](results/global_power_20261006/complete_retiming_20261007.json)
+preserves the measurements and verification checks.
 
 ### Reproducing the complete shear figure
 
@@ -1920,20 +1941,21 @@ attributed to the full-sky versus flat-sky transform without a separate test.
 
 ### Execution time
 
-One fresh process per code, on the same M2 Pro with eight OpenMP threads:
+One fresh process per code, on the same M2 Pro with eight OpenMP threads
+and the fans set to maximum:
 
 | Code | Setup (s) | Covariance construction (s) | Combined (s) |
 | --- | ---: | ---: | ---: |
-| CoCoA | 0.51 | 45.76 | 46.27 |
-| OneCovariance | 25.28 | 491.50 | 516.78 |
+| CoCoA | 0.50 | 48.01 | 48.51 |
+| OneCovariance | 25.38 | 511.60 | 536.98 |
 
-CoCoA's construction is **10.74× faster** in this 16×16 source-bin pilot;
-including setup gives **11.17×**. These are single measurements, including
+CoCoA's construction is **10.66× faster** in this 16×16 source-bin pilot;
+including setup gives **11.07×**. These are single measurements, including
 first-use halo calculations and angular transforms, with plotting and file
 writing excluded. Every component, angular bin and signal exactly matches
 its accuracy archive, including OneCov's small native antisymmetry.
 
-The [timing record](results/global_power_20261006/timings.json) includes
+The [complete-pilot timing record](results/global_power_20261006/complete_retiming_20261007.json) includes
 CoCoA's individual construction stages. OneCov's unmodified entry point
 provides setup and construction totals; those measurements do not separate
 halo-table generation from projection within its construction.

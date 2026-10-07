@@ -241,3 +241,42 @@ faster: 0.0971 versus 0.2029 ms (300 nodes), 0.1065 versus 0.3336 ms
 Gaussian component times. Native halo prescriptions and real-space
 transforms still differ, and native cNG convergence remains unresolved.
 These small cases do not measure a full 1560-entry OneCov forecast.
+
+### Four-pilot cooling rerun, 2026-10-07
+
+The user requested repeating only the four complete timings after setting
+the fans to maximum and letting the laptop cool. That condition was
+confirmed by the user, not measured by a thermal sensor. The prelaunch
+check found 96.48% CPU idle and no other numerical/compiler jobs. The
+same commands, scripts, eight-thread environment and inputs were used,
+with fresh output folders; all earlier results remain intact.
+
+| Complete pilot | CoCoA construction | OneCov construction |
+| --- | ---: | ---: |
+| Fourier 100x100 | 22.1845 s | 70.3927 s |
+| Real-space 16x16 | 48.0055 s | 511.5998 s |
+
+Changes from the earlier single runs are +5.69%/-1.61% for Fourier and
++4.90%/+4.09% for real space, in CoCoA/OneCov order. There is no systematic
+speedup. Do not attribute these changes to temperature from one run per
+condition, or select the fastest individual results from the two sets.
+The README uses the complete new set. Repeated component timings were not
+rerun and retain their own original records.
+
+`scripts/collect_complete_timings.py` checks each matrix against both its
+accuracy archive and earlier timing: every G, SSC, cNG, total, coordinate
+and signal array is bitwise equal. Native settings and power fingerprints
+also match. `results/global_power_20261006/complete_retiming_20261007.json`
+preserves both sets of measurements and their verification. The missing
+denominator brace in the README's matrix-difference equation was corrected
+separately as f721f73; all ten display equations have balanced braces.
+
+The subsequent full-survey discussion produced an unverified days-to-weeks
+extrapolation from the native transform loops, 5-source tomography and
+26 angular bins. It was withdrawn as a runtime estimate: proportional
+cost per tomographic column has not been measured. Do not publish it as
+a benchmark or revive it as an established prediction. CoCoA's shared
+halo tables explain its inexpensive growth from a small pilot to full
+LSST; OneCov's repeated real-space integrations need their own scaling
+measurement. A bounded one/two-source and angular-bin study is the next
+useful diagnostic, but was not part of the authorized four timing reruns.
