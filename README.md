@@ -1741,7 +1741,7 @@ CoCoA's mode-count weights.
 For component X, each pixel shows
 
 $$
-100\,\frac{C^{X}_{\mathrm{CoCoA},ij}-C^{X}_{\mathrm{OneCov},ij}}
+100 \times \frac{C^{X}_{\mathrm{CoCoA},ij}-C^{X}_{\mathrm{OneCov},ij}}
 {\sqrt{C^{\mathrm{total}}_{\mathrm{OneCov},ii}
        C^{\mathrm{total}}_{\mathrm{OneCov},jj}}}.
 $$
@@ -1824,6 +1824,20 @@ excluded. Both timed G, SSC, cNG and total matrices, their multipoles and
 signals are exactly equal to their respective accuracy archives. The
 [complete-pilot timing record](results/global_power_20261006/complete_retiming_20261007.json)
 preserves the measurements and verification checks.
+
+> [!WARNING]
+> **A source-bin pilot already pays much of CoCoA's shared-table cost.**
+>
+> - **CoCoA:** matter responses and trispectra are reused across observable
+>   pairs. At fixed cosmology and numerical sampling, adding survey bins
+>   therefore costs less than repeating this entire pilot for each pair.
+>   This makes small-to-full runtime extrapolation more predictable.
+> - **OneCovariance:** this one-source Fourier measurement does not establish
+>   its full-survey runtime or its scaling with tomographic combinations.
+>   That requires separate measurements of shared and growing work.
+>
+> **The 3.17× pilot speed ratio is not a full-survey speed ratio.** The
+> measured full LSST Y1 example discussed [below](#real-shear) is real space.
 
 ### Reproducing the complete shear figure
 
@@ -1960,10 +1974,20 @@ CoCoA's individual construction stages. OneCov's unmodified entry point
 provides setup and construction totals; those measurements do not separate
 halo-table generation from projection within its construction.
 
-The full **1560 × 1560 LSST Y1** OneCovariance runtime remains unmeasured.
-Extending the source-bin pilot adds angular bins and tomographic
-combinations, while some initialization is shared. Matrix dimensions alone
-therefore do not give a defensible full-survey runtime estimate.
+> [!WARNING]
+> **CoCoA's shared tables make small-to-full runtime extrapolation more
+> predictable at fixed cosmology and numerical sampling.**
+>
+> - **CoCoA:** most construction time goes into shared matter responses and
+>   trispectra. More observable pairs reuse those tables, so adding the
+>   remaining survey bins mainly adds comparatively inexpensive projections.
+>   Full **1560 × 1560 LSST Y1** calculations have been measured.
+> - **OneCovariance:** the full LSST Y1 runtime remains unmeasured. Its
+>   repeated real-space integrations grow with angular-bin pairs and
+>   tomographic combinations, requiring their own scaling measurements.
+>
+> CoCoA's measured small-to-full runtime factor cannot be applied to OneCov.
+> The pilot speed ratio is not a measured full-survey speed ratio.
 
 The [real-space comparison record](results/global_power_20261006/real_shear.json)
 contains input and source fingerprints, numerical settings, component
