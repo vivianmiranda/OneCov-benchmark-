@@ -1,0 +1,530 @@
+{
+  "redshifts": [
+    0.1,
+    0.5,
+    1.0
+  ],
+  "sigma_native_max_fractional": [
+    0.00021359603751225364,
+    0.0001941720489785359,
+    0.0001856246810085782
+  ],
+  "sigma_controlled_steps": {
+    "onecov_native -> cocoa_power_native_onecov_radius": [
+      7.196014609434087e-05,
+      6.244588962034392e-05,
+      6.192473664445863e-05
+    ],
+    "cocoa_power_native_onecov_radius -> cocoa_power_dense_onecov_radius": [
+      0.00012810318795508646,
+      0.00012809998095886233,
+      0.0001280999097887925
+    ],
+    "cocoa_power_dense_onecov_radius -> cocoa_power_wide_onecov_radius": [
+      1.5560998560815165e-06,
+      1.556120200252309e-06,
+      1.5561572186406636e-06
+    ],
+    "cocoa_power_wide_onecov_radius -> shared_filter_stride1": [
+      1.606644923357603e-05,
+      1.6066449529783533e-05,
+      1.606645006002605e-05
+    ],
+    "shared_filter_stride1 -> cocoa_fft_boost1": [
+      2.8579046217336312e-06,
+      3.53478373682492e-06,
+      8.213997501504977e-06
+    ]
+  },
+  "sigma_shared_max_fractional": [
+    2.8579046217336312e-06,
+    3.53478373682492e-06,
+    8.213997501504977e-06
+  ],
+  "sigma_shared_boost4_max_fractional": [
+    2.6344638307529422e-06,
+    2.7592215907645823e-06,
+    2.5745593654757926e-06
+  ],
+  "sigma_filter_refinement": [
+    2.8485103165110104e-11,
+    2.8429592013878846e-11,
+    2.8401725415960755e-11
+  ],
+  "sigma_onecov_native_refinements": {
+    "200 -> 400": [
+      0.00015298055933665733,
+      0.0001529805593365463,
+      0.0001529805593369904
+    ],
+    "400 -> 800": [
+      7.640645011353087e-05,
+      7.640645011330882e-05,
+      7.640645011330882e-05
+    ],
+    "800 -> 1600": [
+      1.7647503127826702e-05,
+      1.7647503128048747e-05,
+      1.7647503127826702e-05
+    ],
+    "1600 -> 3200": [
+      7.575924015457147e-06,
+      7.575924015679192e-06,
+      7.575924015457147e-06
+    ],
+    "3200 -> 6400": [
+      2.303354432520166e-06,
+      2.3033544327422106e-06,
+      2.3033544327422106e-06
+    ],
+    "6400 -> 12800": [
+      2.1340322764462627e-07,
+      2.1340322786667087e-07,
+      2.1340322775564857e-07
+    ]
+  },
+  "sigma_common_amplitude_max_fractional": [
+    8.096510853583538e-05,
+    8.095814016728653e-05,
+    8.094596691110567e-05
+  ],
+  "sigma8_cocoa_power": [
+    0.7850061451145092,
+    0.6391482306050639,
+    0.5057701131057267
+  ],
+  "sigma8_onecov_fine": [
+    0.7851046861805278,
+    0.6392156152252456,
+    0.5058237123618676
+  ],
+  "sigma8_z0": {
+    "power_reader_z0": 0.826616570740698,
+    "power_camb_z0": 0.8266166123459517
+  },
+  "abundance_factors": [
+    {
+      "z": 0.1,
+      "native_filter_check": 4.440892098500626e-16,
+      "factor_ranges": {
+        "density": [
+          0.9999401499651916,
+          0.9999401499651916
+        ],
+        "multiplicity_at_same_peak": [
+          1.006486489412574,
+          1.0064864894125771
+        ],
+        "multiplicity_peak_shift": [
+          0.9995073147969016,
+          1.000201081897541
+        ],
+        "peak_height": [
+          0.9999736681956499,
+          1.0002136416705263
+        ],
+        "mass_derivative": [
+          0.9982941296336466,
+          1.0015846968932927
+        ]
+      },
+      "abundance_ratio_range": [
+        1.0045140400835613,
+        1.0079872558262402
+      ]
+    },
+    {
+      "z": 0.5,
+      "native_filter_check": 4.440892098500626e-16,
+      "factor_ranges": {
+        "density": [
+          0.9999401499651916,
+          0.9999401499651916
+        ],
+        "multiplicity_at_same_peak": [
+          1.0262221625478658,
+          1.026222162547869
+        ],
+        "multiplicity_peak_shift": [
+          0.9993260036605986,
+          1.000536343676584
+        ],
+        "peak_height": [
+          0.9999542535897326,
+          1.0001942097590855
+        ],
+        "mass_derivative": [
+          0.9982941438772639,
+          1.0015847151082797
+        ]
+      },
+      "abundance_ratio_range": [
+        1.0241149700210121,
+        1.0279619885986782
+      ]
+    },
+    {
+      "z": 1.0,
+      "native_filter_check": 4.440892098500626e-16,
+      "factor_ranges": {
+        "density": [
+          0.9999401499651916,
+          0.9999401499651916
+        ],
+        "multiplicity_at_same_peak": [
+          1.0483203417109568,
+          1.0483203417109608
+        ],
+        "multiplicity_peak_shift": [
+          0.9989588959221039,
+          1.0010307109406582
+        ],
+        "peak_height": [
+          0.9999457241612972,
+          1.0001856591439278
+        ],
+        "mass_derivative": [
+          0.9982941748964508,
+          1.001584747681479
+        ]
+      },
+      "abundance_ratio_range": [
+        1.045874729966126,
+        1.0504319569515417
+      ]
+    }
+  ],
+  "abundance_without_amplitude_range": [
+    [
+      -0.0019597375123885374,
+      0.0014910944453323527
+    ],
+    [
+      -0.002053349268568372,
+      0.001695369788633938
+    ],
+    [
+      -0.002332885900928172,
+      0.002014284333295091
+    ]
+  ],
+  "source_reports": {
+    "onecov": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "rows": [
+        {
+          "z": 0.1,
+          "native_filter_check": 4.440892098500626e-16,
+          "factor_ranges": {
+            "density": [
+              0.9999401499651916,
+              0.9999401499651916
+            ],
+            "multiplicity_at_same_peak": [
+              1.006486489412574,
+              1.0064864894125771
+            ],
+            "multiplicity_peak_shift": [
+              0.9995073147969016,
+              1.000201081897541
+            ],
+            "peak_height": [
+              0.9999736681956499,
+              1.0002136416705263
+            ],
+            "mass_derivative": [
+              0.9982941296336466,
+              1.0015846968932927
+            ]
+          },
+          "abundance_ratio_range": [
+            1.0045140400835613,
+            1.0079872558262402
+          ]
+        },
+        {
+          "z": 0.5,
+          "native_filter_check": 4.440892098500626e-16,
+          "factor_ranges": {
+            "density": [
+              0.9999401499651916,
+              0.9999401499651916
+            ],
+            "multiplicity_at_same_peak": [
+              1.0262221625478658,
+              1.026222162547869
+            ],
+            "multiplicity_peak_shift": [
+              0.9993260036605986,
+              1.000536343676584
+            ],
+            "peak_height": [
+              0.9999542535897326,
+              1.0001942097590855
+            ],
+            "mass_derivative": [
+              0.9982941438772639,
+              1.0015847151082797
+            ]
+          },
+          "abundance_ratio_range": [
+            1.0241149700210121,
+            1.0279619885986782
+          ]
+        },
+        {
+          "z": 1.0,
+          "native_filter_check": 4.440892098500626e-16,
+          "factor_ranges": {
+            "density": [
+              0.9999401499651916,
+              0.9999401499651916
+            ],
+            "multiplicity_at_same_peak": [
+              1.0483203417109568,
+              1.0483203417109608
+            ],
+            "multiplicity_peak_shift": [
+              0.9989588959221039,
+              1.0010307109406582
+            ],
+            "peak_height": [
+              0.9999457241612972,
+              1.0001856591439278
+            ],
+            "mass_derivative": [
+              0.9982941748964508,
+              1.001584747681479
+            ]
+          },
+          "abundance_ratio_range": [
+            1.045874729966126,
+            1.0504319569515417
+          ]
+        }
+      ],
+      "growth_model": "CambGrowth",
+      "sigma8_input": 0.8267178343728806,
+      "growth_factors": [
+        0.9496645707308218,
+        0.7731967895778648,
+        0.6118456138665164
+      ],
+      "filter_source_sha256": "c48a66127fc01ef4c5fb58461bfa6bc29645e0596925fe53948b422b7c352015",
+      "cocoa_export": {
+        "core": {
+          "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+          "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M README.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+        },
+        "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+        "installed_power": {
+          "power_refinement": 8,
+          "nk": 11993,
+          "nz": 140,
+          "preparation": "project initialize; natural-cubic global refinement",
+          "arrays": {
+            "log10k_2D": {
+              "shape": [
+                11993
+              ],
+              "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+            },
+            "z_2D": {
+              "shape": [
+                140
+              ],
+              "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+            },
+            "lnP_linear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+            },
+            "lnP_nonlinear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+            },
+            "lnP_linear_cb": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+            }
+          }
+        },
+        "cosmology": {
+          "omegam": 0.3,
+          "omegab": 0.05,
+          "H0": 70.0,
+          "ns": 0.965,
+          "As_1e9": 2.1,
+          "w": -1.0,
+          "w0pwa": -1.0,
+          "mnu": 0.0,
+          "AccuracyBoost": 1.0,
+          "CLAccuracyBoost": 1.0,
+          "CAMBAccuracyBoost": 1.0,
+          "kmax": 20.0,
+          "k_per_logint": 20,
+          "non_linear_emul": 2,
+          "lens_potential_accuracy": 1.0,
+          "halofit_version": "takahashi"
+        },
+        "camb_sigma8": 0.8267041594290006,
+        "core_sigma8_fft": 0.826615157065409,
+        "camb_neff": 3.046,
+        "camb_k_per_logint": 0,
+        "camb_kmax": 20.0,
+        "power_table_shape": [
+          140,
+          11993
+        ],
+        "power_table_sha256": "20751b17ba2cb97a90c033f1d56e28c9159c3ad1a1698e324c20c6bc32367638",
+        "native_export": {
+          "onecov": {
+            "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+            "status": ""
+          },
+          "source_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926",
+          "config_sha256": "4eeb38a65cc89a97e6e16e30d97402804770a158d0e08990b534a15e3135db79",
+          "script_sha256": "aa349d92b0cc7a6ef10bf578b644b8b226807b00427dc8fc7443adb94294f9a0",
+          "inputs_sha256": "8a5f5107f54fad07eab8291bc5e3a5c2decb9a3c1c5294588fa29122f7bd57ff",
+          "mass_nodes": 800,
+          "redshifts": [
+            0.1,
+            0.5,
+            1.0
+          ],
+          "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+          "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+        },
+        "script_sha256": "e1109e0637713addedd1f938fafcd1822d2234f886d595bc71a252490099c062",
+        "output_sha256": "20751b17ba2cb97a90c033f1d56e28c9159c3ad1a1698e324c20c6bc32367638"
+      },
+      "native_export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "source_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926",
+        "config_sha256": "4eeb38a65cc89a97e6e16e30d97402804770a158d0e08990b534a15e3135db79",
+        "script_sha256": "aa349d92b0cc7a6ef10bf578b644b8b226807b00427dc8fc7443adb94294f9a0",
+        "inputs_sha256": "8a5f5107f54fad07eab8291bc5e3a5c2decb9a3c1c5294588fa29122f7bd57ff",
+        "mass_nodes": 800,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+        "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+      },
+      "script_sha256": "e1109e0637713addedd1f938fafcd1822d2234f886d595bc71a252490099c062",
+      "output_sha256": "f802d3bdfd89bc22ed42192c64daf53e0784d6cfd644bc9c9e7316aa0bf06cd1"
+    },
+    "cocoa": {
+      "core": {
+        "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+        "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M README.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+      },
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "installed_power": {
+        "power_refinement": 8,
+        "nk": 11993,
+        "nz": 140,
+        "preparation": "project initialize; natural-cubic global refinement",
+        "arrays": {
+          "log10k_2D": {
+            "shape": [
+              11993
+            ],
+            "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+          },
+          "z_2D": {
+            "shape": [
+              140
+            ],
+            "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+          },
+          "lnP_linear": {
+            "shape": [
+              1679020
+            ],
+            "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+          },
+          "lnP_nonlinear": {
+            "shape": [
+              1679020
+            ],
+            "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+          },
+          "lnP_linear_cb": {
+            "shape": [
+              1679020
+            ],
+            "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+          }
+        }
+      },
+      "cosmology": {
+        "omegam": 0.3,
+        "omegab": 0.05,
+        "H0": 70.0,
+        "ns": 0.965,
+        "As_1e9": 2.1,
+        "w": -1.0,
+        "w0pwa": -1.0,
+        "mnu": 0.0,
+        "AccuracyBoost": 1.0,
+        "CLAccuracyBoost": 1.0,
+        "CAMBAccuracyBoost": 1.0,
+        "kmax": 20.0,
+        "k_per_logint": 20,
+        "non_linear_emul": 2,
+        "lens_potential_accuracy": 1.0,
+        "halofit_version": "takahashi"
+      },
+      "camb_sigma8": 0.8267041594290006,
+      "core_sigma8_fft": 0.826615157065409,
+      "camb_neff": 3.046,
+      "camb_k_per_logint": 0,
+      "camb_kmax": 20.0,
+      "power_table_shape": [
+        140,
+        11993
+      ],
+      "power_table_sha256": "20751b17ba2cb97a90c033f1d56e28c9159c3ad1a1698e324c20c6bc32367638",
+      "native_export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "source_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926",
+        "config_sha256": "4eeb38a65cc89a97e6e16e30d97402804770a158d0e08990b534a15e3135db79",
+        "script_sha256": "aa349d92b0cc7a6ef10bf578b644b8b226807b00427dc8fc7443adb94294f9a0",
+        "inputs_sha256": "8a5f5107f54fad07eab8291bc5e3a5c2decb9a3c1c5294588fa29122f7bd57ff",
+        "mass_nodes": 800,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+        "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+      },
+      "script_sha256": "e1109e0637713addedd1f938fafcd1822d2234f886d595bc71a252490099c062",
+      "output_sha256": "20751b17ba2cb97a90c033f1d56e28c9159c3ad1a1698e324c20c6bc32367638"
+    }
+  },
+  "inputs_sha256": {
+    "onecov": "f802d3bdfd89bc22ed42192c64daf53e0784d6cfd644bc9c9e7316aa0bf06cd1",
+    "cocoa": "20751b17ba2cb97a90c033f1d56e28c9159c3ad1a1698e324c20c6bc32367638"
+  },
+  "script_sha256": "f4c2566414a2d0cc1d2f89f5eea5e7f8c57d7cfa0fffa03c72c0303bcd722422"
+}

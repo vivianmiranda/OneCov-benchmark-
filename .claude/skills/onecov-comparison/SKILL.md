@@ -30,6 +30,9 @@ figures for the covariance quantities and their differences between codes.
 Read [the source study](references/onecov.md) before changing input
 formats, bias choices, numerical controls or component extraction. Use
 the repository README for the current runnable commands and milestones.
+For the adopted global 11993-node covariance power table, use the bounded
+[global-power refresh](references/global_power_refresh.md). Initialization
+already installs and returns the refined arrays: never refine them twice.
 Study the local OneCovariance checkout; do not fetch another implementation
 or substitute online descriptions for the code actually being tested.
 

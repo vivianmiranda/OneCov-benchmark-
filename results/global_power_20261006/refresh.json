@@ -1,0 +1,175 @@
+{
+  "date_local": "2026-10-06",
+  "scope": "Current global-power component comparisons and complete one-source Fourier/real matrices",
+  "timing": "Accuracy only; no new performance claim",
+  "power": {
+    "power_refinement": 8,
+    "nk": 11993,
+    "nz": 140,
+    "preparation": "project initialize; natural-cubic global refinement",
+    "arrays": {
+      "log10k_2D": {
+        "shape": [
+          11993
+        ],
+        "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+      },
+      "z_2D": {
+        "shape": [
+          140
+        ],
+        "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+      },
+      "lnP_linear": {
+        "shape": [
+          1679020
+        ],
+        "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+      },
+      "lnP_nonlinear": {
+        "shape": [
+          1679020
+        ],
+        "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+      },
+      "lnP_linear_cb": {
+        "shape": [
+          1679020
+        ],
+        "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+      }
+    }
+  },
+  "production_power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+  "core": {
+    "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+    "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+  },
+  "onecov": {
+    "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+    "status": ""
+  },
+  "completed_stages": [
+    "inputs",
+    "shear_30_150_onecov",
+    "shear_30_150_compare",
+    "3x2_30_150_onecov",
+    "3x2_30_150_compare",
+    "3x2_1500_1620_onecov",
+    "3x2_1500_1620_compare",
+    "plot_gaussian",
+    "native_seed",
+    "ssc_response_export",
+    "ssc_response_compare",
+    "ssc_export_601",
+    "ssc_compare_601",
+    "ssc_export_1201",
+    "ssc_compare_1201",
+    "plot_ssc",
+    "halo_export",
+    "halo_compare_i0",
+    "halo_compare_i2",
+    "trispectrum_export",
+    "trispectrum_compare_i0",
+    "trispectrum_compare_i2",
+    "plot_halo",
+    "connected_export",
+    "connected_compare",
+    "plot_connected",
+    "fourier_onecov",
+    "fourier_cocoa",
+    "plot_fourier",
+    "real_onecov",
+    "real_cocoa",
+    "plot_real"
+  ],
+  "source_ledger_sha256": "17af0751c05b1c43363dc95918c976bc753a09a0702cecf8afe701d3a913a6fb",
+  "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+  "records_sha256": {
+    "trispectrum.json": "c6a46e1e2d5c32182beff7c95b4a3b9affa7f12a7e160df5c5ced5643d1553db",
+    "ssc_projection.json": "e1022df18c3de26ec7e4fa24aba0228caa995b4cd423e86da54b8e9836b33950",
+    "ssc_response.json": "8bcaaac07546de3832759af041c1f78357cee1c1cdf5ad59770e2e841dff3322",
+    "inputs.json": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+    "gaussian.json": "e07bd50c46484386abdc3ff7f674fc93b3510fa8c9c9ce199fba67df384061aa",
+    "fourier_shear.json": "f7dbc3e701a5c2b16f4595442932c4ac7111b72a5589aa8f4a2451b5472ac27a",
+    "connected_projection.json": "e0350a32ba05ae92ec9915b0aef4c52563a11c12c8860e93245242dc9de80b68",
+    "real_shear.json": "5e6371759d4b5b01f01e3b1f8e540c124ca6ff2c181122060c3ed8816f63a4f9",
+    "halo.json": "7f9b4ee3b7bfca148af24a9aa1bda47d942cbe0758203387240a6024bdbe1bd2",
+    "sigma_abundance.json": "745e82f42f28b857eb74f93842b1986e17a02783bc521f0e65204639cc3478ae",
+    "bias_normalization.json": "7a613c19c607fcffc718304ecb688b4076010ecb1a308f21939cdbadb60a8e14",
+    "source_parity.json": "f5c0e5ab3a390e01e9230a192d15954f816ff9d9ca7995039aade639361a6d7f"
+  },
+  "figures_sha256": {
+    "gaussian_matrices.png": "885db946c1c6fc772b1bac6903a40d3213c61c4f0ab7a1a0006a8745fbd3a799",
+    "gaussian_matrices.pdf": "72a9574d09217dfdf9a8116e9d1c100660f8df29d9119fd36702890d9a6c161c",
+    "gaussian_components.png": "cb7f336c00d64df27e5dc25d30567883fe189ad02ab221726e518bb52bdc0d39",
+    "gaussian_components.pdf": "c9fdb62e68d342354d3eb3955cc52d39a78c8f67819e6e8e9d8a60c3ae502349",
+    "ssc_projection.png": "0c95b4cba875730b6411ddf59ac77db42552e2e57e44e61aedaf5ac52aa05990",
+    "ssc_projection.pdf": "1bcfa4a5dc2c6f5ae0999c2742d84a9dd985580a5115d7c32334d828fd7d4561",
+    "halo_ingredients.png": "b5a18e815ad7f52ba9ad01509bdaf613099bd6e2ac3881a3ff5999c4aac51160",
+    "halo_ingredients.pdf": "3f9ba0d041737d27e406a09d81e257dd5cc88431f728c9625f5aaf1ba58525c0",
+    "trispectrum_terms.png": "418877b9c5c4b6ccba642ddb38fc3bac5f69bc6c37438c684abe76b8245ab3ee",
+    "trispectrum_terms.pdf": "858fddc68d50faeb18302d41057b029ad1f6b389cfa0cc428a93243d85fab1d4",
+    "connected_projection.png": "e787aca29560dbe29c1df1cde88963275017b726aeab8177a67622bd2bade0c2",
+    "connected_projection.pdf": "039429b92f230fd7d5af605ef3e275832059df00dca7a0d3fec79094239e253a",
+    "complete_shear_difference.png": "aa2a3db7c527326ff3e049aa8319fc4b33b7f3feefed3045e023cf52de80882d",
+    "complete_shear_difference.pdf": "f2791decb1cb55920fc7c0a91eb85ed35701c9add9a20edbad116eeaeb67854d",
+    "real_shear_difference.png": "55352baad152d430f0591059c92cab63dd4ce1fee6586c4a83592e456d713ce8",
+    "real_shear_difference.pdf": "ee9a997ad12009327f53dd70c6da07a0ec6d640f554a39e844e6767c36281fc8",
+    "sigma_abundance.png": "8b652b91128a8432692953fddf28c20242142d44854266da244bc2d0279c5c70",
+    "sigma_abundance.pdf": "0bfd9194a3371f91b8de3cfe874b988669a64c3b4f256bcd35de852d865f7b2d"
+  },
+  "followup_completed_stages": [
+    "sigma_cocoa",
+    "sigma_onecov",
+    "sigma_report",
+    "bias_4097",
+    "bias_8193",
+    "halo_400",
+    "ssc_export_300",
+    "ssc_compare_300",
+    "ssc_export_601",
+    "ssc_compare_601",
+    "ssc_export_1201",
+    "ssc_compare_1201",
+    "ssc_export_radialfine",
+    "ssc_compare_radialfine",
+    "ssc_export_zfiner",
+    "ssc_compare_zfiner",
+    "trispectrum_400",
+    "trispectrum_guard_fine",
+    "trispectrum_guard_finer",
+    "trispectrum_guard_compare",
+    "export_k9",
+    "compare_k9",
+    "export_k17",
+    "compare_k17",
+    "export_k33",
+    "compare_k33",
+    "export_k65",
+    "compare_k65",
+    "export_k129",
+    "compare_k129",
+    "export_radial",
+    "compare_radial",
+    "export_redshift",
+    "compare_redshift",
+    "export_redshift_fine",
+    "compare_redshift_fine",
+    "export_mass",
+    "compare_mass",
+    "export_corner",
+    "compare_corner"
+  ],
+  "followup_ledger_sha256": "1eb0c9a4670bdc9e3dbebe3f96228e29db724163fc9c7baa457704554d07550e",
+  "source_parity": {
+    "archived_helper_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+    "current_helper_sha256": "0456a460e4b5a48ea843836c8ccad4fb9b53e0a81771828335d6a3d65f0646b0",
+    "status": "passed",
+    "core": {
+      "commit": "1d4428dceffa53c95bcd68ea4fad3c94c6bbb7c2",
+      "status": ""
+    },
+    "reason": "The complete installed arrays match exactly when the current helper refines the independently archived native inputs; no source-hash equality is assumed."
+  }
+}

@@ -1,0 +1,797 @@
+{
+  "export": {
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "inputs_sha256": "5fa84741f0fb94d5ea16463ece874617e0167e5af449ce7c54d927fc16afa82f",
+    "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+    "config_sha256": "f22c9fddb837d6ad184984b214dcb92e49af1550543dddf10f8aeb4c7ac2ab82",
+    "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+    "radial_nodes": 601,
+    "k_nodes": 129,
+    "mass_nodes": 400,
+    "delta_z": 0.125,
+    "corner_guard": 0.001,
+    "redshifts": [
+      0.017500995,
+      0.142500995,
+      0.267500995,
+      0.392500995,
+      0.517500995,
+      0.642500995,
+      0.767500995,
+      0.892500995,
+      1.017500995,
+      1.142500995,
+      1.267500995,
+      1.392500995,
+      1.517500995,
+      1.642500995,
+      1.767500995,
+      1.892500995,
+      2.017500995,
+      2.142500995,
+      2.267500995,
+      2.392500995,
+      2.517500995,
+      2.642500995,
+      2.767500995,
+      2.892500995,
+      3.017500995,
+      3.142500995,
+      3.267500995,
+      3.392500995,
+      3.4941666683333334,
+      3.6191666683333334
+    ],
+    "total_correlation_eigenvalues": [
+      0.9572780927576675,
+      0.9719183492608515,
+      0.9827568804607973,
+      0.9963641131505473,
+      1.091682564370137
+    ],
+    "instrumented_seconds": 93.94336700002896,
+    "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+  },
+  "scope": "Shared-input 8x8 shear cNG; ten native OneCov five-band G+cNG refinement controls from current shared-Pmm setup",
+  "max_variance_scaled_residual": 1.8973615297462663e-15,
+  "max_fractional_residual": 1.887379141862766e-15,
+  "symmetry_max_absolute": 0.0,
+  "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+  "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+  "provenance": {
+    "date_local": "2026-10-06",
+    "power_preparation": "Global natural-cubic fill; linear production lookups",
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "timing_scope": "Accuracy only; no new performance measurement"
+  },
+  "sources_sha256": {
+    "connected_cocoa/comparison.json": "48d56587dcbc171ff00c469409bab3431c94bcec53f8121b7d782fa975cadc8b",
+    "connected_cocoa/comparison.npz": "522465f5da9e26bcc47ae95f03fa79f0df38dfde32e7dfa935edfc1c2c76a708",
+    "connected_onecov/inputs.npz": "5fa84741f0fb94d5ea16463ece874617e0167e5af449ce7c54d927fc16afa82f",
+    "work/global_power_11993_followups_20261006/connected_k9/inputs.npz": "0710269f3d03c70b40f53caea781ee2995b21cf1b9e1e81b68a8cbc9175907a3",
+    "work/global_power_11993_followups_20261006/connected_k9/export.json": "807bb62ab9e0ceaa1a0effe98dfa300bbd15bd45d686290459d8c757b1101694",
+    "work/global_power_11993_followups_20261006/connected_cocoa_k9/comparison.json": "9c0e54a42f23da40cc2ed28a5327d964e4b52e2d853a3779b5f0c21fb31ece3e",
+    "work/global_power_11993_followups_20261006/connected_k17/inputs.npz": "f933bf64820eaeaa1918ae2cd6bc98dc18351506e004b2b6642a97aa87feb364",
+    "work/global_power_11993_followups_20261006/connected_k17/export.json": "3f30376b17b9ab9c3ec8440c9f56f1c5e0d0891792b8ace4c39847ad0db2d7d0",
+    "work/global_power_11993_followups_20261006/connected_cocoa_k17/comparison.json": "864355f61d643ccb28070583508d653fc80114b5dcfb6e85fb786db845bf5a58",
+    "work/global_power_11993_followups_20261006/connected_k33/inputs.npz": "70d837b5fa547973c26c18437dfba000460677395ba65ff17c542c6f179ff107",
+    "work/global_power_11993_followups_20261006/connected_k33/export.json": "98a8362b793101f71ff4ce71075df0768d7d630af85c0c51464e45438a550d17",
+    "work/global_power_11993_followups_20261006/connected_cocoa_k33/comparison.json": "6f5ea183c026510d320c11b53b2585d6aa2028129611dfb09cd46d2e421eeef2",
+    "work/global_power_11993_followups_20261006/connected_k65/inputs.npz": "4bb7431c26e3678aed8de5816d4620c852409057c725d7f0f5759a83d8429c44",
+    "work/global_power_11993_followups_20261006/connected_k65/export.json": "f63f6792fdec6c869b480ae7b23d471eede2c5dec11057cd290000b2ba90e69c",
+    "work/global_power_11993_followups_20261006/connected_cocoa_k65/comparison.json": "4a4f2cb5818ba0c74082da84bbf801cbf8366281fc98d5042cb7c89fe9a9d589",
+    "work/global_power_11993_followups_20261006/connected_k129/inputs.npz": "618eaa8b3f54e86f51ec243034612e78fd51bd89d11a7d9bf19539e2f27c4460",
+    "work/global_power_11993_followups_20261006/connected_k129/export.json": "913fa59c3c98ba3570d2b2ccac628ec7034e7063e650c4647f840040f7fe546f",
+    "work/global_power_11993_followups_20261006/connected_cocoa_k129/comparison.json": "beaada381158bc4579df0258c239f00ca6a89c4bac4869686fa6240fb6d71d93",
+    "work/global_power_11993_followups_20261006/connected_radial/inputs.npz": "90e293496aef21b39f6c1bb3be7b530f8df9aea91990cf5ca55ed8869ff2c188",
+    "work/global_power_11993_followups_20261006/connected_radial/export.json": "4c5060ea6e8b989aa5f11825db0bd770fdc33dd7b2a2cdbdf77dcbeecedc3475",
+    "work/global_power_11993_followups_20261006/connected_cocoa_radial/comparison.json": "1e7a07ec015ffc370188de096823d048b70b6209f08798931775a25572519739",
+    "work/global_power_11993_followups_20261006/connected_redshift/inputs.npz": "cf8cb159960f73d97b6b45efd9dd86c28738ea9e8d29d032a022cc7bbdef8e69",
+    "work/global_power_11993_followups_20261006/connected_redshift/export.json": "c32513bf4fb801beb143f75b49d98aebb72a04a2adddb7ba3dd2c2e25c3e9cab",
+    "work/global_power_11993_followups_20261006/connected_cocoa_redshift/comparison.json": "c2f4b6d57530141e6ed0ecd951445a382742dbce8f7409fe1cfcfdb5ac809322",
+    "work/global_power_11993_followups_20261006/connected_redshift_fine/inputs.npz": "239c93e05b96985044e78e071cb0d1cd27da03b6b74fb328d85fceb517cae596",
+    "work/global_power_11993_followups_20261006/connected_redshift_fine/export.json": "977a9c7609459ea7360188ce6ff9e6a3bc95ef53ea92a9f8626abe70d69ee69d",
+    "work/global_power_11993_followups_20261006/connected_cocoa_redshift_fine/comparison.json": "bb1b5ec5369b0dd160a66130a72a445ac4a72aabdc4baec67880231eacb6e2c8",
+    "work/global_power_11993_followups_20261006/connected_mass/inputs.npz": "6e69cb77e8bea76e476b29d393e65751d01437212c6a7211274044c487e3a904",
+    "work/global_power_11993_followups_20261006/connected_mass/export.json": "592cf2a8c9a601d19c1dc86e3220fa77c25dbc3b43abf404831765a0832ebe96",
+    "work/global_power_11993_followups_20261006/connected_cocoa_mass/comparison.json": "0dde1c53ab7925ab88eb27973fac172302d25afe5fd7990331e00508b6f5e8ca",
+    "work/global_power_11993_followups_20261006/connected_corner/inputs.npz": "2dedec5611c877bf14a6ac4d737418bd7e2c46cb284f02e27bbc03dadfc8e1cd",
+    "work/global_power_11993_followups_20261006/connected_corner/export.json": "9e37fe8293f602fb8b46b71daf89dbe5b7bbfa8c6447b654727fa69e97183539",
+    "work/global_power_11993_followups_20261006/connected_cocoa_corner/comparison.json": "fea2b405a119824d3357117083c803ea319f980edd019fdf3d99d45b22de7646"
+  },
+  "controls": {
+    "k9": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "0710269f3d03c70b40f53caea781ee2995b21cf1b9e1e81b68a8cbc9175907a3",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "f7b2ecdecfae59f4d0e511194d9adbaba4981b18944526033cebfefa7931e436",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 9,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9670129168212117,
+          0.9801264291799047,
+          0.9879634779401907,
+          0.9971549844243283,
+          1.067742191634364
+        ],
+        "instrumented_seconds": 25.763269040966406,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.5274126585435222e-15,
+      "max_fractional_residual": 1.5543122344752192e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "k17": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "f933bf64820eaeaa1918ae2cd6bc98dc18351506e004b2b6642a97aa87feb364",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "c107649f4f7056d7d570c8a462e933fba6505d98bd615781b365e9796a5fce17",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 17,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9620586615838079,
+          0.9755659710082216,
+          0.9853138687749147,
+          0.9968331481149105,
+          1.0802283505181458
+        ],
+        "instrumented_seconds": 26.87001891701948,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.4787802962160562e-15,
+      "max_fractional_residual": 1.5543122344752192e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "k33": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "70d837b5fa547973c26c18437dfba000460677395ba65ff17c542c6f179ff107",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "2078e9c8ce8b4f7093414d921f4348b06373d8dd2027310968dc16be75b921c4",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 33,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9611523825477507,
+          0.9744338765194205,
+          0.9842346868291997,
+          0.996680358433938,
+          1.0834986956696908
+        ],
+        "instrumented_seconds": 30.33911491703475,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.813135771990344e-15,
+      "max_fractional_residual": 1.3322676295501878e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "k65": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "4bb7431c26e3678aed8de5816d4620c852409057c725d7f0f5759a83d8429c44",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "fb7249fd1800e0ef53d4938f19a48d89c904d52e776cd3216537cc076cc71ed9",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9607237195935291,
+          0.9739709821209661,
+          0.9838267708348012,
+          0.9966158343342566,
+          1.0848626931164471
+        ],
+        "instrumented_seconds": 42.28468250000151,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 2.0336399449447273e-15,
+      "max_fractional_residual": 1.3322676295501878e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "k129": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "618eaa8b3f54e86f51ec243034612e78fd51bd89d11a7d9bf19539e2f27c4460",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "f5ab0368c620194b3ba4a192b15aef6c2d773f87aeba6041bdd487e81e5e01aa",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 300,
+        "k_nodes": 129,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.960657992906223,
+          0.973907324353483,
+          0.9838511331128758,
+          0.9966098624947912,
+          1.0849736871326263
+        ],
+        "instrumented_seconds": 85.56695654202485,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.2141596773969811e-15,
+      "max_fractional_residual": 1.3322676295501878e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "radial": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "90e293496aef21b39f6c1bb3be7b530f8df9aea91990cf5ca55ed8869ff2c188",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "b350e48646ec5607cb3f7025aa17ebe9fc8f30e15ea9a4e4482ddf277968e6e4",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.5,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.517500995,
+          1.017500995,
+          1.517500995,
+          2.017500995,
+          2.517500995,
+          3.017500995,
+          3.4941666683333334,
+          3.9941666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9607321255971518,
+          0.9739755807670144,
+          0.9838294115426431,
+          0.9966168716986955,
+          1.084846010394495
+        ],
+        "instrumented_seconds": 45.03266879200237,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 2.143219468812785e-15,
+      "max_fractional_residual": 1.9984014443252818e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "redshift": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "cf8cb159960f73d97b6b45efd9dd86c28738ea9e8d29d032a022cc7bbdef8e69",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "3e1e938167af0ba0fd4256e9edef03b61bae8abd377db4e5c01783b6f2cae722",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.25,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.267500995,
+          0.517500995,
+          0.767500995,
+          1.017500995,
+          1.267500995,
+          1.517500995,
+          1.767500995,
+          2.017500995,
+          2.267500995,
+          2.517500995,
+          2.767500995,
+          3.017500995,
+          3.267500995,
+          3.4941666683333334,
+          3.7441666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9585060257208001,
+          0.9725904321592023,
+          0.9830608830920657,
+          0.9964296301699169,
+          1.0894130288580148
+        ],
+        "instrumented_seconds": 48.5296877080109,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.2287966631892997e-15,
+      "max_fractional_residual": 1.5543122344752192e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "redshift_fine": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "239c93e05b96985044e78e071cb0d1cd27da03b6b74fb328d85fceb517cae596",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "4d3fbe166d18d9f966d0ad11fdf1d3af50a9dce14eff5a8e1a31c250da70bd78",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.125,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.142500995,
+          0.267500995,
+          0.392500995,
+          0.517500995,
+          0.642500995,
+          0.767500995,
+          0.892500995,
+          1.017500995,
+          1.142500995,
+          1.267500995,
+          1.392500995,
+          1.517500995,
+          1.642500995,
+          1.767500995,
+          1.892500995,
+          2.017500995,
+          2.142500995,
+          2.267500995,
+          2.392500995,
+          2.517500995,
+          2.642500995,
+          2.767500995,
+          2.892500995,
+          3.017500995,
+          3.142500995,
+          3.267500995,
+          3.392500995,
+          3.4941666683333334,
+          3.6191666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9573505475243499,
+          0.9719864890762162,
+          0.9827320798429857,
+          0.9963702598957473,
+          1.0915606236607012
+        ],
+        "instrumented_seconds": 55.37874124996597,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.606575752024218e-15,
+      "max_fractional_residual": 1.5543122344752192e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "mass": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "6e69cb77e8bea76e476b29d393e65751d01437212c6a7211274044c487e3a904",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "7c3aeb66c9fae948b3770b03efc45818a32a643a691f3cab68eda84b3711bf05",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 800,
+        "delta_z": 0.25,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.017500995,
+          0.267500995,
+          0.517500995,
+          0.767500995,
+          1.017500995,
+          1.267500995,
+          1.517500995,
+          1.767500995,
+          2.017500995,
+          2.267500995,
+          2.517500995,
+          2.767500995,
+          3.017500995,
+          3.267500995,
+          3.4941666683333334,
+          3.7441666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.95850565074313,
+          0.9725902161777911,
+          0.9830607583289667,
+          0.996429595929468,
+          1.0894137788206437
+        ],
+        "instrumented_seconds": 55.20297837496037,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.852446557504013e-15,
+      "max_fractional_residual": 1.6653345369377348e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    },
+    "corner": {
+      "export": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "2dedec5611c877bf14a6ac4d737418bd7e2c46cb284f02e27bbc03dadfc8e1cd",
+        "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4",
+        "config_sha256": "7d22f73267dfe57d3b37713535c0d0cb0422b1d68e26a1f6ffdc45aad4c6b5f1",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "radial_nodes": 601,
+        "k_nodes": 65,
+        "mass_nodes": 400,
+        "delta_z": 0.25,
+        "corner_guard": 1e-05,
+        "redshifts": [
+          0.017500995,
+          0.267500995,
+          0.517500995,
+          0.767500995,
+          1.017500995,
+          1.267500995,
+          1.517500995,
+          1.767500995,
+          2.017500995,
+          2.267500995,
+          2.517500995,
+          2.767500995,
+          3.017500995,
+          3.267500995,
+          3.4941666683333334,
+          3.7441666683333334
+        ],
+        "total_correlation_eigenvalues": [
+          0.9584801783510078,
+          0.9725934723695323,
+          0.9830688124603225,
+          0.9964352934711446,
+          1.0894222433479912
+        ],
+        "instrumented_seconds": 47.16067099996144,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "scope": "shared-input radial cNG projection",
+      "max_variance_scaled_residual": 1.2151187815079535e-15,
+      "max_fractional_residual": 1.5543122344752192e-15,
+      "symmetry_max_absolute": 0.0,
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "script_sha256": "07df3d17969b6ef4d93899b33572ac2c56c98756754dffde32f289de4ba2e9d4"
+    }
+  },
+  "total_matrix_diagnostics": {
+    "k9": {
+      "minimum_correlation_eigenvalue": 0.9670129168212117,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 1.0373268011499144e-17
+    },
+    "k17": {
+      "minimum_correlation_eigenvalue": 0.9620586615838079,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 2.2608974744376072e-17
+    },
+    "k33": {
+      "minimum_correlation_eigenvalue": 0.9611523825477507,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 1.7161557837281302e-17
+    },
+    "k65": {
+      "minimum_correlation_eigenvalue": 0.9607237195935291,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 2.703448808187372e-17
+    },
+    "k129": {
+      "minimum_correlation_eigenvalue": 0.960657992906223,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 1.7595676777491434e-17
+    },
+    "radial": {
+      "minimum_correlation_eigenvalue": 0.9607321255971518,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 1.7608444058029406e-17
+    },
+    "redshift": {
+      "minimum_correlation_eigenvalue": 0.9585060257208001,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 3.163597082563087e-17
+    },
+    "redshift_fine": {
+      "minimum_correlation_eigenvalue": 0.9573505475243499,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 4.359481195036659e-17
+    },
+    "mass": {
+      "minimum_correlation_eigenvalue": 0.95850565074313,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 3.147113505292317e-17
+    },
+    "corner": {
+      "minimum_correlation_eigenvalue": 0.9584801783510078,
+      "positive_definite": true,
+      "max_correlation_asymmetry": 3.161907733281076e-17
+    }
+  },
+  "control_refinements": [
+    {
+      "coarse": "k9",
+      "fine": "k17",
+      "max_cng_variance_scaled_change": 0.3835650862494602,
+      "total_variance_ratios": [
+        0.9798803818949584,
+        0.9972625992162497,
+        0.9986911556754894,
+        0.9998548431930729,
+        1.0018554134226865
+      ],
+      "max_total_variance_mode_change": 0.020119618105041592
+    },
+    {
+      "coarse": "k17",
+      "fine": "k33",
+      "max_cng_variance_scaled_change": 0.13154662577954823,
+      "total_variance_ratios": [
+        0.9949816189046734,
+        0.9982498405489505,
+        0.9990108782753363,
+        0.9998354824890173,
+        1.0002047146210196
+      ],
+      "max_total_variance_mode_change": 0.005018381095326596
+    },
+    {
+      "coarse": "k33",
+      "fine": "k65",
+      "max_cng_variance_scaled_change": 0.09544628843363248,
+      "total_variance_ratios": [
+        0.9972571812576643,
+        0.9988887144613183,
+        0.9992113759724947,
+        0.9996053529880824,
+        0.9999689659150066
+      ],
+      "max_total_variance_mode_change": 0.0027428187423357286
+    },
+    {
+      "coarse": "k65",
+      "fine": "k129",
+      "max_cng_variance_scaled_change": 0.029971278300986545,
+      "total_variance_ratios": [
+        0.9990934042775367,
+        0.9992030250933431,
+        0.9995777220882689,
+        0.9997357519328977,
+        0.9999723108177856
+      ],
+      "max_total_variance_mode_change": 0.0009065957224633214
+    },
+    {
+      "coarse": "k65",
+      "fine": "radial",
+      "max_cng_variance_scaled_change": 0.00036168209715034614,
+      "total_variance_ratios": [
+        1.0000152541360323,
+        1.0000488141458153,
+        1.0001149724161484,
+        1.000216492205325,
+        1.0002813447157863
+      ],
+      "max_total_variance_mode_change": 0.0002813447157863358
+    },
+    {
+      "coarse": "radial",
+      "fine": "redshift",
+      "max_cng_variance_scaled_change": 0.07081895166255092,
+      "total_variance_ratios": [
+        0.993556060323561,
+        0.9994670421786668,
+        0.9997194958247175,
+        0.9999664847158206,
+        1.0000374248640027
+      ],
+      "max_total_variance_mode_change": 0.00644393967643897
+    },
+    {
+      "coarse": "redshift",
+      "fine": "redshift_fine",
+      "max_cng_variance_scaled_change": 0.03153674240506071,
+      "total_variance_ratios": [
+        0.9968937791344025,
+        0.9997637202363733,
+        0.9998825745341717,
+        0.9999818930185581,
+        0.9999912365903282
+      ],
+      "max_total_variance_mode_change": 0.003106220865597531
+    },
+    {
+      "coarse": "redshift",
+      "fine": "mass",
+      "max_cng_variance_scaled_change": 1.0708458580273396e-05,
+      "total_variance_ratios": [
+        0.9999989349314397,
+        0.9999998995756584,
+        0.9999999495121344,
+        0.9999999844493153,
+        0.99999999238513
+      ],
+      "max_total_variance_mode_change": 1.0650685603463828e-06
+    },
+    {
+      "coarse": "redshift",
+      "fine": "corner",
+      "max_cng_variance_scaled_change": 0.029499302193422807,
+      "total_variance_ratios": [
+        0.9991156084874201,
+        0.9992714097303446,
+        0.9996655103214385,
+        0.9998146950244488,
+        0.9999433601676685
+      ],
+      "max_total_variance_mode_change": 0.0008843915125799073
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "onecov": {
+    "mode": "onecov",
+    "rows": [
+      {
+        "z": 0.1,
+        "mass": 1.0,
+        "biased_mass": 0.9935553129263659,
+        "finite_normalization": 0.7725413332391504,
+        "finite_nu_range": [
+          0.23379120011958474,
+          15.074160964766628
+        ],
+        "bias_multiplier": 1.2944291223967905,
+        "multiplicity_amplitude": 0.35948318160646414
+      },
+      {
+        "z": 0.5,
+        "mass": 0.9999999999999998,
+        "biased_mass": 0.9744478696071665,
+        "finite_normalization": 0.7119669352568575,
+        "finite_nu_range": [
+          0.28714969163726756,
+          18.51455773574546
+        ],
+        "bias_multiplier": 1.4045596087116439,
+        "multiplicity_amplitude": 0.3308320546239294
+      },
+      {
+        "z": 1.0,
+        "mass": 1.0,
+        "biased_mass": 0.9539068930954334,
+        "finite_normalization": 0.6415770394572534,
+        "finite_nu_range": [
+          0.36287457925725514,
+          23.39707317875051
+        ],
+        "bias_multiplier": 1.5586592700480009,
+        "multiplicity_amplitude": 0.30259994282119357
+      }
+    ],
+    "log_nu_limits": [
+      -90,
+      3.5
+    ],
+    "nodes": 4097,
+    "revision": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "script_sha256": "cddbeac877bac2971b8f6f9bab28bcdd65f982d64b984a686464a0d786eb0fa2",
+    "config_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926"
+  },
+  "onecov_fine": {
+    "mode": "onecov",
+    "rows": [
+      {
+        "z": 0.1,
+        "mass": 1.0,
+        "biased_mass": 0.993555312926366,
+        "finite_normalization": 0.7725413332391504,
+        "finite_nu_range": [
+          0.23379120011958474,
+          15.074160964766628
+        ],
+        "bias_multiplier": 1.2944291223967905,
+        "multiplicity_amplitude": 0.35948318160646414
+      },
+      {
+        "z": 0.5,
+        "mass": 0.9999999999999999,
+        "biased_mass": 0.9744478696071665,
+        "finite_normalization": 0.7119669352568575,
+        "finite_nu_range": [
+          0.28714969163726756,
+          18.51455773574546
+        ],
+        "bias_multiplier": 1.4045596087116439,
+        "multiplicity_amplitude": 0.3308320546239294
+      },
+      {
+        "z": 1.0,
+        "mass": 1.0000000000000002,
+        "biased_mass": 0.9539068930954334,
+        "finite_normalization": 0.6415770394572534,
+        "finite_nu_range": [
+          0.36287457925725514,
+          23.39707317875051
+        ],
+        "bias_multiplier": 1.5586592700480009,
+        "multiplicity_amplitude": 0.30259994282119357
+      }
+    ],
+    "log_nu_limits": [
+      -90,
+      3.5
+    ],
+    "nodes": 8193,
+    "revision": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "script_sha256": "cddbeac877bac2971b8f6f9bab28bcdd65f982d64b984a686464a0d786eb0fa2",
+    "config_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926"
+  },
+  "cocoa": {
+    "mode": "cocoa",
+    "rows": [
+      {
+        "z": 0.1,
+        "mass": 1.0064864894125753,
+        "biased_mass": 0.9999999989444707
+      },
+      {
+        "z": 0.5,
+        "mass": 1.0262221625478678,
+        "biased_mass": 1.0000000000384288
+      },
+      {
+        "z": 1.0,
+        "mass": 1.048320341710959,
+        "biased_mass": 1.0000000001302438
+      }
+    ],
+    "log_nu_limits": [
+      -90,
+      3.5
+    ],
+    "nodes": 4097,
+    "revision": {
+      "commit": "2fb282129257eeae49797a7f2318f535049125f4",
+      "status": ""
+    },
+    "script_sha256": "cddbeac877bac2971b8f6f9bab28bcdd65f982d64b984a686464a0d786eb0fa2",
+    "config_sha256": null
+  },
+  "cocoa_fine": {
+    "mode": "cocoa",
+    "rows": [
+      {
+        "z": 0.1,
+        "mass": 1.0064864894125753,
+        "biased_mass": 0.9999999989444708
+      },
+      {
+        "z": 0.5,
+        "mass": 1.0262221625478676,
+        "biased_mass": 1.0000000000384288
+      },
+      {
+        "z": 1.0,
+        "mass": 1.0483203417109592,
+        "biased_mass": 1.0000000001302438
+      }
+    ],
+    "log_nu_limits": [
+      -90,
+      3.5
+    ],
+    "nodes": 8193,
+    "revision": {
+      "commit": "2fb282129257eeae49797a7f2318f535049125f4",
+      "status": ""
+    },
+    "script_sha256": "cddbeac877bac2971b8f6f9bab28bcdd65f982d64b984a686464a0d786eb0fa2",
+    "config_sha256": null
+  },
+  "provenance": {
+    "scope": "Current OneCov shared-Pmm setup; unchanged CoCoA supplied-nu fitted functions",
+    "onecov_sources": {
+      "bias_onecov_4097/result.json": "93d87bfb5a877c9a2dd212c4b493f14aeaafeacdad4c5f961cd72525b81c5a8f",
+      "bias_onecov_8193/result.json": "c5d759cd2b2ff0d6cf2c538f56faa52d81938749344b9325068265a1d1938c43"
+    },
+    "cocoa_reused_record_sha256": "3dbbf587b6d72ca28d3bad6c6d11d5f5c3282ee2a307dde1d08d3989023ae749",
+    "cocoa_reuse_reason": "These integrals evaluate fnu and hb1nu at supplied nu. They do not read P(k) or use sigma(M). Their halo.c and normalization dependencies basics.c/structs.c are byte unchanged from the saved run; matched amplitude ratios were also remeasured by the current sigma diagnostic.",
+    "cocoa_current_source_sha256": {
+      "cosmolike/halo.c": "bf24a30796c1eacd93e4171088c25a49e5625ffad41127ef9e5de365b2a6d169",
+      "cosmolike/basics.c": "27001b3a934e6040994247d9d08deb2e6c598c6fe71b6754b9395f1bd5e5fc6d",
+      "cosmolike/structs.c": "09f531b62cb27145985a5391718fabb6c75579a8bd55aae3634638ba5589ca0c"
+    }
+  }
+}
