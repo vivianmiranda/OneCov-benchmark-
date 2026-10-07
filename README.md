@@ -1981,7 +1981,12 @@ halo-table generation from projection within its construction.
 > - **CoCoA:** most construction time goes into shared matter responses and
 >   trispectra. More observable pairs reuse those tables, so adding the
 >   remaining survey bins mainly adds comparatively inexpensive projections.
->   Full **1560 × 1560 LSST Y1** calculations have been measured.
+>   The full **1560 × 1560 LSST Y1** matrix takes **53.4 s**, versus **48.0 s**
+>   for this **16 × 16** pilot: **1.11× the time, only about 11% more**.
+>   The full result is the mean of three fresh CLI runs; the pilot is one
+>   run. Both use eight OpenMP threads and the same dense power sampling.
+>   The [full LSST timing record](results/global_power_20261006/full_lsst_timing_20261007.json)
+>   preserves the individual measurements and configuration differences.
 > - **OneCovariance:** the full LSST Y1 runtime remains unmeasured. Its
 >   repeated real-space integrations grow with angular-bin pairs and
 >   tomographic combinations, requiring their own scaling measurements.

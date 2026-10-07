@@ -1,0 +1,148 @@
+{
+  "scope": "Measured CoCoA construction times for a selected real-space shear pilot and the full LSST Y1 project example; no full OneCov timing is inferred.",
+  "machine": "Apple M2 Pro, macOS 13.7.5",
+  "environment": {
+    "OMP_NUM_THREADS": "8",
+    "OMP_PROC_BIND": "disabled",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "COBAYA_NOMPI": "1"
+  },
+  "source_revisions": {
+    "core": {
+      "head": "959bb1d9fb54deafa6fe934c0327054bdede8a5e",
+      "status": ""
+    },
+    "lsst_y1": {
+      "head": "c187522125986ad181985c39143aeebbaad50a61",
+      "status": ""
+    }
+  },
+  "full": {
+    "shape": [
+      1560,
+      1560
+    ],
+    "space": "real",
+    "original_power_k_nodes": 1500,
+    "installed_power_k_nodes": 11993,
+    "power_refinement": 8,
+    "settings_sha256": "cdeb0070deb78e280b834b34636f6166642288b84dc99a97c0365baa222ea71e",
+    "construction": {
+      "mean_seconds": 53.38755491670842,
+      "stdev_seconds": 1.1089151609025025,
+      "min_seconds": 52.41678312502336,
+      "max_seconds": 54.59605520905461
+    },
+    "runs": [
+      {
+        "repeat": 1,
+        "construction_seconds": 52.41678312502336,
+        "cli_wall_seconds": 54.01727087504696,
+        "initialization_seconds_rounded": 0.49,
+        "stages_seconds": {
+          "all_pairs_gaussian_spectra": 2.008056667051278,
+          "angular_and_mask_geometry": 1.3156329999910668,
+          "gaussian_blocks": 3.8172759590670466,
+          "observable_signal": 0.06570937496144325,
+          "shared_halo_response_and_trispectrum": 45.13852720800787,
+          "ssc_and_connected_projection": 0.06858933297917247,
+          "total": 52.41678312502336
+        },
+        "archive_sha256": "49f3e22581a34f043c0b580b5beb0af0ccaf224d7d06e691bf481a1be783f22c",
+        "log_sha256": "c2d71ef9140ea07e707ce829a044f6a07bdbccc1c59a81a755a480d531d4012a"
+      },
+      {
+        "repeat": 2,
+        "construction_seconds": 53.14982641604729,
+        "cli_wall_seconds": 54.35565887496341,
+        "initialization_seconds_rounded": 0.49,
+        "stages_seconds": {
+          "all_pairs_gaussian_spectra": 2.060041875112802,
+          "angular_and_mask_geometry": 1.3433168330229819,
+          "gaussian_blocks": 4.278687041020021,
+          "observable_signal": 0.07862625003326684,
+          "shared_halo_response_and_trispectrum": 45.324305874994025,
+          "ssc_and_connected_projection": 0.062065667007118464,
+          "total": 53.14982641604729
+        },
+        "archive_sha256": "c2442cda56e08f29fdf7d03244d23687051c6e8af4836f90e327d7ffe3af82b9",
+        "log_sha256": "9f24e41cb4ca6006d35d96a762751568f840d13ac88e8ffdeb2cc08d618066d1"
+      },
+      {
+        "repeat": 3,
+        "construction_seconds": 54.59605520905461,
+        "cli_wall_seconds": 55.859202875057235,
+        "initialization_seconds_rounded": 0.5,
+        "stages_seconds": {
+          "all_pairs_gaussian_spectra": 2.071364125004038,
+          "angular_and_mask_geometry": 1.3167956250254065,
+          "gaussian_blocks": 3.9013016669778153,
+          "observable_signal": 0.07463212497532368,
+          "shared_halo_response_and_trispectrum": 47.1606416660361,
+          "ssc_and_connected_projection": 0.06801841594278812,
+          "total": 54.59605520905461
+        },
+        "archive_sha256": "00e2ce5313a7fd8621833fcad521cfcc1cb4ccb747ef626402ec7424cbc56bb0",
+        "log_sha256": "500f523904426687a2cfae0827324ece7281def2f132acc8772b9e7a19fa85af"
+      }
+    ],
+    "validation": {
+      "shape": [
+        1560,
+        1560
+      ],
+      "tested_shape": [
+        1560,
+        1560
+      ],
+      "space": "real",
+      "component_sha256": {
+        "gaussian": "2996fd692b6b3f1ae55d62a18be0fce14ded5cdab0d9dd63c713fef7a67f2eff",
+        "ssc": "e70837ae46dfca8c863c1211a455b2fb9884a0a4f9dece89c1540b2b9479d645",
+        "cng": "1c7e45249342d60c12c1d44b194af815b3eedaae7a3825deff24d99b454f7c5b",
+        "total": "c5a8e238ece1cde8ef3961d3c6a4cef7c5b7f7aadbf3e39f50b8164cfbe3deec"
+      },
+      "identical_repetitions": 3,
+      "finite_and_exactly_symmetric": true,
+      "total_component_sum_scaled_residual": 0.0,
+      "total_cholesky_positive_definite": true,
+      "minimum_correlation_eigenvalue": 0.00022698294631417473
+    }
+  },
+  "pilot": {
+    "shape": [
+      16,
+      16
+    ],
+    "construction_seconds": 48.00554249994457,
+    "number_of_runs": 1,
+    "stages_seconds": {
+      "all_pairs_gaussian_spectra": 1.482323250034824,
+      "angular_and_mask_geometry": 0.35475062497425824,
+      "gaussian_blocks": 0.1308731249300763,
+      "observable_signal": 0.009556125034578145,
+      "shared_halo_response_and_trispectrum": 46.011413417058066,
+      "ssc_and_connected_projection": 0.016272166976705194,
+      "total": 48.00554249994457
+    },
+    "source_record": "results/global_power_20261006/complete_retiming_20261007.json",
+    "source_record_sha256": "98e80bd70aeb2188a0292036a7d56cc334b3b25b85e16b0a427c1bb8115713d8"
+  },
+  "full_to_pilot_time_ratio": 1.1121123132140431,
+  "full_increase_percent": 11.211231321404313,
+  "full_shared_halo_mean_seconds": 45.87449158301266,
+  "matched_controls": [
+    "cosmology",
+    "global 11993-node power preparation",
+    "ell_max",
+    "radial panels and quadrature",
+    "halo mass and tree quadrature"
+  ],
+  "configuration_differences": [
+    "Pilot: one source-bin xi+/xi- block, eight angular bins from 2.5 to 250 arcmin, Limber Gaussian spectra.",
+    "Full: five source and five lens bins, 26 angular bins from 2.5 to 900 arcmin, non-Limber gg/gs Gaussian spectra."
+  ],
+  "full_timing_record_sha256": "775c5070604000fd92bc6e5011b4adbb5ab1ef493d8ad7b4c7d4bd2a5061b216"
+}
