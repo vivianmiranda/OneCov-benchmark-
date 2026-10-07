@@ -30,6 +30,9 @@ figures for the covariance quantities and their differences between codes.
 Read [the source study](references/onecov.md) before changing input
 formats, bias choices, numerical controls or component extraction. Use
 the repository README for the current runnable commands and milestones.
+For the adopted global 11993-node covariance power table, use the bounded
+[global-power refresh](references/global_power_refresh.md). Initialization
+already installs and returns the refined arrays: never refine them twice.
 Study the local OneCovariance checkout; do not fetch another implementation
 or substitute online descriptions for the code actually being tested.
 
@@ -75,7 +78,11 @@ or substitute online descriptions for the code actually being tested.
   environments in separate terminals. Do not invent a different setup
   scheme for each comparison repository.
 - Use Python runners for numerical comparisons. Run one numerical job
-  at a time. Take timings on a quiet machine, with BLAS fixed to one and
+  at a time unless concurrent correctness checks are explicitly requested.
+  The authorized Wynn refresh may use two OpenMP threads alongside the
+  project regression runner. Mark these results provisional until that
+  validation passes; exclude their elapsed times from performance reports.
+  Take timings on a quiet machine, with BLAS fixed to one and
   at most eight CPU workers here. Derive worker count from
   `OMP_NUM_THREADS`; do not put an independent thread count in survey YAML.
 - Start with a wall-time limit. A small output matrix may still initialize
@@ -118,3 +125,7 @@ lines; do not combine independent commands or semicolon chains in a box.
 Commit coherent progress locally. Never push.
 Installing missing packages requires explicit authorization; use an
 isolated environment and do not upgrade the Cocoa environment.
+
+The current guarded-Wynn comparison refresh and its evidence are recorded
+in [the refresh checkpoint](references/wynn_refresh.md). Its concurrent
+correctness runs must not be used as updated performance measurements.

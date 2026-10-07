@@ -1,0 +1,100 @@
+{
+  "scope": "shared-ingredient matter-response formula, not projected SSC",
+  "export": {
+    "scope": "native OneCov matter response and shared halo ingredients",
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "source_config_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926",
+    "resolved_config_sha256": "3c9b534133bb01b0b832e5e3017b48e9f8dbb57da278874d1ca6c3b12aec04e1",
+    "ingredients_sha256": "ec5ecbdc1e1c98f45bceb14f43b08e767e61f2c2d133a920bc7da7851b9f3695",
+    "script_sha256": "28e2336dc20b0e67cc62848c0b227879f18e1afa6ad11130dd2059502e37706c",
+    "omp_threads": 8,
+    "power_and_response_units": "(Mpc/h)^3",
+    "moment_note": "Native matter moments temporarily extend log10M_min to 2; configured mass limits alone do not describe their integration range"
+  },
+  "rows": [
+    {
+      "redshift": 0.0,
+      "matched_kernel_max_fractional_difference": 3.1821892437321956e-16,
+      "two_halo_slope_max_fractional_change_k_0p001_to_10": 0.0022588716739837533
+    },
+    {
+      "redshift": 0.5,
+      "matched_kernel_max_fractional_difference": 3.307340538300875e-16,
+      "two_halo_slope_max_fractional_change_k_0p001_to_10": 0.0017722385641218974
+    },
+    {
+      "redshift": 1.0,
+      "matched_kernel_max_fractional_difference": 3.4011105243451506e-16,
+      "two_halo_slope_max_fractional_change_k_0p001_to_10": 0.0013515193749094045
+    }
+  ],
+  "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+  "script_sha256": "28e2336dc20b0e67cc62848c0b227879f18e1afa6ad11130dd2059502e37706c",
+  "passed": true,
+  "remaining": [
+    "independent halo inputs",
+    "fractional response transfer",
+    "survey window and radial projection",
+    "SSC convergence"
+  ],
+  "provenance": {
+    "date_local": "2026-10-06",
+    "power_preparation": "Global natural-cubic fill; linear production lookups",
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "timing_scope": "Accuracy only; no new performance measurement"
+  },
+  "sources_sha256": {
+    "ssc_response_compare/comparison.json": "e713f9d9fa879669dd05c42e4ba8128f6174f0a037ac57a222eae3466c83c1c9",
+    "ssc_response_onecov/ingredients.npz": "ec5ecbdc1e1c98f45bceb14f43b08e767e61f2c2d133a920bc7da7851b9f3695"
+  }
+}

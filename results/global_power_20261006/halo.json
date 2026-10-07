@@ -1,0 +1,291 @@
+{
+  "scope": "native halo prescriptions; equality is not expected",
+  "installed_power": {
+    "power_refinement": 8,
+    "nk": 11993,
+    "nz": 140,
+    "preparation": "project initialize; natural-cubic global refinement",
+    "arrays": {
+      "log10k_2D": {
+        "shape": [
+          11993
+        ],
+        "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+      },
+      "z_2D": {
+        "shape": [
+          140
+        ],
+        "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+      },
+      "lnP_linear": {
+        "shape": [
+          1679020
+        ],
+        "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+      },
+      "lnP_nonlinear": {
+        "shape": [
+          1679020
+        ],
+        "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+      },
+      "lnP_linear_cb": {
+        "shape": [
+          1679020
+        ],
+        "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+      }
+    }
+  },
+  "export": {
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "source_sha256": "44d80757516d7bd9839f4157ca8965515746c07acdf033ff0368791788420926",
+    "config_sha256": "4eeb38a65cc89a97e6e16e30d97402804770a158d0e08990b534a15e3135db79",
+    "script_sha256": "aa349d92b0cc7a6ef10bf578b644b8b226807b00427dc8fc7443adb94294f9a0",
+    "inputs_sha256": "8a5f5107f54fad07eab8291bc5e3a5c2decb9a3c1c5294588fa29122f7bd57ff",
+    "mass_nodes": 800,
+    "redshifts": [
+      0.1,
+      0.5,
+      1.0
+    ],
+    "units": "Msun/h, h/Mpc, (Mpc/h)^3",
+    "native_choices": "Tinker10, normalized halo bias, Duffy08 M200m; matter moment lower mass 1e2"
+  },
+  "rows": [
+    {
+      "redshift": 0.1,
+      "sigma_fractional_range": [
+        -0.00021359603751225364,
+        2.6332497732317606e-05
+      ],
+      "dndlnm_fractional_range": [
+        0.004514040083560822,
+        0.007987255826239936
+      ],
+      "bias_fractional_range": [
+        -0.22749967921545644,
+        -0.22721622482370218
+      ],
+      "concentration_fractional_range": [
+        -0.25336548550930205,
+        0.07830105474643845
+      ],
+      "linear_fractional_range": [
+        -0.0020657547491145234,
+        0.002200443204241953
+      ],
+      "i11_fractional_range": [
+        -0.0026141844961021787,
+        0.0011849971295478934
+      ],
+      "i02_fractional_range": [
+        0.006192905280917094,
+        0.04342008716046952
+      ],
+      "i12_fractional_range": [
+        -0.22254931416491597,
+        -0.17504984370943655
+      ],
+      "response_fractional_range": [
+        -0.14797058221793313,
+        0.036345887368536056
+      ],
+      "raw_bias_matched_peak_max_fractional": 4.440892098500626e-16,
+      "nfw_matched_concentration_max_absolute": 1.2700533727094676e-05
+    },
+    {
+      "redshift": 0.5,
+      "sigma_fractional_range": [
+        -0.00019417204897842488,
+        4.5748503097353677e-05
+      ],
+      "dndlnm_fractional_range": [
+        0.024114970021012372,
+        0.027961988598678156
+      ],
+      "bias_fractional_range": [
+        -0.2881018537301795,
+        -0.2878031625935208
+      ],
+      "concentration_fractional_range": [
+        -0.24036964101267466,
+        0.09706977893271773
+      ],
+      "linear_fractional_range": [
+        -0.0020257259676117467,
+        0.002240443048305174
+      ],
+      "i11_fractional_range": [
+        -0.011317588549256685,
+        -2.432392065543354e-10
+      ],
+      "i02_fractional_range": [
+        0.025807533412615546,
+        0.06067387545467895
+      ],
+      "i12_fractional_range": [
+        -0.26954429765024535,
+        -0.22720113858214352
+      ],
+      "response_fractional_range": [
+        -0.2113318782399476,
+        0.08148454254213822
+      ],
+      "raw_bias_matched_peak_max_fractional": 5.551115123125783e-16,
+      "nfw_matched_concentration_max_absolute": 1.3335571294514903e-05
+    },
+    {
+      "redshift": 1.0,
+      "sigma_fractional_range": [
+        -0.0001856246810085782,
+        5.42787847295223e-05
+      ],
+      "dndlnm_fractional_range": [
+        0.04587472996612596,
+        0.0504319569515419
+      ],
+      "bias_fractional_range": [
+        -0.3584992280580003,
+        -0.3582037282129018
+      ],
+      "concentration_fractional_range": [
+        -0.2748590499538418,
+        0.04725951192381994
+      ],
+      "linear_fractional_range": [
+        -0.002026788013129499,
+        0.0022390913950181
+      ],
+      "i11_fractional_range": [
+        -0.017779487706597985,
+        -6.174876165943033e-10
+      ],
+      "i02_fractional_range": [
+        0.033040671820417256,
+        0.0496868900767915
+      ],
+      "i12_fractional_range": [
+        -0.33281317461073257,
+        -0.32447881531894374
+      ],
+      "response_fractional_range": [
+        -0.258184784382972,
+        0.15199977041168622
+      ],
+      "raw_bias_matched_peak_max_fractional": 4.440892098500626e-16,
+      "nfw_matched_concentration_max_absolute": 1.3867324298089123e-05
+    }
+  ],
+  "integration_accuracy": 2,
+  "core": {
+    "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+    "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+  },
+  "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+  "script_sha256": "aa349d92b0cc7a6ef10bf578b644b8b226807b00427dc8fc7443adb94294f9a0",
+  "statistic_mass_range": [
+    10000000000.0,
+    1000000000000000.0
+  ],
+  "statistic_k_range": [
+    0.001,
+    10
+  ],
+  "cocoa_density": 83256005000.70885,
+  "onecov_density": [
+    83260988173.74922,
+    83260988173.74922,
+    83260988173.74922
+  ],
+  "mass_min": 9.999999999999985e-41,
+  "mass_max": 1.000000000000001e+17,
+  "native_choices": "Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m; production mass panels and I11 completion; fractional response transferred to nonlinear P",
+  "provenance": {
+    "date_local": "2026-10-06",
+    "power_preparation": "Global natural-cubic fill; linear production lookups",
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "timing_scope": "Accuracy only; no new performance measurement"
+  },
+  "sources_sha256": {
+    "halo_cocoa_i2/comparison.json": "108873bbc7818dccc09a0a937f31f96129a0d07a6758d957cf0f11f14a409c59",
+    "halo_cocoa_i2/cocoa.npz": "55fc72ee14c54f9c102660d560d227abce10d6659d860ae0c65657d73e83f002",
+    "halo_cocoa_i0/cocoa.npz": "0e56e71f003da960bda8076c323007da3dbc9058b627fa939561a00476f957fb",
+    "halo_onecov/inputs.npz": "8a5f5107f54fad07eab8291bc5e3a5c2decb9a3c1c5294588fa29122f7bd57ff",
+    "onecov_400_inputs.npz": "e1e796031589325f1b80606d97f76ab3456406b23c23e65c560458f63bdb8eca",
+    "onecov_400_export.json": "f0a3825646fb149a82183b78fca5099da9ca3fb62cabfde9d44b2f45c9cd5d34"
+  },
+  "convergence_cocoa_i0_to_i2": {
+    "i11": 2.402415155700055e-08,
+    "i02": 2.795856881565584e-07,
+    "i12": 2.502102213197688e-07,
+    "response": 1.1344057249118578e-07
+  },
+  "onecov_bias_normalizations": [
+    0.7725413332391504,
+    0.7119669352568575,
+    0.6415770394572534
+  ],
+  "onecov_linear_k_endpoints": [
+    1.4618471318296472e-05,
+    92.43245963484549
+  ],
+  "convergence_onecov_400_to_800": {
+    "i11": 7.234796565613877e-06,
+    "i02": 1.0667770222294592e-05,
+    "i12": 1.0778166113722953e-05,
+    "response": 1.04569017165268e-05
+  },
+  "convergence_metric": "Maximum absolute coarse/fine minus one over all three redshifts and 0.001 <= k <= 10 h/Mpc. Current OneCov mass nodes400/800. CoCoA integration levels0/2, fixed global11993 power."
+}

@@ -17,7 +17,7 @@ from pathlib import Path
 
 import numpy as np
 
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 
 
 def export(args):
@@ -93,7 +93,7 @@ def compare(args):
     data = np.load(args.source/"inputs.npz")
     settings = configuration(gaussian={"nonlimber": False, "ia": "none"},
                              integration_accuracy=args.integration_accuracy)
-    initialize(ci, settings)
+    tables = initialize(ci, settings)
     # Unit constants come from the initialized core's structs.c.
     length = 2997.92458
     rho = 7.4775e21*settings["cosmology"]["omegam"]/length**3
@@ -156,12 +156,15 @@ def compare(args):
             values["profile_matched_c"][row]-data["profile"][row])))
         rows.append(report)
     record = dict(scope="native halo prescriptions; equality is not expected",
+                  installed_power=power_table_record(tables, settings),
                   export=metadata, rows=rows, integration_accuracy=args.integration_accuracy,
                   core=revision(core), interface_sha256=sha256(ci.__file__),
                   script_sha256=sha256(__file__),
                   statistic_mass_range=[1.e10, 1.e15], statistic_k_range=[0.001, 10],
                   cocoa_density=rho, onecov_density=data["rho"].tolist(),
-                  native_choices="Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m, matter moment lower mass 1e6; fractional response transferred to nonlinear P")
+                  mass_min=float(np.exp(settings["lnm_edges"][0])),
+                  mass_max=float(np.exp(settings["lnm_edges"][-1])),
+                  native_choices="Tinker10 bias-consistent multiplicity, Bhattacharya13, M200m; production mass panels and I11 completion; fractional response transferred to nonlinear P")
     (args.output/"comparison.json").write_text(json.dumps(record, indent=2)+"\n")
     print(json.dumps(rows, indent=2))
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 import numpy as np
 
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 from capture_native import capture_return
 
 
@@ -33,6 +33,9 @@ def cocoa(args, native):
     # second call from a subset of its arguments can change the amplitude.
     tables, captured = capture_return(get_camb_cosmology, ("results", "pars"),
                                       lambda: initialize(ci, settings))
+    # The traced CAMB call supplies provenance, while initialize returns the
+    # globally refined arrays actually installed in the C power reader.
+    installed_power = power_table_record(tables, settings)
     selected = (native["mass"][0] >= 1e10) & (native["mass"][0] <= 1e15)
     mass = native["mass"][0, selected]
     redshift = native["redshift"]
@@ -87,6 +90,7 @@ def cocoa(args, native):
     sigma8_fft = np.sqrt(ci.sigma2(float(4*np.pi*rho*8**3/3), 1.0, 1))
     np.savez_compressed(args.output/"inputs.npz", **saved)
     return dict(core=revision(core), interface_sha256=sha256(ci.__file__),
+                installed_power=installed_power,
                 cosmology=settings["cosmology"],
                 camb_sigma8=float(captured["results"].get_sigma8_0()),
                 core_sigma8_fft=float(sigma8_fft),

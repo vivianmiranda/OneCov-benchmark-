@@ -19,7 +19,7 @@ import numpy as np
 from scipy.interpolate import UnivariateSpline
 
 from capture_native import capture_return
-from common import revision, sha256
+from common import power_table_record, revision, sha256
 
 
 def export(args):
@@ -113,7 +113,7 @@ def compare(args):
     data = np.load(args.source/"inputs.npz")
     settings = configuration(gaussian={"nonlimber": False, "ia": "none"},
                              integration_accuracy=args.integration_accuracy)
-    initialize(ci, settings)
+    tables = initialize(ci, settings)
     first, second = np.triu_indices(len(data["k"]))
     pairs = np.array([data["k"][first], data["k"][second]])
     _, weight, corner = angular_rule(nquad=settings["tree_nquad"],
@@ -189,6 +189,7 @@ def compare(args):
     np.savez_compressed(args.output/"comparison.npz", first=first, second=second,
                         k=data["k"], redshift=data["redshift"], **saved)
     record = dict(export=metadata, rows=reports, halo_order=["1h", "2h", "3h", "4h"],
+                  installed_power=power_table_record(tables, settings),
                   integration_accuracy=args.integration_accuracy,
                   core=revision(core), interface_sha256=sha256(ci.__file__),
                   script_sha256=sha256(__file__))

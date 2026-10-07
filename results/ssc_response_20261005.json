@@ -34,7 +34,7 @@
       "two_halo_slope_max_fractional_change_k_0p001_to_10": 0.0013514400030367746
     }
   ],
-  "interface_sha256": "7a85c1127f7b26e966fb17e6587c5e52e5db4e65de2e0c9b1106509eeab03173",
+  "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
   "script_sha256": "28e2336dc20b0e67cc62848c0b227879f18e1afa6ad11130dd2059502e37706c",
   "passed": true,
   "remaining": [
@@ -43,13 +43,12 @@
     "survey window and radial projection",
     "SSC convergence"
   ],
-  "local_comparison_file": "work/ssc_response_comparison/comparison.json",
-  "comparison_sha256": "d2e89ae5a7c00fa02e6d01857e0026ff9f0c7c2c3cfc79f08a6d828427f43168",
-  "files_sha256": {
-    "work/ssc_response_onecov/ingredients.npz": "980602565ae59049fce534ce49e3965683c20c0adac9cefcabf996231679394e",
-    "work/ssc_response_onecov/onecov.ini": "0d3ceffeea78be1b9d75c79e2a3809c4e9c5ad1c5468d3cf6b72bc4944841466",
-    "work/ssc_response_onecov/native.log": "bc9f393c85514e6012d8da27c7d8adc328bbef4628ecfc924104703915ea7a7f",
-    "work/ssc_response_comparison/responses.npz": "c6c2e4418e2727f6db07b1f5733b25871ab2d0eb3926a0b951934f271e79db66"
+  "refresh": {
+    "date": "2026-10-06",
+    "numerical_core_commit": "d95867f",
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "omp_threads": 2,
+    "scope": "Accuracy-only refresh; concurrent runs are not performance measurements. Unchanged OneCov records were reused after hash verification."
   },
   "k_nodes_per_redshift": 200,
   "k_range_h_Mpc": [
@@ -60,5 +59,12 @@
   "literature": [
     "https://arxiv.org/html/1302.6994v3",
     "https://arxiv.org/abs/1711.07467"
-  ]
+  ],
+  "comparison_sha256": "ae678b9f216918f3da69089614d1827a26339e7401927597b6079e897128ee36",
+  "files_sha256": {
+    "work/ssc_response_onecov/ingredients.npz": "980602565ae59049fce534ce49e3965683c20c0adac9cefcabf996231679394e",
+    "work/ssc_response_onecov/onecov.ini": "0d3ceffeea78be1b9d75c79e2a3809c4e9c5ad1c5468d3cf6b72bc4944841466",
+    "work/ssc_response_onecov/native.log": "bc9f393c85514e6012d8da27c7d8adc328bbef4628ecfc924104703915ea7a7f",
+    "work/wynn_refresh_20261006/ssc_response_comparison/responses.npz": "c6c2e4418e2727f6db07b1f5733b25871ab2d0eb3926a0b951934f271e79db66"
+  }
 }

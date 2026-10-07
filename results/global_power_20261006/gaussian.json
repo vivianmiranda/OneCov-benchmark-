@@ -1,0 +1,887 @@
+{
+  "scope": "Shared integer-ell spectra; Gaussian assembly",
+  "provenance": {
+    "date_local": "2026-10-06",
+    "power_preparation": "Global natural-cubic fill; linear production lookups",
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "timing_scope": "Accuracy only; no new performance measurement"
+  },
+  "cases": {
+    "shear_30_150": {
+      "scope": "shared integer-ell spectra; uniform band estimator; Gaussian only",
+      "case": "shear",
+      "shape": [
+        5,
+        5
+      ],
+      "band_edges": [
+        30,
+        41,
+        57,
+        78,
+        108,
+        150
+      ],
+      "pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "onecov_run": {
+        "status": "completed",
+        "case": "shear",
+        "terms": "gaussian",
+        "spectra": "shared-cells",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "benchmark": {
+          "commit": "1a9bf4d4cfbccd723d171a9d4ea48f338d929f96",
+          "status": "M .claude/skills/onecov-comparison/SKILL.md\n M scripts/common.py\n M scripts/compare_halo.py\n M scripts/compare_trispectrum.py\n M scripts/complete_shear.py\n M scripts/prepare_lsst_y1.py\n?? .claude/skills/onecov-comparison/references/global_power_refresh.md\n?? results/figures/wynn40_vs_native6.pdf\n?? results/figures/wynn40_vs_native6.png\n?? results/figures/wynn40_vs_production4.pdf\n?? results/figures/wynn40_vs_production4.png\n?? results/wynn40_vs_native6_20261006.json\n?? results/wynn40_vs_production4_20261006.json\n?? scripts/refresh_global_power.py"
+        },
+        "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+        "config_sha256": "0ad2301f239e1a3e37c5fa1e0911f5050770c5a0fa8b941b7970046830b259eb",
+        "runner_sha256": "2099e64350aa413e7424f1e69fecf6354dca65447ba3b996497c6c5835ef8575",
+        "template_sha256": "fcc63a7dfa066a4931e2ac4889fd1b488244afef8196d2a65ced24e28bcff173",
+        "created_utc": "2026-10-07T00:08:48.665718+00:00",
+        "command": [
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCov-benchmark-/.local/bin/python",
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCovariance/covariance.py",
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCov-benchmark-/work/global_power_11993_20261006/shear_30_150/onecov.ini"
+        ],
+        "platform": "macOS-13.7.5-arm64-arm-64bit",
+        "machine": "arm64",
+        "workers": 8,
+        "blas_threads": 1,
+        "timeout_seconds": 600.0,
+        "packages": {
+          "numpy": "1.26.3",
+          "scipy": "1.12.0",
+          "astropy": "6.1.7",
+          "hmf": "3.5.2",
+          "healpy": "1.19.0",
+          "camb": "1.6.7",
+          "levin": "0.0.1"
+        },
+        "camb_runtime": {
+          "version": "1.6.7",
+          "path": "/Users/vivianmiranda/data/COCOA/september2026/test/cocoa/Cocoa/external_modules/code/CAMB/camb/__init__.py"
+        },
+        "returncode": 0,
+        "native_cli_wall_seconds": 13.86775720800506,
+        "timing_scope": "fresh native CLI: imports, setup, computation and output",
+        "peak_child_rss_mib": 1081.0625,
+        "memory_scope": "largest child RSS; not a sum across simultaneous workers"
+      },
+      "inputs": {
+        "survey": "LSST Y1 forecast subset",
+        "source_bin_1based": 3,
+        "lens_bins_1based": [
+          1,
+          2
+        ],
+        "area_deg2": 12300.0,
+        "source_density_arcmin2": 2.0,
+        "lens_density_arcmin2": [
+          3.6,
+          3.6
+        ],
+        "sigma_e_component": 0.26,
+        "bias": [
+          1.72716,
+          1.65168
+        ],
+        "cosmology": {
+          "omegam": 0.3,
+          "omegab": 0.05,
+          "H0": 70.0,
+          "ns": 0.965,
+          "As_1e9": 2.1,
+          "w": -1.0,
+          "w0pwa": -1.0,
+          "mnu": 0.0,
+          "AccuracyBoost": 1.0,
+          "CLAccuracyBoost": 1.0,
+          "CAMBAccuracyBoost": 1.0,
+          "kmax": 20.0,
+          "k_per_logint": 20,
+          "non_linear_emul": 2,
+          "lens_potential_accuracy": 1.0,
+          "halofit_version": "takahashi"
+        },
+        "installed_power": {
+          "power_refinement": 8,
+          "nk": 11993,
+          "nz": 140,
+          "preparation": "project initialize; natural-cubic global refinement",
+          "arrays": {
+            "log10k_2D": {
+              "shape": [
+                11993
+              ],
+              "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+            },
+            "z_2D": {
+              "shape": [
+                140
+              ],
+              "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+            },
+            "lnP_linear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+            },
+            "lnP_nonlinear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+            },
+            "lnP_linear_cb": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+            }
+          }
+        },
+        "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+        "sigma8": 0.8267178343728806,
+        "camb_version": "1.6.7",
+        "camb_source": {
+          "commit": "6c978c716e163157c95191ee1c089e8b36c8adb9",
+          "status": "M camb/_compilers.py\n M fortran/Makefile\n M fortran/Makefile_main\n M forutils\n?? camb/_compilers.patch\n?? fortran/Makefile.patch\n?? fortran/Makefile_main_osx.patch"
+        },
+        "gaussian": {
+          "nonlimber": false,
+          "ia": "none",
+          "A1": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "A2": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "B_TA": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ell_grid": {
+          "first": 30.0,
+          "last": 1620.0,
+          "count": 1591,
+          "spacing": "integer"
+        },
+        "radial_nquad": 96,
+        "nwindow": 16385,
+        "a_edges": [
+          0.2222222222222222,
+          0.3333333333333333,
+          0.4,
+          0.5,
+          0.5882352941176471,
+          0.7142857142857143,
+          0.8333333333333334,
+          0.9999900000999989
+        ],
+        "cocoa": {
+          "commit": "a2cdfad1037927b777b191d12707b2d4d3d0a0bf",
+          "status": ""
+        },
+        "core": {
+          "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+          "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+        },
+        "lsst_y1": {
+          "commit": "601f9cf0596bc293e11d3530e71c6e4313faaf74",
+          "status": "M EXAMPLE_EVALUATE_COVARIANCE.ipynb\n M covariance/README.md\n M covariance/default.yaml\n?? tests/covariance/test_power_refinement.py"
+        },
+        "source_nz_sha256": "de0bd0ee395ade11ca08af7fbee3b414528ff4c628fda8c56a1da76befe995f8",
+        "lens_nz_sha256": "dcdd1b15476287ffdd7091d605a684ac2c7807728ad2147155b2632f1280b256",
+        "files": {
+          "Cgg.txt": "2bf3a763e1019ed052b193715de90d188fad5b4e63d75ed28f350f96ff703128",
+          "Cgm.txt": "dec29d1687acd7cb342321fb0b4d257a17637b063b7379c0bea2fc517485845f",
+          "Cmm.txt": "5bf5cf636088232110ef3b04c149b8467dec67927fb02398d60aeeda65fce5ec",
+          "Pmm.txt": "f63d1568f445efc7503182f197be514376e9ed571409bf9a98eb4ca7202a8b9f",
+          "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+          "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+          "power_tables.npz": "0cd4c9a29f526d0c7ec976145621a24b41213efeb1767b09ad0b34c4e593c1c3",
+          "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+        }
+      },
+      "comparer_sha256": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "core": {
+        "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+        "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+      },
+      "components": {
+        "sample_variance": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 1.0907693820442377e-05,
+            "max_fractional_nonzero_error": 1.568932730109364e-05
+          },
+          "passed": true
+        },
+        "mixed": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 3.6942998247541436e-06,
+            "max_fractional_nonzero_error": 7.975011999248582e-06
+          },
+          "passed": true
+        },
+        "noise": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 9.214315385300622e-07,
+            "max_fractional_nonzero_error": 1.152587578283209e-05
+          },
+          "passed": true
+        },
+        "total": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 1.9160832805489277e-07,
+            "max_fractional_nonzero_error": 1.9160832805489277e-07
+          },
+          "passed": true
+        }
+      },
+      "passed": true,
+      "cocoa_min_scaled_eigenvalue": 0.9999999999999996,
+      "onecov_min_scaled_eigenvalue": 0.9999998083916718,
+      "generalized_variance_ratio_range": [
+        0.9999998083916718,
+        1.000000060070002
+      ],
+      "max_generalized_variance_change": 1.9160832820386275e-07,
+      "source_sha256": "c0ab1f1f2ad13ced61b4089b605f2039de96486d1cf15c5b6062f5744edefdd5"
+    },
+    "3x2_30_150": {
+      "scope": "shared integer-ell spectra; uniform band estimator; Gaussian only",
+      "case": "3x2",
+      "shape": [
+        30,
+        30
+      ],
+      "band_edges": [
+        30,
+        41,
+        57,
+        78,
+        108,
+        150
+      ],
+      "pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "onecov_run": {
+        "status": "completed",
+        "case": "3x2",
+        "terms": "gaussian",
+        "spectra": "shared-cells",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "benchmark": {
+          "commit": "1a9bf4d4cfbccd723d171a9d4ea48f338d929f96",
+          "status": "M .claude/skills/onecov-comparison/SKILL.md\n M scripts/common.py\n M scripts/compare_halo.py\n M scripts/compare_trispectrum.py\n M scripts/complete_shear.py\n M scripts/prepare_lsst_y1.py\n?? .claude/skills/onecov-comparison/references/global_power_refresh.md\n?? results/figures/wynn40_vs_native6.pdf\n?? results/figures/wynn40_vs_native6.png\n?? results/figures/wynn40_vs_production4.pdf\n?? results/figures/wynn40_vs_production4.png\n?? results/wynn40_vs_native6_20261006.json\n?? results/wynn40_vs_production4_20261006.json\n?? scripts/refresh_global_power.py"
+        },
+        "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+        "config_sha256": "8296a6d20e935042228e169a09ad73606306de24a587e0596426a0c22dd6b9ca",
+        "runner_sha256": "2099e64350aa413e7424f1e69fecf6354dca65447ba3b996497c6c5835ef8575",
+        "template_sha256": "fcc63a7dfa066a4931e2ac4889fd1b488244afef8196d2a65ced24e28bcff173",
+        "created_utc": "2026-10-07T00:09:08.058071+00:00",
+        "command": [
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCov-benchmark-/.local/bin/python",
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCovariance/covariance.py",
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCov-benchmark-/work/global_power_11993_20261006/3x2_30_150/onecov.ini"
+        ],
+        "platform": "macOS-13.7.5-arm64-arm-64bit",
+        "machine": "arm64",
+        "workers": 8,
+        "blas_threads": 1,
+        "timeout_seconds": 600.0,
+        "packages": {
+          "numpy": "1.26.3",
+          "scipy": "1.12.0",
+          "astropy": "6.1.7",
+          "hmf": "3.5.2",
+          "healpy": "1.19.0",
+          "camb": "1.6.7",
+          "levin": "0.0.1"
+        },
+        "camb_runtime": {
+          "version": "1.6.7",
+          "path": "/Users/vivianmiranda/data/COCOA/september2026/test/cocoa/Cocoa/external_modules/code/CAMB/camb/__init__.py"
+        },
+        "returncode": 0,
+        "native_cli_wall_seconds": 15.728557417052798,
+        "timing_scope": "fresh native CLI: imports, setup, computation and output",
+        "peak_child_rss_mib": 2680.453125,
+        "memory_scope": "largest child RSS; not a sum across simultaneous workers"
+      },
+      "inputs": {
+        "survey": "LSST Y1 forecast subset",
+        "source_bin_1based": 3,
+        "lens_bins_1based": [
+          1,
+          2
+        ],
+        "area_deg2": 12300.0,
+        "source_density_arcmin2": 2.0,
+        "lens_density_arcmin2": [
+          3.6,
+          3.6
+        ],
+        "sigma_e_component": 0.26,
+        "bias": [
+          1.72716,
+          1.65168
+        ],
+        "cosmology": {
+          "omegam": 0.3,
+          "omegab": 0.05,
+          "H0": 70.0,
+          "ns": 0.965,
+          "As_1e9": 2.1,
+          "w": -1.0,
+          "w0pwa": -1.0,
+          "mnu": 0.0,
+          "AccuracyBoost": 1.0,
+          "CLAccuracyBoost": 1.0,
+          "CAMBAccuracyBoost": 1.0,
+          "kmax": 20.0,
+          "k_per_logint": 20,
+          "non_linear_emul": 2,
+          "lens_potential_accuracy": 1.0,
+          "halofit_version": "takahashi"
+        },
+        "installed_power": {
+          "power_refinement": 8,
+          "nk": 11993,
+          "nz": 140,
+          "preparation": "project initialize; natural-cubic global refinement",
+          "arrays": {
+            "log10k_2D": {
+              "shape": [
+                11993
+              ],
+              "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+            },
+            "z_2D": {
+              "shape": [
+                140
+              ],
+              "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+            },
+            "lnP_linear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+            },
+            "lnP_nonlinear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+            },
+            "lnP_linear_cb": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+            }
+          }
+        },
+        "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+        "sigma8": 0.8267178343728806,
+        "camb_version": "1.6.7",
+        "camb_source": {
+          "commit": "6c978c716e163157c95191ee1c089e8b36c8adb9",
+          "status": "M camb/_compilers.py\n M fortran/Makefile\n M fortran/Makefile_main\n M forutils\n?? camb/_compilers.patch\n?? fortran/Makefile.patch\n?? fortran/Makefile_main_osx.patch"
+        },
+        "gaussian": {
+          "nonlimber": false,
+          "ia": "none",
+          "A1": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "A2": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "B_TA": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ell_grid": {
+          "first": 30.0,
+          "last": 1620.0,
+          "count": 1591,
+          "spacing": "integer"
+        },
+        "radial_nquad": 96,
+        "nwindow": 16385,
+        "a_edges": [
+          0.2222222222222222,
+          0.3333333333333333,
+          0.4,
+          0.5,
+          0.5882352941176471,
+          0.7142857142857143,
+          0.8333333333333334,
+          0.9999900000999989
+        ],
+        "cocoa": {
+          "commit": "a2cdfad1037927b777b191d12707b2d4d3d0a0bf",
+          "status": ""
+        },
+        "core": {
+          "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+          "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+        },
+        "lsst_y1": {
+          "commit": "601f9cf0596bc293e11d3530e71c6e4313faaf74",
+          "status": "M EXAMPLE_EVALUATE_COVARIANCE.ipynb\n M covariance/README.md\n M covariance/default.yaml\n?? tests/covariance/test_power_refinement.py"
+        },
+        "source_nz_sha256": "de0bd0ee395ade11ca08af7fbee3b414528ff4c628fda8c56a1da76befe995f8",
+        "lens_nz_sha256": "dcdd1b15476287ffdd7091d605a684ac2c7807728ad2147155b2632f1280b256",
+        "files": {
+          "Cgg.txt": "2bf3a763e1019ed052b193715de90d188fad5b4e63d75ed28f350f96ff703128",
+          "Cgm.txt": "dec29d1687acd7cb342321fb0b4d257a17637b063b7379c0bea2fc517485845f",
+          "Cmm.txt": "5bf5cf636088232110ef3b04c149b8467dec67927fb02398d60aeeda65fce5ec",
+          "Pmm.txt": "f63d1568f445efc7503182f197be514376e9ed571409bf9a98eb4ca7202a8b9f",
+          "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+          "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+          "power_tables.npz": "0cd4c9a29f526d0c7ec976145621a24b41213efeb1767b09ad0b34c4e593c1c3",
+          "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+        }
+      },
+      "comparer_sha256": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "core": {
+        "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+        "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+      },
+      "components": {
+        "sample_variance": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 3.215372703996579e-05,
+            "max_fractional_nonzero_error": 4.3582392475264863e-05
+          },
+          "passed": true
+        },
+        "mixed": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 8.412102779341981e-06,
+            "max_fractional_nonzero_error": 4.498901969350306e-05
+          },
+          "passed": true
+        },
+        "noise": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 9.214315385300622e-07,
+            "max_fractional_nonzero_error": 2.043847786909544e-05
+          },
+          "passed": true
+        },
+        "total": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 3.3340305138335405e-07,
+            "max_fractional_nonzero_error": 4.042694317034722e-07
+          },
+          "passed": true
+        }
+      },
+      "passed": true,
+      "cocoa_min_scaled_eigenvalue": 0.04843872184512395,
+      "onecov_min_scaled_eigenvalue": 0.04843837660575625,
+      "generalized_variance_ratio_range": [
+        0.9999926570001624,
+        1.000001330605841
+      ],
+      "max_generalized_variance_change": 7.342999837622877e-06,
+      "source_sha256": "f338fc4bccefc0cfe7bdf8196198b75c6bbf5dee1981eadcb732d52c996c5450"
+    },
+    "3x2_1500_1620": {
+      "scope": "shared integer-ell spectra; uniform band estimator; Gaussian only",
+      "case": "3x2",
+      "shape": [
+        30,
+        30
+      ],
+      "band_edges": [
+        1500,
+        1523,
+        1546,
+        1570,
+        1595,
+        1620
+      ],
+      "pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "onecov_run": {
+        "status": "completed",
+        "case": "3x2",
+        "terms": "gaussian",
+        "spectra": "shared-cells",
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "benchmark": {
+          "commit": "1a9bf4d4cfbccd723d171a9d4ea48f338d929f96",
+          "status": "M .claude/skills/onecov-comparison/SKILL.md\n M scripts/common.py\n M scripts/compare_halo.py\n M scripts/compare_trispectrum.py\n M scripts/complete_shear.py\n M scripts/prepare_lsst_y1.py\n?? .claude/skills/onecov-comparison/references/global_power_refresh.md\n?? results/figures/wynn40_vs_native6.pdf\n?? results/figures/wynn40_vs_native6.png\n?? results/figures/wynn40_vs_production4.pdf\n?? results/figures/wynn40_vs_production4.png\n?? results/wynn40_vs_native6_20261006.json\n?? results/wynn40_vs_production4_20261006.json\n?? scripts/refresh_global_power.py"
+        },
+        "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+        "config_sha256": "5f755b80f169a201e9ed7430dbcbb3880d04b9ec91aa75de2e6931563e292631",
+        "runner_sha256": "2099e64350aa413e7424f1e69fecf6354dca65447ba3b996497c6c5835ef8575",
+        "template_sha256": "fcc63a7dfa066a4931e2ac4889fd1b488244afef8196d2a65ced24e28bcff173",
+        "created_utc": "2026-10-07T00:09:28.465224+00:00",
+        "command": [
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCov-benchmark-/.local/bin/python",
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCovariance/covariance.py",
+          "/Users/vivianmiranda/data/COCOA/september2026/test/OneCov-benchmark-/work/global_power_11993_20261006/3x2_1500_1620/onecov.ini"
+        ],
+        "platform": "macOS-13.7.5-arm64-arm-64bit",
+        "machine": "arm64",
+        "workers": 8,
+        "blas_threads": 1,
+        "timeout_seconds": 600.0,
+        "packages": {
+          "numpy": "1.26.3",
+          "scipy": "1.12.0",
+          "astropy": "6.1.7",
+          "hmf": "3.5.2",
+          "healpy": "1.19.0",
+          "camb": "1.6.7",
+          "levin": "0.0.1"
+        },
+        "camb_runtime": {
+          "version": "1.6.7",
+          "path": "/Users/vivianmiranda/data/COCOA/september2026/test/cocoa/Cocoa/external_modules/code/CAMB/camb/__init__.py"
+        },
+        "returncode": 0,
+        "native_cli_wall_seconds": 15.22935725003481,
+        "timing_scope": "fresh native CLI: imports, setup, computation and output",
+        "peak_child_rss_mib": 2673.265625,
+        "memory_scope": "largest child RSS; not a sum across simultaneous workers"
+      },
+      "inputs": {
+        "survey": "LSST Y1 forecast subset",
+        "source_bin_1based": 3,
+        "lens_bins_1based": [
+          1,
+          2
+        ],
+        "area_deg2": 12300.0,
+        "source_density_arcmin2": 2.0,
+        "lens_density_arcmin2": [
+          3.6,
+          3.6
+        ],
+        "sigma_e_component": 0.26,
+        "bias": [
+          1.72716,
+          1.65168
+        ],
+        "cosmology": {
+          "omegam": 0.3,
+          "omegab": 0.05,
+          "H0": 70.0,
+          "ns": 0.965,
+          "As_1e9": 2.1,
+          "w": -1.0,
+          "w0pwa": -1.0,
+          "mnu": 0.0,
+          "AccuracyBoost": 1.0,
+          "CLAccuracyBoost": 1.0,
+          "CAMBAccuracyBoost": 1.0,
+          "kmax": 20.0,
+          "k_per_logint": 20,
+          "non_linear_emul": 2,
+          "lens_potential_accuracy": 1.0,
+          "halofit_version": "takahashi"
+        },
+        "installed_power": {
+          "power_refinement": 8,
+          "nk": 11993,
+          "nz": 140,
+          "preparation": "project initialize; natural-cubic global refinement",
+          "arrays": {
+            "log10k_2D": {
+              "shape": [
+                11993
+              ],
+              "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+            },
+            "z_2D": {
+              "shape": [
+                140
+              ],
+              "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+            },
+            "lnP_linear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+            },
+            "lnP_nonlinear": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+            },
+            "lnP_linear_cb": {
+              "shape": [
+                1679020
+              ],
+              "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+            }
+          }
+        },
+        "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+        "sigma8": 0.8267178343728806,
+        "camb_version": "1.6.7",
+        "camb_source": {
+          "commit": "6c978c716e163157c95191ee1c089e8b36c8adb9",
+          "status": "M camb/_compilers.py\n M fortran/Makefile\n M fortran/Makefile_main\n M forutils\n?? camb/_compilers.patch\n?? fortran/Makefile.patch\n?? fortran/Makefile_main_osx.patch"
+        },
+        "gaussian": {
+          "nonlimber": false,
+          "ia": "none",
+          "A1": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "A2": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "B_TA": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ell_grid": {
+          "first": 30.0,
+          "last": 1620.0,
+          "count": 1591,
+          "spacing": "integer"
+        },
+        "radial_nquad": 96,
+        "nwindow": 16385,
+        "a_edges": [
+          0.2222222222222222,
+          0.3333333333333333,
+          0.4,
+          0.5,
+          0.5882352941176471,
+          0.7142857142857143,
+          0.8333333333333334,
+          0.9999900000999989
+        ],
+        "cocoa": {
+          "commit": "a2cdfad1037927b777b191d12707b2d4d3d0a0bf",
+          "status": ""
+        },
+        "core": {
+          "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+          "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+        },
+        "lsst_y1": {
+          "commit": "601f9cf0596bc293e11d3530e71c6e4313faaf74",
+          "status": "M EXAMPLE_EVALUATE_COVARIANCE.ipynb\n M covariance/README.md\n M covariance/default.yaml\n?? tests/covariance/test_power_refinement.py"
+        },
+        "source_nz_sha256": "de0bd0ee395ade11ca08af7fbee3b414528ff4c628fda8c56a1da76befe995f8",
+        "lens_nz_sha256": "dcdd1b15476287ffdd7091d605a684ac2c7807728ad2147155b2632f1280b256",
+        "files": {
+          "Cgg.txt": "2bf3a763e1019ed052b193715de90d188fad5b4e63d75ed28f350f96ff703128",
+          "Cgm.txt": "dec29d1687acd7cb342321fb0b4d257a17637b063b7379c0bea2fc517485845f",
+          "Cmm.txt": "5bf5cf636088232110ef3b04c149b8467dec67927fb02398d60aeeda65fce5ec",
+          "Pmm.txt": "f63d1568f445efc7503182f197be514376e9ed571409bf9a98eb4ca7202a8b9f",
+          "bias.txt": "bc817acbdf43f00243d10a30e3eb6a309f99d57482b89e6fa4eb03b10738c30c",
+          "lens.nz": "94a98f90e723694443f344e7bc2fe9d540794e93177352073efd2b089f099d05",
+          "power_tables.npz": "0cd4c9a29f526d0c7ec976145621a24b41213efeb1767b09ad0b34c4e593c1c3",
+          "source.nz": "885eb22be3b5aabfbd1752a3cb773ec55cad529392841d6b99b2538acdb1ece7"
+        }
+      },
+      "comparer_sha256": "b7b8267ce79e7d10130565f044f382647391fcbe2bd76efbe148d93ca1b4736c",
+      "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+      "core": {
+        "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+        "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+      },
+      "components": {
+        "sample_variance": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 2.492757300090753e-05,
+            "max_fractional_nonzero_error": 4.384745631653824e-05
+          },
+          "passed": true
+        },
+        "mixed": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 4.018305571748725e-05,
+            "max_fractional_nonzero_error": 4.4944960395098615e-05
+          },
+          "passed": true
+        },
+        "noise": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 4.1360286657170735e-06,
+            "max_fractional_nonzero_error": 2.0839420440177866e-05
+          },
+          "passed": true
+        },
+        "total": {
+          "onecov_vs_cocoa": {
+            "max_variance_scaled_residual": 2.6735946658964124e-07,
+            "max_fractional_nonzero_error": 4.2372592821072813e-07
+          },
+          "passed": true
+        }
+      },
+      "passed": true,
+      "cocoa_min_scaled_eigenvalue": 0.6143108384723079,
+      "onecov_min_scaled_eigenvalue": 0.6143108708166595,
+      "generalized_variance_ratio_range": [
+        0.9999997788711587,
+        1.0000003211875033
+      ],
+      "max_generalized_variance_change": 3.211875032604894e-07,
+      "source_sha256": "36c7f022295e92e474311942617382598d2f9f8a678de0836bce048ca57cfb29"
+    }
+  }
+}

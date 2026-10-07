@@ -1,0 +1,938 @@
+{
+  "provenance": {
+    "date_local": "2026-10-06",
+    "power_preparation": "Global natural-cubic fill; linear production lookups",
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "input_manifest_sha256": "af05def6aa9ec81fa0f74844c0753b08c32645146eee90af3e023864e63df0fe",
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "power_preparation_sha256": "43d4dc8c26d98f4b4727b26044fae182932bddf3635df5f75fa52b440f38243a",
+    "onecov": {
+      "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+      "status": ""
+    },
+    "timing_scope": "Accuracy only; no new performance measurement"
+  },
+  "shared_and_native": {
+    "export": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "inputs_sha256": "65886aa098fb6e00cef17a8cc817f82a7edfe06aef5eaf18f5cfcbca6791b943",
+      "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+      "config_sha256": "46ff5d71f20db4cb9db43b02ad2f04aa53c0f1aaf7e8cb0e29c23548b8d1d09b",
+      "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+      "mass_nodes": 800,
+      "k_nodes": 9,
+      "corner_guard": 0.001,
+      "redshifts": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "instrumented_seconds": 15.266946457966696,
+      "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+    },
+    "rows": [
+      {
+        "redshift": 0.1,
+        "shared_max_fractional": [
+          0.0,
+          0.11816719231287309,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          0.0,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.398409182895577e-07,
+          2.3384647196422748e-07,
+          1.4131537128259097e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.006858215167267145,
+            7.952458360929203
+          ],
+          [
+            -0.24383972851921598,
+            5.550504916088847
+          ],
+          [
+            -0.2261233135115659,
+            10.792162908253054
+          ],
+          [
+            -0.01379416032174352,
+            0.23617357544246786
+          ]
+        ]
+      },
+      {
+        "redshift": 0.5,
+        "shared_max_fractional": [
+          0.0,
+          0.12758147692284583,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          0.0,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.3984091518093322e-07,
+          2.338464726303613e-07,
+          1.4131536910655385e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.026502638871483297,
+            8.127177411176694
+          ],
+          [
+            -0.2912901842433865,
+            4.822253655172181
+          ],
+          [
+            -0.2730284090070282,
+            9.847659223865282
+          ],
+          [
+            -0.04716256358734405,
+            0.23616916997395387
+          ]
+        ]
+      },
+      {
+        "redshift": 1.0,
+        "shared_max_fractional": [
+          0.0,
+          0.13642208657279387,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          1.1102230246251565e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.398409180675131e-07,
+          2.3384646663515696e-07,
+          1.4131536825168212e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.048102475350940255,
+            8.3194060780577
+          ],
+          [
+            -0.3491523869103188,
+            3.43334239289178
+          ],
+          [
+            -0.3421644296665902,
+            8.220159670238472
+          ],
+          [
+            -0.07280811207479465,
+            0.2360900838633042
+          ]
+        ]
+      }
+    ],
+    "halo_order": [
+      "1h",
+      "2h",
+      "3h",
+      "4h"
+    ],
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "integration_accuracy": 2,
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37"
+  },
+  "coarse_cocoa": {
+    "export": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "inputs_sha256": "65886aa098fb6e00cef17a8cc817f82a7edfe06aef5eaf18f5cfcbca6791b943",
+      "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+      "config_sha256": "46ff5d71f20db4cb9db43b02ad2f04aa53c0f1aaf7e8cb0e29c23548b8d1d09b",
+      "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+      "mass_nodes": 800,
+      "k_nodes": 9,
+      "corner_guard": 0.001,
+      "redshifts": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "instrumented_seconds": 15.266946457966696,
+      "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+    },
+    "rows": [
+      {
+        "redshift": 0.1,
+        "shared_max_fractional": [
+          0.0,
+          0.11816719231287309,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          0.0,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.3948111687867026e-07,
+          2.3514748082043013e-07,
+          1.4131023950980648e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.006858798757710893,
+            7.952463558137522
+          ],
+          [
+            -0.24383952712046897,
+            5.55050473016831
+          ],
+          [
+            -0.22612333137384322,
+            10.792162752773555
+          ],
+          [
+            -0.013794143643700352,
+            0.23617501823944087
+          ]
+        ]
+      },
+      {
+        "redshift": 0.5,
+        "shared_max_fractional": [
+          0.0,
+          0.12758147692284583,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          0.0,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.3948111687867026e-07,
+          2.3514747793385027e-07,
+          1.4131021226493345e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.026502348504988893,
+            8.12717483109761
+          ],
+          [
+            -0.2912903368226769,
+            4.822253134810452
+          ],
+          [
+            -0.27302851210879464,
+            9.847659188363599
+          ],
+          [
+            -0.04716248539257395,
+            0.23617061270195783
+          ]
+        ]
+      },
+      {
+        "redshift": 1.0,
+        "shared_max_fractional": [
+          0.0,
+          0.13642208657279387,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          1.1102230246251565e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.3948111521333573e-07,
+          2.3514747660158264e-07,
+          1.4131022852970077e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.04810210220821487,
+            8.319402761198264
+          ],
+          [
+            -0.34915258570225793,
+            3.4333419047653537
+          ],
+          [
+            -0.3421644716685215,
+            8.220159648621323
+          ],
+          [
+            -0.07280801628893596,
+            0.23609152628863517
+          ]
+        ]
+      }
+    ],
+    "halo_order": [
+      "1h",
+      "2h",
+      "3h",
+      "4h"
+    ],
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "integration_accuracy": 0,
+    "core": {
+      "commit": "b72cb5bdf74fdb66c3074380814f5500f43ad2a5",
+      "status": "M .claude/skills/cosmolike-dev/SKILL.md\n M cocoa_covariance_testing.py\n M cosmolike/covariances/README.md\n M cosmolike_notebook_utils/covariance/README.md\n M cosmolike_notebook_utils/covariance/__init__.py\n M cosmolike_notebook_utils/covariance/accuracy.py\n M cosmolike_notebook_utils/covariance/forecast.py\n?? .claude/skills/cosmolike-dev/references/covariance_four_halo_power.md\n?? cosmolike_notebook_utils/covariance/power.py"
+    },
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37"
+  },
+  "cocoa_i0_to_i2_max_fractional_by_halo_order": [
+    5.805342075948516e-07,
+    3.5249491503464014e-07,
+    2.747019383075866e-07,
+    3.3414476434678875e-06
+  ],
+  "sources_sha256": {
+    "trispectrum_cocoa_i2/comparison.json": "ccb0e794f8def4a541554622ce6d0185a6e21e24d4cad79a9cd06727aa5b0d19",
+    "trispectrum_cocoa_i2/comparison.npz": "ad59412ef46e371aab985c2549c95164283958d29ed68f39e9ef11acc5e4974c",
+    "trispectrum_cocoa_i0/comparison.npz": "02f9c91a0f1456e1dd7e71fae0674f19b2040183bd728f3533c5e1822dcd882c",
+    "trispectrum_onecov/inputs.npz": "65886aa098fb6e00cef17a8cc817f82a7edfe06aef5eaf18f5cfcbca6791b943",
+    "work/global_power_11993_followups_20261006/trispectrum_400/inputs.npz": "24b8bc518cbeffa2f0c1b373f95ba83817c1cac22e3949f3d24215945779030d",
+    "work/global_power_11993_20261006/trispectrum_onecov/inputs.npz": "65886aa098fb6e00cef17a8cc817f82a7edfe06aef5eaf18f5cfcbca6791b943",
+    "work/global_power_11993_followups_20261006/trispectrum_400/export.json": "9d81dda4f2ae442cb2b1248caad7650dd240c82a9dd4f8ccaca9a858d6286d82",
+    "work/global_power_11993_20261006/trispectrum_onecov/export.json": "263a77d28ee8ba0981de52c5df2935d1778ee1fcd27b5d1b3f27606b26f0672a",
+    "work/global_power_11993_followups_20261006/trispectrum_guard_fine/inputs.npz": "77f6c698d435f921895538ec60abf7e0ebe6ebdd2c58b59561f8b0ce07c4373c",
+    "work/global_power_11993_followups_20261006/trispectrum_guard_fine/export.json": "b5df607ea48b9517fa17baf55b251ce321d8b03a6948110f4186b89aa42f481c",
+    "work/global_power_11993_followups_20261006/trispectrum_guard_finer/inputs.npz": "90e53be51c5b0184d67b3f31dc1643ef5df68654fcacdcc4a55d10baa10ea78e",
+    "work/global_power_11993_followups_20261006/trispectrum_guard_finer/export.json": "7297e165057b0e700ec565d15191cfda95ce728484707e6d7a2b836829d1d0ce"
+  },
+  "small_corner": {
+    "export": {
+      "onecov": {
+        "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+        "status": ""
+      },
+      "inputs_sha256": "77f6c698d435f921895538ec60abf7e0ebe6ebdd2c58b59561f8b0ce07c4373c",
+      "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+      "config_sha256": "c150da59893c6486bc3b77cc1c6edb80268ff0ceb87ae3822b4c6b5d254a3c11",
+      "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+      "mass_nodes": 800,
+      "k_nodes": 9,
+      "corner_guard": 1e-05,
+      "redshifts": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "instrumented_seconds": 15.843485834018793,
+      "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+    },
+    "rows": [
+      {
+        "redshift": 0.1,
+        "shared_max_fractional": [
+          0.0,
+          0.11816719231287309,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          0.0,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          2.220446049250313e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.398409182895577e-07,
+          2.3384647196422748e-07,
+          1.4131537128259097e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.006858215167267145,
+            7.952458360929203
+          ],
+          [
+            -0.2910940834040986,
+            0.15075022572621855
+          ],
+          [
+            -0.2261233135115659,
+            0.40581114839250576
+          ],
+          [
+            -0.01379416032174352,
+            0.23617357544246786
+          ]
+        ]
+      },
+      {
+        "redshift": 0.5,
+        "shared_max_fractional": [
+          0.0,
+          0.12758147692284583,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          0.0,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.3984091518093322e-07,
+          2.338464726303613e-07,
+          1.4131536910655385e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.026502638871483297,
+            8.127177411176694
+          ],
+          [
+            -0.3467803489876228,
+            0.013523779649274648
+          ],
+          [
+            -0.2730284090070282,
+            0.2932114650654687
+          ],
+          [
+            -0.04716256358734405,
+            0.23616916997395387
+          ]
+        ]
+      },
+      {
+        "redshift": 1.0,
+        "shared_max_fractional": [
+          0.0,
+          0.13642208657279387,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "shared_diagonal_max_fractional": [
+          0.0,
+          1.1102230246251565e-16,
+          2.220446049250313e-16,
+          0.0
+        ],
+        "repeated_partition_max_fractional": [
+          0.0,
+          2.220446049250313e-16,
+          2.220446049250313e-16,
+          3.3306690738754696e-16
+        ],
+        "tree_offdiagonal_max_fractional": [
+          1.398409180675131e-07,
+          2.3384646663515696e-07,
+          1.4131536825168212e-06
+        ],
+        "native_fractional_range": [
+          [
+            0.048102475350940255,
+            8.3194060780577
+          ],
+          [
+            -0.45320044780512114,
+            -0.23005845156638582
+          ],
+          [
+            -0.3421644296665902,
+            0.09918793992479147
+          ],
+          [
+            -0.07280811207479465,
+            0.2360900838633042
+          ]
+        ]
+      }
+    ],
+    "halo_order": [
+      "1h",
+      "2h",
+      "3h",
+      "4h"
+    ],
+    "installed_power": {
+      "power_refinement": 8,
+      "nk": 11993,
+      "nz": 140,
+      "preparation": "project initialize; natural-cubic global refinement",
+      "arrays": {
+        "log10k_2D": {
+          "shape": [
+            11993
+          ],
+          "sha256_float64": "89e7eeb4ea7d6fd2636fe5c5a73e41d17615d54e20616d05184b060748a8317a"
+        },
+        "z_2D": {
+          "shape": [
+            140
+          ],
+          "sha256_float64": "2ef04e4454a5e09893174231e611a2aa97dda4ad32619bd8e2da16550b622a05"
+        },
+        "lnP_linear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "dc48ccb8a176a47eb10da99da9c4d3a6e1fd790b746a1700fdb8e53f817ce72a"
+        },
+        "lnP_nonlinear": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "1872d141297d3b005f005dd38780f639b0343bc9da1c4573ba2c049666cbf063"
+        },
+        "lnP_linear_cb": {
+          "shape": [
+            1679020
+          ],
+          "sha256_float64": "b475dcf7e8e041c88b854cb390d19cbe1bc634a3e5b7acbc2ff00df841934da6"
+        }
+      }
+    },
+    "integration_accuracy": 2,
+    "core": {
+      "commit": "1d4428dceffa53c95bcd68ea4fad3c94c6bbb7c2",
+      "status": ""
+    },
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
+    "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37"
+  },
+  "refinements": [
+    {
+      "coarse": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "24b8bc518cbeffa2f0c1b373f95ba83817c1cac22e3949f3d24215945779030d",
+        "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+        "config_sha256": "84d0e44e71dbc6e047e3209fa91628edca0f72a93997459b203482e571a64f6c",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 400,
+        "k_nodes": 9,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 14.744837083038874,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "fine": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "65886aa098fb6e00cef17a8cc817f82a7edfe06aef5eaf18f5cfcbca6791b943",
+        "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+        "config_sha256": "46ff5d71f20db4cb9db43b02ad2f04aa53c0f1aaf7e8cb0e29c23548b8d1d09b",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 15.266946457966696,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "coarse_case": "400",
+      "fine_case": "800",
+      "max_fractional_by_halo_order": [
+        1.1949680194800472e-05,
+        1.6208629315173084e-05,
+        1.056321191439391e-05,
+        3.0201123005779706e-05
+      ],
+      "maximum_locations": {
+        "1": {
+          "redshift": 0.1,
+          "k": 0.001,
+          "q": 10.0,
+          "coarse": 13156211.168600976,
+          "fine": 13156368.382995678
+        },
+        "2": {
+          "redshift": 1.0,
+          "k": 10.0,
+          "q": 10.0,
+          "coarse": 274.0798305889917,
+          "fine": 274.0842731193758
+        },
+        "3": {
+          "redshift": 0.5,
+          "k": 0.001,
+          "q": 0.001,
+          "coarse": 27692896754.88267,
+          "fine": 27693189283.909664
+        },
+        "4": {
+          "redshift": 0.1,
+          "k": 10.0,
+          "q": 10.0,
+          "coarse": 2.002763898571606,
+          "fine": 2.002703414679435
+        }
+      }
+    },
+    {
+      "coarse": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "65886aa098fb6e00cef17a8cc817f82a7edfe06aef5eaf18f5cfcbca6791b943",
+        "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+        "config_sha256": "46ff5d71f20db4cb9db43b02ad2f04aa53c0f1aaf7e8cb0e29c23548b8d1d09b",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 0.001,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 15.266946457966696,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "fine": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "77f6c698d435f921895538ec60abf7e0ebe6ebdd2c58b59561f8b0ce07c4373c",
+        "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+        "config_sha256": "c150da59893c6486bc3b77cc1c6edb80268ff0ceb87ae3822b4c6b5d254a3c11",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 1e-05,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 15.843485834018793,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "coarse_case": "800",
+      "fine_case": "guard_fine",
+      "max_fractional_by_halo_order": [
+        0.0,
+        0.8294689075003743,
+        0.8807842836526103,
+        0.0
+      ],
+      "maximum_locations": {
+        "1": {
+          "redshift": 0.1,
+          "k": 0.001,
+          "q": 0.001,
+          "coarse": 2637467628.9873657,
+          "fine": 2637467628.9873657
+        },
+        "2": {
+          "redshift": 1.0,
+          "k": 10.0,
+          "q": 10.0,
+          "coarse": 274.0842731193758,
+          "fine": 1607.2392963762748
+        },
+        "3": {
+          "redshift": 0.1,
+          "k": 10.0,
+          "q": 10.0,
+          "coarse": 37.90996498421359,
+          "fine": 317.9946918554389
+        },
+        "4": {
+          "redshift": 0.1,
+          "k": 0.001,
+          "q": 0.001,
+          "coarse": 15342124797.737873,
+          "fine": 15342124797.737873
+        }
+      }
+    },
+    {
+      "coarse": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "77f6c698d435f921895538ec60abf7e0ebe6ebdd2c58b59561f8b0ce07c4373c",
+        "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+        "config_sha256": "c150da59893c6486bc3b77cc1c6edb80268ff0ceb87ae3822b4c6b5d254a3c11",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 1e-05,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 15.843485834018793,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "fine": {
+        "onecov": {
+          "commit": "311c2cfbe9d584d9d29abd3d8edaeea673470b7f",
+          "status": ""
+        },
+        "inputs_sha256": "90e53be51c5b0184d67b3f31dc1643ef5df68654fcacdcc4a55d10baa10ea78e",
+        "script_sha256": "fed3537fc2af0ea0a778c25982c77acd1b5e6abd14adf3368d00a8e2c29c0b37",
+        "config_sha256": "b388fe9d4e8adfa866744530a77d3b7b20aaf6d44e7afc91fc300702590eec79",
+        "observer_sha256": "b7c3a43195f762540b2ba21568d9edce2a8609c1abef11dde32e588aae3dbef1",
+        "mass_nodes": 800,
+        "k_nodes": 9,
+        "corner_guard": 1e-07,
+        "redshifts": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "instrumented_seconds": 15.955280833994038,
+        "timing_note": "diagnostic capture, not an uninstrumented benchmark"
+      },
+      "coarse_case": "guard_fine",
+      "fine_case": "guard_finer",
+      "max_fractional_by_halo_order": [
+        0.0,
+        0.391595242530542,
+        0.40601021761245826,
+        0.0
+      ],
+      "maximum_locations": {
+        "1": {
+          "redshift": 0.1,
+          "k": 0.001,
+          "q": 0.001,
+          "coarse": 2637467628.9873657,
+          "fine": 2637467628.9873657
+        },
+        "2": {
+          "redshift": 1.0,
+          "k": 10.0,
+          "q": 10.0,
+          "coarse": 1607.2392963762748,
+          "fine": 2641.727035569669
+        },
+        "3": {
+          "redshift": 0.5,
+          "k": 10.0,
+          "q": 10.0,
+          "coarse": 113.65868173399424,
+          "fine": 191.34787348890617
+        },
+        "4": {
+          "redshift": 0.1,
+          "k": 0.001,
+          "q": 0.001,
+          "coarse": 15342124797.737873,
+          "fine": 15342124797.737873
+        }
+      }
+    }
+  ]
+}

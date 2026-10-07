@@ -6,25 +6,14 @@
   "masked_entries": 0,
   "cocoa": {
     "core": {
-      "commit": "8125fa358e3c93cef3be83b6ba38ad24e84255d6",
+      "commit": "26a0f97cb8e727fc9abc6c3a0441015255eea739",
       "status": ""
     },
     "project": {
-      "commit": "64d624d9813bfa9ec35cc380fb0ba73cd5259c27",
+      "commit": "601f9cf0596bc293e11d3530e71c6e4313faaf74",
       "status": ""
     },
-    "interface_sha256": "a823854f914b7feac365272ccf4dfeba251ea0f54ab54471f28e4cbd32ec64d6",
-    "setup_seconds": 0.41900966700632125,
-    "construction_seconds": 45.44390191603452,
-    "stages_seconds": {
-      "all_pairs_gaussian_spectra": 1.5427680410211906,
-      "angular_and_mask_geometry": 0.35536587494425476,
-      "gaussian_blocks": 0.12642783398041502,
-      "observable_signal": 0.0067356249783188105,
-      "shared_halo_response_and_trispectrum": 43.39556029101368,
-      "ssc_and_connected_projection": 0.016694457968696952,
-      "total": 45.44390191603452
-    },
+    "interface_sha256": "22e2e3499ac4de7bdcd52eaee62fb148a30d3773d1c49e684d827e8943d079cc",
     "settings": {
       "cosmology": {
         "omegam": 0.3,
@@ -254,6 +243,17 @@
         3000
       ],
       "lnm_edges": [
+        -92.10340371976183,
+        -82.89306334778566,
+        -73.68272297580947,
+        -64.47238260383328,
+        -55.2620422318571,
+        -46.05170185988092,
+        -36.841361487904734,
+        -27.63102111592855,
+        -18.420680743952367,
+        -9.210340371976184,
+        0.0,
         9.210340371976184,
         11.51292546497023,
         13.815510557964274,
@@ -499,7 +499,8 @@
         ]
       }
     },
-    "mass_min": 10000.0,
+    "mass_min": 9.999999999999985e-41,
+    "timing_note": "Accuracy-only run; concurrent validation job.",
     "backend": "cocoa",
     "scope": "one LSST Y1 source bin; xi+, xi- and their cross",
     "source_bin_1based": 3,
@@ -614,10 +615,10 @@
       }
     },
     "input_manifest_sha256": "517ae98c3cf3ecb9f4120032e97ecdce373dfb99bcfce0afbc9dcda037e71be5",
-    "script_sha256": "2a29d9ab6b2bde48f049629e3a098bb02c89f891dbfe92a56291fb57b0faf1dd",
-    "covariance_sha256": "4b0a9868028048e5d350b26ae23694715d13cb770dde19558d514b0dd36ae668",
-    "omp_threads": 8,
-    "minimum_total_correlation_eigenvalue": 0.16254507963036913,
+    "script_sha256": "84a69235248afed6d80b138b3cb8405789fe3df85affd89c57b8b72e2c985b40",
+    "covariance_sha256": "f621b2e3ebbf504fcefad49a7711b51287a00c1173d6ef9571f66b1cf5be7818",
+    "omp_threads": 2,
+    "minimum_total_correlation_eigenvalue": 0.1625450796258927,
     "space": "real",
     "normalized_asymmetry": {
       "gaussian": 0.0,
@@ -1278,7 +1279,7 @@
     },
     "geometry": "flat sky"
   },
-  "script_sha256": "41b2937accaf8287fec3d60fdb78860668ddaba977fdde8967d4c2817257ae16",
+  "script_sha256": "adabd161fb0349d950a14f2288979fe088f050f7c56f2fab74557a3f57d79415",
   "components": {
     "gaussian": {
       "max_total_variance_scaled_difference_percent": 2.018178900301924,
@@ -1293,11 +1294,11 @@
       }
     },
     "ssc": {
-      "max_total_variance_scaled_difference_percent": 0.6624219349723699,
-      "max_relative_diagonal_difference_percent": 20.94453620921665,
+      "max_total_variance_scaled_difference_percent": 0.6624219374309451,
+      "max_relative_diagonal_difference_percent": 20.94453623497506,
       "total_variance_mode_change_range_percent": [
-        -1.994440576260971,
-        0.5099559623674549
+        -1.9944405764015676,
+        0.5099559592742595
       ],
       "max_asymmetry_total_rms_scaled": {
         "cocoa": 0.0,
@@ -1305,11 +1306,11 @@
       }
     },
     "cng": {
-      "max_total_variance_scaled_difference_percent": 0.2675955005669328,
-      "max_relative_diagonal_difference_percent": 28.692480291077477,
+      "max_total_variance_scaled_difference_percent": 0.26759550170928714,
+      "max_relative_diagonal_difference_percent": 28.69248045641234,
       "total_variance_mode_change_range_percent": [
-        -0.09371013692776807,
-        0.8157252470428776
+        -0.09371013629517153,
+        0.8157252483188844
       ],
       "max_asymmetry_total_rms_scaled": {
         "cocoa": 0.0,
@@ -1317,11 +1318,11 @@
       }
     },
     "total": {
-      "max_total_variance_scaled_difference_percent": 2.1245433090097836,
-      "max_relative_diagonal_difference_percent": 2.1245433090097836,
+      "max_total_variance_scaled_difference_percent": 2.124543313209991,
+      "max_relative_diagonal_difference_percent": 2.124543313209991,
       "total_variance_mode_change_range_percent": [
-        -1.521856487995531,
-        2.3477489666716638
+        -1.5218564786209028,
+        2.347748969576838
       ],
       "max_asymmetry_total_rms_scaled": {
         "cocoa": 0.0,
@@ -1332,7 +1333,7 @@
   "eigenvalue_convention": "symmetric parts of native matrices",
   "both_positive_definite": true,
   "total_variance_ratio_range": [
-    0.9847814351200459,
-    1.0234774896667165
+    0.9847814352137915,
+    1.0234774896957681
   ]
 }

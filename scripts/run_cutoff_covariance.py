@@ -28,7 +28,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--interface", type=Path)
     parser.add_argument("--log10-min", type=int,
-                        choices=(-50, -20, -3, 2, 4, 6), default=6)
+                        choices=(-50, -40, -20, -3, 2, 4, 6), default=6)
     parser.add_argument("--tail-nodes", type=int, choices=(32, 64, 96, 128, 256))
     parser.add_argument("--tail-panels", choices=("single", "intervals"))
     parser.add_argument("--output", type=Path, required=True)
@@ -36,8 +36,9 @@ def main():
     output = args.output.resolve()
     if output.exists():
         parser.error("choose a new output directory")
-    if args.interface is None and args.log10_min < 4:
-        parser.error("cutoffs below 1e4 require an isolated wider-domain build")
+    if (args.interface is None and args.log10_min < 4
+            and args.log10_min != -40):
+        parser.error("select production -40 or an isolated diagnostic build")
     if (args.tail_nodes is None) != (args.tail_panels is None):
         parser.error("specify both tail-nodes and tail-panels, or neither")
     selected = None if args.interface is None else args.interface.resolve()
@@ -73,7 +74,13 @@ def main():
     os.chdir(root)
     filename = project/"EXAMPLE_EVALUATE_COVARIANCE.yaml"
     settings, run = load_run_configuration(filename, survey)
-    settings["lnm_edges"] = mass_edges(args.log10_min, args.tail_panels)
+    if args.interface is None and args.log10_min == -40:
+        # Use the public default so the production C kernel recognizes
+        # its eleven-panel Wynn sequence, including the residual completion.
+        from cosmolike_notebook_utils.covariance import halo_mass_edges
+        settings["lnm_edges"] = halo_mass_edges()
+    else:
+        settings["lnm_edges"] = mass_edges(args.log10_min, args.tail_panels)
     settings["execution"] = dict(
         backend="production", threads=run["threads"],
         diagnostic="mass cutoff with unchanged halo prescriptions",
