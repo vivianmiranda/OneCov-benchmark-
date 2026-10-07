@@ -15,12 +15,13 @@ The refreshed Gaussian, SSC projection, halo and complete-matrix comparisons
 use CoCoA's **11,993-node global power table**, Wynn-accelerated I11 and
 current FFTLog weighting. Both codes were rerun on **2026-10-06**; the
 [comparison record](results/global_power_20261006/refresh.json) identifies
-their inputs and implementations. **Fresh timings of these configurations
-are pending**; the accuracy runs are not used as performance measurements.
+their inputs and implementations. Separate sequential measurements on
+**2026-10-07** provide the [timing tables](#non-gaussian-timings) below.
+Every timed complete matrix reproduces its accuracy archive exactly.
 
 This is an **accuracy comparison first**. We are not optimizing or
-rewriting OneCovariance. Timing comparisons follow once the physical
-choices and numerical accuracy of both calculations are understood.
+rewriting OneCovariance. Each timing table identifies the physical choices
+and numerical accuracy checks relevant to its scope.
 
 **First comparison completed:** Gaussian covariance assembly agrees for
 shared LSST Y1 angular spectra, matched noise and matched band weights.
@@ -186,16 +187,28 @@ Vector figures: [matrices](results/figures/gaussian_matrices.pdf),
 
 ### Gaussian timing differences
 
-**Current timing measurements are pending.** The benchmark times all three
-Gaussian parts from identical spectra already in memory. CoCoA uses its
+The benchmark times all three Gaussian parts from identical spectra
+already in memory. CoCoA uses its
 production `_interface`; OneCov uses its unmodified `covELL_gaussian` method.
+
+**Apple M2 Pro, macOS 13.7.5, eight OpenMP threads** (2026-10-07).
+Each value is the mean ± sample standard deviation of 62 batch averages
+pooled from two fresh processes, in milliseconds per assembly.
+
+| Shared-spectrum test | CoCoA (ms) | OneCovariance (ms) | OneCov / CoCoA |
+| --- | ---: | ---: | ---: |
+| Shear, multipoles 30–149 | 0.466 ± 0.108 | 10.53 ± 0.23 | 22.6× |
+| 3×2pt, multipoles 30–149 | 0.5596 ± 0.0058 | 389.5 ± 25.6 | 696× |
+| 3×2pt, multipoles 1500–1619 | 0.5310 ± 0.0037 | 364.3 ± 3.3 | 686× |
 
 The timer includes numerical output allocation and records setup and first
 calls separately from repeated batches. It excludes spectrum generation,
 initialization, file writing and OneCov's final rearrangement of blocks
 into one matrix. These are **small component timings**, not full-survey
 covariance runtimes. The [timing commands](#reproduction) reproduce this
-scope after the accuracy checks.
+scope after the accuracy checks. The
+[timing record](results/global_power_20261006/timings.json) preserves both
+process means, every batch sample, setup and first-call measurements.
 
 ## Installation and compilation <a name="installation"></a>
 
@@ -1441,10 +1454,10 @@ python scripts/plot_connected.py work/trispectrum_final_256 \
 
 ## SSC, halo and cNG timing differences <a name="non-gaussian-timings"></a>
 
-**Fresh timings of the current 11,993-node configuration are pending.**
-The completed accuracy runs establish the comparisons above; they are not
-used to infer execution time. The following timers separate resident-input
-projection from native halo-moment generation and complete covariance runs.
+Measured sequentially on **2026-10-07**, on an **Apple M2 Pro** running
+macOS 13.7.5 with **eight OpenMP threads**. CoCoA uses the current global
+11,993-node power preparation. The following tables separate projection
+with resident inputs, native halo moments and complete covariance runs.
 
 ### Radial projection from shared inputs
 
@@ -1466,6 +1479,20 @@ Preparing the common inputs and their required array layouts is outside
 the timer. No profiler is active during measurement. Each process records
 31 batches; the first call is saved separately.
 
+The table pools two fresh processes per code: 62 batch averages, reported
+as mean ± sample standard deviation in milliseconds per projection.
+
+| Shared-input projection | CoCoA (ms) | OneCovariance (ms) | OneCov / CoCoA |
+| --- | ---: | ---: | ---: |
+| SSC, 601 radial nodes, 100×100 | 0.3130 ± 0.0100 | 23.72 ± 0.38 | 75.8× |
+| SSC, 1201 radial nodes, 100×100 | 0.5074 ± 0.0211 | 48.36 ± 0.72 | 95.3× |
+| cNG, 300 radial nodes, 8×8 | 0.2029 ± 0.0011 | 0.0971 ± 0.0029 | 0.479× |
+| cNG, 601 radial nodes, 8×8 | 0.3336 ± 0.0033 | 0.1065 ± 0.0074 | 0.319× |
+
+**OneCov is faster for these small supplied-trispectrum cNG projections**:
+about 2.09× and 3.13×, respectively. These rows exclude the cost of
+generating the trispectrum. The SSC rows also exclude response generation.
+
 ### Native halo-moment generation
 
 This requests I11, I12, both I13 partitions and undamped I04 at redshifts
@@ -1478,10 +1505,22 @@ but excludes cosmology initialization and first-use variance tables. The
 first evaluation is recorded separately; repeated calls generate fresh
 moment tables. CoCoA uses integration level 2 and OneCov uses 800 mass nodes.
 
+Two fresh processes each provide 11 evaluations. The pooled 22-sample
+mean and sample standard deviation are:
+
+| Requested moments | CoCoA (ms) | OneCovariance (ms) | OneCov / CoCoA |
+| --- | ---: | ---: | ---: |
+| I11, I12, both I13 partitions and I04 | 37.59 ± 2.11 | 2377 ± 67 | 63.2× |
+
 **These component measurements are not full SSC/cNG forecast speedups.**
 Native angular perturbation-theory averages are outside the halo-stage timer;
 their diagonal convergence remains unresolved. Complete covariance timers
 include that work and report initialization separately.
+
+The [complete timing record](results/global_power_20261006/timings.json)
+retains all samples, process means, setup and first-call times, input
+fingerprints and numerical checks. No covariance entries were changed
+to obtain the timing comparisons.
 
 To reproduce the timing scopes after the corresponding exports above:
 
@@ -1750,6 +1789,21 @@ The [complete comparison record](results/global_power_20261006/fourier_shear.jso
 contains resolved settings, source and input fingerprints, component
 differences and total-mode diagnostics.
 
+### Execution time
+
+One fresh process per code, on the same M2 Pro with eight OpenMP threads:
+
+| Code | Setup (s) | Covariance construction (s) | Combined (s) |
+| --- | ---: | ---: | ---: |
+| CoCoA | 0.49 | 20.99 | 21.48 |
+| OneCovariance | 19.11 | 71.55 | 90.66 |
+
+CoCoA's construction is **3.41× faster** in this 100×100 source-bin pilot;
+including setup gives **4.22×**. These are single measurements, including
+first-use halo and angular calculations, with plotting and file writing
+excluded. Both timed G, SSC, cNG and total matrices, their multipoles and
+signals are exactly equal to their respective accuracy archives.
+
 ### Reproducing the complete shear figure
 
 Use the installed **Cocoa** and **OneCov** environments in separate
@@ -1866,10 +1920,23 @@ attributed to the full-sky versus flat-sky transform without a separate test.
 
 ### Execution time
 
-**Current timing measurements are pending for both codes.** The refreshed
-matrices come from accuracy-only runs. The sequential timing calculation
-will report numerical setup and covariance construction separately,
-excluding plotting and file writing.
+One fresh process per code, on the same M2 Pro with eight OpenMP threads:
+
+| Code | Setup (s) | Covariance construction (s) | Combined (s) |
+| --- | ---: | ---: | ---: |
+| CoCoA | 0.51 | 45.76 | 46.27 |
+| OneCovariance | 25.28 | 491.50 | 516.78 |
+
+CoCoA's construction is **10.74× faster** in this 16×16 source-bin pilot;
+including setup gives **11.17×**. These are single measurements, including
+first-use halo calculations and angular transforms, with plotting and file
+writing excluded. Every component, angular bin and signal exactly matches
+its accuracy archive, including OneCov's small native antisymmetry.
+
+The [timing record](results/global_power_20261006/timings.json) includes
+CoCoA's individual construction stages. OneCov's unmodified entry point
+provides setup and construction totals; those measurements do not separate
+halo-table generation from projection within its construction.
 
 The full **1560 × 1560 LSST Y1** OneCovariance runtime remains unmeasured.
 Extending the source-bin pilot adds angular bins and tomographic

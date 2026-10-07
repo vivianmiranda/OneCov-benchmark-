@@ -193,4 +193,51 @@ The complete selected Fourier total has generalized variance ratios
 stated eigenvalue conventions; these cross-code results are not Fisher or
 full-survey convergence tests. The native OneCov diagonal angular-corner
 and connected redshift refinements remain unresolved as documented in the
-README. Project-wide production validation is a separate running task.
+README. Project-wide production validation subsequently passed: 575 tests
+across 139 modules, covariance-disabled checks and all seven notebooks.
+
+## Completed quiet timing publication, 2026-10-07
+
+The 36-stage sequential run completed without failed commands, after
+all compiler, regression and notebook jobs had finished. The launch check
+found 89.62% CPU idle, ordinary GUI activity and no numerical workers.
+Eight OpenMP threads and one BLAS thread were used throughout. The actual
+environment (`OMP_PROC_BIND=close`, unset `OMP_PLACES`/`OMP_DYNAMIC`) is
+retained in the records; do not replace it with the platform recipe values
+when describing these measurements.
+
+`scripts/collect_power_timings.py` verified the installed power hashes,
+all shared input files, repeated component outputs and the native settings.
+Its first audit incorrectly required identical report key sets: accuracy
+reports omit timings and instead contain an accuracy-only note. The
+collector now permits those specific metadata differences, never changes
+numerical checks, and retains both original reports. No covariance or
+timing calculation was rerun.
+
+All four complete timed NPZs are byte-identical to the accuracy archives.
+Every G, SSC, cNG and total entry, coordinate and signal was also compared
+with `np.array_equal`; all pass. OneCov's real-space antisymmetry is retained.
+The two fresh processes per component give bitwise-identical outputs.
+Shared-input cross-code residuals are below 4.21e-15 of the variance scale.
+
+The published `results/global_power_20261006/timings.json` retains all
+32 component records, four complete reports, original accuracy reports,
+source hashes and command ledger. Component means pool 62 batch averages
+(22 for halo moments), with sample standard deviation and separate process
+means. Setup and first calls remain separate. Complete pilots are single
+fresh-process measurements; never add warm component means to reconstruct
+their construction times.
+
+| Complete selected matrix | CoCoA construction | OneCov construction |
+| --- | ---: | ---: |
+| Fourier 100x100 | 20.9901 s | 71.5482 s |
+| Real-space 16x16 | 45.7640 s | 491.4991 s |
+
+Including setup gives 21.4833/90.6587 s for Fourier and
+46.2743/516.7838 s for real space. Native halo moments take
+37.59/2377.39 ms. In the supplied-trispectrum 8x8 projection OneCov is
+faster: 0.0971 versus 0.2029 ms (300 nodes), 0.1065 versus 0.3336 ms
+(601 nodes). Keep this result visible alongside CoCoA's faster SSC and
+Gaussian component times. Native halo prescriptions and real-space
+transforms still differ, and native cNG convergence remains unresolved.
+These small cases do not measure a full 1560-entry OneCov forecast.
