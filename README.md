@@ -1725,7 +1725,7 @@ For component X, each pixel shows
 $$
 100\,\frac{C^{X}_{\mathrm{CoCoA},ij}-C^{X}_{\mathrm{OneCov},ij}}
 {\sqrt{C^{\mathrm{total}}_{\mathrm{OneCov},ii}
-       C^{\mathrm{total}}_{\mathrm{OneCov},jj}}.
+       C^{\mathrm{total}}_{\mathrm{OneCov},jj}}}.
 $$
 
 The colour scale is in percent, with its own range in each panel. The
