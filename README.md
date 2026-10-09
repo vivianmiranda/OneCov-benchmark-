@@ -17,6 +17,11 @@ current FFTLog weighting. Both codes were rerun on **2026-10-06**; the
 [comparison record](results/global_power_20261006/refresh.json) identifies
 their inputs and implementations. Separate sequential measurements on
 **2026-10-07** provide the [timing tables](#non-gaussian-timings) below.
+The complete Fourier and real-space matrices and their execution times
+were measured again on **2026-10-08**, after CoCoA adopted its log-domain
+power reader and fused trispectrum driver; the
+[refresh records](results/reader_refresh_20261008) identify both codes'
+inputs and implementations.
 Every timed complete matrix reproduces its accuracy archive exactly.
 
 This is an **accuracy comparison first**. We are not optimizing or
@@ -1803,26 +1808,28 @@ described in the trispectrum study.
 | Power/response redshift spacing | Project default tables | 0.05 |
 | Trispectrum redshift spacing | Evaluated at radial nodes | 0.125 |
 
-The [complete comparison record](results/global_power_20261006/fourier_shear.json)
+The [complete comparison record](results/reader_refresh_20261008/fourier_shear.json)
 contains resolved settings, source and input fingerprints, component
-differences and total-mode diagnostics.
+differences and total-mode diagnostics. Both codes were rerun on
+**2026-10-08** from a fresh input export; the figure and the tables above
+show that rerun.
 
 ### Execution time
 
-One fresh process per code, on the same M2 Pro with eight OpenMP threads
-and the fans set to maximum:
+One fresh process per code, on the same M2 Pro with eight OpenMP threads,
+measured sequentially on **2026-10-08**:
 
 | Code | Setup (s) | Covariance construction (s) | Combined (s) |
 | --- | ---: | ---: | ---: |
-| CoCoA | 0.52 | 22.18 | 22.70 |
-| OneCovariance | 19.72 | 70.39 | 90.11 |
+| CoCoA | 0.51 | 12.81 | 13.32 |
+| OneCovariance | 19.36 | 71.34 | 90.69 |
 
-CoCoA's construction is **3.17× faster** in this 100×100 source-bin pilot;
-including setup gives **3.97×**. These are single measurements, including
+CoCoA's construction is **5.57× faster** in this 100×100 source-bin pilot;
+including setup gives **6.81×**. These are single measurements, including
 first-use halo and angular calculations, with plotting and file writing
 excluded. Both timed G, SSC, cNG and total matrices, their multipoles and
 signals are exactly equal to their respective accuracy archives. The
-[complete-pilot timing record](results/global_power_20261006/complete_retiming_20261007.json)
+[complete-pilot timing record](results/reader_refresh_20261008/pilot_timing_20261008.json)
 preserves the measurements and verification checks.
 
 > [!WARNING]
@@ -1836,7 +1843,7 @@ preserves the measurements and verification checks.
 >   its full-survey runtime or its scaling with tomographic combinations.
 >   That requires separate measurements of shared and growing work.
 >
-> **The 3.17× pilot speed ratio is not a full-survey speed ratio.** The
+> **The 5.57× pilot speed ratio is not a full-survey speed ratio.** The
 > measured full LSST Y1 example discussed [below](#real-shear) is real space.
 
 ### Reproducing the complete shear figure
@@ -1955,21 +1962,21 @@ attributed to the full-sky versus flat-sky transform without a separate test.
 
 ### Execution time
 
-One fresh process per code, on the same M2 Pro with eight OpenMP threads
-and the fans set to maximum:
+One fresh process per code, on the same M2 Pro with eight OpenMP threads,
+measured sequentially on **2026-10-08**:
 
 | Code | Setup (s) | Covariance construction (s) | Combined (s) |
 | --- | ---: | ---: | ---: |
-| CoCoA | 0.50 | 48.01 | 48.51 |
-| OneCovariance | 25.38 | 511.60 | 536.98 |
+| CoCoA | 0.53 | 23.54 | 24.07 |
+| OneCovariance | 26.17 | 493.15 | 519.32 |
 
-CoCoA's construction is **10.66× faster** in this 16×16 source-bin pilot;
-including setup gives **11.07×**. These are single measurements, including
+CoCoA's construction is **20.95× faster** in this 16×16 source-bin pilot;
+including setup gives **21.58×**. These are single measurements, including
 first-use halo calculations and angular transforms, with plotting and file
 writing excluded. Every component, angular bin and signal exactly matches
 its accuracy archive, including OneCov's small native antisymmetry.
 
-The [complete-pilot timing record](results/global_power_20261006/complete_retiming_20261007.json) includes
+The [complete-pilot timing record](results/reader_refresh_20261008/pilot_timing_20261008.json) includes
 CoCoA's individual construction stages. OneCov's unmodified entry point
 provides setup and construction totals; those measurements do not separate
 halo-table generation from projection within its construction.
@@ -1981,11 +1988,11 @@ halo-table generation from projection within its construction.
 > - **CoCoA:** most construction time goes into shared matter responses and
 >   trispectra. More observable pairs reuse those tables, so adding the
 >   remaining survey bins mainly adds comparatively inexpensive projections.
->   The full **1560 × 1560 LSST Y1** matrix takes **53.4 s**, versus **48.0 s**
->   for this **16 × 16** pilot: **1.11× the time, only about 11% more**.
+>   The full **1560 × 1560 LSST Y1** matrix takes **29.5 s**, versus **23.5 s**
+>   for this **16 × 16** pilot: **1.25× the time, only about 25% more**.
 >   The full result is the mean of three fresh CLI runs; the pilot is one
 >   run. Both use eight OpenMP threads and the same dense power sampling.
->   The [full LSST timing record](results/global_power_20261006/full_lsst_timing_20261007.json)
+>   The [full LSST timing record](results/reader_refresh_20261008/full_lsst_timing_20261008.json)
 >   preserves the individual measurements and configuration differences.
 > - **OneCovariance:** the full LSST Y1 runtime remains unmeasured. Its
 >   repeated real-space integrations grow with angular-bin pairs and
@@ -1994,9 +2001,10 @@ halo-table generation from projection within its construction.
 > CoCoA's measured small-to-full runtime factor cannot be applied to OneCov.
 > The pilot speed ratio is not a measured full-survey speed ratio.
 
-The [real-space comparison record](results/global_power_20261006/real_shear.json)
+The [real-space comparison record](results/reader_refresh_20261008/real_shear.json)
 contains input and source fingerprints, numerical settings, component
-diagnostics, asymmetries and eigenvalue conventions.
+diagnostics, asymmetries and eigenvalue conventions. Both codes were rerun
+on **2026-10-08** from the same fresh input export as the Fourier pilot.
 
 ### Reproducing the real-space comparison
 

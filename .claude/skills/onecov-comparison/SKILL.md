@@ -129,3 +129,6 @@ isolated environment and do not upgrade the Cocoa environment.
 The current guarded-Wynn comparison refresh and its evidence are recorded
 in [the refresh checkpoint](references/wynn_refresh.md). Its concurrent
 correctness runs must not be used as updated performance measurements.
+The 2026-10-08 log-domain reader refresh — fresh input export, both
+pilots and all timing claims — is recorded in
+[the reader checkpoint](references/reader_refresh.md).
